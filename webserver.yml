@@ -1,0 +1,11 @@
+---
+
+- hosts: webserver
+  become: yes
+  roles:
+    - apache
+    - php
+    - php-mysql
+    - git
+    - composer
+    - drupal

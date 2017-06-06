@@ -1,0 +1,4 @@
+#solr_version: "6.6.0"
+
+solr_cores:
+  - CLAW

@@ -1,0 +1,12 @@
+---
+
+islandora_extra_packages:
+  - wget
+  - curl
+  - htop
+  - tree
+  - zsh
+  - fish
+  - unzip
+  - build-essential
+  - vim

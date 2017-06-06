@@ -1,0 +1,8 @@
+---
+
+- name: Install FITS web service
+  get_url:
+    url: http://projects.iq.harvard.edu/files/fits/files/fits-{{ fits_ws_version }}.war
+    dest: "{{ tomcat8_home }}/webapps/fits.war"
+    owner: "{{ fits_user }}"
+    group: "{{ fits_group }}"

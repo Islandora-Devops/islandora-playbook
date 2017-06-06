@@ -1,0 +1,7 @@
+---
+
+- include: bootstrap.yml
+- include: database.yml
+- include: webserver.yml
+- include: tomcat.yml
+- include: solr.yml

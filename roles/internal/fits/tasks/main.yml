@@ -1,0 +1,20 @@
+---
+
+- include: install.yml
+  tags:
+    - fits
+    - fits-install
+
+- include: install-ws.yml
+  tags:
+    - fits
+    - fits-ws
+    - fits-ws-install
+  when: fits_ws
+
+- include: config-ws.yml
+  tags:
+    - fits
+    - fits-ws
+    - fits-ws-config
+  when: fits_ws

@@ -1,0 +1,8 @@
+---
+
+- hosts: tomcat
+  become: yes
+
+  roles:
+    - tomcat8
+    - fits

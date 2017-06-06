@@ -1,0 +1,5 @@
+tomcat8_users:
+  - username: islandora
+    password: islandora
+    roles:
+      - manager-gui

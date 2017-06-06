@@ -1,0 +1,16 @@
+---
+
+- name: template tomcat-users.xml
+  template:
+    src: tomcat-users.xml.j2
+    dest: /etc/tomcat8/tomcat-users.xml
+    owner: "root"
+    group: "{{ tomcat8_server_group }}"
+    mode: "640"
+  notify: restart tomcat8
+
+- name: template /etc/default/tomcat8
+  template:
+    src: tomcat-defaults.j2
+    dest: /etc/default/tomcat8
+  notify: restart tomcat8

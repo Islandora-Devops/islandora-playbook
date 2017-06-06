@@ -1,0 +1,16 @@
+---
+
+- name: Install FITS
+  unarchive:
+    remote_src: yes
+    src: https://projects.iq.harvard.edu/files/fits/files/fits-{{ fits_version }}.zip
+    dest: "{{ fits_install_root }}"
+    owner: "{{ fits_user }}"
+    group: "{{ fits_group }}"
+    creates: "{{ fits_install_root }}/fits-{{ fits_version }}"
+
+- name: Move FITS into place
+  file:
+    state: link
+    src: "{{ fits_install_root }}/fits-{{ fits_version }}"
+    dest: "{{ fits_install_symlink }}"

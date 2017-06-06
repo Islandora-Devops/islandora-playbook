@@ -1,0 +1,33 @@
+---
+
+- name: bootstrap
+  hosts: all
+  become: yes
+  gather_facts: false
+
+  # TODO: this probably needs to be made general for RHEL, it will only
+  # work for ubuntu right now.
+  tasks:
+    # python isn't installed by default on ubuntu 16.04 so we need
+    # to do that with the raw command before
+    - name: install python
+      raw: test -e /usr/bin/python || apt-get install -y python
+      register: output
+      changed_when:
+        - output.stdout != ""
+        - output.stdout != "\r\n"
+
+    # also need to make sure aptitude is installed for the apt
+    # commands in ansible.
+    - name: install aptitude
+      apt:
+        name: aptitude
+        state: present
+        update_cache: yes
+
+    # install some packages we would like on every server
+    - name: install extra packages
+      apt:
+        name: "{{ item }}"
+        state: present
+      with_items: "{{ islandora_extra_packages }}"
