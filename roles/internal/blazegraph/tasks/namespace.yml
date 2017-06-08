@@ -5,7 +5,7 @@
     curl -v -X POST -H 'Content-Type:text/plain' --data-binary @blazegraph.properties http://localhost:8080/bigdata/namespace
   args:
     chdir: "{{ blazegraph_home_dir }}/conf"
-    warning: no
+    warn: no
   when: blazegraph_war_download.changed is defined and blazegraph_war_download.changed
 
 - name: Setup inference in blazegraph
@@ -13,5 +13,5 @@
     curl -v -X POST -H 'Content-Type:text/plain' --data-binary @inference.nt http://localhost:8080/bigdata/namespace/islandora/sparql
   args:
     chdir: "{{ blazegraph_home_dir }}/conf"
-    warning: no
+    warn: no
   when: blazegraph_war_download.changed is defined and blazegraph_war_download.changed
