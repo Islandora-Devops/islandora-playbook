@@ -1,5 +1,4 @@
 *.log
 *.retry
-inventory/vagrant/hosts
 .vagrant/
 roles/external
