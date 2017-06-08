@@ -1,0 +1,9 @@
+- name: Copy templated fcrepo config files
+  template:
+    src: "{{ item }}"
+    dest: "{{ fcrepo_home_dir }}/configs/{{ item }}"
+    owner: "{{ fcrepo_user }}"
+    group: "{{ fcrepo_user }}"
+  with_items:
+    - claw.cnd
+    - repository.json
