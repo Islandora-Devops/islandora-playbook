@@ -1,0 +1,19 @@
+---
+
+- include: apache.yml
+  when: webserver_app_apache
+  tags:
+    - webserver-app
+    - webserver-app-apache
+
+- include: drupal.yml
+  when: webserver_app_drupal
+  tags:
+    - webserver-app
+    - webserver-app-drupal
+
+- include: jwt.yml
+  when: webserver_app_jwt
+  tags:
+    - webserver-app
+    - webserver-app-jwt

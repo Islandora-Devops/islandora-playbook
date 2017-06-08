@@ -1,0 +1,47 @@
+---
+
+- name: Trusted Host Settings
+  blockinfile:
+    state: present
+    block: |
+      $settings['trusted_host_patterns'] = array(
+      {% for host in drupal_trusted_hosts %}
+        '{{ host }}',
+      {% endfor %}
+      );
+    path: "{{ drupal_trusted_hosts_file }}"
+    marker: // {mark} ANSIBLE MANAGED BLOCK
+
+- name: Lock down services.yml
+  file:
+    path: "{{ drupal_services_file }}"
+    mode: "444"
+
+- name: Uninstall core search module
+  command: drush -y pm-uninstall search
+  args:
+    chdir: "{{ drupal_core_path }}"
+  register: uninstall_search
+  changed_when: "'successfully uninstalled' in uninstall_search.stdout"
+
+- name: Test if theme is bootstrap
+  command: drush -y config-get system.theme default
+  args:
+    chdir: "{{ drupal_core_path }}"
+  register: drupal_theme_bootstrap
+  changed_when: false
+  check_mode: no
+
+- name: Set theme to bootstrap
+  command: drush -y config-set system.theme default bootstrap
+  args:
+    chdir: "{{ drupal_core_path }}"
+  when: "'bootstrap' not in drupal_theme_bootstrap.stdout"
+
+- name: Set permissions on the public files directory
+  file:
+    recurse: yes
+    state: directory
+    path: "{{ drupal_public_filesystem }}"
+    owner: "{{ drupal_public_filesystem_user }}"
+    group: "{{ drupal_public_filesystem_user }}"

@@ -1,0 +1,7 @@
+---
+
+- name: Torch the default index.html
+  file:
+    state: absent
+    path: /var/www/html/index.html
+

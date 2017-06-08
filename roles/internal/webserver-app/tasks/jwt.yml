@@ -1,0 +1,40 @@
+- name: Create JWT Key Path
+  file:
+    state: directory
+    path: "{{ webserver_app_jwt_key_path }}"
+    owner: "{{ webserver_app_user }}"
+    group: "{{ webserver_app_user }}"
+
+- name: Create JWT Private Key
+  command: openssl genrsa -out "{{ webserver_app_jwt_key_path }}/private.key" 2048
+  args:
+    creates: "{{ webserver_app_jwt_key_path }}/private.key"
+
+- name: Create JWT Public Key
+  command: openssl rsa -pubout -in "{{ webserver_app_jwt_key_path }}/private.key" -out "{{ webserver_app_jwt_key_path }}/public.key"
+  args:
+    creates: "{{ webserver_app_jwt_key_path }}/public.key"
+
+- name: Create JWT Config Path
+  file:
+    state: directory
+    path: "{{ webserver_app_jwt_config_path }}"
+    owner: "{{ webserver_app_user }}"
+    group: "{{ webserver_app_user }}"
+
+- name: Copy Templated Drupal JWT Configuration
+  template:
+    src: "{{ item }}"
+    dest: "{{ webserver_app_jwt_config_path }}/{{ item }}"
+    owner: "{{ webserver_app_user }}"
+    group: "{{ webserver_app_user }}"
+  with_items:
+    - jwt.config.yml
+    - key.key.islandora_rsa_key.yml
+  register: drupal_jwt_config
+
+- name: Import JWT Config Into Drupal
+  command: drush config-import -y --partial --source="{{ webserver_app_jwt_config_path }}"
+  args:
+    chdir: "{{ drupal_core_path }}"
+  when: drupal_jwt_config.changed is defined and drupal_jwt_config.changed

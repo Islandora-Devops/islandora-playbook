@@ -1,0 +1,10 @@
+---
+
+webserver_app_apache: yes
+webserver_app_drupal: yes
+webserver_app_jwt: yes
+
+webserver_app_jwt_key_path: /home/ubuntu/auth
+webserver_app_jwt_config_path: /home/ubuntu/configs/drupal
+
+webserver_app_user: ubuntu
