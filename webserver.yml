@@ -2,10 +2,13 @@
 
 - hosts: webserver
   become: yes
+
   roles:
     - apache
     - php
-    - php-mysql
     - git
     - composer
+    - drush
+    - drupal-console
     - drupal
+    - webserver-app

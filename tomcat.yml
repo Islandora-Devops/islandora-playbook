@@ -6,3 +6,5 @@
   roles:
     - tomcat8
     - fits
+    - fcrepo
+    - blazegraph

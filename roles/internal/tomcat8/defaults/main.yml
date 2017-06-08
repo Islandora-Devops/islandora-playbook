@@ -20,7 +20,10 @@ tomcat8_server_group: tomcat8
 
 # You may pass JVM startup parameters to Java here. If unset, the default
 # options will be: -Djava.awt.headless=true -Xmx128m -XX:+UseConcMarkSweepGC
-tomcat8_java_opts: -Djava.awt.headless=true -Xmx128m -XX:+UseConcMarkSweepGC
+tomcat8_java_opts:
+  - -Djava.awt.headless=true
+  - -Xmx128m
+  - -XX:+UseConcMarkSweepGC
 
 # Java compiler to use for translating JavaServer Pages (JSPs). You can use all
 # compilers that are accepted by Ant's build.compiler property.

@@ -6,10 +6,6 @@
   name: php
   version: 3.4.5
 
-- src: geerlingguy.php-mysql
-  name: php-mysql
-  version: 2.0.1
-
 - src: geerlingguy.composer
   name: composer
   version: 1.6.1
@@ -33,3 +29,11 @@
 - src: geerlingguy.drupal
   name: drupal
   version: 2.2.2
+
+- src: geerlingguy.drush
+  name: drush
+  version: 2.0.1
+
+- src: geerlingguy.drupal-console
+  name: drupal-console
+  version: 1.1.0

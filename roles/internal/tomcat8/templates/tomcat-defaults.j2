@@ -3,7 +3,7 @@ TOMCAT8_GROUP={{tomcat8_server_group}}
 {% if tomcat8_java_home is defined %}
 JAVA_HOME="{{tomcat8_java_home}}"
 {% endif %}
-JAVA_OPTS="{{tomcat8_java_opts}}"
+JAVA_OPTS="{{tomcat8_java_opts|join(' ')}}"
 {% if tomcat8_jsp_compiler is defined %}
 JSP_COMPILER="{{tomcat8_jsp_compiler}}"
 {% endif %}

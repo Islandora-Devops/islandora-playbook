@@ -1,0 +1,7 @@
+---
+
+- hosts: karaf
+  become: yes
+
+  roles:
+    - karaf

@@ -1,12 +1,5 @@
 ---
 
-apache_listen_port: 8000
-apache_create_vhosts: true
-apache_vhosts_filename: "islandora.conf"
-apache_remove_default_vhost: true
-
-php_date_timezone: "America/Toronto"
-
 drupal_build_composer_project: true
 drupal_composer_install_dir: /var/www/html/drupal
 drupal_core_owner: "{{ ansible_user }}"
@@ -40,3 +33,11 @@ drupal_enable_modules:
   - islandora_collection
   - islandora_image
   - bootstrap
+
+drupal_trusted_hosts:
+  - ^localhost$
+
+drupal_trusted_hosts_file: "{{ drupal_core_path }}/sites/default/settings.php"
+drupal_services_file: "{{ drupal_core_path }}/sites/default/services.yml"
+drupal_public_filesystem: "{{ drupal_core_path }}/sites/default/files"
+drupal_public_filesystem_user: www-data
