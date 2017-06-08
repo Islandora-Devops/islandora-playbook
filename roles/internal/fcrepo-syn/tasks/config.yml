@@ -1,0 +1,8 @@
+---
+
+- name: Copy templated syn-settings.xml
+  template:
+    src: syn-settings.xml
+    dest: "{{fcrepo_syn_tomcat_home}}/conf/syn-settings.xml"
+    owner: "{{fcrepo_syn_user}}"
+    group: "{{fcrepo_syn_user}}"

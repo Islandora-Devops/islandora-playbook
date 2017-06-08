@@ -18,3 +18,16 @@ tomcat8_java_opts:
   - -XX:MaxPermSize=256m
   - -Dfcrepo.modeshape.configuration=file://{{ fcrepo_home_dir }}/configs/repository.json
   - -Dcom.bigdata.rdf.sail.webapp.ConfigParams.propertyFile={{ blazegraph_home_dir }}/conf/RWStore.properties
+
+fcrepo_syn_sites:
+  - algorithm: RS256
+    encoding: PEM
+    anonymous: true
+    default: true
+    path: /home/ubuntu/auth/public.key
+
+fcrepo_syn_tokens:
+  - user: admin
+    roles:
+      - admin
+    token: islandora
