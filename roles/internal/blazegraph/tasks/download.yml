@@ -1,0 +1,9 @@
+---
+
+- name: Download blazegraph war
+  get_url:
+    url: http://sourceforge.net/projects/bigdata/files/bigdata/{{ blazegraph_version }}/bigdata.war/download
+    dest: "{{ blazegraph_war_path }}"
+    owner: "{{ blazegraph_user }}"
+    group: "{{ blazegraph_user }}"
+  register: blazegraph_war_download
