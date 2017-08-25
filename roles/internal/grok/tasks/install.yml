@@ -1,5 +1,14 @@
 ---
 
+- name: Install Grok dependencies
+  apt:
+    name: "{{ item }}"
+  with_items:
+    - cmake
+    - libpng16-dev
+    - libtiff-dev
+    - liblcms2-dev
+
 - name: Clone Grok
   git:
     repo: https://github.com/GrokImageCompression/grok.git
@@ -13,24 +22,19 @@
     mode: 0755
 
 - name: Cmake grok
-  cmake:
-    binary_dir: "{{ grok_clone_directory }}/build"
-    source_dir: "{{ grok_clone_directory }}"
-    build_type: Release
+  command: cmake ../
+  args:
+    chdir: "{{ grok_clone_directory }}/build"
+    creates: "{{ grok_clone_directory }}/build/*.cmake"
       
 - name: Make grok
-  make:
+  command: make
+  args:
     chdir: "{{ grok_clone_directory }}/build"
+    creates: "{{ grok_clone_directory }}/build/bin/opj_decompress"
 
 - name: Install grok
-  make:
+  command: make install
+  args:
     chdir: "{{ grok_clone_directory }}/build"
-    target: install
-
-- name: Add Grok libraries to ld.so.conf.d
-  copy: src={{ item }} dest=/{{ item }} owner=root group=root mode=0444
-  with_items:
-    - etc/ld.so.conf.d/libgrok.conf
-
-- name: Update ldconfig
-  command: ldconfig
+    creates: /usr/local/bin/opj_decompress

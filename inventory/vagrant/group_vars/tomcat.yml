@@ -40,7 +40,7 @@ cantaloupe_user: tomcat8
 cantaloupe_group: tomcat8
 cantaloupe_admin_enabled: "true"
 cantaloupe_admin_password: islandora
-cantaloupe_OpenJpegProcessor_path_to_binaries: /usr/bin
+cantaloupe_OpenJpegProcessor_path_to_binaries: /usr/local/bin
 cantaloupe_log_application_ConsoleAppender_enabled: "false"
 cantaloupe_log_application_FileAppender_enabled: "true"
 cantaloupe_log_application_FileAppender_pathname: "{{ cantaloupe_log_path }}/application.log"

@@ -10,7 +10,3 @@ islandora_extra_packages:
   - unzip
   - build-essential
   - vim
-  - cmake
-  - libpng16-dev
-  - libtiff-dev
-  - liblcms2-dev
