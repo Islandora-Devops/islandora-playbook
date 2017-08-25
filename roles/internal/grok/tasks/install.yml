@@ -26,3 +26,11 @@
   make:
     chdir: "{{ grok_clone_directory }}/build"
     target: install
+
+- name: Add Grok libraries to ld.so.conf.d
+  copy: src={{ item }} dest=/{{ item }} owner=root group=root mode=0444
+  with_items:
+    - etc/ld.so.conf.d/libgrok.conf
+
+- name: Update ldconfig
+  command: ldconfig

@@ -2,6 +2,7 @@
 
 See the DOCUMENTATION and EXAMPLES strings below for more information.
 
+From https://github.com/mdklatt/ansible-cmake-module
 """
 from __future__ import print_function
 
