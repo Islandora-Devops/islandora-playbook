@@ -1,0 +1,28 @@
+---
+
+- name: Clone Grok
+  git:
+    repo: https://github.com/GrokImageCompression/grok.git
+    dest: "{{ grok_clone_directory }}"
+    version: "{{ grok_version_tag }}"
+
+- name: Make build directory
+  file:
+    path: "{{ grok_clone_directory }}/build"
+    state: directory
+    mode: 0755
+
+- name: Cmake grok
+  cmake:
+    binary_dir: "{{ grok_clone_directory }}/build"
+    source_dir: "{{ grok_clone_directory }}"
+    build_type: Release
+      
+- name: Make grok
+  make:
+    chdir: "{{ grok_clone_directory }}/build"
+
+- name: Install grok
+  make:
+    chdir: "{{ grok_clone_directory }}/build"
+    target: install

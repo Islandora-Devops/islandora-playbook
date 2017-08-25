@@ -1,0 +1,4 @@
+grok_clone_directory: /opt/grok
+grok_version_tag: v2.3.0
+
+cantaloupe_OpenJpegProcessor_path_to_binaries: /usr/local/bin
