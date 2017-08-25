@@ -38,3 +38,6 @@
   args:
     chdir: "{{ grok_clone_directory }}/build"
     creates: /usr/local/bin/opj_decompress
+
+- name: Update ldconfig
+  command: ldconfig
