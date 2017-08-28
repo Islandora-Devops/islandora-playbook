@@ -19,7 +19,7 @@
   file:
     path: "{{ grok_clone_directory }}/build"
     state: directory
-    mode: 0755
+    mode: "0755"
 
 - name: Cmake grok
   command: cmake ../
@@ -38,6 +38,8 @@
   args:
     chdir: "{{ grok_clone_directory }}/build"
     creates: /usr/local/bin/opj_decompress
+  register: grok_make_install
 
 - name: Update ldconfig
   command: ldconfig
+  when: grok_make_install.changed
