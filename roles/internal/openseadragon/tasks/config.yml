@@ -1,0 +1,22 @@
+---
+
+- name: Check if modules are enabled
+  shell: drush pm-info openseadragon --format=json
+  args:
+    chdir: "{{ openseadragon_composer_root }}/web"
+  register: openseadragon_enable_module_status
+  changed_when: False
+  check_mode: no
+
+- name: Enable modules
+  shell: drush -y -u 1 en openseadragon
+  args:
+    chdir: "{{ openseadragon_composer_root }}/web"
+  when: (openseadragon_enable_module_status.stdout|from_json).openseadragon.status != 'enabled'
+
+- name: Copy openseadragon library definition to correct location.
+  copy:
+    remote_src: yes
+    src: "{{ openseadragon_composer_root }}/web/modules/contrib/openseadragon/openseadragon.json"
+    dest: "{{ openseadragon_composer_root }}/web/sites/{{ item }}/files/library-definitions"
+  with_items: "{{ openseadragon_sites }}"

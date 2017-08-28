@@ -11,4 +11,5 @@
     - drush
     - drupal-console
     - drupal
+    - openseadragon
     - webserver-app

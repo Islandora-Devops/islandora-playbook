@@ -9,8 +9,19 @@
         '{{ host }}',
       {% endfor %}
       );
+
     path: "{{ drupal_trusted_hosts_file }}"
-    marker: // {mark} ANSIBLE MANAGED BLOCK
+    marker: // {mark} ANSIBLE MANAGED TRUSTED HOST BLOCK
+
+- name: Configuration overrides
+  blockinfile:
+    state: present
+    block: |
+      {% for config in drupal_config_override %}
+      $config['{{ config.configname }}']['{{ config.key }}'] = {{ config.value }};
+      {% endfor %}
+    path: "{{ drupal_trusted_hosts_file }}"
+    marker: // {mark} ANSIBLE MANAGED CONFIG BLOCK
 
 - name: Uninstall core search module
   command: drush -y pm-uninstall search
