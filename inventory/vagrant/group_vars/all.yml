@@ -10,3 +10,5 @@ islandora_extra_packages:
   - unzip
   - build-essential
   - vim
+
+postgresql_user: postgres

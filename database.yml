@@ -3,5 +3,13 @@
 - hosts: database
   become: yes
 
+  pre_tasks:
+    - set_fact:
+        claw_db: 'mysql'
+      when: claw_db is not defined
+
   roles:
-    - mysql
+    - role: mysql
+      when: claw_db == 'mysql'
+    - role: postgresql
+      when: claw_db == 'pgsql'

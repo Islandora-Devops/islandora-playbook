@@ -4,3 +4,4 @@ php_date_timezone: "America/Toronto"
 php_packages_extra:
   - libapache2-mod-php7.0
   - php7.0-mysql
+  - php7.0-pgsql
