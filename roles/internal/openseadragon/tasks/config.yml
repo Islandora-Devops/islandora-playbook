@@ -20,3 +20,23 @@
     src: "{{ openseadragon_composer_root }}/web/modules/contrib/openseadragon/openseadragon.json"
     dest: "{{ openseadragon_composer_root }}/web/sites/{{ item }}/files/library-definitions"
   with_items: "{{ openseadragon_sites }}"
+
+- name: Check IIIF URL
+  command:
+    drush cget openseadragon.settings iiif_server --format=json
+  args:
+    chdir: "{{ openseadragon_composer_root }}/web"
+  when: openseadragon_iiiv_set_var
+  changed_when: false
+  failed_when: false
+  register: openseadragon_iiiv_status
+
+- name: Set IIIF URL
+  command:
+    drush cset openseadragon.settings iiif_server {{ openseadragon_iiiv_server }} --yes
+  args:
+    chdir: "{{ openseadragon_composer_root }}/web"
+  when: >
+    not openseadragon_iiiv_status.skipped|default(false) and
+    (openseadragon_iiiv_status.rc == 1 or
+    (openseadragon_iiiv_status.stdout|from_json)['openseadragon.settings:iiif_server'] != openseadragon_iiiv_server)

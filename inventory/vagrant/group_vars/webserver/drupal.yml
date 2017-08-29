@@ -49,8 +49,3 @@ drupal_trusted_hosts:
 drupal_trusted_hosts_file: "{{ drupal_core_path }}/sites/default/settings.php"
 drupal_public_filesystem: "{{ drupal_core_path }}/sites/default/files"
 drupal_public_filesystem_user: www-data
-
-drupal_config_override:
-  - configname: openseadragon.settings
-    key: iiif_server
-    value: "'http://localhost:8080/cantaloupe/iiif/2'"
