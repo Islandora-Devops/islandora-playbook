@@ -3,7 +3,18 @@
 drupal_build_composer_project: true
 drupal_composer_install_dir: /var/www/html/drupal
 drupal_core_owner: "{{ ansible_user }}"
-drupal_composer_project_package: "islandora/drupal-project:dev-8.x-1.x"
+drupal_composer_dependencies:
+  - "drupal/console:~1.0"
+  - "drupal/devel:^1.0@beta"
+  - "drupal/rdfui:1.x-dev"
+  - "drupal/restui:^1.13"
+  - "drupal/media_entity:^1.6"
+  - "drupal/media_entity_image:^1.2"
+  - "drupal/search_api_solr:1.0.0"
+  - "drupal/facets:1.x-dev"
+  - "islandora/carapace:dev-8.x-1.x"
+  - "islandora/islandora_image:dev-8.x-1.x"
+drupal_composer_project_package: "drupal-composer/drupal-project:8.x-dev"
 drupal_composer_project_options: "--prefer-dist --stability dev --no-interaction"
 drupal_core_path: "{{ drupal_composer_install_dir }}/web"
 drupal_db_user: root
@@ -29,15 +40,12 @@ drupal_enable_modules:
   - media_entity_image
   - devel
   - search_api
+  - carapace
   - islandora
   - islandora_collection
   - islandora_image
-  - bootstrap
-
 drupal_trusted_hosts:
   - ^localhost$
-
 drupal_trusted_hosts_file: "{{ drupal_core_path }}/sites/default/settings.php"
-drupal_services_file: "{{ drupal_core_path }}/sites/default/services.yml"
 drupal_public_filesystem: "{{ drupal_core_path }}/sites/default/files"
 drupal_public_filesystem_user: www-data
