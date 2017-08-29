@@ -53,4 +53,4 @@ drupal_public_filesystem_user: www-data
 drupal_config_override:
   - configname: openseadragon.settings
     key: iiif_server
-    value: "'http://localhost:8080/cantaloupe'"
+    value: "'http://localhost:8080/cantaloupe/iiif/2'"
