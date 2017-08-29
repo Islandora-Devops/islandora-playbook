@@ -1,0 +1,8 @@
+- name: stop karaf
+  service: name=karaf state=stopped
+- name: start karaf
+  service: name=karaf state=started 
+- name: cleanup karaf
+  file:
+      path="{{ karaf_home }}/data"
+      state=absent
