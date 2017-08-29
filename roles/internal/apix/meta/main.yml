@@ -1,0 +1,3 @@
+---
+dependencies:
+    - { role: rhevm-qe-automation.ansible-role-gradle, gradle_version: "2.1" }

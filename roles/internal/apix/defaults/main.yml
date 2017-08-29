@@ -1,0 +1,20 @@
+---
+
+karaf_user: karaf
+karaf_home: "{{ lookup('env','KARAF_HOME')| default('opt/karaf') }}"
+triplestore_base_url: http://localhost:8080/bigdata/namespace/islandora/sparql
+    
+drupal_user: admin
+drupal_pass: islandora
+
+apix_feature: fcrepo-api-x
+apix_feature_repo: mvn:org.fcrepo.apix/fcrepo-api-x-karaf/LATEST/xml/features
+
+alpaca_version: Alpaca-0.3.0
+alpaca_clone_directory: /opt/alpaca
+
+claw_featuresrepos: fcrepo-service-camel, islandora-connector-broadcast, islandora-indexing-triplestore, islandora-indexing-fcrepo, islandora-http-client, fcrepo-indexing-triplestore, fcrepo-service-camel
+claw_features: "file:{{/opt/alpaca}}/karaf/build/resources/main/features.xml"
+    
+alpaca_connector_queue: activemq:queue:islandora-connector-broadcast
+alpaca_indexer_queue: activemq:queue:islandora-indexing-triplestore
