@@ -27,7 +27,7 @@ fcrepo_syn_sites:
     encoding: PEM
     anonymous: true
     default: true
-    path: /home/ubuntu/auth/public.key
+    path: "{{ webserver_app_jwt_key_path }}/public.key"
 
 fcrepo_syn_tokens:
   - user: admin
