@@ -12,11 +12,6 @@
     path: "{{ drupal_trusted_hosts_file }}"
     marker: // {mark} ANSIBLE MANAGED BLOCK
 
-- name: Lock down services.yml
-  file:
-    path: "{{ drupal_services_file }}"
-    mode: "444"
-
 - name: Uninstall core search module
   command: drush -y pm-uninstall search
   args:
@@ -24,19 +19,19 @@
   register: uninstall_search
   changed_when: "'successfully uninstalled' in uninstall_search.stdout"
 
-- name: Test if theme is bootstrap
+- name: Test if theme is Carapace
   command: drush -y config-get system.theme default
   args:
     chdir: "{{ drupal_core_path }}"
-  register: drupal_theme_bootstrap
+  register: drupal_theme_carapace
   changed_when: false
   check_mode: no
 
-- name: Set theme to bootstrap
-  command: drush -y config-set system.theme default bootstrap
+- name: Set theme to carapace
+  command: drush -y config-set system.theme default carapace
   args:
     chdir: "{{ drupal_core_path }}"
-  when: "'bootstrap' not in drupal_theme_bootstrap.stdout"
+  when: "'carapace' not in drupal_theme_carapace.stdout"
 
 - name: Set permissions on the public files directory
   file:
