@@ -1,7 +1,7 @@
 ---
 
-- name: crayfish restart crayfish
+- name: restart crayfish
   service:
-    name: httpd
+    name: apache2
     state: restarted
   listen: "restart httpd"

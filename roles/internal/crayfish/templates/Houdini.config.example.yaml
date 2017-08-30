@@ -1,0 +1,30 @@
+---
+
+houdini:
+  # path to the convert executable
+  executable: convert
+  formats:
+    valid:
+      - image/jpeg
+      - image/png
+      - image/tiff
+      - image/jp2
+    default: image/jpeg
+
+fedora_resource:
+  base_url: http://localhost:8080/fcrepo/rest
+
+log:
+  # Valid log levels are:
+  # DEBUG, INFO, NOTICE, WARNING, ERROR, CRITICAL, ALERT, EMERGENCY, NONE
+  # log level none won't open logfile
+  level: DEBUG
+  file: ../houdini.log
+
+syn:
+  # toggles JWT security for service
+  enable: true
+  # Path to the syn config file for authentication.
+  # example can be found here:
+  # https://github.com/Islandora-CLAW/Syn/blob/master/conf/syn-settings.example.xml
+  config: ../syn-settings.xml

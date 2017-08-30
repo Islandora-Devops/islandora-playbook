@@ -1,11 +1,10 @@
 ---
 
-- name: Install Tesseract and MySQL-Python packages
+- name: Install requisite packages
   apt:
     name: "{{item}}"
     state: present
   with_items:
-    - python-mysqldb
     - tesseract-ocr
 
 - name: Install crayfish code
@@ -13,22 +12,68 @@
     repo: https://github.com/Islandora-CLAW/Crayfish.git
     dest: "/var/www/html/Crayfish"
     version: "{{ crayfish_version_tag }}"
+    
+- name: Build crayfish code including dependencies
+  composer:
+    command: install
+    working_dir: /var/www/html/Crayfish/{{item}}
+  with_items:
+    - Gemini
+    - Houdini
+    - Milliner
+    - Hypercube
+    
+- name: Configure crayfish code
+  template:
+    src: "{{item}}.config.example.yaml"
+    dest: "/var/www/html/Crayfish/{{item}}/cfg/config.yaml"
+  with_items:
+    - Gemini
+    - Houdini
+    - Milliner
+    - Hypercube
+    
+- name: Install auth config
+  template:
+    src: "syn-settings.xml"
+    dest: "/var/www/html/Crayfish/{{item}}"
+  with_items:
+    - Gemini
+    - Houdini
+    - Milliner
+    - Hypercube
 
-- name: Create crayfish db
+- name: Create Gemini db
   mysql_db:
     name: gemini
     state: present
 
-- name: Grab crayfish db schema
+- name: Grab Gemini db schema
   template:
     src: "gemini.sql"
     dest: "/tmp/gemini.sql"
 
-- name: Install crayfish db schema
+- name: Install Gemini db schema
   mysql_db:
     state: import
     name: all
     target: "/tmp/gemini.sql"
+    
+- name: Create Islandora log dir
+  file:
+    path: /var/log/islandora
+    state: directory
+    owner: www-data
+    group: www-data
+    mode: "u+rwx,g+r,o-rwx"
+    
+- name: Create Gemini log
+  file:
+    path: /var/log/islandora/gemini.log
+    state: touch
+    owner: www-data
+    group: www-data
+    mode: "u+rw,g+r,o-rwx"
 
 - name: Install crayfish httpd config file
   template:

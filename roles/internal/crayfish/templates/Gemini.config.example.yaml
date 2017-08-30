@@ -1,0 +1,24 @@
+---
+
+db.options:
+  driver: pdo_mysql
+  host: 127.0.0.1
+  port: 3306
+  dbname: gemini
+  user: root
+  password: islandora
+
+log:
+  # Valid log levels are:
+  # DEBUG, INFO, NOTICE, WARNING, ERROR, CRITICAL, ALERT, EMERGENCY, NONE
+  # log level none won't open logfile
+  level: DEBUG
+  file: /var/log/islandora/gemini.log
+
+syn:
+  # toggles JWT security for service
+  enable: TRUE
+  # Path to the syn config file for authentication.
+  # example can be found here:
+  # https://github.com/Islandora-CLAW/Syn/blob/master/conf/syn-settings.example.xml
+  config: ../syn-settings.xml
