@@ -15,12 +15,12 @@ alpaca_clone_directory: /opt/alpaca
 
 claw_featuresrepos: 
     - fcrepo-service-camel
-    - fcrepo-service-camel
+    - fcrepo-indexing-triplestore
     - islandora-connector-broadcast
     - islandora-indexing-triplestore
     - islandora-indexing-fcrepo
     - islandora-http-client
-claw_features: "file:{{/opt/alpaca}}/karaf/build/resources/main/features.xml"
+claw_features: "file:{{ alpaca_clone_directory }}/karaf/build/resources/main/features.xml"
     
 alpaca_connector_queue: activemq:queue:islandora-connector-broadcast
 alpaca_indexer_queue: activemq:queue:islandora-indexing-triplestore
