@@ -1,0 +1,12 @@
+---
+
+- hosts: crayfish
+  become: yes
+
+  roles:
+    - apache
+    - php
+    - git
+    - composer
+    - crayfish
+    - mysql

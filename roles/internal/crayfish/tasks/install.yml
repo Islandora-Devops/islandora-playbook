@@ -1,0 +1,47 @@
+---
+
+- name: Install Tesseract and MySQL-Python packages
+  apt:
+    name: "{{item}}"
+    state: present
+  with_items:
+    - python-mysqldb
+    - tesseract-ocr
+
+- name: Install crayfish code
+  git:
+    repo: https://github.com/Islandora-CLAW/Crayfish.git
+    dest: "/var/www/html/Crayfish"
+    version: "{{ crayfish_version_tag }}"
+
+- name: Create crayfish db
+  mysql_db:
+    name: gemini
+    state: present
+
+- name: Grab crayfish db schema
+  template:
+    src: "gemini.sql"
+    dest: "/tmp/gemini.sql"
+
+- name: Install crayfish db schema
+  mysql_db:
+    state: import
+    name: all
+    target: "/tmp/gemini.sql"
+
+- name: Install crayfish httpd config file
+  template:
+    src: "crayfish.conf"
+    dest: "/etc/apache2/conf-available/crayfish.conf"
+    owner: "{{ crayfish_user }}"
+    group: "{{ crayfish_user }}"
+
+- name: Symlink crayfish httpd config file into action
+  file:
+    src: "/etc/apache2/conf-available/crayfish.conf"
+    dest: "/etc/apache2/conf-enabled/crayfish.conf"
+    owner: "{{ crayfish_user }}"
+    group: "{{ crayfish_user }}"
+    state: link
+  notify: restart crayfish

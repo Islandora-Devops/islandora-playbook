@@ -2,3 +2,5 @@
 *.retry
 .vagrant/
 roles/external
+.DS_Store
+.project

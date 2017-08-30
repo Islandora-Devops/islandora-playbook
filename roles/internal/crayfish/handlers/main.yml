@@ -1,0 +1,7 @@
+---
+
+- name: crayfish restart crayfish
+  service:
+    name: httpd
+    state: restarted
+  listen: "restart httpd"
