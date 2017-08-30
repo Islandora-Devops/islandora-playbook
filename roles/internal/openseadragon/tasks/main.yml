@@ -1,0 +1,11 @@
+---
+
+- include: install.yml
+  tags:
+    - openseadragon
+    - openseadragon-install
+
+- include: config.yml
+  tags:
+    - openseadragon
+    - openseadragon-config
