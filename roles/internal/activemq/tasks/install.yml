@@ -1,6 +1,6 @@
 ---
 
-- name: Download and unarchive activemq
+- name: Download and unarchive
   unarchive:
     remote_src: yes
     src: http://archive.apache.org/dist/activemq/{{ activemq_version }}/apache-activemq-{{ activemq_version }}-bin.tar.gz
@@ -20,8 +20,9 @@
     src: "/opt/activemq/bin/activemq"
     dest: "/etc/init.d/activemq"
 
-- name: Start activeMQ service
-  service:
+- name: Reload systemd
+  systemd:
+    daemon-reload: yes
+    enabled: yes
     state: started
     name: activemq
-    enabled: yes
