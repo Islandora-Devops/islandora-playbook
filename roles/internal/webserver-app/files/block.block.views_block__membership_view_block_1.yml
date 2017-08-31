@@ -1,0 +1,36 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.membership_view
+  module:
+    - node
+    - views
+  theme:
+    - carapace
+  enforced:
+    module:
+      - islandora_collection
+id: views_block__membership_view_block_1
+theme: carapace
+region: content
+weight: 0
+provider: null
+plugin: 'views_block:membership_view-block_1'
+settings:
+  id: 'views_block:membership_view-block_1'
+  label: ''
+  provider: views
+  label_display: visible
+  views_label: ''
+  items_per_page: none
+  context_mapping:
+    field_memberof_target_id: '@node.node_route_context:node'
+visibility:
+  node_type:
+    id: node_type
+    bundles:
+      islandora_collection: islandora_collection
+    negate: false
+    context_mapping:
+      node: '@node.node_route_context:node'
