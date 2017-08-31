@@ -1,0 +1,7 @@
+---
+
+- include: install.yml
+  tags:
+    - activemq
+    - activemq-install
+

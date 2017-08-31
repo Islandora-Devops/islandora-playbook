@@ -1,0 +1,18 @@
+---
+galaxy_info:
+  description: "Installs Activemq"
+  license: "license (GPLv3)"
+  min_ansible_version: 2.0
+  platforms:
+    - name: EL
+      versions:
+        - 6
+        - 7
+    - name: Ubuntu
+      versions:
+        - trusty
+        - utopic
+  galaxy_tags:
+    - message:queues
+    - messaging
+dependencies: []

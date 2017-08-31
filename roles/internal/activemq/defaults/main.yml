@@ -1,0 +1,7 @@
+---
+
+activemq_version: 5.14.5
+activemq_install_root: /opt
+activemq_user: ubuntu
+activemq_group: ubuntu
+
