@@ -16,7 +16,7 @@ log:
   # DEBUG, INFO, NOTICE, WARNING, ERROR, CRITICAL, ALERT, EMERGENCY, NONE
   # log level none won't open logfile
   level: DEBUG
-  file: ../milliner.log
+  file: /var/log/islandora/milliner.log
 
 syn:
   # toggles JWT security for service
