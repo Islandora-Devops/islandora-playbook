@@ -17,31 +17,19 @@
   composer:
     command: install
     working_dir: /var/www/html/Crayfish/{{item}}
-  with_items:
-    - Gemini
-    - Houdini
-    - Milliner
-    - Hypercube
+  with_items: "{{ crayfish_services }}"
     
 - name: Configure crayfish code
   template:
-    src: "{{item}}.config.example.yaml"
+    src: "{{item}}.config.yaml.j2"
     dest: "/var/www/html/Crayfish/{{item}}/cfg/config.yaml"
-  with_items:
-    - Gemini
-    - Houdini
-    - Milliner
-    - Hypercube
+  with_items: "{{ crayfish_services }}"
     
 - name: Install auth config
   template:
-    src: "syn-settings.xml"
+    src: "syn-settings.xml.jp2"
     dest: "/var/www/html/Crayfish/{{item}}"
-  with_items:
-    - Gemini
-    - Houdini
-    - Milliner
-    - Hypercube
+  with_items: "{{ crayfish_services }}"
 
 - name: Create Gemini db
   mysql_db:
@@ -77,16 +65,18 @@
 
 - name: Install crayfish httpd config file
   template:
-    src: "crayfish.conf"
-    dest: "/etc/apache2/conf-available/crayfish.conf"
+    src: "httpd/{{item}}.conf.j2"
+    dest: "/etc/apache2/conf-available/{{item}}.conf"
     owner: "{{ crayfish_user }}"
     group: "{{ crayfish_user }}"
+  with_items: "{{ crayfish_services }}"
 
 - name: Symlink crayfish httpd config file into action
   file:
-    src: "/etc/apache2/conf-available/crayfish.conf"
-    dest: "/etc/apache2/conf-enabled/crayfish.conf"
+    src: "/etc/apache2/conf-available/{{item}}.conf"
+    dest: "/etc/apache2/conf-enabled/{{item}}.conf"
     owner: "{{ crayfish_user }}"
     group: "{{ crayfish_user }}"
     state: link
-  notify: restart crayfish
+  with_items: "{{ crayfish_services }}"
+  notify: restart apache

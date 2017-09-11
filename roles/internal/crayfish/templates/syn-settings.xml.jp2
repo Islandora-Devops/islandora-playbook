@@ -1,3 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- managed by Ansible -->
 <config version='1'>
     <site algorithm='RS256' encoding='PEM' path='/home/ubuntu/auth/public.key' default='true' anonymous='true'/>
     <token user='admin' roles='admin'>

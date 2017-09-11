@@ -1,3 +1,8 @@
 crayfish_user: www-data
 crayfish_version_tag: 0.0.6
 
+crayfish_services:
+  - Gemini
+  - Houdini
+  - Milliner
+  - Hypercube
