@@ -6,3 +6,20 @@ crayfish_services:
   - Houdini
   - Milliner
   - Hypercube
+
+syn_token: islandora
+
+# Gemini default config
+gemini_log_file: /var/log/islandora/gemini.log
+gemini_log_level: DEBUG
+
+gemini_jwt_enabled: TRUE
+gemini_jwt_config: ../syn-settings.xml
+
+gemini_db_options:
+  driver: pdo_mysql
+  host: 127.0.0.1
+  port: 3306
+  dbname: gemini
+  user: root
+  password: islandora

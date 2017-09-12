@@ -1,11 +1,16 @@
 ---
 
+- name: Install requisite package repositories
+  apt_repository:
+    repo: 'ppa:lyrasis/imagemagick-jp2'
+
 - name: Install requisite packages
   apt:
     name: "{{item}}"
     state: present
   with_items:
     - tesseract-ocr
+    - imagemagick
 
 - name: Install crayfish code
   git:
@@ -28,7 +33,7 @@
 - name: Install auth config
   template:
     src: "syn-settings.xml.jp2"
-    dest: "/var/www/html/Crayfish/{{item}}"
+    dest: "/var/www/html/Crayfish/{{item}}/syn-settings.xml"
   with_items: "{{ crayfish_services }}"
 
 - name: Create Gemini db
