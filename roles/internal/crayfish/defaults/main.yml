@@ -23,3 +23,51 @@ gemini_db_options:
   dbname: gemini
   user: root
   password: islandora
+  
+# Houdini default config
+houdini_log_file: /var/log/islandora/houdini.log
+houdini_log_level: DEBUG
+
+houdini_jwt_enabled: TRUE
+houdini_jwt_config: ../syn-settings.xml
+
+houdini_fedora_base_url: http://localhost:8080/fcrepo/rest
+
+houdini_executable_config:
+  executable: convert
+  formats:
+    valid:
+      - image/jpeg
+      - image/png
+      - image/tiff
+      - image/jp2
+    default: image/jpeg
+    
+# Hypercube default config
+hypercube_log_file: /var/log/islandora/hypercube.log
+hypercube_log_level: DEBUG
+
+hypercube_jwt_enabled: TRUE
+hypercube_jwt_config: ../syn-settings.xml
+
+hypercube_fedora_base_url: http://localhost:8080/fcrepo/rest
+hypercube_executable: tesseract
+
+# Milliner default config
+milliner_log_file: /var/log/islandora/gemini.log
+milliner_log_level: DEBUG
+
+milliner_jwt_enabled: TRUE
+milliner_jwt_config: ../syn-settings.xml
+
+milliner_fedora_base_url: http://localhost:8080/fcrepo/rest
+milliner_drupal_base_url: http://localhost:8000
+
+milliner_db_options:
+  driver: pdo_mysql
+  host: 127.0.0.1
+  port: 3306
+  dbname: gemini
+  user: root
+  password: islandora
+
