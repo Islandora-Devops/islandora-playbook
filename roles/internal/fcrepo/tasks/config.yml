@@ -7,3 +7,17 @@
   with_items:
     - claw.cnd
     - repository.json
+  notify: restart tomcat8
+
+- name: Wait for fcrepo to expand
+  wait_for:
+    path: "{{ fcrepo_tomcat_config_dir }}"
+    state: present
+
+- name: Copy fedora activemq configuration
+  template:
+    src: "{{ fcrepo_activemq_template }}"
+    dest: "{{ fcrepo_tomcat_config_dir }}/activemq.xml"
+    owner: "{{ fcrepo_user }}"
+    group: "{{ fcrepo_user }}"
+  notify: restart tomcat8
