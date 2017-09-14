@@ -17,6 +17,7 @@ tomcat8_java_opts:
   - -XX:PermSize=256m
   - -XX:MaxPermSize=256m
   - -Dfcrepo.modeshape.configuration=file://{{ fcrepo_home_dir }}/configs/repository.json
+  - -Dfcrepo.activemq.configuration=file://{{ fcrepo_config_dir }}/activemq.xml
   - -Dcom.bigdata.rdf.sail.webapp.ConfigParams.propertyFile={{ blazegraph_home_dir }}/conf/RWStore.properties
   - -Dcantaloupe.config={{ cantaloupe_symlink }}/cantaloupe.properties
   - -Dorg.apache.tomcat.util.buf.UDecoder.ALLOW_ENCODED_SLASH=true
