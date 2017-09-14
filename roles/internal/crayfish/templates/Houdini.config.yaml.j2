@@ -7,9 +7,9 @@ houdini:
   executable: {{ houdini_executable_config.executable }}
   formats:
     valid:
-    {% for type in houdini_executable_config.formats.valid %}
+{% for type in houdini_executable_config.formats.valid %}
       - {{ type }}
-    {% endfor %}
+{% endfor %}
     default: {{ houdini_executable_config.formats.default }}
 
 fedora_resource:

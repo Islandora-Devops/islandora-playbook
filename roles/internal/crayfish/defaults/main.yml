@@ -7,7 +7,7 @@ crayfish_services:
   - Milliner
   - Hypercube
 
-syn_token: islandora
+crayfish_syn_token: islandora
 
 # Gemini default config
 gemini_log_file: /var/log/islandora/gemini.log
@@ -54,7 +54,7 @@ hypercube_fedora_base_url: http://localhost:8080/fcrepo/rest
 hypercube_executable: tesseract
 
 # Milliner default config
-milliner_log_file: /var/log/islandora/gemini.log
+milliner_log_file: /var/log/islandora/milliner.log
 milliner_log_level: DEBUG
 
 milliner_jwt_enabled: TRUE

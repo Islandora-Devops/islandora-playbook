@@ -38,19 +38,21 @@
 
 - name: Create Gemini db
   mysql_db:
-    name: gemini
+    name: "{{ gemini_db_options.dbname }}"
     state: present
 
 - name: Grab Gemini db schema
   template:
     src: "gemini.sql"
     dest: "/tmp/gemini.sql"
+  when: gemini_db_exists.changed
 
 - name: Install Gemini db schema
   mysql_db:
     state: import
     name: all
     target: "/tmp/gemini.sql"
+  when: gemini_db_exists.changed
     
 - name: Create Islandora log dir
   file:
@@ -59,14 +61,6 @@
     owner: www-data
     group: www-data
     mode: "u+rwx,g+r,o-rwx"
-    
-- name: Create Gemini log
-  file:
-    path: /var/log/islandora/gemini.log
-    state: touch
-    owner: www-data
-    group: www-data
-    mode: "u+rw,g+r,o-rwx"
 
 - name: Install crayfish httpd config file
   template:
