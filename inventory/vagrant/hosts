@@ -16,3 +16,6 @@ default
 
 [solr]
 default
+
+[crayfish]
+default

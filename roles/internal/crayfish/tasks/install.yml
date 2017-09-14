@@ -1,0 +1,82 @@
+---
+
+- name: Install requisite package repositories
+  apt_repository:
+    repo: 'ppa:lyrasis/imagemagick-jp2'
+
+- name: Install requisite packages
+  apt:
+    name: "{{item}}"
+    state: present
+  with_items:
+    - tesseract-ocr
+    - imagemagick
+
+- name: Install crayfish code
+  git:
+    repo: https://github.com/Islandora-CLAW/Crayfish.git
+    dest: "/var/www/html/Crayfish"
+    version: "{{ crayfish_version_tag }}"
+    
+- name: Build crayfish code including dependencies
+  composer:
+    command: install
+    working_dir: /var/www/html/Crayfish/{{item}}
+  with_items: "{{ crayfish_services }}"
+    
+- name: Configure crayfish code
+  template:
+    src: "{{item}}.config.yaml.j2"
+    dest: "/var/www/html/Crayfish/{{item}}/cfg/config.yaml"
+  with_items: "{{ crayfish_services }}"
+    
+- name: Install auth config
+  template:
+    src: "syn-settings.xml.jp2"
+    dest: "/var/www/html/Crayfish/{{item}}/syn-settings.xml"
+  with_items: "{{ crayfish_services }}"
+
+- name: Create Gemini db
+  mysql_db:
+    name: "{{ crayfish_gemini_db_options.dbname }}"
+    state: present
+  register: gemini_db_exists
+
+- name: Grab Gemini db schema
+  template:
+    src: "gemini.sql"
+    dest: "/tmp/gemini.sql"
+  when: gemini_db_exists.changed
+
+- name: Install Gemini db schema
+  mysql_db:
+    state: import
+    name: all
+    target: "/tmp/gemini.sql"
+  when: gemini_db_exists.changed
+    
+- name: Create Islandora log dir
+  file:
+    path: /var/log/islandora
+    state: directory
+    owner: www-data
+    group: www-data
+    mode: "u+rwx,g+r,o-rwx"
+
+- name: Install crayfish httpd config file
+  template:
+    src: "httpd/{{item}}.conf.j2"
+    dest: "/etc/apache2/conf-available/{{item}}.conf"
+    owner: "{{ crayfish_user }}"
+    group: "{{ crayfish_user }}"
+  with_items: "{{ crayfish_services }}"
+
+- name: Symlink crayfish httpd config file into action
+  file:
+    src: "/etc/apache2/conf-available/{{item}}.conf"
+    dest: "/etc/apache2/conf-enabled/{{item}}.conf"
+    owner: "{{ crayfish_user }}"
+    group: "{{ crayfish_user }}"
+    state: link
+  with_items: "{{ crayfish_services }}"
+  notify: restart apache

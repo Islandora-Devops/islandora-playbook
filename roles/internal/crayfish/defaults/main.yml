@@ -1,0 +1,73 @@
+crayfish_user: www-data
+crayfish_version_tag: 0.0.6
+
+crayfish_services:
+  - Gemini
+  - Houdini
+  - Milliner
+  - Hypercube
+
+crayfish_syn_token: islandora
+
+# Gemini default config
+crayfish_gemini_log_file: /var/log/islandora/gemini.log
+crayfish_gemini_log_level: DEBUG
+
+crayfish_gemini_jwt_enabled: TRUE
+crayfish_gemini_jwt_config: ../syn-settings.xml
+
+crayfish_gemini_db_options:
+  driver: pdo_mysql
+  host: 127.0.0.1
+  port: 3306
+  dbname: gemini
+  user: root
+  password: islandora
+  
+# Houdini default config
+crayfish_houdini_log_file: /var/log/islandora/houdini.log
+crayfish_houdini_log_level: DEBUG
+
+crayfish_houdini_jwt_enabled: TRUE
+crayfish_houdini_jwt_config: ../syn-settings.xml
+
+crayfish_houdini_fedora_base_url: http://localhost:8080/fcrepo/rest
+
+crayfish_houdini_executable_config:
+  executable: convert
+  formats:
+    valid:
+      - image/jpeg
+      - image/png
+      - image/tiff
+      - image/jp2
+    default: image/jpeg
+    
+# Hypercube default config
+crayfish_hypercube_log_file: /var/log/islandora/hypercube.log
+crayfish_hypercube_log_level: DEBUG
+
+crayfish_hypercube_jwt_enabled: TRUE
+crayfish_hypercube_jwt_config: ../syn-settings.xml
+
+crayfish_hypercube_fedora_base_url: http://localhost:8080/fcrepo/rest
+crayfish_hypercube_executable: tesseract
+
+# Milliner default config
+crayfish_milliner_log_file: /var/log/islandora/milliner.log
+crayfish_milliner_log_level: DEBUG
+
+crayfish_milliner_jwt_enabled: TRUE
+crayfish_milliner_jwt_config: ../syn-settings.xml
+
+crayfish_milliner_fedora_base_url: http://localhost:8080/fcrepo/rest
+crayfish_milliner_drupal_base_url: http://localhost:8000
+
+crayfish_milliner_db_options:
+  driver: pdo_mysql
+  host: 127.0.0.1
+  port: 3306
+  dbname: gemini
+  user: root
+  password: islandora
+
