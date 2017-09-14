@@ -38,7 +38,7 @@
 
 - name: Create Gemini db
   mysql_db:
-    name: "{{ gemini_db_options.dbname }}"
+    name: "{{ crayfish_gemini_db_options.dbname }}"
     state: present
   register: gemini_db_exists
 
