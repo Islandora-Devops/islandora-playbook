@@ -4,22 +4,22 @@
 
 hypercube:
   # path to the convert executable
-  executable: {{ hypercube_executable }}
+  executable: {{ crayfish_hypercube_executable }}
 
 fedora_resource:
-  base_url: {{ hypercube_fedora_base_url }}
+  base_url: {{ crayfish_hypercube_fedora_base_url }}
 
 log:
   # Valid log levels are:
   # DEBUG, INFO, NOTICE, WARNING, ERROR, CRITICAL, ALERT, EMERGENCY, NONE
   # log level none won't open logfile
-  level: {{ hypercube_log_level }}
-  file: {{ hypercube_log_file }}
+  level: {{ crayfish_hypercube_log_level }}
+  file: {{ crayfish_hypercube_log_file }}
 
 syn:
   # toggles JWT security for service
-  enable: {{ hypercube_jwt_enabled }}
+  enable: {{ crayfish_hypercube_jwt_enabled }}
   # Path to the syn config file for authentication.
   # example can be found here:
   # https://github.com/Islandora-CLAW/Syn/blob/master/conf/syn-settings.example.xml
-  config: {{ hypercube_jwt_config }}
+  config: {{ crayfish_hypercube_jwt_config }}

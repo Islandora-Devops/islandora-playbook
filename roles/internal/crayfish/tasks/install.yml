@@ -40,6 +40,7 @@
   mysql_db:
     name: "{{ gemini_db_options.dbname }}"
     state: present
+  register: gemini_db_exists
 
 - name: Grab Gemini db schema
   template:
