@@ -7,3 +7,12 @@
   with_items:
     - claw.cnd
     - repository.json
+  notify: restart tomcat8
+
+- name: Copy fedora activemq configuration
+  template:
+    src: "{{ fcrepo_activemq_template }}"
+    dest: "{{ fcrepo_config_dir }}/activemq.xml"
+    owner: "{{ fcrepo_user }}"
+    group: "{{ fcrepo_user }}"
+  notify: restart tomcat8

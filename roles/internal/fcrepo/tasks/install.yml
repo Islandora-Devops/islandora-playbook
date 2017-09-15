@@ -21,7 +21,7 @@
 
 - name: Create fcrepo config directory
   file:
-    path: "{{ fcrepo_home_dir }}/configs"
+    path: "{{ fcrepo_config_dir }}"
     state: directory
     owner: "{{ fcrepo_user }}"
     group: "{{ fcrepo_user }}"
