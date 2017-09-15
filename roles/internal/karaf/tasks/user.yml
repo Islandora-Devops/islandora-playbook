@@ -1,3 +1,5 @@
+---
+
 - name: Create Karaf system user
   user:
     name: "{{ karaf_user }}"

@@ -6,3 +6,4 @@
 - include: tomcat.yml
 - include: solr.yml
 - include: crayfish.yml
+- include: karaf.yml
