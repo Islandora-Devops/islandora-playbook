@@ -6,3 +6,4 @@
   roles:
     - karaf
     - apix
+    - alpaca

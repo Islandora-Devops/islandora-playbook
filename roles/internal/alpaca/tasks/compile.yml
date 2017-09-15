@@ -1,0 +1,31 @@
+---
+
+- name: Create Alpaca directory
+  file:
+    state: directory
+    path: "{{ alpaca_clone_directory }}"
+    owner: "{{ alpaca_user }}"
+    group: "{{ alpaca_user }}"
+
+- name: Clone CLAW Alpaca
+  git:
+    repo: https://github.com/Islandora-CLAW/Alpaca.git
+    dest: "{{ alpaca_clone_directory }}"
+    version: "{{ alpaca_version }}"
+  register: alpaca_git
+  become_user: "{{ alpaca_user }}"
+
+- name: Install Alpaca via Gradle
+  command: ./gradlew install
+  args:
+    chdir: "{{ alpaca_clone_directory }}"
+  when: alpaca_git.changed
+  become_user: "{{ alpaca_user }}"
+
+- name: Add local maven repository to karaf
+  lineinfile:
+    state: present
+    path: "{{alpaca_karaf_dir}}/etc/org.ops4j.pax.url.mvn.cfg"
+    insertafter: ^#org\.ops4j\.pax\.url\.mvn\.localRepository=$
+    line: org.ops4j.pax.url.mvn.localRepository={{ alpaca_local_mvn_path }}
+    regexp: ^org\.ops4j\.pax\.url\.mvn\.localRepository=

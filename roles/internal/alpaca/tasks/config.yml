@@ -1,0 +1,7 @@
+---
+
+- name: Template settings
+  template:
+    src: alpaca.cfg.j2
+    dest: "{{ alpaca_karaf_etc_dir }}/{{ item.pid }}.cfg"
+  with_items: "{{ alpaca_settings }}"
