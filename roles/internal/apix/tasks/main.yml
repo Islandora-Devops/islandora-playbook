@@ -1,16 +1,11 @@
 ---
 
-- include: deploy_apix_osgi.yml
+- include: deploy.yml
   tags:
     - apix
-    - apix-deploy  
-- include: deploy_alpaca_osgi.yml
+    - apix-deploy
+
+- include: config.yml
   tags:
-    - alpaca
-    - claw-osgi
-    - apix-microservice
-- include: configure_alpaca_osgi.yml
-  tags:
-    - alpaca
-    - claw-osgi
-    - apix-microservice
+    - apix
+    - apix-config
