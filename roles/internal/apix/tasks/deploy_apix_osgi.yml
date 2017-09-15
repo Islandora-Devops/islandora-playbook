@@ -1,0 +1,21 @@
+---
+
+- name: Build OSGI feature list
+  set_fact:
+    features_repos: "{{ apix_feature_repo + claw_featuresrepos }}"
+    features: "{{ apix_feature + claw_features }}"
+- name: Configure Karaf features
+  lineinfile:
+    dest: "{{ karaf_home }}/etc/org.apache.karaf.features.cfg"
+    owner: "{{ karaf_user }}"
+    group: "{{ karaf_user }}"
+    regexp: "{{ item.regexp }}"
+    line: "{{ item.line }}"
+  with_items:
+     - { regexp: "^featuresRepositories=", line: "featuresRepositories={{ features_repos|join(',') }}" }
+     - { regexp: "^featuresBoot=", line: "featuresBoot={{ features|join(',') }}" }
+     - { regexp: "featuresBootAsynchronous=", line: "featuresBootAsynchronous=true" }
+  notify:
+    - Stop Karaf
+    - Cleanup Karaf
+    - Start Karaf

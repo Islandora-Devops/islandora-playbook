@@ -1,0 +1,12 @@
+---
+
+- name: Clone CLAW Alpaca
+  git:
+    repo: https://github.com/Islandora-CLAW/Alpaca.git
+    dest: "{{ alpaca_clone_directory }}"
+    version: "{{ alpaca_version }}"
+
+- name: Install Alpaca via Gradle
+  command: ./gradlew install
+  args:
+    chdir: "{{ alpaca_clone_directory }}"
