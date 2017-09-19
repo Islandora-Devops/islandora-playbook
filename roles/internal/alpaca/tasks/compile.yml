@@ -1,11 +1,19 @@
 ---
 
-- name: Create Alpaca directory
+- name: Create maven repository directory
   file:
     state: directory
-    path: "{{ alpaca_clone_directory }}"
-    owner: "{{ alpaca_user }}"
-    group: "{{ alpaca_user }}"
+    path: "{{ alpaca_local_mvn_path }}"
+
+- name: Create maven repository directory
+  file:
+    state: directory
+    path: "~/.m2"
+
+- name: Drop in templated Maven settings
+  template:
+    src: maven.xml.j2
+    dest: "~/.m2/settings.xml"
 
 - name: Clone CLAW Alpaca
   git:
@@ -13,14 +21,12 @@
     dest: "{{ alpaca_clone_directory }}"
     version: "{{ alpaca_version }}"
   register: alpaca_git
-  become_user: "{{ alpaca_user }}"
 
 - name: Install Alpaca via Gradle
   command: ./gradlew install
   args:
     chdir: "{{ alpaca_clone_directory }}"
   when: alpaca_git.changed
-  become_user: "{{ alpaca_user }}"
 
 - name: Add local maven repository to karaf
   lineinfile:

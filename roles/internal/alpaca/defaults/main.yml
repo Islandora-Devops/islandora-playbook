@@ -15,13 +15,12 @@ alpaca_features:
 
 alpaca_karaf_dir: /opt/karaf
 alpaca_karaf_etc_dir: "{{ alpaca_karaf_dir }}/etc"
-alpaca_local_mvn_path: /home/{{ alpaca_user }}/.m2/repository
-alpaca_user: karaf
+alpaca_local_mvn_path: /opt/maven/repo
 
 alpaca_settings:
   - pid: ca.islandora.alpaca.connector.broadcast
     settings:
-      input.stream: broker:queue:islandora-connector-broadcast
+      input.stream: activemq:queue:islandora-connector-broadcast
   - pid: ca.islandora.alpaca.indexing.triplestore
     settings:
       error.maxRedeliveries: 10
