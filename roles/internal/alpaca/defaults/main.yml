@@ -15,6 +15,7 @@ alpaca_features:
 
 alpaca_karaf_dir: /opt/karaf
 alpaca_karaf_etc_dir: "{{ alpaca_karaf_dir }}/etc"
+alpaca_karaf_user: karaf
 alpaca_local_mvn_path: /opt/maven/repo
 
 alpaca_settings:

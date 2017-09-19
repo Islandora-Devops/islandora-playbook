@@ -28,6 +28,14 @@
     chdir: "{{ alpaca_clone_directory }}"
   when: alpaca_git.changed
 
+- name: Make sure karaf has permissions to directory
+  file:
+    state: directory
+    path: "{{ alpaca_local_mvn_path }}"
+    recurse: yes
+    owner: "{{ alpaca_karaf_user }}"
+    group: "{{ alpaca_karaf_user }}"
+
 - name: Add local maven repository to karaf
   lineinfile:
     state: present
