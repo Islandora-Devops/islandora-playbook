@@ -1,3 +1,5 @@
+---
+
 - name: Start Karaf
   shell: >
     JAVA_HOME={{ karaf_java_home }}
@@ -54,3 +56,9 @@
   service:
     name: karaf
     state: started
+  register: karaf_start_karaf
+
+- name: Wait for Karaf to start
+  wait_for:
+    port: 8101
+  when: karaf_start_karaf.changed

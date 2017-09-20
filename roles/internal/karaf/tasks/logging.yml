@@ -1,3 +1,5 @@
+---
+
 - name: Copy templated Karaf logging config
   template:
     src: "{{ karaf_logging_template }}"

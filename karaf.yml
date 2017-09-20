@@ -5,3 +5,5 @@
 
   roles:
     - karaf
+    - apix
+    - alpaca

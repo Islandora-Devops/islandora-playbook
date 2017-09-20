@@ -1,0 +1,11 @@
+---
+
+- include: deploy.yml
+  tags:
+    - apix
+    - apix-deploy
+
+- include: config.yml
+  tags:
+    - apix
+    - apix-config
