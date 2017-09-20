@@ -12,7 +12,7 @@ apix_config:
   - pid: org.fcrepo.apix.registry.http
     settings:
       timeout.socket.ms: 1000
-  - pid: org.fcrepo.camel.indexing.triplestore.cfg
+  - pid: org.fcrepo.camel.indexing.triplestore
     settings:
       input.stream: activemq:queue:islandora-connector-broadcast
       triplestore.reindex.stream: activemq:queue:triplestore.reindex
