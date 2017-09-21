@@ -14,6 +14,6 @@ apix_config:
       timeout.socket.ms: 1000
   - pid: org.fcrepo.camel.indexing.triplestore
     settings:
-      input.stream: activemq:queue:islandora-connector-broadcast
+      input.stream: activemq:topic:fedora
       triplestore.reindex.stream: activemq:queue:triplestore.reindex
       triplestore.baseUrl: http://localhost:8080/bigdata/namespace/kb/sparql
