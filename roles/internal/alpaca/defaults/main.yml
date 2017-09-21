@@ -1,11 +1,12 @@
 ---
 
-alpaca_from_source: yes
+alpaca_from_source: no
 
 alpaca_version: master
 alpaca_clone_directory: /opt/alpaca
 
-alpaca_karaf_repos: []
+alpaca_karaf_repos:
+  - mvn:ca.islandora.alpaca/islandora-karaf/LATEST/xml/features
 
 alpaca_features:
   - islandora-http-client
