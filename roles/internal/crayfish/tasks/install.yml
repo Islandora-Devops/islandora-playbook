@@ -17,44 +17,25 @@
     repo: https://github.com/Islandora-CLAW/Crayfish.git
     dest: "/var/www/html/Crayfish"
     version: "{{ crayfish_version_tag }}"
-    
+
 - name: Build crayfish code including dependencies
   composer:
     command: install
     working_dir: /var/www/html/Crayfish/{{item}}
   with_items: "{{ crayfish_services }}"
-    
+
 - name: Configure crayfish code
   template:
     src: "{{item}}.config.yaml.j2"
     dest: "/var/www/html/Crayfish/{{item}}/cfg/config.yaml"
   with_items: "{{ crayfish_services }}"
-    
+
 - name: Install auth config
   template:
     src: "syn-settings.xml.jp2"
     dest: "/var/www/html/Crayfish/{{item}}/syn-settings.xml"
   with_items: "{{ crayfish_services }}"
 
-- name: Create Gemini db
-  mysql_db:
-    name: "{{ crayfish_gemini_db_options.dbname }}"
-    state: present
-  register: gemini_db_exists
-
-- name: Grab Gemini db schema
-  template:
-    src: "gemini.sql"
-    dest: "/tmp/gemini.sql"
-  when: gemini_db_exists.changed
-
-- name: Install Gemini db schema
-  mysql_db:
-    state: import
-    name: all
-    target: "/tmp/gemini.sql"
-  when: gemini_db_exists.changed
-    
 - name: Create Islandora log dir
   file:
     path: /var/log/islandora
