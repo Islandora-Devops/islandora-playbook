@@ -14,7 +14,7 @@
 
 - name: Install crayfish code
   git:
-    repo: https://github.com/Islandora-CLAW/Crayfish.git
+    repo: https://github.com/dannylamb/Crayfish.git
     dest: "/var/www/html/Crayfish"
     version: "{{ crayfish_version_tag }}"
 

@@ -1,6 +1,6 @@
 ---
 
-alpaca_from_source: no
+alpaca_from_source: yes
 
 alpaca_version: master
 alpaca_clone_directory: /opt/alpaca

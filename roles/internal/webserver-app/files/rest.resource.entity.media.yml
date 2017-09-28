@@ -1,0 +1,26 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - islandora
+  module:
+    - basic_auth
+    - jsonld
+    - jwt
+    - media_entity
+    - serialization
+    - user
+id: entity.media
+plugin_id: 'entity:media'
+granularity: resource
+configuration:
+  methods:
+    - GET
+  formats:
+    - jsonld
+    - json
+  authentication:
+    - basic_auth
+    - jwt_auth
+    - cookie
