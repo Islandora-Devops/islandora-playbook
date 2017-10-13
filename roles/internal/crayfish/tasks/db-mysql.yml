@@ -15,7 +15,7 @@
 
 - name: Grab Gemini db schema (mysql)
   template:
-    src: "gemini.sql"
+    src: "database/gemini-mysql.sql"
     dest: "/tmp/gemini.sql"
   when: gemini_db_exists.changed
 
