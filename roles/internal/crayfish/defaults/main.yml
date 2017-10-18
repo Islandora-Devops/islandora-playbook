@@ -22,6 +22,10 @@ crayfish_db_port: "{% if crayfish_db == 'mysql' %}3306{% elif crayfish_db == 'pg
 crayfish_gemini_log_file: /var/log/islandora/gemini.log
 crayfish_gemini_log_level: DEBUG
 
+crayfish_gemini_debug: TRUE
+
+crayfish_gemini_fedora_base_url: http://localhost:8080/fcrepo/rest
+
 crayfish_gemini_jwt_enabled: TRUE
 crayfish_gemini_jwt_config: ../syn-settings.xml
 
@@ -69,8 +73,12 @@ crayfish_milliner_log_level: DEBUG
 crayfish_milliner_jwt_enabled: TRUE
 crayfish_milliner_jwt_config: ../syn-settings.xml
 
+crayfish_milliner_debug: TRUE
+
 crayfish_milliner_fedora_base_url: http://localhost:8080/fcrepo/rest
 crayfish_milliner_drupal_base_url: http://localhost:8000
+crayfish_milliner_gemini_base_url: http://localhost:8000/gemini
+crayfish_milliner_modified_date_predicate: http://schema.org/dateModified
 
 crayfish_milliner_db_options:
   driver: "{{ crayfish_db_driver }}"

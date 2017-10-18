@@ -57,8 +57,38 @@
     group: "{{ webserver_app_user }}"
   register: drupal_member_block
 
-- name: Install member block config
+- name: Copy filehash config
+  copy:
+    src: filehash.settings.yml
+    dest: "{{ webserver_app_drupal_config_path }}/filehash.settings.yml"
+    mode: "0644"
+    owner: "{{ webserver_app_user }}"
+    group: "{{ webserver_app_user }}"
+  register: drupal_filehash_settings
+
+- name: Copy node REST config
+  copy:
+    src: rest.resource.entity.node.yml
+    dest: "{{ webserver_app_drupal_config_path }}/rest.resource.entity.node.yml"
+    mode: "0644"
+    owner: "{{ webserver_app_user }}"
+    group: "{{ webserver_app_user }}"
+  register: drupal_node_rest
+
+- name: Copy media REST config
+  copy:
+    src: rest.resource.entity.media.yml
+    dest: "{{ webserver_app_drupal_config_path }}/rest.resource.entity.media.yml"
+    mode: "0644"
+    owner: "{{ webserver_app_user }}"
+    group: "{{ webserver_app_user }}"
+  register: drupal_media_rest
+
+- name: Install config
   command: drush config-import -y --partial --source="{{ webserver_app_drupal_config_path }}"
   args:
     chdir: "{{ drupal_core_path }}"
-  when: drupal_member_block.changed is defined and drupal_member_block.changed
+  when: (drupal_member_block.changed is defined and drupal_member_block.changed) or
+        (drupal_filehash_settings.changed is defined and drupal_filehash_settings.changed) or
+        (drupal_node_rest.changed is defined and drupal_node_rest.changed) or
+        (drupal_media_rest.changed is defined and drupal_media_rest.changed)

@@ -12,6 +12,7 @@ drupal_composer_dependencies:
   - "drupal/media_entity_image:^1.2"
   - "drupal/search_api_solr:1.0.0"
   - "drupal/facets:1.x-dev"
+  - "drupal/filehash:^1.1"
   - "islandora/carapace:dev-8.x-1.x"
   - "islandora/islandora_image:dev-8.x-1.x"
 drupal_composer_project_package: "drupal-composer/drupal-project:8.x-dev"
@@ -41,8 +42,7 @@ drupal_enable_modules:
   - devel
   - search_api
   - carapace
-  - islandora
-  - islandora_collection
+  - filehash
   - islandora_image
 drupal_trusted_hosts:
   - ^localhost$

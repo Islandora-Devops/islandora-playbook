@@ -2,7 +2,7 @@
 
 alpaca_from_source: yes
 
-alpaca_version: master
+alpaca_version: issue-640
 alpaca_clone_directory: /opt/alpaca
 
 alpaca_karaf_repos:
