@@ -11,7 +11,7 @@ $virtualBoxDescription = ENV.fetch("ISLANDORA_VAGRANT_VIRTUALBOXDESCRIPTION", "I
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.provider "virtualbox" do |v|
-    v.name = "Islandora CLAW Ansible"
+    v.name = "Islandora CLAW"
   end
 
   config.vm.hostname = $hostname
