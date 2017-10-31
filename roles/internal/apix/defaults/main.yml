@@ -6,6 +6,18 @@ apix_feature:
   - fcrepo-indexing-triplestore
   - fcrepo-service-camel
 
+apix_hypercube_service: http://localhost:8081/fcrepo/rest/apix/services/CLAW-OcrService
+apix_identify_service: http://localhost:8081/fcrepo/rest/apix/services/CLAW-IdentifyService
+apix_convert_service: http://localhost:8081/fcrepo/rest/apix/services/CLAW-ConvertService
+
+apix_hypercube_options_url: http://localhost:8000/hypercube/
+apix_identify_options_url: http://localhost:8000/houdini/identify
+apix_convert_options_url: http://localhost:8000/houdini/convert
+
+apix_static_token: islandora
+
+apix_loader_url: http://localhost:8081/services//apix:load
+
 apix_karaf_etc_dir: "{{ karaf_install_symlink }}/etc"
 
 apix_config:

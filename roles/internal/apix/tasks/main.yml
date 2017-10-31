@@ -9,3 +9,8 @@
   tags:
     - apix
     - apix-config
+
+- include: crayfish.yml
+  tags:
+    - apix
+    - apix-crayfish
