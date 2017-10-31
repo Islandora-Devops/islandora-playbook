@@ -18,6 +18,8 @@ apix_static_token: islandora
 
 apix_loader_url: http://localhost:8081/services//apix:load
 
+apix_root_discovery: http://localhost:8081/discovery/
+
 apix_karaf_etc_dir: "{{ karaf_install_symlink }}/etc"
 
 apix_config:

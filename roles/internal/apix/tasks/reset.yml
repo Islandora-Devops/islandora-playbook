@@ -1,0 +1,46 @@
+---
+
+- uri:
+    url: "{{ apix_root_discovery }}"
+    status_code: 200,500
+    headers:
+      Bearer: "{{ apix_static_token }}"
+  register: loader_service
+
+- service:
+    name: karaf
+    state: stopped
+  when: loader_service.status == 500
+
+- service:
+    name: tomcat8
+    state: stopped
+  when: loader_service.status == 500
+
+- service:
+    name: activemq
+    state: stopped
+  when: loader_service.status == 500
+
+- service:
+    name: activemq
+    state: started
+  when: loader_service.status == 500
+
+- pause:
+    minutes: 1
+  when: loader_service.status == 500
+
+- service:
+    name: tomcat8
+    state: started
+  when: loader_service.status == 500
+
+- pause:
+    minutes: 1
+  when: loader_service.status == 500
+
+- service:
+    name: karaf
+    state: started
+  when: loader_service.status == 500
