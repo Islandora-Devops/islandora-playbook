@@ -104,3 +104,4 @@
     remote_src: True
   with_items:
    - "{{ files_to_copy.stdout_lines }}"
+  notify: restart solr
