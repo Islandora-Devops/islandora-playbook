@@ -3,3 +3,5 @@
 webserver_app: yes
 openseadragon_iiiv_set_var: yes
 openseadragon_iiiv_server: http://localhost:8080/cantaloupe/iiif/2
+webserver_app_jwt_key_path: /home/ubuntu/auth
+
