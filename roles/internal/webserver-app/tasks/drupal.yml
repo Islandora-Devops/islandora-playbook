@@ -62,3 +62,45 @@
   args:
     chdir: "{{ drupal_core_path }}"
   when: drupal_member_block.changed is defined and drupal_member_block.changed
+
+- name: Enable drupal module search_api_solr
+  command: drush en -y search_api_solr
+  args:
+    chdir: "{{ drupal_core_path }}"
+  register: install_search_api_solr
+  changed_when: "'enabled successfully' in install_search_api_solr.stdout"
+
+- name: Enable drupal module search_api_solr_defaults
+  command: drush en -y search_api_solr_defaults
+  args:
+    chdir: "{{ drupal_core_path }}"
+  register: install_search_api_solr_defaults
+  changed_when: "'enabled successfully' in install_search_api_solr_defaults.stdout"
+
+- name: Set default solr server to point to CLAW core
+  command: drush -y config-set search_api.server.default_solr_server backend_config.connector_config.core CLAW
+  args:
+    chdir: "{{ drupal_core_path }}"
+  register: set_search_api_config
+  changed_when: "'Do you want to update' in set_search_api_config.stdout"
+
+- name: Enable drupal module facets
+  command: drush en -y facets
+  args:
+    chdir: "{{ drupal_core_path }}"
+  register: install_facets
+  changed_when: "'enabled successfully' in install_facets.stdout"
+
+- name: Get solr config files to copy
+  command: "find /var/www/html/drupal/web/modules/contrib/search_api_solr/solr-conf/6.x -type f"
+  register: files_to_copy
+
+- name: Copy solr config files
+  copy:
+    src: "{{ item }}"
+    dest: "/var/solr/data/CLAW/conf"
+    owner: "{{ solr_user }}"
+    group: "{{ solr_user }}"
+    remote_src: True
+  with_items:
+   - "{{ files_to_copy.stdout_lines }}"
