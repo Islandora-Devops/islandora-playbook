@@ -9,6 +9,12 @@ $memory = ENV.fetch("ISLANDORA_VAGRANT_MEMORY", "3072")
 $hostname = ENV.fetch("ISLANDORA_VAGRANT_HOSTNAME", "claw")
 $virtualBoxDescription = ENV.fetch("ISLANDORA_VAGRANT_VIRTUALBOXDESCRIPTION", "IslandoraCLAW")
 
+# Available boxes are 'ubuntu/xenial64' and 'centos/7'
+$vagrantBox = ENV.fetch("ISLANDORA_VAGRANT_DISTRO", "ubuntu/xenial64")
+
+# On Ubuntu, user is ubuntu, on all others, user is vagrant
+$vagrantUser = if $vagrantBox == "ubuntu/xenial64" then "ubuntu" else "vagrant" end
+
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.provider "virtualbox" do |v|
     v.name = "Islandora CLAW"
@@ -17,10 +23,12 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.hostname = $hostname
 
   # Every Vagrant virtual environment requires a box to build off of.
-  config.vm.box = "ubuntu/xenial64"
+  config.vm.box = $vagrantBox
 
-  # Setup the shared folder
-  home_dir = "/home/ubuntu"
+  # Configure home directory
+  home_dir = "/home/" + $vagrantUser
+
+  # Configure sync directory
   config.vm.synced_folder ".", home_dir + "/islandora"
 
   config.vm.network :forwarded_port, guest: 8000, host: 8000 # Apache
@@ -45,6 +53,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     ansible.galaxy_command = "ansible-galaxy install --role-file=%{role_file} --roles-path=roles/external --force"
     ansible.limit = "all"
     ansible.inventory_path = "inventory/vagrant"
+    ansible.host_vars = {
+      "all" => { "ansible_ssh_user" => $vagrantUser }
+    }
   end
 
 end
