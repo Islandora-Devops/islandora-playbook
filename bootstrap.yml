@@ -3,10 +3,8 @@
 - name: bootstrap
   hosts: all
   become: yes
-  gather_facts: false
+  gather_facts: true
 
-  # TODO: this probably needs to be made general for RHEL, it will only
-  # work for ubuntu right now.
   tasks:
     # python isn't installed by default on ubuntu 16.04 so we need
     # to do that with the raw command before
@@ -16,6 +14,7 @@
       changed_when:
         - output.stdout != ""
         - output.stdout != "\r\n"
+      when: ansible_os_family == "Debian"
 
     # also need to make sure aptitude is installed for the apt
     # commands in ansible.
@@ -24,10 +23,20 @@
         name: aptitude
         state: present
         update_cache: yes
+      when: ansible_os_family == "Debian"
 
     # install some packages we would like on every server
-    - name: install extra packages
-      apt:
+    - name: install extra packages ubuntu
+      package:
         name: "{{ item }}"
         state: present
-      with_items: "{{ islandora_extra_packages }}"
+      with_items: "{{ islandora_extra_ubuntu_packages }}"
+      when: ansible_os_family == "Debian"
+
+    # install some packages we would like on every server
+    - name: install extra packages centos
+      package:
+        name: "{{ item }}"
+        state: present
+      with_items: "{{ islandora_extra_centos_packages }}"
+      when: ansible_os_family == "RedHat"

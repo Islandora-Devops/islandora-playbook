@@ -1,6 +1,8 @@
 ---
 
 - include: bootstrap.yml
+  tags:
+    - bootstrap
 - include: database.yml
 - include: webserver.yml
 - include: tomcat.yml
