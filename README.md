@@ -14,6 +14,7 @@ This virtual machine **should not** be used in production **yet**.
 2. [Vagrant](http://www.vagrantup.com/) 1.8.5+
 3. [git](https://git-scm.com/)
 4. [ansible](https://www.ansible.com/community) 2.3+
+5. [virtualbox-vbguest](https://github.com/dotless-de/vagrant-vbguest) plugin (If targeting CENTOS)
 
 ## Variables
 
