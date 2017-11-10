@@ -3,7 +3,7 @@
 - name: bootstrap
   hosts: all
   become: yes
-  gather_facts: true
+  gather_facts: false
 
   tasks:
     # python isn't installed by default on ubuntu 16.04 so we need
@@ -14,7 +14,7 @@
       changed_when:
         - output.stdout != ""
         - output.stdout != "\r\n"
-      when: ansible_os_family == "Debian"
+      when: islandora_vagrant_distro == "ubuntu/xenial64"
 
     # also need to make sure aptitude is installed for the apt
     # commands in ansible.
@@ -23,7 +23,7 @@
         name: aptitude
         state: present
         update_cache: yes
-      when: ansible_os_family == "Debian"
+      when: islandora_vagrant_distro == "ubuntu/xenial64"
 
     # install some packages we would like on every server
     - name: install extra packages ubuntu
@@ -31,7 +31,7 @@
         name: "{{ item }}"
         state: present
       with_items: "{{ islandora_extra_ubuntu_packages }}"
-      when: ansible_os_family == "Debian"
+      when: islandora_vagrant_distro == "ubuntu/xenial64"
 
     # install some packages we would like on every server
     - name: install extra packages centos
@@ -39,4 +39,4 @@
         name: "{{ item }}"
         state: present
       with_items: "{{ islandora_extra_centos_packages }}"
-      when: ansible_os_family == "RedHat"
+      when: islandora_vagrant_distro == "centos/7"
