@@ -6,6 +6,8 @@ crayfish_services:
   - Houdini
   - Milliner
   - Hypercube
+  
+crayfish_install_dir: /var/www/html/Crayfish
 
 crayfish_syn_token: islandora
 

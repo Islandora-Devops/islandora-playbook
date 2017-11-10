@@ -15,25 +15,31 @@
 - name: Install crayfish code
   git:
     repo: https://github.com/Islandora-CLAW/Crayfish.git
-    dest: "/var/www/html/Crayfish"
+    dest: "{{ crayfish_install_dir }}"
     version: "{{ crayfish_version_tag }}"
 
 - name: Build crayfish code including dependencies
   composer:
     command: install
-    working_dir: /var/www/html/Crayfish/{{item}}
+    working_dir: "{{ crayfish_install_dir }}/{{item}}"
   with_items: "{{ crayfish_services }}"
 
 - name: Configure crayfish code
   template:
     src: "{{item}}.config.yaml.j2"
-    dest: "/var/www/html/Crayfish/{{item}}/cfg/config.yaml"
+    dest: "{{ crayfish_install_dir }}/{{item}}/cfg/config.yaml"
   with_items: "{{ crayfish_services }}"
+
+- name: Get SSL keys
+  include_role: 
+    name: keymaster
+  vars:
+    ssl_key_public_output_path: "{{ crayfish_install_dir }}/public.key"
 
 - name: Install auth config
   template:
     src: "syn-settings.xml.jp2"
-    dest: "/var/www/html/Crayfish/{{item}}/syn-settings.xml"
+    dest: "{{ crayfish_install_dir }}/{{item}}/syn-settings.xml"
   with_items: "{{ crayfish_services }}"
 
 - name: Create Islandora log dir
