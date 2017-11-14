@@ -12,6 +12,7 @@ galaxy_info:
       versions:
         - trusty
         - utopic
+        - xenial
   galaxy_tags:
     - message:queues
     - messaging
