@@ -1,12 +1,12 @@
 ---
 
-- include: bootstrap.yml
+- import_playbook: bootstrap.yml
   tags:
     - bootstrap
-- include: database.yml
-- include: solr.yml
-- include: webserver.yml
-- include: tomcat.yml
-- include: crayfish.yml
-- include: karaf.yml
-- include: post-install.yml
+- import_playbook: database.yml
+- import_playbook: solr.yml
+- import_playbook: webserver.yml
+- import_playbook: tomcat.yml
+- import_playbook: crayfish.yml
+- import_playbook: karaf.yml
+- import_playbook: post-install.yml
