@@ -29,11 +29,11 @@ export ISLANDORA_VAGRANT_MEMORY=4096
 
 ### Using CENTOS
 
-Ubuntu 16.04 is the default linux distribution used by claw-playbook.  If you want to use CENTOS 7 instead, set the `ISLANDORA_VAGRANT_DISTRO` environment variable to `centos/7`.  The easiest way to do this is to export the environment variable into your shell before running Vagrant commands. Otherwise you will have to provide the variable for every Vagrant command you issue.
+Ubuntu 16.04 is the default linux distribution used by claw-playbook.  If you want to use CENTOS 7 instead, set the `ISLANDORA_DISTRO` environment variable to `centos/7`.  The easiest way to do this is to export the environment variable into your shell before running Vagrant commands. Otherwise you will have to provide the variable for every Vagrant command you issue.
 
 ```bash
-ISLANDORA_VAGRANT_DISTRO="centos/7" vagrant up
-ISLANDORA_VAGRANT_DISTRO="centos/7" vagrant ssh
+ISLANDORA_DISTRO="centos/7" vagrant up
+ISLANDORA_DISTRO="centos/7" vagrant ssh
 ```
 
 If you are not using `vagrant up` to bring up a box, and are running `ansible-playbook` against it manually, you will need to set `ansible_ssh_user` to `vagrant` for your hosts.  It's easiest to add this value to `inventory/vagrant/group_vars/all.yml` to set the value for all hosts.  This is not neccessary if using Vagrant, as the ssh user is passed to ansible via the Vagrantfile.

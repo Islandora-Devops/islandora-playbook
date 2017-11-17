@@ -14,7 +14,11 @@
       changed_when:
         - output.stdout != ""
         - output.stdout != "\r\n"
-      when: islandora_vagrant_distro == "ubuntu/xenial64"
+      when: islandora_distro == "ubuntu/xenial64"
+
+    # Manually gather facts once python is installed
+    - name: gather facts
+      setup:
 
     # also need to make sure aptitude is installed for the apt
     # commands in ansible.
@@ -23,7 +27,7 @@
         name: aptitude
         state: present
         update_cache: yes
-      when: islandora_vagrant_distro == "ubuntu/xenial64"
+      when: ansible_os_family == "Debian"
 
     # install some packages we would like on every server
     - name: install extra packages ubuntu
@@ -31,7 +35,7 @@
         name: "{{ item }}"
         state: present
       with_items: "{{ islandora_extra_ubuntu_packages }}"
-      when: islandora_vagrant_distro == "ubuntu/xenial64"
+      when: ansible_os_family == "Debian"
 
     # install some packages we would like on every server
     - name: install extra packages centos
@@ -39,4 +43,4 @@
         name: "{{ item }}"
         state: present
       with_items: "{{ islandora_extra_centos_packages }}"
-      when: islandora_vagrant_distro == "centos/7"
+      when: ansible_os_family == "RedHat"

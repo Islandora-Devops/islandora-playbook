@@ -12,7 +12,7 @@ $hostname = ENV.fetch("ISLANDORA_VAGRANT_HOSTNAME", "claw")
 $virtualBoxDescription = ENV.fetch("ISLANDORA_VAGRANT_VIRTUALBOXDESCRIPTION", "IslandoraCLAW")
 
 # Available boxes are 'ubuntu/xenial64' and 'centos/7'
-$vagrantBox = ENV.fetch("ISLANDORA_VAGRANT_DISTRO", "ubuntu/xenial64")
+$vagrantBox = ENV.fetch("ISLANDORA_DISTRO", "ubuntu/xenial64")
 
 # On Ubuntu, user is ubuntu, on all others, user is vagrant
 $vagrantUser = if $vagrantBox == "ubuntu/xenial64" then "ubuntu" else "vagrant" end
@@ -58,7 +58,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     ansible.host_vars = {
       "all" => { "ansible_ssh_user" => $vagrantUser }
     }
-    ansible.extra_vars = { "islandora_vagrant_distro" => $vagrantBox }
+    ansible.extra_vars = { "islandora_distro" => $vagrantBox }
   end
 
 end
