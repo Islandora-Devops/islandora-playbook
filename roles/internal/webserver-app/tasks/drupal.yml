@@ -71,14 +71,14 @@
   changed_when: "'Do you want to update' in set_search_api_config.stdout"
 
 - name: Get solr config files to copy
-  command: "find /var/www/html/drupal/web/modules/contrib/search_api_solr/solr-conf/6.x -type f"
+  command: "find {{ webserver_document_root }}/drupal/web/modules/contrib/search_api_solr/solr-conf/6.x -type f"
   register: files_to_copy
   changed_when: false
 
 - name: Copy solr config files
   copy:
     src: "{{ item }}"
-    dest: "/var/solr/data/CLAW/conf"
+    dest: "{{ solr_instance_conf_path }}"
     owner: "{{ solr_user }}"
     group: "{{ solr_user }}"
     remote_src: True
