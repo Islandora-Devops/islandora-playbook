@@ -1,9 +1,6 @@
 langcode: en
 status: true
 dependencies:
-  enforced:
-    module:
-      - islandora
   module:
     - basic_auth
     - jsonld
