@@ -6,7 +6,6 @@
     src: http://archive.apache.org/dist/activemq/{{ activemq_version }}/apache-activemq-{{ activemq_version }}-bin.tar.gz
     dest: "{{ activemq_install_root }}"
     owner: "{{ activemq_user }}"
-    group: "{{ activemq_group }}"
     creates: "{{ activemq_install_root }}/activemq"
 
 - name: Move activemq
@@ -14,11 +13,17 @@
   args:
     creates: "{{ activemq_install_root }}/activemq"
 
-- name: Create symlink
+# Transitional removal of old-style init.d symlink
+# This task can be removed in the future.
+- name: Remove init.d symlink
   file:
-    state: link
-    src: "/opt/activemq/bin/activemq"
-    dest: "/etc/init.d/activemq"
+    path: /etc/init.d/activemq
+    state: absent
+
+- name: Create systemd unit
+  template:
+    src: activemq.service.j2
+    dest: /etc/systemd/system/activemq.service
 
 - name: Reload systemd
   systemd:

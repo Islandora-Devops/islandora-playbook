@@ -1,5 +1,10 @@
 ---
 
+- include: user.yml
+  tags:
+    - activemq
+    - activemq-user
+
 - include: install.yml
   tags:
     - activemq
