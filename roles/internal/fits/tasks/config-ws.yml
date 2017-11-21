@@ -2,7 +2,8 @@
 - name: Set fits.home in catalina.properties
   lineinfile:
     path: "{{ tomcat8_home }}/conf/catalina.properties"
-    line: 'fits.home="{{ fits_install_symlink }}"'
+    regexp: "^fits.home="
+    line: "fits.home={{ fits_install_symlink }}"
   notify: restart tomcat8
 
 - name: Set shared.loader in catalina.properties
