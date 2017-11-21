@@ -3,7 +3,7 @@
 - name: bootstrap
   hosts: all
   become: yes
-  gather_facts: true
+  gather_facts: false
 
   tasks:
     # python isn't installed by default on ubuntu 16.04 so we need
@@ -14,7 +14,11 @@
       changed_when:
         - output.stdout != ""
         - output.stdout != "\r\n"
-      when: ansible_os_family == "Debian"
+      when: islandora_distro == "ubuntu/xenial64"
+
+    # Manually gather facts once python is installed
+    - name: gather facts
+      setup:
 
     # also need to make sure aptitude is installed for the apt
     # commands in ansible.
