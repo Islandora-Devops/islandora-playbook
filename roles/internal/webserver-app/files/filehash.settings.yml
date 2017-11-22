@@ -1,0 +1,5 @@
+algos:
+  sha1: sha1
+  md5: '0'
+  sha256: '0'
+dedupe: true

@@ -2,6 +2,10 @@
 
 # managed by Ansible
 
+fedora_base_url: {{ crayfish_gemini_fedora_base_url }}
+
+debug: {{ crayfish_gemini_debug }}
+
 db.options:
   driver: {{ crayfish_gemini_db_options.driver }}
   host: {{ crayfish_gemini_db_options.host }}

@@ -41,8 +41,6 @@ drupal_enable_modules:
   - devel
   - search_api
   - carapace
-  - islandora
-  - islandora_collection
   - islandora_image
 drupal_trusted_hosts:
   - ^localhost$
