@@ -92,3 +92,26 @@
         (drupal_filehash_settings.changed is defined and drupal_filehash_settings.changed) or
         (drupal_node_rest.changed is defined and drupal_node_rest.changed) or
         (drupal_media_rest.changed is defined and drupal_media_rest.changed)
+
+- name: Set default solr server to point to CLAW core
+  command: drush -y config-set search_api.server.default_solr_server backend_config.connector_config.core CLAW
+  args:
+    chdir: "{{ drupal_core_path }}"
+  register: set_search_api_config
+  changed_when: "'Do you want to update' in set_search_api_config.stdout"
+
+- name: Get solr config files to copy
+  command: "find {{ webserver_document_root }}/drupal/web/modules/contrib/search_api_solr/solr-conf/6.x -type f"
+  register: files_to_copy
+  changed_when: false
+
+- name: Copy solr config files
+  copy:
+    src: "{{ item }}"
+    dest: "{{ solr_instance_conf_path }}"
+    owner: "{{ solr_user }}"
+    group: "{{ solr_user }}"
+    remote_src: True
+  with_items:
+   - "{{ files_to_copy.stdout_lines }}"
+  notify: restart solr

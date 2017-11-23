@@ -10,3 +10,7 @@ webserver_app_jwt_config_path: /home/ubuntu/configs/jwt
 webserver_app_drupal_config_path: /home/ubuntu/configs/drupal
 
 webserver_app_user: ubuntu
+solr_user: solr
+solr_instance_conf_path: /var/solr/data/CLAW/conf
+
+webserver_document_root: /var/www/html
