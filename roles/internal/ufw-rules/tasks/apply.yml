@@ -1,0 +1,25 @@
+# by default deny all incoming conections
+- name: default (incoming) policy
+  ufw:
+    policy: "{{ ufw_default_incoming_policy }}"
+    direction: incoming
+
+# by default allow all incoming connections
+- name: default (outgoing) policy
+  ufw:
+    policy: "{{ ufw_default_outgoing_policy }}"
+    direction: outgoing
+
+# Apply rules
+- name: rules
+  ufw:
+    rule: "{{ item.rule }}"
+    to_port: "{{ item.to_port | default('') }}"
+  with_items: "{{ ufw_rules }}"
+  notify: reload ufw
+
+#Enable UFW
+- ufw:
+    state: enabled
+
+

@@ -1,0 +1,6 @@
+---
+
+- include: apply.yml
+  tags:
+    - ufw
+    - ufw-rules

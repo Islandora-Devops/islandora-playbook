@@ -13,3 +13,4 @@
     - drupal
     - openseadragon
     - webserver-app
+    - ufw-rules

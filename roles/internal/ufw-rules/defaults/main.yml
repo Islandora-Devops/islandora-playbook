@@ -1,0 +1,24 @@
+ufw_default_incoming_policy: deny
+ufw_default_outgoing_policy: allow
+
+ufw_rules:
+  - rule: allow
+    to_port: 2222
+
+  - rule: allow
+    to_port: 8000
+
+  - rule: allow
+    to_port: 8080
+
+  - rule: allow
+    to_port: 8161
+
+  - rule: allow
+    to_port: 3306
+
+  - rule: allow
+    to_port: 443
+
+  - rule: allow
+    to_port: 8983

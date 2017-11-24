@@ -41,3 +41,7 @@
 - src: geerlingguy.drupal-console
   name: drupal-console
   version: 1.1.0
+
+- src: franklinkim.ufw
+  name: ufw
+  version: 1.6.0
