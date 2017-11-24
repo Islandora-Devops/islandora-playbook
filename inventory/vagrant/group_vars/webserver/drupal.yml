@@ -42,6 +42,9 @@ drupal_enable_modules:
   - search_api
   - carapace
   - islandora_image
+  - search_api_solr
+  - search_api_solr_defaults
+  - facets
 drupal_trusted_hosts:
   - ^localhost$
 drupal_trusted_hosts_file: "{{ drupal_core_path }}/sites/default/settings.php"

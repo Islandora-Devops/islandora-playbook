@@ -4,8 +4,8 @@
   tags:
     - bootstrap
 - include: database.yml
+- include: solr.yml
 - include: webserver.yml
 - include: tomcat.yml
-- include: solr.yml
 - include: crayfish.yml
 - include: karaf.yml
