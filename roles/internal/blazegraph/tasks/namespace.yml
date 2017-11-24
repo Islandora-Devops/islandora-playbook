@@ -1,5 +1,13 @@
 ---
 
+# Need to make sure Blazegraph is up and running before applying config changes
+- debug: msg="restart Tomcat"
+  notify: restart tomcat8
+  changed_when: true
+
+# By default, ansible will run handlers at the end, here we are forcing ansible to restart tomcat
+- meta: flush_handlers
+
 - name: "Wait for Blazegraph to come up"
   uri:
     url: "http://localhost:8080/bigdata/#namespaces"
@@ -7,7 +15,7 @@
     timeout: 5
   register: result
   until: result.status == 200
-  retries: 60
+  retries: 100
   delay: 5
 
 - name: Setup namespace in blazegraph
