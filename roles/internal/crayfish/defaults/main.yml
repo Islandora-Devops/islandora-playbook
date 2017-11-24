@@ -1,5 +1,5 @@
 crayfish_user: www-data
-crayfish_version_tag: 0.0.7
+crayfish_version_tag: 0.0.8
 
 crayfish_services:
   - Gemini
