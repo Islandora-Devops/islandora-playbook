@@ -29,6 +29,8 @@ export ISLANDORA_VAGRANT_MEMORY=4096
 
 ### Using CENTOS
 
+_CENTOS support is WIP and not to be considered stable_
+
 Ubuntu 16.04 is the default linux distribution used by claw-playbook.  If you want to use CENTOS 7 instead, set the `ISLANDORA_DISTRO` environment variable to `centos/7`.  The easiest way to do this is to export the environment variable into your shell before running Vagrant commands. Otherwise you will have to provide the variable for every Vagrant command you issue.
 
 ```bash
@@ -40,8 +42,38 @@ If you are not using `vagrant up` to bring up a box, and are running `ansible-pl
 
 ## Use
 
-1. clone the repo
+### Vagrant
+
+If you're looking for a development environment, using our Vagrant deployment is easiest:
+
+1. Clone the repo
 2. `vagrant up`
+
+### All-in-one provisioning with Ansible
+
+If you want to provision an all-in-one remote Ubuntu environment, like a production server:
+
+1. SSH into your remote server and add an `ubuntu` [user with sudo privileges](https://www.digitalocean.com/community/tutorials/how-to-create-a-sudo-user-on-ubuntu-quickstart)
+1. Clone the repository onto your local machine
+1. Create an inventory for your new environment ('production' in this example): `cp -r inventory/vagrant inventory/production`
+1. Edit `inventory/produciont/hosts` to point to your new environment by changing 'default' line to:
+```
+default ansible_ssh_host=my_ip_or_domain_name ansible_ssh_user=root ansible_ssh_pass=my_super_secret_password
+```
+1. Change all the passwords from "islandora" to something else.  You can get a full list of them by grepping your new inventory:
+```bash
+$ grep -rn pass inventory/production
+inventory/production/group_vars/webserver/drupal.yml:21:drupal_db_password: islandora
+inventory/production/group_vars/webserver/drupal.yml:29:drupal_account_pass: islandora
+inventory/production/group_vars/database.yml:2:mysql_root_password: islandora
+inventory/production/group_vars/database.yml:6:    password: islandora
+inventory/production/group_vars/tomcat.yml:5:    password: islandora
+inventory/production/group_vars/tomcat.yml:46:cantaloupe_admin_password: islandora
+```
+1. Change the `drupal_trusted_host` configuration in `inventory/production/group_vars/webserver/drupal.yml` to reflect your IP or domain name
+1. Change the Apache's port to 80 in `inventory/production/group_vars/webserver/apache.yml`
+1. Instal the roles using `ansible-galaxy`: `$ ansible-galaxy install -r requirements.yml`
+1. Provision the server with `$ ansible-playbook -i inventory/production -e "islandora_distro=ubuntu/xenial64"`
 
 ## Connect
 
