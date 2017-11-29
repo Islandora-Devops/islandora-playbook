@@ -72,7 +72,7 @@ inventory/production/group_vars/tomcat.yml:46:cantaloupe_admin_password: islando
 ```
 1. Change the `drupal_trusted_host` configuration in `inventory/production/group_vars/webserver/drupal.yml` to reflect your IP or domain name
 1. Change the Apache's port to 80 in `inventory/production/group_vars/webserver/apache.yml`
-1. Instal the roles using `ansible-galaxy`: `$ ansible-galaxy install -r requirements.yml`
+1. Install the roles using `ansible-galaxy`: `$ ansible-galaxy install -r requirements.yml`
 1. Provision the server with `$ ansible-playbook -i inventory/production -e "islandora_distro=ubuntu/xenial64"`
 
 ## Connect
