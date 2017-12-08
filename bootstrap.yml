@@ -44,3 +44,20 @@
         state: present
       with_items: "{{ islandora_extra_centos_packages }}"
       when: ansible_os_family == "RedHat"
+
+    # Check Selinux
+    - name: check selinux status
+      raw: sestatus
+      register: sestatus_out
+      when: ansible_os_family == "RedHat"
+
+    # Parse sestatus down to one of two options.
+    - name: Set selinux permissive fact
+      set_fact:
+        selinux_permissive: "{{ sestatus_out.stdout|regex_search('Current mode.*(permissive|enforcing)')|regex_search('(permissive|enforcing)') }}"
+      when: ansible_os_family == "RedHat"
+
+    # Change Selinux to permissive
+    - name: change selinux enforcement to permissive
+      command: setenforce permissive
+      when: ansible_os_family == "RedHat" and disable_selinux and selinux_permissive == "enforcing"
