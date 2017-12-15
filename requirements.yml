@@ -41,3 +41,59 @@
 - src: geerlingguy.drupal-console
   name: drupal-console
   version: 1.1.0
+
+- src: Islandora-Devops.activemq
+  name: activemq
+  version: 0.0.1
+
+- src: Islandora-Devops.alpaca
+  name: alpaca
+  version: 0.0.1
+
+- src: Islandora-Devops.apix
+  name: apix
+  version: 0.0.1
+
+- src: Islandora-Devops.blazegraph
+  name: blazegraph
+  version: 0.0.1
+
+- src: Islandora-Devops.cantaloupe
+  name: cantaloupe
+  version: 0.0.1
+
+- src: Islandora-Devops.crayfish
+  name: crayfish
+  version: 0.0.1
+
+- src: Islandora-Devops.drupal-openseadragon
+  name: drupal-openseadragon
+  version: 0.0.1
+
+- src: Islandora-Devops.fcrepo
+  name: fcrepo
+  version: 0.0.1
+
+- src: Islandora-Devops.fcrepo-syn
+  name: fcrepo-syn
+  version: 0.0.1
+
+- src: Islandora-Devops.tomcat8
+  name: tomcat8
+  version: 0.0.1
+
+- src: Islandora-Devops.fits-service
+  name: fits-service
+  version: 0.0.1
+
+- src: Islandora-Devops.grok
+  name: grok
+  version: 0.0.1
+
+- src: Islandora-Devops.karaf
+  name: karaf
+  version: 0.0.1
+
+- src: Islandora-Devops.keymaster
+  name: keymaster
+  version: 0.0.1

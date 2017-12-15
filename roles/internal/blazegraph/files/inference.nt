@@ -1,2 +1,0 @@
-<http://pcdm.org/models#memberOf> <http://www.w3.org/2002/07/owl#inverseOf> <http://pcdm.org/models#hasMember> .
-<http://pcdm.org/models#fileOf> <http://www.w3.org/2002/07/owl#inverseOf> <http://pcdm.org/models#hasFile> .

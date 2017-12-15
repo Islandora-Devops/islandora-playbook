@@ -1,6 +1,0 @@
-<Context>
-    <Loader className="org.apache.catalina.loader.VirtualWebappLoader"
-        virtualClasspath="{{ fcrepo_syn_folder }}/islandora-syn-{{ fcrepo_syn_version }}-all.jar"
-    />
-    <Valve className="ca.islandora.syn.valve.SynValve"/>
-</Context>

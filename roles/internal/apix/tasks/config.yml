@@ -1,7 +1,0 @@
----
-
-- name: Template settings
-  template:
-    src: apix.cfg.j2
-    dest: "{{ apix_karaf_etc_dir }}/{{ item.pid }}.cfg"
-  with_items: "{{ apix_config }}"

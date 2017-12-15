@@ -1,9 +1,0 @@
----
-
-- name: Install Cantaloupe web service
-  copy:
-    remote_src: yes
-    src: /opt/Cantaloupe-{{ cantaloupe_version }}/Cantaloupe-{{ cantaloupe_version }}.war
-    dest: "{{ cantaloupe_deploy_war_path }}/{{ cantaloupe_deploy_war_filename }}.war"
-    owner: "{{ cantaloupe_user }}"
-    group: "{{ cantaloupe_group }}"

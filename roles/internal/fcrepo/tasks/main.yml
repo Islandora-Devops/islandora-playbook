@@ -1,9 +1,0 @@
-- include: install.yml
-  tags:
-    - fcrepo
-    - fcrepo-install
-
-- include: config.yml
-  tags:
-    - fcrepo
-    - fcrepo-config
