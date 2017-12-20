@@ -9,7 +9,7 @@
 
 - name: Get SSL keys
   include_role: 
-    name: keymaster
+    name: Islandora-Devops.keymaster
   vars:
     ssl_key_private_output_path: "{{ webserver_app_jwt_key_path }}/private.key"
 

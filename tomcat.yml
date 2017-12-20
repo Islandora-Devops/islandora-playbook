@@ -4,10 +4,10 @@
   become: yes
 
   roles:
-    - tomcat8
-    - fcrepo
-    - fcrepo-syn
-    - blazegraph
-    - grok
-    - cantaloupe
-    - activemq
+    - Islandora-Devops.tomcat8
+    - Islandora-Devops.fcrepo
+    - Islandora-Devops.fcrepo-syn
+    - Islandora-Devops.blazegraph
+    - Islandora-Devops.grok
+    - Islandora-Devops.cantaloupe
+    - Islandora-Devops.activemq
