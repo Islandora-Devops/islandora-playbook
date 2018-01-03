@@ -31,4 +31,4 @@ mysql_users:
     host: "%"
     password: "{{ drupal_db_password }}"
     priv: "{{ drupal_db_name }}.*:ALL"
-
+    when: drupal_db_user != 'root'
