@@ -16,4 +16,4 @@ alpaca_settings:
       file.stream: activemq:queue:islandora-indexing-fcrepo-file
       media.stream: activemq:queue:islandora-indexing-fcrepo-media
       delete.stream: activemq:queue:islandora-indexing-fcrepo-delete
-      milliner.baseUrl: http://localhost/milliner/
+      milliner.baseUrl: http://localhost:8000/milliner/
