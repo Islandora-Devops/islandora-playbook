@@ -25,3 +25,10 @@ islandora_extra_centos_packages:
   - kernel-devel
 
 postgresql_user: postgres
+
+mysql_users:
+  - name: "{{ drupal_db_user }}"
+    host: "%"
+    password: "{{ drupal_db_password }}"
+    priv: "{{ drupal_db_name }}.*:ALL"
+    when: drupal_db_user != 'root'
