@@ -7,5 +7,5 @@
 - include: solr.yml
 - include: webserver.yml
 - include: tomcat.yml
-- include: crayfish.yml
 - include: karaf.yml
+- include: crayfish.yml

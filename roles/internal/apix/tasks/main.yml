@@ -14,8 +14,3 @@
   tags:
     - apix
     - apix-reset
-
-- include: crayfish.yml
-  tags:
-    - apix
-    - apix-crayfish

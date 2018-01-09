@@ -1,0 +1,58 @@
+---
+
+- name: Check Hypercube
+- uri:
+    url: "{{ crayfish_apix_hypercube_service }}"
+    headers:
+      Bearer: "{{ crayfish_syn_token }}"
+    status_code: 200,404
+  register: hypercube_service
+
+- name: Check Identify
+- uri:
+    url: "{{ crayfish_apix_identify_service }}"
+    headers:
+      Bearer: "{{ crayfish_syn_token }}"
+    status_code: 200,404
+  register: identify_service
+
+- name: Check Convert
+- uri:
+    url: "{{ crayfish_apix_convert_service }}"
+    headers:
+      Bearer: "{{ crayfish_syn_token }}"
+    status_code: 200,404
+  register: convert_service
+
+- name: Load Hypercube
+  uri:
+    url: "{{ crayfish_apix_loader_url }}"
+    body: "{{ crayfish_hypercube_options_url }}"
+    method: POST
+    status_code: 200
+    headers:
+      Content-Type: text/plain
+      Bearer: "{{ crayfish_syn_token }}"
+  when: hypercube_service.status == 404
+
+- name: Load Identify
+  uri:
+    url: "{{ crayfish_apix_loader_url }}"
+    body: "{{ crayfish_identify_options_url }}"
+    method: POST
+    status_code: 200
+    headers:
+      Content-Type: text/plain
+      Bearer: "{{ crayfish_syn_token }}"
+  when: identify_service.status == 404
+
+- name: Load Convert
+  uri:
+    url: "{{ crayfish_apix_loader_url }}"
+    body: "{{ crayfish_convert_options_url }}"
+    method: POST
+    status_code: 200
+    headers:
+      Content-Type: text/plain
+      Bearer: "{{ crayfish_syn_token }}"
+  when: convert_service.status == 404

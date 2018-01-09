@@ -17,3 +17,8 @@
   tags:
     - crayfish
     - crayfish-install
+
+- include: register.yml
+  tags:
+    - crayfish
+    - crayfish-register

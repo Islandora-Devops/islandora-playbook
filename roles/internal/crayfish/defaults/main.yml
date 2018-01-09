@@ -6,7 +6,7 @@ crayfish_services:
   - Houdini
   - Milliner
   - Hypercube
-  
+
 crayfish_install_dir: /var/www/html/Crayfish
 
 crayfish_syn_token: islandora
@@ -90,3 +90,14 @@ crayfish_milliner_db_options:
   user: "{{ crayfish_db_user }}"
   password: "{{ crayfish_db_password }}"
 
+# Vars for registering services in api-x
+crayfish_apix_loader_url: http://localhost:8081/services//apix:load
+
+crayfish_apix_hypercube_service: http://localhost:8081/fcrepo/rest/apix/services/CLAW-OcrService
+crayfish_hypercube_options_url: http://localhost:8000/hypercube/
+
+crayfish_apix_identify_service: http://localhost:8081/fcrepo/rest/apix/services/CLAW-IdentifyService
+crayfish_identify_options_url: http://localhost:8000/houdini/identify
+
+crayfish_apix_convert_service: http://localhost:8081/fcrepo/rest/apix/services/CLAW-ConvertService
+crayfish_convert_options_url: http://localhost:8000/houdini/convert
