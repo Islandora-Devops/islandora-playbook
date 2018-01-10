@@ -1,7 +1,7 @@
 ---
 
 - name: Check Hypercube
-- uri:
+  uri:
     url: "{{ crayfish_apix_hypercube_service }}"
     headers:
       Bearer: "{{ crayfish_syn_token }}"
@@ -9,7 +9,7 @@
   register: hypercube_service
 
 - name: Check Identify
-- uri:
+  uri:
     url: "{{ crayfish_apix_identify_service }}"
     headers:
       Bearer: "{{ crayfish_syn_token }}"
@@ -17,7 +17,7 @@
   register: identify_service
 
 - name: Check Convert
-- uri:
+  uri:
     url: "{{ crayfish_apix_convert_service }}"
     headers:
       Bearer: "{{ crayfish_syn_token }}"
