@@ -5,7 +5,6 @@
 
   roles:
     - tomcat8
-    - fits
     - fcrepo
     - fcrepo-syn
     - blazegraph
