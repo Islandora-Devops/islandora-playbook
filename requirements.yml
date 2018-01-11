@@ -31,44 +31,58 @@
 - src: geerlingguy.drupal-console
   version: 1.1.0
 
-- src: Islandora-Devops.activemq
+- src: https://github.com/Islandora-Devops/ansible-role-activemq
+  name: Islandora-Devops.activemq
   version: 0.0.1
 
-- src: Islandora-Devops.alpaca
+- src: https://github.com/Islandora-Devops/ansible-role-alpaca
+  name: Islandora-Devops.alpaca
   version: 0.0.1
 
-- src: Islandora-Devops.apix
+- src: https://github.com/Islandora-Devops/ansible-role-apix
+  name: Islandora-Devops.apix
   version: 0.0.1
 
-- src: Islandora-Devops.blazegraph
+- src: https://github.com/Islandora-Devops/ansible-role-blazegraph
+  name: Islandora-Devops.blazegraph
   version: 0.0.1
 
-- src: Islandora-Devops.cantaloupe
+- src: https://github.com/Islandora-Devops/ansible-role-cantaloupe
+  name: Islandora-Devops.cantaloupe
   version: 0.0.1
 
-- src: Islandora-Devops.crayfish
+- src: https://github.com/Islandora-Devops/ansible-role-crayfish
+  name: Islandora-Devops.crayfish
   version: 0.0.1
 
-- src: Islandora-Devops.drupal-openseadragon
+- src: https://github.com/Islandora-Devops/ansible-role-drupal-openseadragon
+  name: Islandora-Devops.drupal-openseadragon
   version: 0.0.1
 
-- src: Islandora-Devops.fcrepo
+- src: https://github.com/Islandora-Devops/ansible-role-fcrepo
+  name: Islandora-Devops.fcrepo
   version: 0.0.1
 
-- src: Islandora-Devops.fcrepo-syn
+- src: https://github.com/Islandora-Devops/ansible-role-fcrepo-syn
+  name: Islandora-Devops.fcrepo-syn
   version: 0.0.1
 
-- src: Islandora-Devops.tomcat8
+- src: https://github.com/Islandora-Devops/ansible-role-tomcat8
+  name: Islandora-Devops.tomcat8
   version: 0.0.1
 
-- src: Islandora-Devops.fits
+- src: https://github.com/Islandora-Devops/ansible-role-fits
+  name: Islandora-Devops.fits
   version: 0.0.1
 
-- src: Islandora-Devops.grok
+- src: https://github.com/Islandora-Devops/ansible-role-grok
+  name: Islandora-Devops.grok
   version: 0.0.1
 
-- src: Islandora-Devops.karaf
+- src: https://github.com/Islandora-Devops/ansible-role-karaf
+  name: Islandora-Devops.karaf
   version: 0.0.1
 
-- src: Islandora-Devops.keymaster
+- src: https://github.com/Islandora-Devops/ansible-role-keymaster
+  name: Islandora-Devops.keymaster
   version: 0.0.1
