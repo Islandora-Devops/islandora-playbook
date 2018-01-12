@@ -17,7 +17,7 @@ drupal_composer_dependencies:
 drupal_composer_project_package: "drupal-composer/drupal-project:8.x-dev"
 drupal_composer_project_options: "--prefer-dist --stability dev --no-interaction"
 drupal_core_path: "{{ drupal_composer_install_dir }}/web"
-drupal_db_user: root
+drupal_db_user: drupal8
 drupal_db_password: islandora
 drupal_db_name: drupal8
 drupal_db_backend: "{{ claw_db }}"
