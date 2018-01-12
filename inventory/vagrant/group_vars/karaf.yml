@@ -1,0 +1,19 @@
+---
+
+alpaca_settings:
+  - pid: ca.islandora.alpaca.connector.broadcast
+    settings:
+      input.stream: activemq:queue:islandora-connector-broadcast
+  - pid: ca.islandora.alpaca.indexing.triplestore
+    settings:
+      error.maxRedeliveries: 10
+      input.stream: activemq:queue:islandora-indexing-triplestore
+      triplestore.baseUrl: http://localhost:8080/bigdata/namespace/kb/sparql
+  - pid: ca.islandora.alpaca.indexing.fcrepo
+    settings:
+      error.maxRedeliveries: 10
+      content.stream: activemq:queue:islandora-indexing-fcrepo-content
+      file.stream: activemq:queue:islandora-indexing-fcrepo-file
+      media.stream: activemq:queue:islandora-indexing-fcrepo-media
+      delete.stream: activemq:queue:islandora-indexing-fcrepo-delete
+      milliner.baseUrl: http://localhost:8000/milliner/
