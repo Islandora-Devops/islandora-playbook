@@ -4,8 +4,9 @@
   become: yes
 
   roles:
-    - apache
-    - php
-    - git
-    - composer
-    - crayfish
+    - geerlingguy.apache
+    - geerlingguy.php
+    - geerlingguy.git
+    - geerlingguy.composer
+    - Islandora-Devops.crayfish
+

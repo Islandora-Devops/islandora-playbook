@@ -1,8 +1,0 @@
----
-
-- name: Copy templated Karaf logging config
-  template:
-    src: "{{ karaf_logging_template }}"
-    dest: "{{ karaf_install_symlink }}/etc"
-    owner: "{{ karaf_user }}"
-    group: "{{ karaf_user }}"

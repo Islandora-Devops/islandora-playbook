@@ -1,7 +1,0 @@
-fcrepo_version: 4.7.2
-fcrepo_user: tomcat8
-fcrepo_data_dir: /var/lib/tomcat8/fcrepo4-data
-fcrepo_war_path: "{{ tomcat8_home }}/webapps/fcrepo.war"
-fcrepo_home_dir: /opt/fcrepo
-fcrepo_activemq_template: activemq.xml.j2
-fcrepo_config_dir: "{{ fcrepo_home_dir }}/configs"

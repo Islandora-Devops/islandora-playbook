@@ -1,7 +1,0 @@
----
-  
-ssl_key_directory: /opt/keys/claw
-ssl_key_public_file: public.key
-ssl_key_private_file: private.key
-ssl_key_private_output_path: /tmp/private.key
-ssl_key_public_output_path: /tmp/public.key

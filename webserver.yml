@@ -4,12 +4,12 @@
   become: yes
 
   roles:
-    - apache
-    - php
-    - git
-    - composer
-    - drush
-    - drupal-console
-    - drupal
-    - openseadragon
+    - geerlingguy.apache
+    - geerlingguy.php
+    - geerlingguy.git
+    - geerlingguy.composer
+    - geerlingguy.drush
+    - geerlingguy.drupal-console
+    - geerlingguy.drupal
+    - Islandora-Devops.drupal-openseadragon
     - webserver-app

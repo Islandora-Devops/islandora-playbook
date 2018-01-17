@@ -1,7 +1,0 @@
-CREATE TABLE Gemini (
-    id SERIAL PRIMARY KEY,
-    uuid VARCHAR(36) NOT NULL UNIQUE,
-    drupal VARCHAR(2048) NOT NULL UNIQUE,
-    fedora VARCHAR(2048) NOT NULL UNIQUE
-);
-ALTER TABLE Gemini OWNER TO {{ crayfish_db_user }};

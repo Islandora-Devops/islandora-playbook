@@ -9,7 +9,7 @@
       when: claw_db is not defined
 
   roles:
-    - role: mysql
+    - role: geerlingguy.mysql
       when: claw_db == 'mysql'
-    - role: postgresql
+    - role: geerlingguy.postgresql
       when: claw_db == 'pgsql'
