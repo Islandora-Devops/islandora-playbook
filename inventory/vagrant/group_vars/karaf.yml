@@ -8,7 +8,7 @@ alpaca_settings:
     settings:
       error.maxRedeliveries: 10
       input.stream: activemq:queue:islandora-indexing-triplestore
-      triplestore.baseUrl: http://localhost:8080/bigdata/namespace/kb/sparql
+      triplestore.baseUrl: http://localhost:8080/bigdata/namespace/islandora/sparql
   - pid: ca.islandora.alpaca.indexing.fcrepo
     settings:
       error.maxRedeliveries: 10
