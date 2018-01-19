@@ -13,14 +13,14 @@
     marker: // {mark} ANSIBLE MANAGED BLOCK
 
 - name: Uninstall core search module
-  command: drush -y pm-uninstall search
+  command: "{{ drush_path }} -y pm-uninstall search"
   args:
     chdir: "{{ drupal_core_path }}"
   register: uninstall_search
   changed_when: "'successfully uninstalled' in uninstall_search.stdout"
 
 - name: Test if theme is Carapace
-  command: drush -y config-get system.theme default
+  command: "{{ drush_path }} -y config-get system.theme default"
   args:
     chdir: "{{ drupal_core_path }}"
   register: drupal_theme_carapace
@@ -28,7 +28,7 @@
   check_mode: no
 
 - name: Set theme to carapace
-  command: drush -y config-set system.theme default carapace
+  command: "{{ drush_path }} -y config-set system.theme default carapace"
   args:
     chdir: "{{ drupal_core_path }}"
   when: "'carapace' not in drupal_theme_carapace.stdout"
@@ -85,7 +85,7 @@
   register: drupal_media_rest
 
 - name: Install config
-  command: drush config-import -y --partial --source="{{ webserver_app_drupal_config_path }}"
+  command: "{{ drush_path }} config-import -y --partial --source={{ webserver_app_drupal_config_path }}"
   args:
     chdir: "{{ drupal_core_path }}"
   when: (drupal_member_block.changed is defined and drupal_member_block.changed) or
@@ -94,7 +94,7 @@
         (drupal_media_rest.changed is defined and drupal_media_rest.changed)
 
 - name: Set default solr server to point to CLAW core
-  command: drush -y config-set search_api.server.default_solr_server backend_config.connector_config.core CLAW
+  command: "{{ drush_path }} -y config-set search_api.server.default_solr_server backend_config.connector_config.core CLAW"
   args:
     chdir: "{{ drupal_core_path }}"
   register: set_search_api_config
