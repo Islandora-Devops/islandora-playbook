@@ -26,9 +26,13 @@ islandora_extra_centos_packages:
 
 postgresql_user: postgres
 
-mysql_users:
-  - name: "{{ drupal_db_user }}"
-    host: "%"
-    password: "{{ drupal_db_password }}"
-    priv: "{{ drupal_db_name }}.*:ALL"
-    when: drupal_db_user != 'root'
+# If you are using a non-root database user,
+# you probably want to comment the next line
+# and un-comment the block below.
+mysql_users: []
+
+# mysql_users:
+#  - name: "{{ drupal_db_user }}"
+#    host: "%"
+#    password: "{{ drupal_db_password }}"
+#    priv: "{{ drupal_db_name }}.*:ALL"
