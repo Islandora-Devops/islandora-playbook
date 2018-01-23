@@ -56,7 +56,7 @@ The default Drupal login details are:
 
 ### MySQL
   
-  * username: root
+  * username: drupal8
   * password: islandora
 
 ### Fedora4
