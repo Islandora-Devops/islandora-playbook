@@ -1,5 +1,8 @@
 ---
 
+# Change selinux status to permissive
+disable_selinux: yes
+
 islandora_extra_ubuntu_packages:
   - wget
   - curl
@@ -31,4 +34,3 @@ mysql_users:
     host: "%"
     password: "{{ drupal_db_password }}"
     priv: "{{ drupal_db_name }}.*:ALL"
-    when: drupal_db_user != 'root'
