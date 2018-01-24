@@ -1,0 +1,7 @@
+---
+
+php_date_timezone: "America/Toronto"
+
+php_packages_extra:
+  - php-mysql
+  - php-pgsql

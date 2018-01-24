@@ -1,3 +1,8 @@
+- src: geerlingguy.php-mysql
+
+- src: geerlingguy.repo-remi
+  version: 1.2.0
+
 - src: geerlingguy.apache
   version: 2.1.1
 
