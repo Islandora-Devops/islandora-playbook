@@ -1,5 +1,8 @@
 ---
 
+# Change selinux status to permissive
+disable_selinux: yes
+
 islandora_extra_ubuntu_packages:
   - wget
   - curl
