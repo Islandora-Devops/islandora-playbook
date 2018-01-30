@@ -56,7 +56,7 @@ If you want to provision an all-in-one remote Ubuntu environment, like a product
 1. SSH into your remote server and add an `ubuntu` [user with sudo privileges](https://www.digitalocean.com/community/tutorials/how-to-create-a-sudo-user-on-ubuntu-quickstart)
 1. Clone the repository onto your local machine
 1. Create an inventory for your new environment ('production' in this example): `cp -r inventory/vagrant inventory/production`
-1. Edit `inventory/produciont/hosts` to point to your new environment by changing 'default' line to:
+1. Edit `inventory/production/hosts` to point to your new environment by changing 'default' line to:
 ```
 default ansible_ssh_host=my_ip_or_domain_name ansible_ssh_user=root ansible_ssh_pass=my_super_secret_password
 ```
