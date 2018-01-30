@@ -2,7 +2,7 @@
 
 tomcat8_users:
   - username: islandora
-    password: islandora
+    password: "{{ islandora_tomcat_password }}"
     roles:
       - manager-gui
 
@@ -36,14 +36,13 @@ fcrepo_syn_tokens:
   - user: admin
     roles:
       - admin
-    token: islandora
+    token: "{{ islandora_syn_token }}"
 
 cantaloupe_deploy_war: yes
 cantaloupe_deploy_war_path: "{{ tomcat8_home }}/webapps"
 cantaloupe_user: tomcat8
 cantaloupe_group: tomcat8
 cantaloupe_admin_enabled: "true"
-cantaloupe_admin_password: islandora
 cantaloupe_OpenJpegProcessor_path_to_binaries: /usr/local/bin
 cantaloupe_log_application_ConsoleAppender_enabled: "false"
 cantaloupe_log_application_FileAppender_enabled: "true"

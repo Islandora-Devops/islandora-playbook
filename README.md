@@ -53,27 +53,26 @@ If you're looking for a development environment, using our Vagrant deployment is
 
 If you want to provision an all-in-one remote Ubuntu environment, like a production server:
 
-1. SSH into your remote server and add an `ubuntu` [user with sudo privileges](https://www.digitalocean.com/community/tutorials/how-to-create-a-sudo-user-on-ubuntu-quickstart)
-1. Clone the repository onto your local machine
-1. Create an inventory for your new environment ('production' in this example): `cp -r inventory/vagrant inventory/production`
-1. Edit `inventory/produciont/hosts` to point to your new environment by changing 'default' line to:
+1. SSH into your remote server and add an [user with password-less sudo privileges](https://www.digitalocean.com/community/tutorials/how-to-create-a-sudo-user-on-ubuntu-quickstart), and make sure you can log in as that user. Its easiest if you use SSH keys for login, so that you an log in to the server without a password. Another option if you are no comfortable with password-less sudo is to set the `ansible_become_pass` variable in your inventory as outlined [here](http://docs.ansible.com/ansible/latest/become.html).
+1. Clone the repository onto your local machine.
+1. Create an inventory for your new environment ('production' in this example): `cp -r inventory/vagrant inventory/production`.
+1. Edit `inventory/production/hosts` to point to your new environment by changing 'default' line to:
 ```
-default ansible_ssh_host=my_ip_or_domain_name ansible_ssh_user=root ansible_ssh_pass=my_super_secret_password
+default ansible_ssh_host=my_ip_or_domain_name
 ```
-1. Change all the passwords from "islandora" to something else.  You can get a full list of them by grepping your new inventory:
-```bash
-$ grep -rn pass inventory/production
-inventory/production/group_vars/webserver/drupal.yml:21:drupal_db_password: islandora
-inventory/production/group_vars/webserver/drupal.yml:29:drupal_account_pass: islandora
-inventory/production/group_vars/database.yml:2:mysql_root_password: islandora
-inventory/production/group_vars/database.yml:6:    password: islandora
-inventory/production/group_vars/tomcat.yml:5:    password: islandora
-inventory/production/group_vars/tomcat.yml:46:cantaloupe_admin_password: islandora
+Optionally if you need to specify a username, password or port to connect to the server you can specify those in the inventory file as well:
 ```
-1. Change the `drupal_trusted_host` configuration in `inventory/production/group_vars/webserver/drupal.yml` to reflect your IP or domain name
-1. Change the Apache's port to 80 in `inventory/production/group_vars/webserver/apache.yml`
+default ansible_ssh_host=my_ip_or_domain_name ansible_ssh_user=my_user ansible_ssh_pass=my_super_secret_password ansible_ssh_port=my_port
+```
+More information about inventories can be found in the [ansible documentation](http://docs.ansible.com/ansible/latest/intro_inventory.html).
+1. Update the inventory variables as you see fit to customize your Islandora installation. 
+  1. You should modify `group_vars\all\passwords.yml` to use more secure passwords. These passwords can be encrypted using [Ansible Vault](https://docs.ansible.com/ansible/latest/vault.html) if you wish to keep your inventory secure.
+  1. Change the `drupal_trusted_host` configuration in `inventory/production/group_vars/webserver/drupal.yml` to reflect your IP or domain name
+  1. Change the Apache's port to 80 in `inventory/production/group_vars/webserver/apache.yml`
+  1. Any other variable changes you wish.
 1. Install the roles using `ansible-galaxy`: `$ ansible-galaxy install -r requirements.yml`
-1. Provision the server with `$ ansible-playbook -i inventory/production -e "islandora_distro=ubuntu/xenial64"`
+1. Provision the server with `$ ansible-playbook -i inventory/production`
+  - If the host you are provisioning is a Ubuntu 16.04 machine, you may wish to have the playbook install Python for you. This is a requirement to run the playbook. You can do this by passing an additional variable on the command line like this. `$ ansible-playbook -i inventory/production -e "islandora_distro=ubuntu/xenial64"`
 
 ## Connect
 
@@ -88,7 +87,7 @@ The default Drupal login details are:
 
 ### MySQL
   
-  * username: drupal8
+  * username: root
   * password: islandora
 
 ### Fedora4
@@ -126,3 +125,4 @@ The default VM login details are:
 ## Maintainers
 
 * [Jonathan Green](https://github.com/jonathangreen)
+
