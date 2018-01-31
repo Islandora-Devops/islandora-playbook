@@ -29,6 +29,8 @@ export ISLANDORA_VAGRANT_MEMORY=4096
 
 ### Using CENTOS
 
+_CENTOS support is WIP and not to be considered stable_
+
 Ubuntu 16.04 is the default linux distribution used by claw-playbook.  If you want to use CENTOS 7 instead, set the `ISLANDORA_DISTRO` environment variable to `centos/7`.  The easiest way to do this is to export the environment variable into your shell before running Vagrant commands. Otherwise you will have to provide the variable for every Vagrant command you issue.
 
 ```bash
@@ -40,8 +42,37 @@ If you are not using `vagrant up` to bring up a box, and are running `ansible-pl
 
 ## Use
 
-1. clone the repo
+### Vagrant
+
+If you're looking for a development environment, using our Vagrant deployment is easiest:
+
+1. Clone the repo
 2. `vagrant up`
+
+### All-in-one provisioning with Ansible
+
+If you want to provision an all-in-one remote Ubuntu environment, like a production server:
+
+1. SSH into your remote server and add an [user with password-less sudo privileges](https://www.digitalocean.com/community/tutorials/how-to-create-a-sudo-user-on-ubuntu-quickstart), and make sure you can log in as that user. Its easiest if you use SSH keys for login, so that you an log in to the server without a password. Another option if you are no comfortable with password-less sudo is to set the `ansible_become_pass` variable in your inventory as outlined [here](http://docs.ansible.com/ansible/latest/become.html).
+1. Clone the repository onto your local machine.
+1. Create an inventory for your new environment ('production' in this example): `cp -r inventory/vagrant inventory/production`.
+1. Edit `inventory/production/hosts` to point to your new environment by changing 'default' line to:
+```
+default ansible_ssh_host=my_ip_or_domain_name
+```
+Optionally if you need to specify a username, password or port to connect to the server you can specify those in the inventory file as well:
+```
+default ansible_ssh_host=my_ip_or_domain_name ansible_ssh_user=my_user ansible_ssh_pass=my_super_secret_password ansible_ssh_port=my_port
+```
+More information about inventories can be found in the [ansible documentation](http://docs.ansible.com/ansible/latest/intro_inventory.html).
+1. Update the inventory variables as you see fit to customize your Islandora installation. 
+  1. You should modify `group_vars\all\passwords.yml` to use more secure passwords. These passwords can be encrypted using [Ansible Vault](https://docs.ansible.com/ansible/latest/vault.html) if you wish to keep your inventory secure.
+  1. Change the `drupal_trusted_host` configuration in `inventory/production/group_vars/webserver/drupal.yml` to reflect your IP or domain name
+  1. Change the Apache's port to 80 in `inventory/production/group_vars/webserver/apache.yml`
+  1. Any other variable changes you wish.
+1. Install the roles using `ansible-galaxy`: `$ ansible-galaxy install -r requirements.yml`
+1. Provision the server with `$ ansible-playbook -i inventory/production`
+  - If the host you are provisioning is a Ubuntu 16.04 machine, you may wish to have the playbook install Python for you. This is a requirement to run the playbook. You can do this by passing an additional variable on the command line like this. `$ ansible-playbook -i inventory/production -e "islandora_distro=ubuntu/xenial64"`
 
 ## Connect
 
@@ -94,3 +125,4 @@ The default VM login details are:
 ## Maintainers
 
 * [Jonathan Green](https://github.com/jonathangreen)
+

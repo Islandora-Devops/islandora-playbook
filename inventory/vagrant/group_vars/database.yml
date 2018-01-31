@@ -1,9 +1,9 @@
 mysql_root_username: root
-mysql_root_password: islandora
+mysql_root_password: "{{ islandora_db_root_password  }}"
 
 postgresql_users:
   - name: root
-    password: islandora
+    password: "{{ islandora_db_root_password  }}"
     db: "{{ drupal_db_name }}"
 
 postgresql_databases:
