@@ -2,7 +2,7 @@
 
 drupal_build_composer_project: true
 drupal_composer_install_dir: /var/www/html/drupal
-drupal_core_owner: "{{ ansible_user }}"
+drupal_core_owner: "{{ ansible_user_id }}"
 drupal_composer_dependencies:
   - "drupal/console:~1.0"
   - "drupal/devel:^1.0@beta"
@@ -18,7 +18,6 @@ drupal_composer_project_package: "drupal-composer/drupal-project:8.x-dev"
 drupal_composer_project_options: "--prefer-dist --stability dev --no-interaction"
 drupal_core_path: "{{ drupal_composer_install_dir }}/web"
 drupal_db_user: drupal8
-drupal_db_password: islandora
 drupal_db_name: drupal8
 drupal_db_backend: "{{ claw_db }}"
 drupal_db_host: "127.0.0.1"
@@ -26,7 +25,6 @@ drupal_domain: "claw.dev"
 drupal_site_name: "Islandora-CLAW"
 drupal_install_profile: standard
 drupal_account_name: admin
-drupal_account_pass: islandora
 drupal_enable_modules:
   - rdf
   - responsive_image
@@ -40,7 +38,6 @@ drupal_enable_modules:
   - media_entity_image
   - devel
   - search_api
-  - carapace
   - islandora_image
   - search_api_solr
   - search_api_solr_defaults
