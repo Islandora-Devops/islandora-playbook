@@ -46,4 +46,3 @@ drupal_trusted_hosts:
   - ^localhost$
 drupal_trusted_hosts_file: "{{ drupal_core_path }}/sites/default/settings.php"
 drupal_public_filesystem: "{{ drupal_core_path }}/sites/default/files"
-drupal_public_filesystem_user: www-data
