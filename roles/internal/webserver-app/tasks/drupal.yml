@@ -51,8 +51,8 @@
     recurse: yes
     state: directory
     path: "{{ drupal_public_filesystem }}"
-    owner: "{{ drupal_public_filesystem_user }}"
-    group: "{{ drupal_public_filesystem_user }}"
+    owner: "{{ webserver_app_user }}"
+    group: "{{ webserver_app_user }}"
 
 - name: Create drupal configs directory.
   file:
