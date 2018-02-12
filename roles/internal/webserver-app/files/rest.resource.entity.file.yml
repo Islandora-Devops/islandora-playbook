@@ -1,0 +1,28 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - basic_auth
+    - file
+    - jsonld
+    - jwt
+    - serialization
+    - user
+id: entity.file
+plugin_id: 'entity:file'
+granularity: method
+configuration:
+  GET:
+    supported_formats:
+      - jsonld
+      - json
+    supported_auth:
+      - basic_auth
+      - jwt_auth
+      - cookie
+  DELETE:
+    supported_formats:
+      - json
+    supported_auth:
+      - basic_auth
+      - jwt_auth
