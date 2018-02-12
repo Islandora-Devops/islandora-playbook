@@ -68,7 +68,11 @@ More information about inventories can be found in the [ansible documentation](h
 1. Update the inventory variables as you see fit to customize your Islandora installation. 
   1. You should modify `group_vars\all\passwords.yml` to use more secure passwords. These passwords can be encrypted using [Ansible Vault](https://docs.ansible.com/ansible/latest/vault.html) if you wish to keep your inventory secure.
   1. Change the `drupal_trusted_host` configuration in `inventory/production/group_vars/webserver/drupal.yml` to reflect your IP or domain name
-  1. Change the Apache's port to 80 in `inventory/production/group_vars/webserver/apache.yml`
+  1. To run drupal on port 80, change the following variables:
+      * apache_listen_port to 80 in `inventory/production/group_vars/webserver/apache.yml`
+      * crayfish_milliner_drupal_base_url `inventory/production/group_vars/crayfish.yml`
+      * crayfish_milliner_gemini_base_url `inventory/production/group_vars/crayfish.yml`
+      * milliner.baseUrl `inventory/production/group_vars/karaf.yml`
   1. Any other variable changes you wish.
 1. Install the roles using `ansible-galaxy`: `$ ansible-galaxy install -r requirements.yml`
 1. Provision the server with `$ ansible-playbook -i inventory/production`
@@ -114,6 +118,42 @@ The default VM login details are:
   
   * username: ubuntu
   * password: ubuntu
+  
+### ActiveMQ
+
+The default ActiveMQ login details are:
+  
+  * username: admin
+  * password: admin
+
+You can access the ActiveMQ administrative interface at: http://localhost:8161/admin
+
+### Cantaloupe
+
+You can access the Canataloupe admin interface at: http://localhost:8080/cantaloupe/admin
+
+  * username: admin
+  * password: islandora
+  
+You can access the IIIF interface at: http://localhost:8080/cantaloupe/iiif/2/
+
+### JWT
+
+CLAW uses JWT for authentication across the stack. Crayfish microservices, Fedora, and Drupal all use them. 
+Crayfish and Fedora have been set up to use a master token of `islandora` to make testing easier.  To use it, just set
+the following header in HTTP requests:
+
+  * `Authorization: Bearer islandora`
+  
+### BlazeGraph (Bigdata)
+
+You can access the BlazeGraph interface at: http://localhost:8080/bigdata/
+
+You have to select the islandora namespace in the [namespaces tab](http://localhost:8080/bigdata/#namespaces) before you can execute queries.
+
+### FITS
+
+You can access the FITS Web Service at http://localhost:8080/fits/  
  
 ## Roadmap
 
