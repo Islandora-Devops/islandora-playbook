@@ -76,7 +76,7 @@ More information about inventories can be found in the [ansible documentation](h
   1. Any other variable changes you wish.
 1. Install the roles using `ansible-galaxy`: `$ ansible-galaxy install -r requirements.yml`
 1. Provision the server with `$ ansible-playbook -i inventory/production`
-  - If the host you are provisioning is a Ubuntu 16.04 machine, you may wish to have the playbook install Python for you. This is a requirement to run the playbook. You can do this by passing an additional variable on the command line like this. `$ ansible-playbook -i inventory/production -e "islandora_distro=ubuntu/xenial64"`
+  - If the host you are provisioning is a Ubuntu 16.04 machine, you may wish to have the playbook install Python for you. This is a requirement to run the playbook. You can do this by passing an additional variable on the command line like this. `$ ansible-playbook -i inventory/production/hosts playbook.yml -e "islandora_distro=ubuntu/xenial64"`
 
 ## Connect
 
