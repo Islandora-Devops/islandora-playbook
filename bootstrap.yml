@@ -4,6 +4,8 @@
   hosts: all
   become: yes
   gather_facts: false
+  vars_files:
+    - "vars/{{ ansible_os_family }}.yml"
 
   tasks:
     # python isn't installed by default on ubuntu 16.04 so we need
