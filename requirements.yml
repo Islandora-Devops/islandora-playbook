@@ -75,7 +75,7 @@
 
 - src: https://github.com/Islandora-Devops/ansible-role-tomcat8
   name: Islandora-Devops.tomcat8
-  version: 0.0.1
+  version: 0.0.2
 
 - src: https://github.com/Islandora-Devops/ansible-role-fits
   name: Islandora-Devops.fits
