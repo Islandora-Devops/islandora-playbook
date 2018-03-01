@@ -4,8 +4,6 @@
   hosts: all
   become: yes
   gather_facts: false
-  vars_files:
-    - "vars/{{ ansible_os_family }}.yml"
 
   tasks:
     # python isn't installed by default on ubuntu 16.04 so we need
@@ -21,6 +19,10 @@
     # Manually gather facts once python is installed
     - name: gather facts
       setup:
+
+    # Include OS specific variables (like PHP stuff)
+    - name: include OS specific variables
+      include_vars: "vars/{{ ansible_os_family }}.yml"
 
     # also need to make sure aptitude is installed for the apt
     # commands in ansible.
