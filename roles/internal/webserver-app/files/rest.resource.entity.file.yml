@@ -3,13 +3,13 @@ status: true
 dependencies:
   module:
     - basic_auth
+    - file
     - jsonld
     - jwt
-    - media_entity
     - serialization
     - user
-id: entity.media
-plugin_id: 'entity:media'
+id: entity.file
+plugin_id: 'entity:file'
 granularity: method
 configuration:
   GET:
@@ -20,19 +20,7 @@ configuration:
       - basic_auth
       - jwt_auth
       - cookie
-  POST:
-    supported_formats:
-      - json
-    supported_auth:
-      - basic_auth
-      - jwt_auth
   DELETE:
-    supported_formats:
-      - json
-    supported_auth:
-      - basic_auth
-      - jwt_auth
-  PATCH:
     supported_formats:
       - json
     supported_auth:

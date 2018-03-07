@@ -61,50 +61,20 @@
     owner: "{{ webserver_app_user }}"
     group: "{{ webserver_app_user }}"
 
-- name: Copy members block config
+- name: Copy drupal config
   copy:
-    src: block.block.views_block__membership_view_block_1.yml
-    dest: "{{ webserver_app_drupal_config_path }}/block.block.views_block__membership_view_block_1.yml"
+    src: "."
+    dest: "{{ webserver_app_drupal_config_path }}/"
     mode: "0644"
     owner: "{{ webserver_app_user }}"
     group: "{{ webserver_app_user }}"
-  register: drupal_member_block
-
-- name: Copy filehash config
-  copy:
-    src: filehash.settings.yml
-    dest: "{{ webserver_app_drupal_config_path }}/filehash.settings.yml"
-    mode: "0644"
-    owner: "{{ webserver_app_user }}"
-    group: "{{ webserver_app_user }}"
-  register: drupal_filehash_settings
-
-- name: Copy node REST config
-  copy:
-    src: rest.resource.entity.node.yml
-    dest: "{{ webserver_app_drupal_config_path }}/rest.resource.entity.node.yml"
-    mode: "0644"
-    owner: "{{ webserver_app_user }}"
-    group: "{{ webserver_app_user }}"
-  register: drupal_node_rest
-
-- name: Copy media REST config
-  copy:
-    src: rest.resource.entity.media.yml
-    dest: "{{ webserver_app_drupal_config_path }}/rest.resource.entity.media.yml"
-    mode: "0644"
-    owner: "{{ webserver_app_user }}"
-    group: "{{ webserver_app_user }}"
-  register: drupal_media_rest
+  register: drupal_config
 
 - name: Install config
   command: "{{ drush_path }} config-import -y --partial --source={{ webserver_app_drupal_config_path }}"
   args:
     chdir: "{{ drupal_core_path }}"
-  when: (drupal_member_block.changed is defined and drupal_member_block.changed) or
-        (drupal_filehash_settings.changed is defined and drupal_filehash_settings.changed) or
-        (drupal_node_rest.changed is defined and drupal_node_rest.changed) or
-        (drupal_media_rest.changed is defined and drupal_media_rest.changed)
+  when: drupal_config.changed is defined and drupal_config.changed
 
 - name: Set default solr server to point to CLAW core
   command: "{{ drush_path }} -y config-set search_api.server.default_solr_server backend_config.connector_config.core CLAW"
