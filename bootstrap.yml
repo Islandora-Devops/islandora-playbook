@@ -20,6 +20,10 @@
     - name: gather facts
       setup:
 
+    # Include OS specific variables (like PHP stuff)
+    - name: include OS specific variables
+      include_vars: "vars/{{ ansible_os_family }}.yml"
+
     # also need to make sure aptitude is installed for the apt
     # commands in ansible.
     - name: install aptitude
