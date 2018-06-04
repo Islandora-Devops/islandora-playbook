@@ -11,7 +11,7 @@ This virtual machine **should not** be used in production **yet**.
 ## Requirements
 
 1. [VirtualBox](https://www.virtualbox.org/)
-2. [Vagrant](http://www.vagrantup.com/) 1.8.5+
+2. [Vagrant](http://www.vagrantup.com/) 2.0.1 - 2.0.5 (may work with newer versions, but un-tested)
 3. [git](https://git-scm.com/)
 4. [ansible](https://www.ansible.com/community) 2.3+
 5. [virtualbox-vbguest](https://github.com/dotless-de/vagrant-vbguest) plugin (If targeting CENTOS)
