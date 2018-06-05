@@ -4,7 +4,7 @@
 # Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
 VAGRANTFILE_API_VERSION = "2"
 
-Vagrant.require_version ">= 1.8.5", "<= 2.0.1"
+Vagrant.require_version ">= 2.0.1", "<= 2.0.5"
 
 $cpus   = ENV.fetch("ISLANDORA_VAGRANT_CPUS", "1")
 $memory = ENV.fetch("ISLANDORA_VAGRANT_MEMORY", "4096")
