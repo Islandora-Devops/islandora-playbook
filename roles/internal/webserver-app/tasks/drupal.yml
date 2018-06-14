@@ -61,21 +61,6 @@
     owner: "{{ webserver_app_user }}"
     group: "{{ webserver_app_user }}"
 
-#- name: Import features
-#  command: "{{ drush_path }} -y fim --bundle=islandora islandora_feature,islandora_openseadragon,islandora_image_feature"
-#  args:
- #   chdir: "{{ drupal_core_path }}"
-
-#- name: Run tag migrations
-#  command: "{{ drush_path }} -y mim --group=islandora"
-#  args:
- #   chdir: "{{ drupal_core_path }}"
-
-#- name: Index tags
-#  command: "{{ drush_path }} -y php:eval 'array_walk(\\Drupal::service('entity_type.manager')->getStorage('taxonomy_term')->loadMultiple(), function($term) { $term->save(); });'"
-#  args:
- #   chdir: "{{ drupal_core_path }}"
-
 - name: Set default solr server to point to CLAW core
   command: "{{ drush_path }} -y config-set search_api.server.default_solr_server backend_config.connector_config.core CLAW"
   args:
@@ -98,3 +83,9 @@
   with_items:
    - "{{ files_to_copy.stdout_lines }}"
   notify: restart solr
+
+- name: Import features
+  command: "{{ drush_path }} -y fim --bundle=islandora islandora_core_feature,islandora_demo_feature"
+  args:
+    chdir: "{{ drupal_core_path }}"
+
