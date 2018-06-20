@@ -1,0 +1,10 @@
+---
+
+- hosts: webserver
+  become: yes
+
+  tasks:
+    - name: Run migrations
+      command: "{{ drush_path }} -y -l localhost:{{ apache_listen_port }} mim --group=islandora"
+      args:
+        chdir: "{{ drupal_core_path }}"

@@ -9,3 +9,4 @@
 - include: tomcat.yml
 - include: crayfish.yml
 - include: karaf.yml
+- include: post-install.yml
