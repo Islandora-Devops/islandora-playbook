@@ -5,6 +5,6 @@
 
   tasks:
     - name: Run migrations
-      command: "{{ drush_path }} -y -l {{ apache_listen_ip }}:{{ apache_listen_port }} mim --group=islandora"
+      command: "{{ drush_path }} -y -l localhost:{{ apache_listen_port }} mim --group=islandora"
       args:
         chdir: "{{ drupal_core_path }}"
