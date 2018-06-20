@@ -2,9 +2,6 @@
 
 - hosts: webserver
   become: yes
-  vars:
-    php_enablerepo: "remi-php70"
-    php_packages_state: "latest"
 
   roles:
     - name: geerlingguy.repo-remi

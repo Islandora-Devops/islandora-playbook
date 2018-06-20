@@ -34,3 +34,7 @@ mysql_users:
     host: "%"
     password: "{{ drupal_db_password }}"
     priv: "{{ drupal_db_name }}.*:ALL"
+
+# Used by both the webserver and crayfish role for CentOS.
+php_enablerepo: "remi-php72"
+php_packages_state: "latest"
