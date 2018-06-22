@@ -59,7 +59,7 @@
 
 - src: https://github.com/Islandora-Devops/ansible-role-crayfish
   name: Islandora-Devops.crayfish
-  version: 0.0.2
+  version: 0.0.3
 
 - src: https://github.com/Islandora-Devops/ansible-role-drupal-openseadragon
   name: Islandora-Devops.drupal-openseadragon
@@ -83,11 +83,11 @@
 
 - src: https://github.com/Islandora-Devops/ansible-role-grok
   name: Islandora-Devops.grok
-  version: 0.0.1
+  version: 0.0.2
 
 - src: https://github.com/Islandora-Devops/ansible-role-karaf
   name: Islandora-Devops.karaf
-  version: 0.0.1
+  version: 0.0.2
 
 - src: https://github.com/Islandora-Devops/ansible-role-keymaster
   name: Islandora-Devops.keymaster
