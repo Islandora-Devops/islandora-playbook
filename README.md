@@ -53,7 +53,7 @@ If you're looking for a development environment, using our Vagrant deployment is
 
 If you want to provision an all-in-one remote Ubuntu environment, like a production server:
 
-1. SSH into your remote server and add an [user with password-less sudo privileges](https://www.digitalocean.com/community/tutorials/how-to-create-a-sudo-user-on-ubuntu-quickstart), and make sure you can log in as that user. Its easiest if you use SSH keys for login, so that you an log in to the server without a password. Another option if you are no comfortable with password-less sudo is to set the `ansible_become_pass` variable in your inventory as outlined [here](http://docs.ansible.com/ansible/latest/become.html).
+1. SSH into your remote server and add an [user with password-less sudo privileges](https://www.digitalocean.com/community/tutorials/how-to-create-a-sudo-user-on-ubuntu-quickstart), and make sure you can log in as that user. Its easiest if you use SSH keys for login, so that you an log in to the server without a password. Another option if you are not comfortable with password-less sudo is to set the `ansible_become_pass` variable in your inventory as outlined [here](http://docs.ansible.com/ansible/latest/become.html).
 1. Clone the repository onto your local machine.
 1. Create an inventory for your new environment ('production' in this example): `cp -r inventory/vagrant inventory/production`.
 1. Edit `inventory/production/hosts` to point to your new environment by changing 'default' line to:
