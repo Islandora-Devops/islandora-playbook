@@ -3,7 +3,7 @@
 
 ## Introduction
 
-The is an Ansible playbook for Islandora CLAW. It also has a vagrant file to bring up a development
+This is an Ansible playbook for Islandora CLAW. It also has a vagrant file to bring up a development
 environment virtual machine for Islandora CLAW.
 
 This virtual machine **should not** be used in production **yet**.
@@ -11,7 +11,7 @@ This virtual machine **should not** be used in production **yet**.
 ## Requirements
 
 1. [VirtualBox](https://www.virtualbox.org/)
-2. [Vagrant](http://www.vagrantup.com/) 2.0.1 - 2.0.5 (may work with newer versions, but un-tested)
+2. [Vagrant](http://www.vagrantup.com/) (Known to work with 2.0.1 - 2.1.2)
 3. [git](https://git-scm.com/)
 4. [ansible](https://www.ansible.com/community) 2.3+
 5. [virtualbox-vbguest](https://github.com/dotless-de/vagrant-vbguest) plugin (If targeting CENTOS)
