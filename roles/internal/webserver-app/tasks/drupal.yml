@@ -9,6 +9,14 @@
         '{{ host }}',
       {% endfor %}
       );
+      $settings['flysystem'] = [
+        'fedora' => [
+          'driver' => 'fedora',
+          'config' => [
+            'root' => 'http://localhost:8080/fcrepo/rest/',
+          ],
+        ],
+      ];
     path: "{{ drupal_trusted_hosts_file }}"
     marker: // {mark} ANSIBLE MANAGED BLOCK
 
