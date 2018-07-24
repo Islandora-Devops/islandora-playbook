@@ -38,7 +38,6 @@ drupal_enable_modules:
   - search_api_solr_defaults
   - facets
   - islandora_core_feature
-  - islandora_demo_feature
 drupal_trusted_hosts:
   - ^localhost$
 drupal_trusted_hosts_file: "{{ drupal_core_path }}/sites/default/settings.php"
