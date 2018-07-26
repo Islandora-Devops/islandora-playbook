@@ -4,6 +4,31 @@
   become: yes
 
   tasks:
+    # Some tomfoolery to get the demo module to install.
+    # Subject to https://www.drupal.org/node/2599228
+    # Should be fixed in Drupal 8.7
+    - name: Install demo module (fail ok)
+      command: "{{ drush_path }} -y en islandora_demo_feature"
+      args:
+        chdir: "{{ drupal_core_path }}"
+      ignore_errors: yes
+    - name: Update entities
+      command: "{{ drush_path }} -y entity:updates"
+      args:
+        chdir: "{{ drupal_core_path }}"
+    - name: Uninstall demo module
+      command: "{{ drush_path }} -y pmu islandora_demo_feature"
+      args:
+        chdir: "{{ drupal_core_path }}"
+    - name: Install demo module (should not fail)
+      command: "{{ drush_path }} -y en islandora_demo_feature"
+      args:
+        chdir: "{{ drupal_core_path }}"
+    - name: Import feature
+      command: "{{ drush_path }} -y fim --bundle=islandora islandora_demo_feature"
+      args:
+        chdir: "{{ drupal_core_path }}"
+
     - name: Run migrations
       command: "{{ drush_path }} -y -l localhost:{{ apache_listen_port }} mim --group=islandora"
       args:
