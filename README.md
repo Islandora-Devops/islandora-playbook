@@ -106,6 +106,12 @@ Authentication is done via [Syn](https://github.com/Islandora-CLAW/Syn) using [J
   * username: islandora
   * password: islandora
 
+You can access the Tomcat Manager administration UI at http://localhost:8080/manager
+
+### Solr
+
+You can access the Solr administration UI at http://localhost:8983/solr/
+
 ### SSH
 
 You can connect to the machine via ssh:
