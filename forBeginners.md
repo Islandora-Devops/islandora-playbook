@@ -16,6 +16,8 @@ Requirement (n.)--software/hardware basics that must be in place before a piece 
 
 GUI (n.)-- a graphical user interface. This is the "pretty" front end designed for end-users.
 
+OS (n.)-- [Operating system](https://en.wikipedia.org/wiki/Operating_system) This is the software that supports a computer's basic functions. Examples of an OS include Microsoft Windows, macOS, and many flavors of Linux.
+
 ### Step-by-step:
 #### Step one: Gather your equipment
 
@@ -40,7 +42,7 @@ On another computer, insert the USB drive. Follow [these instructions](https://t
   2. Download [Ubuntu desktop](https://www.ubuntu.com/download/desktop).
   3. Run Rufus and select Ubuntu boot selection and the correct USB drive.
 
-#### Step three
+#### Step three: Install Ubuntu as your new OS
 
 On the Islandora sandbox computer, follow these [instructions](https://tutorials.ubuntu.com/tutorial/tutorial-install-ubuntu-desktop#0), or this summary:
   1. Insert USB drive into the computer.
@@ -52,7 +54,7 @@ On the Islandora sandbox computer, follow these [instructions](https://tutorials
   1. Restart.
   1. Congratulations on your new Linux computer!
 
-#### Step four
+#### Step four: Download Requirements for Islandora
 
 On your new Ubuntu computer, download the following:
 1. [Virtual Box](https://www.virtualbox.org/)
