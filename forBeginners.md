@@ -18,7 +18,7 @@ GUI (n.)-- a graphical user interface. This is the "pretty" front end designed f
 ### Step-by-step:
 #### Step one: Gather your equipment
 
-* Find the computer you want to use for your Islandora sandbox. It does not have to have an operating system (like Windows),
+Find the computer you want to use for your Islandora sandbox. It does not have to have an operating system (like Windows),
 but if it does, that's not a problem. It should be a machine that has been totally wiped or only has files that can be deleted. If you have any files on it that you would like to save, you should back them up elsewhere. 
 
   Other requirements this computer will (ideally) meet:
@@ -30,7 +30,7 @@ but if it does, that's not a problem. It should be a machine that has been total
 
   >If you don't have an operating system running, you can try to install the Ubuntu operating system below and follow these [steps](**return here to include link**)
   
-* Find or create an empty USB drive with at least 2 GB of space.
+Find or create an empty USB drive with at least 2 GB of space.
 
 #### Step two: Create a bootable drive of Ubuntu
 
@@ -56,7 +56,6 @@ On the Islandora sanbox computer, follow these [instructions](https://tutorials.
 On your new Ubuntu computer, download the following:
 1. [Virtual Box](https://www.virtualbox.org/)
 2. [Vagrant](https://www.vagrantup.com/) (version 2.0 or required)
-3. 
 
 Open the terminal of your new Ubuntu computer to download the remaining requirements:
 1. To install [git](https://git-scm.com/) follow these [instructions](https://www.liquidweb.com/kb/install-git-ubuntu-16-04-lts/), or the following:
@@ -66,9 +65,13 @@ Open the terminal of your new Ubuntu computer to download the remaining requirem
 
 1. To instal ansible, type the following lines of code, one at a time into the terminal:
 >$ sudo apt-get update
+
 >$ sudo apt-get install software-properties-common
+
 >$ sudo apt-add-repository ppa:ansible/ansible
+
 >$ sudo apt-get update
+
 >$ sudo apt-get install ansible
 
 #### Step five: Clone and Run Islandora CLAW vagrant
