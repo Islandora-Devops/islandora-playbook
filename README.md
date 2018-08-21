@@ -8,6 +8,8 @@ environment virtual machine for Islandora CLAW.
 
 This virtual machine **should not** be used in production **yet**.
 
+If you struggle with following the instructions for setting up the requirements a simpler step-by-step guidelines for turning nearly any computer into an Islandora CLAW environment can be found at "[for Beginners](forBeginners.md)".
+
 ## Requirements
 
 1. [VirtualBox](https://www.virtualbox.org/)
