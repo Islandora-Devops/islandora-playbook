@@ -62,13 +62,15 @@ On your new Ubuntu computer, download the following:
 
 Open the terminal of your new Ubuntu computer to download the remaining requirements:
 1. To install [git](https://git-scm.com/) follow these [instructions](https://www.liquidweb.com/kb/install-git-ubuntu-16-04-lts/), or the following:
->$ sudo apt-get update
 
->$ sudo apt-get install git
+>$ apt-get update
 
->$ sudo git --version
+>$ apt-get install git
+
+>$ git --version
 
 1. To install ansible, type the following lines of code, one at a time, into the terminal:
+
 >$ sudo apt-get update
 
 >$ sudo apt-get install software-properties-common
@@ -81,11 +83,14 @@ Open the terminal of your new Ubuntu computer to download the remaining requirem
 
 #### Step five: Clone and Run Islandora CLAW vagrant
 1. To download Islandora CLAW, type the following into the terminal:
+
 > git clone https://github.com/Islandora-Devops/claw-playbook.git
 
 2. When that script has finished running, open or move into the appropriate folder by typing the following into the terminal:
+
 > cd claw-playbook
 
 3. To run the scripts, type:
+
 > vagrant up
 
