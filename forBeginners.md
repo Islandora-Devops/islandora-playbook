@@ -18,10 +18,13 @@ GUI (n.)-- a graphical user interface. This is the "pretty" front end designed f
 but if it does that's not a problem. Ideally it should be a machine that has been totally wiped. If you have any files on it
 that you would like to save, you should back them up elsewhere. 
 
-Other requirements this computer will (ideally) meet:
-1. 3GB of RAM
-2. 4GB of Memory free
-3. Internet connection
-If you're not sure how much RAM and free memory is on the computer and you have a Windows computer, you can follow this [tutorial]()
-to check.
-If you don't have an operating system running, you can try to install the Ubuntu operating system below.
+  Other requirements this computer will (ideally) meet:
+  1. 3GB of RAM
+  2. 4GB of hard drive memory free
+  3. Internet connection
+  
+  >If you're not sure how much RAM and free memory on your hard drive is on the computer and you have a Windows computer, you can follow this [tutorial](https://www.computerhope.com/issues/ch000149.htm).
+
+  >If you don't have an operating system running, you can try to install the Ubuntu operating system below and follow these [steps](**return here to include link**)
+
+
