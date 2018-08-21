@@ -62,11 +62,11 @@ On your new Ubuntu computer, download the following:
 
 Open the terminal of your new Ubuntu computer to download the remaining requirements:
 1. To install [git](https://git-scm.com/) follow these [instructions](https://www.liquidweb.com/kb/install-git-ubuntu-16-04-lts/), or the following:
->apt-get update
+>$ sudo apt-get update
 
->apt-get install git
+>$ sudo apt-get install git
 
->git --version
+>$ sudo git --version
 
 1. To install ansible, type the following lines of code, one at a time, into the terminal:
 >$ sudo apt-get update
