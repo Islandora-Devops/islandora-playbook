@@ -13,7 +13,10 @@ colorful text on a black background. Terminals provide more control than a GUI w
 a computer system that are required for software like the pre-requisite requirements for Islandora.
 
 Requirement (n.)--software/hardware basics that must be in place before a piece of software will run properly
+
 GUI (n.)-- a graphical user interface. This is the "pretty" front end designed for end-users.
+
+OS (n.)-- [Operating system](https://en.wikipedia.org/wiki/Operating_system) This is the software that supports a computer's basic functions. Examples of an OS include Microsoft Windows, macOS, and many flavors of Linux.
 
 ### Step-by-step:
 #### Step one: Gather your equipment
@@ -39,9 +42,9 @@ On another computer, insert the USB drive. Follow [these instructions](https://t
   2. Download [Ubuntu desktop](https://www.ubuntu.com/download/desktop).
   3. Run Rufus and select Ubuntu boot selection and the correct USB drive.
 
-#### Step three
+#### Step three: Install Ubuntu as your new OS
 
-On the Islandora sanbox computer, follow these [instructions](https://tutorials.ubuntu.com/tutorial/tutorial-install-ubuntu-desktop#0), or this summary:
+On the Islandora sandbox computer, follow these [instructions](https://tutorials.ubuntu.com/tutorial/tutorial-install-ubuntu-desktop#0), or this summary:
   1. Insert USB drive into the computer.
   2. Restart the computer.
   3. If the welcome screen for Ubuntu doesn't pop up, restart again, this time holding down F12.
@@ -51,7 +54,7 @@ On the Islandora sanbox computer, follow these [instructions](https://tutorials.
   1. Restart.
   1. Congratulations on your new Linux computer!
 
-#### Step four
+#### Step four: Download Requirements for Islandora
 
 On your new Ubuntu computer, download the following:
 1. [Virtual Box](https://www.virtualbox.org/)
@@ -63,7 +66,7 @@ Open the terminal of your new Ubuntu computer to download the remaining requirem
 >apt-get install git
 >git --version
 
-1. To instal ansible, type the following lines of code, one at a time into the terminal:
+1. To install ansible, type the following lines of code, one at a time, into the terminal:
 >$ sudo apt-get update
 
 >$ sudo apt-get install software-properties-common
