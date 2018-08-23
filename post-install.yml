@@ -8,7 +8,7 @@
     # Subject to https://www.drupal.org/node/2599228
     # Should be fixed in Drupal 8.7
     - name: Install demo module (fail ok)
-      command: "{{ drush_path }} -y en islandora_demo_feature"
+      command: "{{ drush_path }} -y en islandora_demo"
       args:
         chdir: "{{ drupal_core_path }}"
       ignore_errors: yes
@@ -17,15 +17,15 @@
       args:
         chdir: "{{ drupal_core_path }}"
     - name: Uninstall demo module
-      command: "{{ drush_path }} -y pmu islandora_demo_feature"
+      command: "{{ drush_path }} -y pmu islandora_demo"
       args:
         chdir: "{{ drupal_core_path }}"
     - name: Install demo module (should not fail)
-      command: "{{ drush_path }} -y en islandora_demo_feature"
+      command: "{{ drush_path }} -y en islandora_demo"
       args:
         chdir: "{{ drupal_core_path }}"
     - name: Import feature
-      command: "{{ drush_path }} -y fim --bundle=islandora islandora_demo_feature"
+      command: "{{ drush_path }} -y fim --bundle=islandora islandora_demo"
       args:
         chdir: "{{ drupal_core_path }}"
 

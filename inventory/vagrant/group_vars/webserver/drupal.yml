@@ -13,6 +13,8 @@ drupal_composer_dependencies:
   - "islandora/carapace:dev-8.x-1.x"
   - "islandora/openseadragon:dev-8.x-1.x"
   - "islandora/islandora_image:dev-8.x-1.x"
+  - "islandora/islandora_demo:dev-8.x-1.x"
+  - "islandora/controlled_access_terms:dev-8.x-1.x"
 drupal_composer_project_package: "islandora/drupal-project:8.5"
 drupal_composer_project_options: "--prefer-dist --stability dev --no-interaction"
 drupal_core_path: "{{ drupal_composer_install_dir }}/web"
@@ -38,6 +40,7 @@ drupal_enable_modules:
   - search_api_solr_defaults
   - facets
   - islandora_core_feature
+  - controlled_access_terms
 drupal_trusted_hosts:
   - ^localhost$
 drupal_trusted_hosts_file: "{{ drupal_core_path }}/sites/default/settings.php"
