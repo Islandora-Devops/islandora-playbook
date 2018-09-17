@@ -97,3 +97,24 @@
   args:
     chdir: "{{ drupal_core_path }}"
 
+# masonry library is required by content_browser and not installed by composer due to issue 2971165.
+- name: Create drupal library directory.
+  file:
+    state: directory
+    path: "{{ drupal_external_libraries_directory }}"
+    owner: "{{ webserver_app_user }}"
+    group: "{{ webserver_app_user }}"
+
+- name: Unarchive masonry library.
+  unarchive:
+    src: "https://github.com/desandro/masonry/archive/v3.3.2.zip"
+    dest: "{{ drupal_external_libraries_directory }}"
+    creates: "{{ drupal_external_libraries_directory }}/masonry"
+    remote_src: yes
+
+- name: Rename masonry directory.
+  command: mv "{{ drupal_external_libraries_directory }}/masonry-3.3.2" "{{ drupal_external_libraries_directory }}/masonry"
+  args:
+    creates: "{{ drupal_external_libraries_directory }}/masonry"
+
+
