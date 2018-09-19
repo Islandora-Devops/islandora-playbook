@@ -10,6 +10,7 @@ drupal_composer_dependencies:
   - "drupal/restui:^1.13"
   - "drupal/search_api_solr:^2.0"
   - "drupal/facets:1.x-dev"
+  - "drupal/content_browser:^1.0@alpha"
   - "islandora/carapace:dev-8.x-1.x"
   - "islandora/openseadragon:dev-8.x-1.x"
   - "islandora/islandora_image:dev-8.x-1.x"
@@ -39,9 +40,11 @@ drupal_enable_modules:
   - search_api_solr
   - search_api_solr_defaults
   - facets
+  - content_browser
   - islandora_core_feature
   - controlled_access_terms
 drupal_trusted_hosts:
   - ^localhost$
 drupal_trusted_hosts_file: "{{ drupal_core_path }}/sites/default/settings.php"
 drupal_public_filesystem: "{{ drupal_core_path }}/sites/default/files"
+drupal_external_libraries_directory: "{{ drupal_core_path }}/libraries"
