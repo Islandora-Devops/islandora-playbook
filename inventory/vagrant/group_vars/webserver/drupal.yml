@@ -42,6 +42,7 @@ drupal_enable_modules:
   - search_api_solr_defaults
   - facets
   - content_browser
+  - matomo
   - islandora_core_feature
   - controlled_access_terms
 drupal_trusted_hosts:
