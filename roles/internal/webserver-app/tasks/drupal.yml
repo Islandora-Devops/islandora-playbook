@@ -117,4 +117,17 @@
   args:
     creates: "{{ drupal_external_libraries_directory }}/masonry"
 
+# Set Matomo Settings
+- name: Set Matomo site id.
+  command: "{{ drush_path }} -y config-set matomo.settings site_id 1"
+  args:
+    chdir: "{{ drupal_core_path }}"
+  register: set_search_api_config
+  changed_when: "'Do you want to update site_id' in set_search_api_config.stdout"
 
+- name: Set Matmo sever url.
+  command: "{{ drush_path }} -y config-set matomo.settings url_http http://localhost:8000/matomo/"
+  args:
+    chdir: "{{ drupal_core_path }}"
+  register: set_search_api_config
+  changed_when: "'Do you want to update site_id' in set_search_api_config.stdout"
