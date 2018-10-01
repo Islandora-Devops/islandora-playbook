@@ -11,6 +11,7 @@ drupal_composer_dependencies:
   - "drupal/search_api_solr:^2.0"
   - "drupal/facets:1.x-dev"
   - "drupal/content_browser:^1.0@alpha"
+  - "drupal/matomo:^1.7"
   - "islandora/carapace:dev-8.x-1.x"
   - "islandora/openseadragon:dev-8.x-1.x"
   - "islandora/islandora_image:dev-8.x-1.x"
@@ -41,6 +42,7 @@ drupal_enable_modules:
   - search_api_solr_defaults
   - facets
   - content_browser
+  - matomo
   - islandora_core_feature
   - controlled_access_terms
 drupal_trusted_hosts:
