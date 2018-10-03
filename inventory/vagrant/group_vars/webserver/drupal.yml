@@ -14,9 +14,7 @@ drupal_composer_dependencies:
   - "drupal/matomo:^1.7"
   - "islandora/carapace:dev-8.x-1.x"
   - "islandora/openseadragon:dev-8.x-1.x"
-  - "islandora/islandora_image:dev-8.x-1.x"
-  - "islandora/islandora_demo:dev-8.x-1.x"
-  - "islandora/controlled_access_terms:dev-8.x-1.x"
+  - "islandora/islandora_demo:dev-issue-888"
 drupal_composer_project_package: "islandora/drupal-project:8.6"
 drupal_composer_project_options: "--prefer-dist --stability dev --no-interaction"
 drupal_core_path: "{{ drupal_composer_install_dir }}/web"
@@ -44,7 +42,7 @@ drupal_enable_modules:
   - content_browser
   - matomo
   - islandora_core_feature
-  - controlled_access_terms
+  - controlled_access_terms_default_configuration
 drupal_trusted_hosts:
   - ^localhost$
 drupal_trusted_hosts_file: "{{ drupal_core_path }}/sites/default/settings.php"
