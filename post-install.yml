@@ -3,6 +3,11 @@
 - hosts: webserver
   become: yes
 
+  # add some vars here so we can run with --start-at-task if desired
+  vars:
+    webserver_app_user: "{% if ansible_os_family == 'RedHat' %}apache{% else %}www-data{% endif %}"
+    vagrant_user: "{% if ansible_os_family == 'RedHat' %}vagrant{% else %}ubuntu{% endif %}"
+
   tasks:
     # Some tomfoolery to get the demo module to install.
     # Subject to https://www.drupal.org/node/2599228
@@ -33,3 +38,44 @@
       command: "{{ drush_path }} -y -l localhost:{{ apache_listen_port }} mim --group=islandora"
       args:
         chdir: "{{ drupal_core_path }}"
+
+    - name: Add vagrant user to webserver app user group
+      user: name={{ vagrant_user }}
+            group={{ webserver_app_user }}
+            append=yes
+
+    - name: Create the simpletest directory
+      file: 
+        path: "{{ drupal_public_filesystem }}/simpletest"
+        state: directory
+        owner: "{{ webserver_app_user }}"
+        group: "{{ webserver_app_user }}"
+        mode: 0775
+        recurse: yes
+    
+    - name: Chown islandora core feature
+      file:
+        dest: "{{ drupal_core_path }}/modules/contrib/islandora/modules/islandora_core_feature"
+        state: directory
+        owner: "{{ webserver_app_user }}"
+        group: "{{ webserver_app_user }}"
+        mode: 0775
+        recurse: yes
+
+    - name: Chown islandora demo feature
+      file:
+        dest: "{{ drupal_core_path }}/modules/contrib/islandora_demo"
+        state: directory
+        owner: "{{ webserver_app_user }}"
+        group: "{{ webserver_app_user }}"
+        mode: 0775
+        recurse: yes
+
+    - name: Chown controlled access terms default configuration
+      file:
+        dest: "{{ drupal_core_path }}/modules/contrib/controlled_access_terms/modules/controlled_access_terms_default_configuration"
+        state: directory
+        owner: "{{ webserver_app_user }}"
+        group: "{{ webserver_app_user }}"
+        mode: 0775
+        recurse: yes
