@@ -44,9 +44,18 @@
             group={{ webserver_app_user }}
             append=yes
 
-    - name: Create the simpletest directory
+    - name: Create the default files simpletest directory
       file: 
         path: "{{ drupal_public_filesystem }}/simpletest"
+        state: directory
+        owner: "{{ webserver_app_user }}"
+        group: "{{ webserver_app_user }}"
+        mode: 0775
+        recurse: yes
+
+    - name: Create the sites simpletest directory
+      file: 
+        path: "{{ drupal_core_path }}/sites/simpletest"
         state: directory
         owner: "{{ webserver_app_user }}"
         group: "{{ webserver_app_user }}"
