@@ -93,7 +93,7 @@
   notify: restart solr
 
 - name: Import features
-  command: "{{ drush_path }} -y fim --bundle=islandora islandora_core_feature"
+  command: "{{ drush_path }} -y fim islandora_core_feature,controlled_access_terms_default_configuration"
   args:
     chdir: "{{ drupal_core_path }}"
 
