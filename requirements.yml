@@ -95,4 +95,4 @@
 
 - src: https://github.com/Islandora-Devops/ansible-role-matomo
   name: Islandora-Devops.matomo
-  version: 0.0.1
+  version: 0.0.2
