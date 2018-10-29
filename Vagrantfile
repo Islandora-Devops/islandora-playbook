@@ -35,8 +35,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.vm.network :forwarded_port, guest: 8000, host: 8000 # Apache
   config.vm.network :forwarded_port, guest: 8080, host: 8080 # Tomcat
-  config.vm.network :forwarded_port, guest: 8181, host: 8181 # Karaf
-  config.vm.network :forwarded_port, guest: 8282, host: 8282 # Islandora Microservices
+  config.vm.network :forwarded_port, guest: 8101, host: 8101 # Karaf
   config.vm.network :forwarded_port, guest: 3306, host: 3306 # MySQL
   config.vm.network :forwarded_port, guest: 5432, host: 5432 # PostgreSQL
   config.vm.network :forwarded_port, guest: 8983, host: 8983 # Solr
