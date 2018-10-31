@@ -161,6 +161,14 @@ You have to select the islandora namespace in the [namespaces tab](http://localh
 ### FITS
 
 You can access the FITS Web Service at http://localhost:8080/fits/  
+
+
+### Matomo
+
+CLAW Playbook installs an instance of the [Matomo](https://matomo.org/) (formally PIWIK) web analytics platform. You can access your instance at: http://localhost:8000/matomo
+
+  * username: admin
+  * password: islandora
  
 ## Roadmap
 
