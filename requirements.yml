@@ -67,11 +67,11 @@
 
 - src: https://github.com/Islandora-Devops/ansible-role-fcrepo
   name: Islandora-Devops.fcrepo
-  version: 0.0.2
+  version: 0.0.1
 
 - src: https://github.com/Islandora-Devops/ansible-role-fcrepo-syn
   name: Islandora-Devops.fcrepo-syn
-  version: 0.0.1
+  version: 0.0.2
 
 - src: https://github.com/Islandora-Devops/ansible-role-tomcat8
   name: Islandora-Devops.tomcat8
