@@ -39,7 +39,7 @@
         chdir: "{{ drupal_core_path }}"
 
     - name: Run migrations
-      command: "{{ drush_path }} -y -l localhost:{{ apache_listen_port }} mim --group=islandora"
+      command: "{{ drush_path }} -y -l localhost:{{ apache_listen_port }} --userid=1 mim --group=islandora"
       args:
         chdir: "{{ drupal_core_path }}"
 
