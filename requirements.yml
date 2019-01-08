@@ -41,9 +41,9 @@
   name: Islandora-Devops.activemq
   version: 0.0.1
 
-- src: https://github.com/Islandora-Devops/ansible-role-alpaca
+- src: https://github.com/dannylamb/ansible-role-alpaca
   name: Islandora-Devops.alpaca
-  version: 0.0.2
+  version: refactor-blueprint
 
 - src: https://github.com/Islandora-Devops/ansible-role-apix
   name: Islandora-Devops.apix
