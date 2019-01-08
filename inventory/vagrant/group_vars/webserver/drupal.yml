@@ -15,7 +15,7 @@ drupal_composer_dependencies:
   - "drupal/matomo:^1.7"
   - "islandora/carapace:dev-8.x-1.x"
   - "islandora/openseadragon:dev-8.x-1.x"
-  - "islandora/islandora_demo:dev-8.x-1.x"
+  - "islandora/islandora_demo:dev-refactor-blueprint"
 drupal_composer_project_package: "islandora/drupal-project:8.6"
 drupal_composer_project_options: "--prefer-dist --stability dev --no-interaction"
 drupal_core_path: "{{ drupal_composer_install_dir }}/web"
