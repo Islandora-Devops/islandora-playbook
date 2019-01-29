@@ -1,30 +1,6 @@
 ---
 
-alpaca_settings:
-  - pid: ca.islandora.alpaca.http.client
-    settings:
-      token.value: islandora
-  - pid: ca.islandora.alpaca.connector.broadcast
-    settings:
-      input.stream: activemq:queue:islandora-connector-broadcast
-  - pid: ca.islandora.alpaca.indexing.triplestore
-    settings:
-      error.maxRedeliveries: 10
-      index.stream: activemq:queue:islandora-indexing-triplestore-index
-      delete.stream: activemq:queue:islandora-indexing-triplestore-delete
-      triplestore.baseUrl: http://localhost:8080/bigdata/namespace/islandora/sparql
-  - pid: ca.islandora.alpaca.indexing.fcrepo
-    settings:
-      error.maxRedeliveries: 5
-      node.stream: activemq:queue:islandora-indexing-fcrepo-content
-      node.delete.stream: activemq:queue:islandora-indexing-fcrepo-delete
-      media.stream: activemq:queue:islandora-indexing-fcrepo-media
-      file.stream: activemq:queue:islandora-indexing-fcrepo-file
-      file.delete.stream: activemq:queue:islandora-indexing-fcrepo-file-delete
-      milliner.baseUrl: http://localhost:8000/milliner/
-      gemini.baseUrl: http://localhost:8000/gemini/
-  - pid: ca.islandora.alpaca.connector.houdini
-    settings:
-      error.maxRedeliveries: 10
-      in.stream: activemq:queue:islandora-connector-houdini
-      houdini.convert.url: http://localhost:8000/houdini/convert
+# Comment in to build Alpaca from source
+# alpaca_from_source: yes
+# alpaca_version: your-branch-name
+# alpaca_clone_directory: /opt/alpaca
