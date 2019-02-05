@@ -13,6 +13,7 @@ drupal_composer_dependencies:
   - "drupal/facets:1.x-dev"
   - "drupal/content_browser:^1.0@alpha"
   - "drupal/matomo:^1.7"
+  - "drupal/pdf:1.x-dev"
   - "islandora/carapace:dev-8.x-1.x"
   - "islandora/openseadragon:dev-8.x-1.x"
   - "islandora/islandora_demo:dev-8.x-1.x"
@@ -42,6 +43,7 @@ drupal_enable_modules:
   - facets
   - content_browser
   - matomo
+  - pdf
   - islandora_core_feature
   - controlled_access_terms_default_configuration
 drupal_trusted_hosts:
