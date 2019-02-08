@@ -133,12 +133,12 @@
   changed_when: "'Do you want to update site_id' in set_search_api_config.stdout"
 
 # pdf.js library
-- name: ensure tomcat directory exists
+- name: ensure pdf.js directory exists
   file:
     path: "{{ drupal_external_libraries_directory }}/pdf.js"
     state: directory
 
-- name: Unarchive pdf.js library.
+- name: Unarchive pdf.js library
   unarchive:
     src: "https://github.com/mozilla/pdf.js/releases/download/v2.0.943/pdfjs-2.0.943-dist.zip"
     dest: "{{ drupal_external_libraries_directory }}/pdf.js"
