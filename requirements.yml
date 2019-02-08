@@ -7,6 +7,9 @@
 - src: geerlingguy.apache
   version: 3.0.0
 
+- src: geerlingguy.php-versions
+  version: 2.1.5
+
 - src: geerlingguy.php
   version: 3.6.0
 
