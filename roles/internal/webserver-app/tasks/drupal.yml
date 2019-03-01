@@ -21,37 +21,27 @@
     marker: // {mark} ANSIBLE MANAGED BLOCK
 
 - name: Uninstall core search module
-  command: "{{ drush_path }} -y pm-uninstall search"
-  args:
-    chdir: "{{ drupal_core_path }}"
+  command: "{{ drush_path }} --root {{ drupal_core_path }} -y pm-uninstall search"
   register: uninstall_search
   changed_when: "'successfully uninstalled' in uninstall_search.stdout"
 
 - name: Get Carapace status
-  command: "{{ drush_path }} pm-list --format=json"
-  args:
-    chdir: "{{ drupal_core_path }}"
+  command: "{{ drush_path }} --root {{ drupal_core_path }} pm-list --format=json"
   register: carapace_enabled
   changed_when: false
 
 - name: Enable Carapace if not enabled
-  command: "{{ drush_path }} then -y carapace"
-  args:
-    chdir: "{{ drupal_core_path }}"
+  command: "{{ drush_path }} --root {{ drupal_core_path }} then -y carapace"
   when: ((carapace_enabled.stdout|from_json).carapace.status|lower) != 'enabled'
 
 - name: Test if theme is Carapace
-  command: "{{ drush_path }} -y config-get system.theme default"
-  args:
-    chdir: "{{ drupal_core_path }}"
+  command: "{{ drush_path }} --root {{ drupal_core_path }} -y config-get system.theme default"
   register: drupal_theme_carapace
   changed_when: false
   check_mode: no
 
 - name: Set theme to carapace
-  command: "{{ drush_path }} -y config-set system.theme default carapace"
-  args:
-    chdir: "{{ drupal_core_path }}"
+  command: "{{ drush_path }} --root {{ drupal_core_path }} -y config-set system.theme default carapace"
   when: "'carapace' not in drupal_theme_carapace.stdout"
 
 - name: Set permissions on the public files directory
@@ -70,9 +60,7 @@
     group: "{{ webserver_app_user }}"
 
 - name: Set default solr server to point to CLAW core
-  command: "{{ drush_path }} -y config-set search_api.server.default_solr_server backend_config.connector_config.core CLAW"
-  args:
-    chdir: "{{ drupal_core_path }}"
+  command: "{{ drush_path }} --root {{ drupal_core_path }} -y config-set search_api.server.default_solr_server backend_config.connector_config.core CLAW"
   register: set_search_api_config
   changed_when: "'Do you want to update' in set_search_api_config.stdout"
 
@@ -93,9 +81,7 @@
   notify: restart solr
 
 - name: Import features
-  command: "{{ drush_path }} -y fim islandora_core_feature,controlled_access_terms_default_configuration"
-  args:
-    chdir: "{{ drupal_core_path }}"
+  command: "{{ drush_path }} --root {{ drupal_core_path }} -y fim islandora_core_feature,controlled_access_terms_default_configuration"
 
 # masonry library is required by content_browser and not installed by composer due to issue 2971165.
 - name: Create drupal library directory.
@@ -119,16 +105,12 @@
 
 # Set Matomo Settings
 - name: Set Matomo site id.
-  command: "{{ drush_path }} -y config-set matomo.settings site_id 1"
-  args:
-    chdir: "{{ drupal_core_path }}"
+  command: "{{ drush_path }} --root {{ drupal_core_path }} -y config-set matomo.settings site_id 1"
   register: set_search_api_config
   changed_when: "'Do you want to update site_id' in set_search_api_config.stdout"
 
 - name: Set Matmo sever url.
-  command: "{{ drush_path }} -y config-set matomo.settings url_http http://localhost:8000/matomo/"
-  args:
-    chdir: "{{ drupal_core_path }}"
+  command: "{{ drush_path }} --root {{ drupal_core_path }} -y config-set matomo.settings url_http http://localhost:8000/matomo/"
   register: set_search_api_config
   changed_when: "'Do you want to update site_id' in set_search_api_config.stdout"
 
