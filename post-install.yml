@@ -13,35 +13,21 @@
     # Subject to https://www.drupal.org/node/2599228
     # Should be fixed in Drupal 8.7
     - name: Install demo module (fail ok)
-      command: "{{ drush_path }} -y en islandora_demo"
-      args:
-        chdir: "{{ drupal_core_path }}"
+      command: "{{ drush_path }} --root {{ drupal_core_path }} -y en islandora_demo"
       ignore_errors: yes
     - name: Update entities
-      command: "{{ drush_path }} -y entity:updates"
-      args:
-        chdir: "{{ drupal_core_path }}"
+      command: "{{ drush_path }} --root {{ drupal_core_path }} -y entity:updates"
     - name: Uninstall demo module
-      command: "{{ drush_path }} -y pmu islandora_demo"
-      args:
-        chdir: "{{ drupal_core_path }}"
+      command: "{{ drush_path }} --root {{ drupal_core_path }} -y pmu islandora_demo"
     - name: Install demo module (should not fail)
-      command: "{{ drush_path }} -y en islandora_demo"
-      args:
-        chdir: "{{ drupal_core_path }}"
+      command: "{{ drush_path }} --root {{ drupal_core_path }} -y en islandora_demo"
     - name: Import feature
-      command: "{{ drush_path }} -y fim --bundle=islandora islandora_demo"
-      args:
-        chdir: "{{ drupal_core_path }}"
+      command: "{{ drush_path }} --root {{ drupal_core_path }} -y fim --bundle=islandora islandora_demo"
     - name: Add admin to fedoraAdmin role
-      command: "{{ drush_path }} -y urol fedoraadmin admin"
-      args:
-        chdir: "{{ drupal_core_path }}"
+      command: "{{ drush_path }} --root {{ drupal_core_path }} -y urol fedoraadmin admin"
 
     - name: Run migrations
-      command: "{{ drush_path }} -y -l localhost:{{ apache_listen_port }} --userid=1 mim --group=islandora"
-      args:
-        chdir: "{{ drupal_core_path }}"
+      command: "{{ drush_path }} --root {{ drupal_core_path }} -y -l localhost:{{ apache_listen_port }} --userid=1 mim --group=islandora"
 
     - name: Add vagrant user to webserver app user group
       user: name={{ vagrant_user }}
