@@ -51,3 +51,4 @@ drupal_trusted_hosts:
 drupal_trusted_hosts_file: "{{ drupal_core_path }}/sites/default/settings.php"
 drupal_public_filesystem: "{{ drupal_core_path }}/sites/default/files"
 drupal_external_libraries_directory: "{{ drupal_core_path }}/libraries"
+fedora_base_url: "http://localhost:8080/fcrepo/rest/"

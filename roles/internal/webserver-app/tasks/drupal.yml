@@ -13,7 +13,7 @@
         'fedora' => [
           'driver' => 'fedora',
           'config' => [
-            'root' => 'http://localhost:8080/fcrepo/rest/',
+            'root' => '{{ fedora_base_url }}',
           ],
         ],
       ];
