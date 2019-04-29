@@ -7,6 +7,8 @@
     - set_fact:
         claw_db: 'mysql'
       when: claw_db is not defined
+      tags:
+        - always
 
   roles:
     - role: geerlingguy.mysql
