@@ -20,6 +20,7 @@ tomcat8_java_opts:
   - -Dfcrepo.modeshape.configuration=file://{{ fcrepo_home_dir }}/configs/repository.json
   - -Dfcrepo.activemq.configuration=file://{{ fcrepo_config_dir }}/activemq.xml
   - -Dfcrepo.spring.configuration=file://{{ fcrepo_home_dir }}/configs/fcrepo-config.xml
+  - -Dfcrepo.external.content.allowed={{ fcrepo_allowed_external_content_file }}
   - -Dcom.bigdata.rdf.sail.webapp.ConfigParams.propertyFile={{ blazegraph_home_dir }}/conf/RWStore.properties
   - -Dcantaloupe.config={{ cantaloupe_symlink }}/cantaloupe.properties
   - -Dorg.apache.tomcat.util.buf.UDecoder.ALLOW_ENCODED_SLASH=true
