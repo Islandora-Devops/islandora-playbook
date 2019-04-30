@@ -16,7 +16,7 @@ drupal_composer_dependencies:
   - "drupal/pdf:1.x-dev"
   - "islandora/carapace:dev-8.x-1.x"
   - "islandora/openseadragon:dev-8.x-1.x"
-  - "islandora/islandora_demo:dev-external-content"
+  - "islandora/islandora_demo:dev-8.x-1.x"
 drupal_composer_project_package: "islandora/drupal-project:8.6.10"
 drupal_composer_project_options: "--prefer-dist --stability dev --no-interaction"
 drupal_core_path: "{{ drupal_composer_install_dir }}/web"
