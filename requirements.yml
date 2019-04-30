@@ -7,6 +7,9 @@
 - src: geerlingguy.apache
   version: 3.0.0
 
+- src: geerlingguy.php-versions
+  version: 2.1.5
+
 - src: geerlingguy.php
   version: 3.6.0
 
@@ -43,7 +46,7 @@
 
 - src: https://github.com/Islandora-Devops/ansible-role-alpaca
   name: Islandora-Devops.alpaca
-  version: 0.0.2
+  version: 0.0.3
 
 - src: https://github.com/Islandora-Devops/ansible-role-apix
   name: Islandora-Devops.apix
@@ -59,19 +62,19 @@
 
 - src: https://github.com/Islandora-Devops/ansible-role-crayfish
   name: Islandora-Devops.crayfish
-  version: 0.0.4
+  version: 0.1.0
 
 - src: https://github.com/Islandora-Devops/ansible-role-drupal-openseadragon
   name: Islandora-Devops.drupal-openseadragon
-  version: 0.0.2
+  version: 0.0.3
 
 - src: https://github.com/Islandora-Devops/ansible-role-fcrepo
   name: Islandora-Devops.fcrepo
-  version: 0.0.1
+  version: 0.0.2
 
 - src: https://github.com/Islandora-Devops/ansible-role-fcrepo-syn
   name: Islandora-Devops.fcrepo-syn
-  version: 0.0.1
+  version: 0.0.3
 
 - src: https://github.com/Islandora-Devops/ansible-role-tomcat8
   name: Islandora-Devops.tomcat8

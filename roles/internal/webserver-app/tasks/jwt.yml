@@ -32,7 +32,5 @@
   register: drupal_jwt_config
 
 - name: Import JWT Config Into Drupal
-  command: "{{ drush_path }} config-import -y --partial --source={{ webserver_app_jwt_config_path }}"
-  args:
-    chdir: "{{ drupal_core_path }}"
+  command: "{{ drush_path }} --root {{ drupal_core_path }} config-import -y --partial --source={{ webserver_app_jwt_config_path }}"
   when: drupal_jwt_config.changed is defined and drupal_jwt_config.changed
