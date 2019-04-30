@@ -44,7 +44,7 @@
   name: Islandora-Devops.activemq
   version: 0.0.1
 
-- src: https://github.com/Islandora-Devops/ansible-role-alpaca
+- src: https://github.com/roblib/ansible-role-alpaca
   name: Islandora-Devops.alpaca
   version: 0.0.3
 
