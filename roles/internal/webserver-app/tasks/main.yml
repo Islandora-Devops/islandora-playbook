@@ -17,3 +17,9 @@
   tags:
     - webserver-app
     - webserver-app-jwt
+
+- include: fits.yml
+  when: webserver_app_fits
+  tags:
+    - webserver-app
+    - webserver-app-fits

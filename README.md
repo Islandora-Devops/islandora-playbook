@@ -1,10 +1,9 @@
-# CLAW Vagrant Playbook
+# RobLib RDM Vagrant Playbook
 [![LICENSE](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](./LICENSE)
 
 ## Introduction
 
-This is an Ansible playbook for Islandora CLAW. It also has a vagrant file to bring up a development
-environment virtual machine for Islandora CLAW.
+This is a fork of the [Islandora 8 Ansible playbook](https://github.com/Islandora-Devops/claw-playbook).
 
 This virtual machine **should not** be used in production **yet**.
 
