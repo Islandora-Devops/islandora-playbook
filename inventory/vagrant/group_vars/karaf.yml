@@ -1,40 +1,6 @@
 ---
 
 # Comment in to build Alpaca from source
-alpaca_from_source: yes
-alpaca_version: fix-triplestore-indexing
-alpaca_clone_directory: /opt/alpaca
-alpaca_features:
-  - fcrepo-service-activemq
-  - fcrepo-camel
-  - fcrepo-service-camel
-  - fcrepo-indexing-triplestore
-  - islandora-http-client
-  - islandora-indexing-triplestore
-  - islandora-indexing-fcrepo
-  - islandora-connector-derivative
-alpaca_settings:
-  - pid: ca.islandora.alpaca.http.client
-    settings:
-      token.value: islandora
-  - pid: org.fcrepo.camel.indexing.triplestore
-    settings:
-      input.stream: activemq:topic:fedora
-      triplestore.reindex.stream: activemq:queue:triplestore.reindex
-      triplestore.baseUrl: http://localhost:8080/bigdata/namespace/islandora/sparql
-  - pid: ca.islandora.alpaca.indexing.triplestore
-    settings:
-      error.maxRedeliveries: 10
-      index.stream: activemq:queue:islandora-indexing-triplestore-index
-      delete.stream: activemq:queue:islandora-indexing-triplestore-delete
-      triplestore.baseUrl: http://localhost:8080/bigdata/namespace/islandora/sparql
-  - pid: ca.islandora.alpaca.indexing.fcrepo
-    settings:
-      error.maxRedeliveries: 5
-      node.stream: activemq:queue:islandora-indexing-fcrepo-content
-      node.delete.stream: activemq:queue:islandora-indexing-fcrepo-delete
-      media.stream: activemq:queue:islandora-indexing-fcrepo-media
-      file.stream: activemq:queue:islandora-indexing-fcrepo-file
-      file.delete.stream: activemq:queue:islandora-indexing-fcrepo-file-delete
-      milliner.baseUrl: http://localhost:8000/milliner/
-      gemini.baseUrl: http://localhost:8000/gemini/
+#alpaca_from_source: no
+#alpaca_version: master
+#alpaca_clone_directory: /opt/alpaca
