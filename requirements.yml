@@ -60,9 +60,9 @@
   name: Islandora-Devops.cantaloupe
   version: 0.0.1
 
-- src: https://github.com/dannylamb/ansible-role-crayfish
+- src: https://github.com/Islandora-Devops/ansible-role-crayfish
   name: Islandora-Devops.crayfish
-  version: pdf-video-thumbs
+  version: 0.2.0
 
 - src: https://github.com/Islandora-Devops/ansible-role-drupal-openseadragon
   name: Islandora-Devops.drupal-openseadragon
