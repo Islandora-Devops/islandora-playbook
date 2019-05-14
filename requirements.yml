@@ -46,7 +46,6 @@
 
 - src: https://github.com/roblib/ansible-role-alpaca
   name: Islandora-Devops.alpaca
-  version: 0.0.3
 
 - src: https://github.com/Islandora-Devops/ansible-role-apix
   name: Islandora-Devops.apix
