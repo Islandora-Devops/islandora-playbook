@@ -3,6 +3,7 @@
 webserver_app_apache: yes
 webserver_app_drupal: yes
 webserver_app_jwt: yes
+webserver_app_jsonld: yes
 
 webserver_app_jwt_key_path: /opt/islandora/auth
 webserver_app_jwt_config_path: /opt/islandora/configs/jwt
@@ -14,3 +15,6 @@ solr_user: solr
 solr_instance_conf_path: /var/solr/data/CLAW/conf
 
 webserver_document_root: /var/www/html
+
+# 1 is true, 0 is false
+webserver_app_jsonld_remove_format: 1
