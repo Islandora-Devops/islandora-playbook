@@ -25,6 +25,8 @@
       command: "{{ drush_path }} --root {{ drupal_core_path }} -y fim --bundle=islandora islandora_demo"
     - name: Add admin to fedoraAdmin role
       command: "{{ drush_path }} --root {{ drupal_core_path }} -y urol fedoraadmin admin"
+    - name: Install islandora_search
+      command: "{{ drush_path }} --root {{ drupal_core_path }} -y en islandora_search"
 
     - name: Run migrations
       command: "{{ drush_path }} --root {{ drupal_core_path }} -y -l localhost:{{ apache_listen_port }} --userid=1 mim --group=islandora"
@@ -85,34 +87,4 @@
         arguments: repositories.islandora_fits github https://github.com/roblib/islandora_fits.git
         working_dir: "{{ drupal_core_path }}/.."
 
-    - name: Download islandora FITS module
-      composer:
-        command: require
-        arguments: drupal/islandora_fits
-        working_dir: "{{ drupal_core_path }}/.."
-
-    - name: Install Islandora FITS module
-      command: "{{ drush_path }} --root {{ drupal_core_path }} -y en islandora_fits"
-
-    - name: Install FITS Microservice from Github
-      git:
-        repo: https://github.com/roblib/CrayFits.git
-        dest: /var/www/html/CrayFits
-
-    - name: Adding port 8050 for Fits
-      lineinfile:
-        path: "/etc/apache2/ports.conf"
-        line: "Listen 8050"
-        insertafter: "Listen 8000"
-        
-    - name: Restart apache
-      service:
-        name: apache2
-        state: restarted
-      become: true
-
-    - name: Run Composer On Fits Microservice
-      composer:
-        command: install
-        working_dir: /var/www/html/CrayFits
         

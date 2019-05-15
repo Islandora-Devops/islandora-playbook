@@ -13,7 +13,7 @@
       Allow from all
       </Directory>
       ErrorLog /var/log/apache2/crayfits_error.log
-      CustomLog /var/log/apache2/crayfitst_access.log combined
+      CustomLog /var/log/apache2/crayfits_access.log combined
       </VirtualHost>
 
 - name: Enable FITS site
