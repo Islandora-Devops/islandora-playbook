@@ -1,4 +1,0 @@
----
-
-- name: Set JWT Config
-  command: "{{ drush_path }} --root {{ drupal_core_path }} -y cset --input-format=yaml jsonld.settings remove_jsonld_format {{ webserver_app_jsonld_remove_format }}"

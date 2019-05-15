@@ -17,9 +17,3 @@
   tags:
     - webserver-app
     - webserver-app-jwt
-
-- include: jsonld.yml
-  when: webserver_app_jsonld
-  tags:
-    - webserver-app
-    - webserver-app-jsonld
