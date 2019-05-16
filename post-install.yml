@@ -81,10 +81,5 @@
         mode: 0775
         recurse: yes
         
-    - name: Add FITS requirement
-      composer:
-        command: config
-        arguments: repositories.islandora_fits github https://github.com/roblib/islandora_fits.git
-        working_dir: "{{ drupal_core_path }}/.."
 
         

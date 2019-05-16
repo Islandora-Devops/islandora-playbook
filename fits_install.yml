@@ -21,6 +21,7 @@
         command: require
         arguments: drupal/islandora_fits
         working_dir: "{{ drupal_core_path }}/.."
+      become_user: vagrant
 
     - name: Install Islandora FITS module
       command: "{{ drush_path }} --root {{ drupal_core_path }} -y en islandora_fits"
