@@ -14,5 +14,3 @@ solr_user: solr
 solr_instance_conf_path: /var/solr/data/CLAW/conf
 
 webserver_document_root: /var/www/html
-
-webserver_app_jsonld_remove_format: true
