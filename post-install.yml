@@ -28,6 +28,10 @@
     - name: Install islandora_search
       command: "{{ drush_path }} --root {{ drupal_core_path }} -y en islandora_search"
 
+    # Set jsonld module to strip ?_format=jsonld
+    - name: Set JSONLD Config
+      command: "{{ drush_path }} --root {{ drupal_core_path }} -y cset --input-format=yaml jsonld.settings remove_jsonld_format {{ drupal_jsonld_remove_format }}"
+
     - name: Run migrations
       command: "{{ drush_path }} --root {{ drupal_core_path }} -y -l localhost:{{ apache_listen_port }} --userid=1 mim --group=islandora"
 
