@@ -17,3 +17,10 @@
   tags:
     - webserver-app
     - webserver-app-jwt
+
+- include: solr.yml
+  when: webserver_app_drupal
+  tags:
+    - webserver-app
+    - webserver-app-drupal
+
