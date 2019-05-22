@@ -2,3 +2,5 @@
 
 solr_cores:
   - CLAW
+
+solr_install_path: /opt/solr
