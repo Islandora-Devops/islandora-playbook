@@ -1,0 +1,6 @@
+---
+
+# Comment in to build Alpaca from source
+# alpaca_from_source: yes
+# alpaca_version: your-branch-name
+# alpaca_clone_directory: /opt/alpaca

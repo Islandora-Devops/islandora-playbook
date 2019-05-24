@@ -182,3 +182,22 @@ CLAW Playbook installs an instance of the [Matomo](https://matomo.org/) (formall
 
 * [Jonathan Green](https://github.com/jonathangreen)
 
+
+Windows
+-------
+
+You can install this item in Windows with the Ubuntu Linux Subsystem for Windows.
+
+Follow the directions at https://www.jeffgeerling.com/blog/2017/using-ansible-through-windows-10s-subsystem-linux
+
+With the following additions:
+
+BBefore running the apt-get install command, run "sudo apt-get update".
+
+Run the ansible-galaxy command to download the required package
+
+    ansible-galaxy install --role-file=requirements.yml --roles-path=roles/external
+
+Ansible-playbook command:
+
+    ansible-playbook playbook.yml -i inventory/local-ubuntu --extra-vars "ansible_sudo_pass=yourPassword"

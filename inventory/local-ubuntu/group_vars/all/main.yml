@@ -1,0 +1,40 @@
+---
+
+# Change selinux status to permissive
+disable_selinux: yes
+
+islandora_extra_ubuntu_packages:
+  - wget
+  - curl
+  - htop
+  - tree
+  - zsh
+  - fish
+  - unzip
+  - build-essential
+  - vim
+
+islandora_extra_centos_packages:
+  - wget
+  - curl
+  - tree
+  - zsh
+  - unzip
+  - vim
+  - make
+  - automake
+  - gcc
+  - gcc-c++
+  - kernel-devel
+
+postgresql_user: postgres
+
+mysql_users:
+  - name: "{{ drupal_db_user }}"
+    host: "%"
+    password: "{{ drupal_db_password }}"
+    priv: "{{ drupal_db_name }}.*:ALL"
+
+# Used by both the webserver and crayfish role for CentOS.
+php_enablerepo: "remi-php72"
+php_packages_state: "latest"
