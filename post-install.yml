@@ -12,17 +12,17 @@
     # Some tomfoolery to get the demo module to install.
     # Subject to https://www.drupal.org/node/2599228
     # Should be fixed in Drupal 8.7
-    - name: Install demo module (fail ok)
-      command: "{{ drush_path }} --root {{ drupal_core_path }} -y en islandora_demo"
+    - name: Install islandora_defaults module (fail ok)
+      command: "{{ drush_path }} --root {{ drupal_core_path }} -y en islandora_defaults"
       ignore_errors: yes
     - name: Update entities
       command: "{{ drush_path }} --root {{ drupal_core_path }} -y entity:updates"
-    - name: Uninstall demo module
-      command: "{{ drush_path }} --root {{ drupal_core_path }} -y pmu islandora_demo"
-    - name: Install demo module (should not fail)
-      command: "{{ drush_path }} --root {{ drupal_core_path }} -y en islandora_demo"
+    - name: Uninstall islandora_defaults module
+      command: "{{ drush_path }} --root {{ drupal_core_path }} -y pmu islandora_defaults"
+    - name: Install islandora_defaults module (should not fail)
+      command: "{{ drush_path }} --root {{ drupal_core_path }} -y en islandora_defaults"
     - name: Import feature
-      command: "{{ drush_path }} --root {{ drupal_core_path }} -y fim --bundle=islandora islandora_demo"
+      command: "{{ drush_path }} --root {{ drupal_core_path }} -y fim --bundle=islandora islandora_defaults"
     - name: Add admin to fedoraAdmin role
       command: "{{ drush_path }} --root {{ drupal_core_path }} -y urol fedoraadmin admin"
     - name: Install islandora_search
@@ -67,9 +67,9 @@
         mode: 0775
         recurse: yes
 
-    - name: Chown islandora demo feature
+    - name: Chown islandora_defaults feature
       file:
-        dest: "{{ drupal_core_path }}/modules/contrib/islandora_demo"
+        dest: "{{ drupal_core_path }}/modules/contrib/islandora_defaults"
         state: directory
         owner: "{{ webserver_app_user }}"
         group: "{{ webserver_app_user }}"
