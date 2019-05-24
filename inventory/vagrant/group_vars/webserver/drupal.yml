@@ -17,7 +17,7 @@ drupal_composer_dependencies:
   - "islandora/carapace:dev-8.x-1.x"
   - "islandora/openseadragon:dev-8.x-1.x"
   - "islandora/islandora_demo:dev-8.x-1.x"
-drupal_composer_project_package: "islandora/drupal-project:dev-drupal_87"
+drupal_composer_project_package: "islandora/drupal-project:8.7"
 drupal_composer_project_options: "--prefer-dist --stability dev --no-interaction"
 drupal_core_path: "{{ drupal_composer_install_dir }}/web"
 drupal_db_user: drupal8
