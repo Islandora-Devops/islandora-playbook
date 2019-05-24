@@ -105,3 +105,10 @@
     dest: "{{ drupal_external_libraries_directory }}/pdf.js"
     creates: "{{ drupal_external_libraries_directory }}/pdf.js/build"
     remote_src: yes
+
+# https://github.com/Islandora-CLAW/drupal-project/pull/27
+- name: Enable 'Allow users to access media items at /media/{id}.'
+  command: "{{ drush_path }} --root {{ drupal_core_path }} -y config-set media.settings standalone_url true"
+  register: set_standalone_url_config
+  changed_when: "'Do you want to update standalone_url' in set_standalone_url_config.stdout"
+
