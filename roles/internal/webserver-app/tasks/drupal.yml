@@ -60,7 +60,7 @@
     group: "{{ webserver_app_user }}"
 
 - name: Import features
-  command: "{{ drush_path }} --root {{ drupal_core_path }} -y fim islandora_core_feature,controlled_access_terms_default_configuration"
+  command: "{{ drush_path }} --root {{ drupal_core_path }} -y fim islandora_core_feature,controlled_access_terms_defaults"
 
 # masonry library is required by content_browser and not installed by composer due to issue 2971165.
 - name: Create drupal library directory.

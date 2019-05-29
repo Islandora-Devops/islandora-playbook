@@ -45,7 +45,7 @@ drupal_enable_modules:
   - matomo
   - pdf
   - islandora_core_feature
-  - controlled_access_terms_default_configuration
+  - controlled_access_terms_defaults
 drupal_trusted_hosts:
   - ^localhost$
 drupal_trusted_hosts_file: "{{ drupal_core_path }}/sites/default/settings.php"
