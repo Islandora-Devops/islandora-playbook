@@ -53,3 +53,9 @@ drupal_public_filesystem: "{{ drupal_core_path }}/sites/default/files"
 drupal_external_libraries_directory: "{{ drupal_core_path }}/libraries"
 fedora_base_url: "http://localhost:8080/fcrepo/rest/"
 drupal_jsonld_remove_format: true
+drupal_gemini_pseudo_bundles:
+  - islandora_object:node
+  - image:media
+  - file:media
+  - audio:media
+  - video:media
