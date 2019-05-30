@@ -85,7 +85,7 @@
 
     - name: Chown controlled access terms default configuration
       file:
-        dest: "{{ drupal_core_path }}/modules/contrib/controlled_access_terms/modules/controlled_access_terms_default_configuration"
+        dest: "{{ drupal_core_path }}/modules/contrib/controlled_access_terms/modules/controlled_access_terms_defaults"
         state: directory
         owner: "{{ webserver_app_user }}"
         group: "{{ webserver_app_user }}"
