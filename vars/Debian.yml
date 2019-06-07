@@ -1,6 +1,8 @@
 ---
 
 php_packages_extra:
-  - libapache2-mod-php7.1
-  - php7.1-mysql
-  - php7.1-pgsql
+  - libapache2-mod-php7.2
+  - php7.2-mysql
+  - php7.2-pgsql
+  - php7.2-gd
+

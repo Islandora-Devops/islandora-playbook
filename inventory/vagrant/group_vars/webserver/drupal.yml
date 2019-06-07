@@ -14,9 +14,8 @@ drupal_composer_dependencies:
   - "drupal/content_browser:^1.0@alpha"
   - "drupal/matomo:^1.7"
   - "drupal/pdf:1.x-dev"
-  - "islandora/carapace:dev-8.x-1.x"
-  - "islandora/openseadragon:dev-8.x-1.x"
-  - "islandora/islandora_demo:dev-8.x-1.x"
+  - "islandora/carapace:1.0.0"
+  - "islandora/islandora_defaults:1.0.0"
 drupal_composer_project_package: "islandora/drupal-project:8.6.10"
 drupal_composer_project_options: "--prefer-dist --stability dev --no-interaction"
 drupal_core_path: "{{ drupal_composer_install_dir }}/web"
@@ -45,10 +44,17 @@ drupal_enable_modules:
   - matomo
   - pdf
   - islandora_core_feature
-  - controlled_access_terms_default_configuration
+  - controlled_access_terms_defaults
 drupal_trusted_hosts:
   - ^localhost$
 drupal_trusted_hosts_file: "{{ drupal_core_path }}/sites/default/settings.php"
 drupal_public_filesystem: "{{ drupal_core_path }}/sites/default/files"
 drupal_external_libraries_directory: "{{ drupal_core_path }}/libraries"
 fedora_base_url: "http://localhost:8080/fcrepo/rest/"
+drupal_jsonld_remove_format: true
+drupal_gemini_pseudo_bundles:
+  - islandora_object:node
+  - image:media
+  - file:media
+  - audio:media
+  - video:media

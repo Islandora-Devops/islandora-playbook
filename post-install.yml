@@ -12,21 +12,32 @@
     # Some tomfoolery to get the demo module to install.
     # Subject to https://www.drupal.org/node/2599228
     # Should be fixed in Drupal 8.7
-    - name: Install demo module (fail ok)
-      command: "{{ drush_path }} --root {{ drupal_core_path }} -y en islandora_demo"
+    - name: Install islandora_defaults module (fail ok)
+      command: "{{ drush_path }} --root {{ drupal_core_path }} -y en islandora_defaults"
       ignore_errors: yes
     - name: Update entities
       command: "{{ drush_path }} --root {{ drupal_core_path }} -y entity:updates"
-    - name: Uninstall demo module
-      command: "{{ drush_path }} --root {{ drupal_core_path }} -y pmu islandora_demo"
-    - name: Install demo module (should not fail)
-      command: "{{ drush_path }} --root {{ drupal_core_path }} -y en islandora_demo"
+    - name: Uninstall islandora_defaults module
+      command: "{{ drush_path }} --root {{ drupal_core_path }} -y pmu islandora_defaults"
+    - name: Install islandora_defaults module (should not fail)
+      command: "{{ drush_path }} --root {{ drupal_core_path }} -y en islandora_defaults"
     - name: Import feature
-      command: "{{ drush_path }} --root {{ drupal_core_path }} -y fim --bundle=islandora islandora_demo"
+      command: "{{ drush_path }} --root {{ drupal_core_path }} -y fim --bundle=islandora islandora_defaults"
     - name: Add admin to fedoraAdmin role
       command: "{{ drush_path }} --root {{ drupal_core_path }} -y urol fedoraadmin admin"
     - name: Install islandora_search
       command: "{{ drush_path }} --root {{ drupal_core_path }} -y en islandora_search"
+
+    # Set jsonld module to strip ?_format=jsonld
+    - name: Set JSONLD Config
+      command: "{{ drush_path }} --root {{ drupal_core_path }} -y cset --input-format=yaml jsonld.settings remove_jsonld_format {{ drupal_jsonld_remove_format }}"
+
+    - name: Set Gemini URL
+      command: "{{ drush_path }} --root {{ drupal_core_path }} -y cset --input-format=yaml islandora.settings gemini_url {{ crayfish_milliner_gemini_base_url }}"
+
+    - name: Set pseudo field bundles
+      command: "{{ drush_path }} --root {{ drupal_core_path }} -y cset --input-format=yaml islandora.settings gemini_pseudo_bundles.{{ item.0 }} {{ item.1 }}"
+      with_indexed_items: "{{ drupal_gemini_pseudo_bundles }}"
 
     - name: Run migrations
       command: "{{ drush_path }} --root {{ drupal_core_path }} -y -l localhost:{{ apache_listen_port }} --userid=1 mim --group=islandora"
@@ -63,9 +74,9 @@
         mode: 0775
         recurse: yes
 
-    - name: Chown islandora demo feature
+    - name: Chown islandora_defaults feature
       file:
-        dest: "{{ drupal_core_path }}/modules/contrib/islandora_demo"
+        dest: "{{ drupal_core_path }}/modules/contrib/islandora_defaults"
         state: directory
         owner: "{{ webserver_app_user }}"
         group: "{{ webserver_app_user }}"
@@ -74,7 +85,7 @@
 
     - name: Chown controlled access terms default configuration
       file:
-        dest: "{{ drupal_core_path }}/modules/contrib/controlled_access_terms/modules/controlled_access_terms_default_configuration"
+        dest: "{{ drupal_core_path }}/modules/contrib/controlled_access_terms/modules/controlled_access_terms_defaults"
         state: directory
         owner: "{{ webserver_app_user }}"
         group: "{{ webserver_app_user }}"
