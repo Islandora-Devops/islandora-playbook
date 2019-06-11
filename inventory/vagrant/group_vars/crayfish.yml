@@ -1,5 +1,5 @@
 ---
-
+crayfish_version_tag: dev
 crayfish_db: "{{ claw_db }}"
 
 crayfish_milliner_drupal_base_url: http://localhost:8000
