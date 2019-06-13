@@ -7,10 +7,10 @@
       package:
         name: "{{ item }}"
         state: present
-        with_items:
-          - clamav
-          - clamav-daemon
-        when: ansible_os_family == "Debian"
+      with_items:
+        - clamav
+        - clamav-daemon
+      when: ansible_os_family == "Debian"
 
     - name: Download islandora ClamAV module
       composer:
@@ -19,5 +19,6 @@
         working_dir: "{{ drupal_core_path }}/.."
       become_user: vagrant
 
-    - name: Install Islandora FITS module
+    - name: Install ClamAV module
       command: "{{ drush_path }} --root {{ drupal_core_path }} -y en clamav"
+
