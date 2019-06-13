@@ -9,17 +9,11 @@
     vagrant_user: "{% if ansible_os_family == 'RedHat' %}vagrant{% else %}ubuntu{% endif %}"
 
   tasks:
-        
-    - name: Add FITS requirement
-      composer:
-        command: config
-        arguments: repositories.islandora_fits github https://github.com/roblib/islandora_fits.git
-        working_dir: "{{ drupal_core_path }}/.."
 
     - name: Download islandora FITS module
       composer:
         command: require
-        arguments: drupal/islandora_fits
+        arguments: islandora-rdm/islandora_fits
         working_dir: "{{ drupal_core_path }}/.."
       become_user: vagrant
 
