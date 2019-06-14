@@ -25,6 +25,13 @@
         repo: https://github.com/roblib/CrayFits.git
         dest: /var/www/html/CrayFits
 
+    - name: Change CrayFits directory ownership, group and permissions
+      file:
+        path: /var/www/html/CrayFits
+        owner: vagrant
+        group: vagrant
+        mode: '0755'
+
     - name: Adding port 8050 for Fits
       lineinfile:
         path: "/etc/apache2/ports.conf"
@@ -39,6 +46,6 @@
 
     - name: Run Composer On Fits Microservice
       composer:
-        command: install
+        command: update
         working_dir: /var/www/html/CrayFits
-        
+      ignore_errors: yes
