@@ -10,6 +10,7 @@ $cpus   = ENV.fetch("ISLANDORA_VAGRANT_CPUS", "1")
 $memory = ENV.fetch("ISLANDORA_VAGRANT_MEMORY", "4096")
 $hostname = ENV.fetch("ISLANDORA_VAGRANT_HOSTNAME", "claw")
 $virtualBoxDescription = ENV.fetch("ISLANDORA_VAGRANT_VIRTUALBOXDESCRIPTION", "IslandoraCLAW")
+$reset_roles = ENV.fetch("ISLANDORA_VAGRANT_REST_ROLES", "FALSE")
 
 # Available boxes are 'ubuntu/xenial64' and 'centos/7'
 $vagrantBox = ENV.fetch("ISLANDORA_DISTRO", "ubuntu/xenial64")
@@ -58,5 +59,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     }
     ansible.extra_vars = { "islandora_distro" => $vagrantBox }
   end
-
+  unless  $reset_roles.eql? "FALSE"
+    # Fires last to modify one last change.
+    config.vm.provision "reset_roles",
+    type: "shell",
+    preserve_order: true,
+    inline: "cd /vagrant/roles && rm -rf external/"
+  end
 end
