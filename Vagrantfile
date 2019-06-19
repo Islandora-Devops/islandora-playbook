@@ -64,6 +64,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     config.vm.provision "reset_roles",
     type: "shell",
     preserve_order: true,
-    inline: "cd /vagrant/roles && rm -rf external/"
+    inline: "rm -rf /vagrant/roles/external"
   end
 end
