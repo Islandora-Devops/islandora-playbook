@@ -28,6 +28,15 @@ By default the virtual machine that is built uses 3GB of RAM. Your host machine 
 export ISLANDORA_VAGRANT_CPUS=4
 export ISLANDORA_VAGRANT_MEMORY=4096
 ```
+#### Reset External Roles
+This will delete all external roles, destroy VM, and vagrant up.
+
+```bash 
+$ ISLANDORA_VAGRANT_REST_ROLES='TRUE' vagrant reload
+
+ # OR
+$ vagrant reload --provision-with reset_roles && vagrant -f destroy && vagrant up
+```
 
 ### Using CENTOS
 
