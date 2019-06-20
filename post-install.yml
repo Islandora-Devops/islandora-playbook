@@ -9,9 +9,7 @@
     vagrant_user: "{% if ansible_os_family == 'RedHat' %}vagrant{% else %}ubuntu{% endif %}"
 
   tasks:
-    # Some tomfoolery to get the demo module to install.
-    # Subject to https://www.drupal.org/node/2599228
-    # Should be fixed in Drupal 8.7
+
     - name: Install islandora_defaults module
       command: "{{ drush_path }} --root {{ drupal_core_path }} -y en islandora_defaults"
 
