@@ -1,4 +1,4 @@
-# Islansdora 8 Vagrant Playbook
+# Islandora 8 Vagrant Playbook
 [![LICENSE](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](./LICENSE)
 
 ## Introduction
