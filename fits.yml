@@ -1,0 +1,41 @@
+- name: Build site for FITS microservice
+  blockinfile:
+    path: "/etc/apache2/sites-available/CrayFits.conf"
+    create: yes
+    block: |
+      <VirtualHost *:8050>
+      ServerName fits.dev
+      DocumentRoot "/var/www/html/CrayFits/public"
+      <Directory /var/www/html/CrayFits/public>
+      Options Indexes FollowSymLinks MultiViews
+      AllowOverride All
+      Order allow,deny
+      Allow from all
+      </Directory>
+      ErrorLog /var/log/apache2/crayfits_error.log
+      CustomLog /var/log/apache2/crayfits_access.log combined
+      </VirtualHost>
+
+- name: Enable FITS site
+  file:
+    src: "/etc/apache2/sites-available/CrayFits.conf"
+    dest: "/etc/apache2/sites-enabled/CrayFits.conf"
+    state: link
+
+- name: Change owner on html dir
+  file:
+    path: /var/www/html
+    owner: www-data
+    group: www-data
+
+- name: Allow url rewriting
+  replace:
+    path: "/etc/apache2/apache2.conf"
+    regexp: '<Directory /var/www/>[\s\S]*?<\/Directory>'
+    replace: |
+      <Directory /var/www/>
+        Options Indexes FollowSymLinks
+        AllowOverride All
+        Require all granted
+      </Directory>
+

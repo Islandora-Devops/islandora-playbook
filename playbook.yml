@@ -9,4 +9,6 @@
 - include: tomcat.yml
 - include: crayfish.yml
 - include: karaf.yml
+- include: fits_install.yml
+- include: rdm-extra.yml
 - include: post-install.yml

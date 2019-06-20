@@ -1,0 +1,6 @@
+---
+
+crayfish_db: "{{ claw_db }}"
+
+crayfish_milliner_drupal_base_url: http://localhost:80
+crayfish_milliner_gemini_base_url: http://localhost:80/gemini

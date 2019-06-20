@@ -1,0 +1,24 @@
+- name: Adding extra packages for the RDM system
+  hosts: webserver
+  become: yes
+
+  tasks:
+    - name: Ubuntu packages for RDM
+      package:
+        name: "{{ item }}"
+        state: present
+      with_items:
+        - clamav
+        - clamav-daemon
+      when: ansible_os_family == "Debian"
+
+    - name: Download islandora ClamAV module
+      composer:
+        command: require
+        arguments: drupal/clamav
+        working_dir: "{{ drupal_core_path }}/.."
+      become_user: "{{ ansible_user }}"
+
+    - name: Install ClamAV module
+      command: "{{ drush_path }} --root {{ drupal_core_path }} -y en clamav"
+
