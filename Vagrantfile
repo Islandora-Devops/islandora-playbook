@@ -45,6 +45,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     vb.customize ["modifyvm", :id, "--memory", $memory]
     vb.customize ["modifyvm", :id, "--cpus", $cpus]
     vb.customize ["modifyvm", :id, "--description", $virtualBoxDescription]
+    vb.customize ["modifyvm", :id, "--audio", "none"]
   end
 
   config.vm.provision :ansible do |ansible|
