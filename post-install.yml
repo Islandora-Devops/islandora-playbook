@@ -14,7 +14,7 @@
     # Should be fixed in Drupal 8.7
     - name: Install islandora_defaults module
       command: "{{ drush_path }} --root {{ drupal_core_path }} -y en islandora_defaults"
-      ignore_errors: yes
+
     - name: Add admin to fedoraAdmin role
       command: "{{ drush_path }} --root {{ drupal_core_path }} -y urol fedoraadmin admin"
     - name: Install islandora_search
