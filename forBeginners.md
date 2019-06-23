@@ -1,6 +1,6 @@
-# CLAW Sandbox Creation for Beginners
+# Islandora 8 Sandbox Creation for Beginners
 
-This document will explain, in the simplest step-by-step possible, how to take a computer from "unwanted box in the corner with no operating system" to working Islandora CLAW sandbox.
+This document will explain, in the simplest step-by-step possible, how to take a computer from "unwanted box in the corner with no operating system" to working Islandora 8 sandbox.
 
 ## Terminology:
 Some terminology you may need to understand to follow this step-by-step document:
@@ -37,7 +37,7 @@ You will also need an empty USB drive with at least 2 GB of space and a computer
   
   * If you're not sure how much RAM and free memory on your hard drive is on the computer and you have a Windows computer, you can follow this [tutorial](https://www.computerhope.com/issues/ch000149.htm) to check that it meets the requirements.
 
-  * If you don't have an operating system on the machine you want to use for your sandbox, you can try to install the Ubuntu operating system as described in step 2 and 3, then follow the instructions in this [tutorial](https://howtoubuntu.org/how-to-find-out-how-much-ram-is-installed-in-ubuntu) to make sure you have more than 3 GB of RAM (called Memory in the tutorial) and 4GB of hard drive memory (called Disk in the tutorial) required to run the default version of Islandora CLAW.
+  * If you don't have an operating system on the machine you want to use for your sandbox, you can try to install the Ubuntu operating system as described in step 2 and 3, then follow the instructions in this [tutorial](https://howtoubuntu.org/how-to-find-out-how-much-ram-is-installed-in-ubuntu) to make sure you have more than 3 GB of RAM (called Memory in the tutorial) and 4GB of hard drive memory (called Disk in the tutorial) required to run the default version of Islandora 8.
 
 #### Step two: Create a bootable drive of Ubuntu
 
@@ -85,8 +85,8 @@ Open the terminal of your new Ubuntu computer to download the remaining requirem
 
 >$ sudo apt-get install ansible
 
-#### Step five: Clone and Run Islandora CLAW vagrant
-1. To download Islandora CLAW, type the following into the terminal:
+#### Step five: Clone and Run Islandora 8 vagrant
+1. To download Islandora 8, type the following into the terminal:
 
 >$ git clone https://github.com/Islandora-Devops/claw-playbook.git
 
