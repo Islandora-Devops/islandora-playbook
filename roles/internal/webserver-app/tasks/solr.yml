@@ -25,7 +25,6 @@
     owner: "{{ solr_user }}"
     group: "{{ solr_user }}"
     remote_src: True
-    force: no
   with_items:
     - "{{ files_to_copy.stdout_lines }}"
 
@@ -37,3 +36,11 @@
     line: solr.install.dir={{ solr_install_path }}
     state: present
   notify: restart solr
+
+# We seem to be running into this issue https://www.drupal.org/project/search_api_solr/issues/3040862
+- name: Solrconfig.xml config changes
+  lineinfile:
+    path: "{{ solr_instance_conf_path }}/solrconfig.xml"
+    insertbefore: '<\/config>'
+    line: '<searchComponent name="spellcheck" class="solr.SpellCheckComponent" />'
+    state: present
