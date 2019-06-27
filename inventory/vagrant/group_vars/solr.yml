@@ -4,3 +4,8 @@ solr_cores:
   - CLAW
 
 solr_install_path: /opt/solr
+
+solr_user: solr
+solr_instance_conf_path: /var/solr/data/CLAW/conf
+
+search_api_solr_ver: 3.1

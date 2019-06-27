@@ -5,11 +5,19 @@
   register: set_search_api_config
   changed_when: "'Do you want to update' in set_search_api_config.stdout"
 
+# Get if from source
+- name: Unarchive solr config
+  unarchive:
+    src: "https://ftp.drupal.org/files/projects/search_api_solr-8.x-{{ search_api_solr_ver }}.zip"
+    dest: /tmp
+    remote_src: yes
+
 - name: Get solr config files to copy
-  command: "find {{ webserver_document_root }}/drupal/web/modules/contrib/search_api_solr/solr-conf/7.x -type f"
+  command: "find /tmp/search_api_solr/solr-conf-templates/7.x -type f"
   register: files_to_copy
   changed_when: false
 
+# Don't replace config if it already exists
 - name: Copy solr config files
   copy:
     src: "{{ item }}"
@@ -17,13 +25,14 @@
     owner: "{{ solr_user }}"
     group: "{{ solr_user }}"
     remote_src: True
+    force: no
   with_items:
     - "{{ files_to_copy.stdout_lines }}"
 
 # https://www.drupal.org/project/search_api_solr/issues/3015993
 - name: Set solr_install_path in solrcore.properties
   lineinfile:
-    path: /var/solr/data/CLAW/conf/solrcore.properties
+    path: "{{ solr_instance_conf_path }}/solrcore.properties"
     regexp: '^solr\.install\.dir=.*$'
     line: solr.install.dir={{ solr_install_path }}
     state: present
