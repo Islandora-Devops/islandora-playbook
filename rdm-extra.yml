@@ -2,6 +2,22 @@
   hosts: webserver
   become: yes
 
+  vars:
+    rdm_drupal_composer_dependencies:
+      - "drupal/conditional_fields:*"
+      - "drupal/markup:*"
+      - "drupal/select_or_other:*"
+      - "drupal/clamav:*"
+      - "islandora-rdm/islandora_rdm:*"
+
+    rdm_drupal_enable_modules:
+      - conditional_fields
+      - markup
+      - select_or_other
+      - clamav
+      - islandora_rdm
+
+
   tasks:
     - name: Ubuntu packages for RDM
       package:
@@ -12,13 +28,19 @@
         - clamav-daemon
       when: ansible_os_family == "Debian"
 
-    - name: Download islandora ClamAV module
+    - name: Install RDM dependencies with composer require (this may take a while).
       composer:
         command: require
-        arguments: drupal/clamav
-        working_dir: "{{ drupal_core_path }}/.."
-      become_user: "{{ ansible_user }}"
+        arguments: "{{ item }}"
+        working_dir: "{{ drupal_composer_install_dir }}"
+      with_items: "{{ rdm_drupal_composer_dependencies|default([]) }}"
+      become: no
 
-    - name: Install ClamAV module
-      command: "{{ drush_path }} --root {{ drupal_core_path }} -y en clamav"
-
+    - name: Install RDM configured modules with drush.
+      command: >
+        {{ drush_path }} pm-enable -y {{ rdm_drupal_enable_modules | join(" ") }}
+        --root={{ drupal_core_path }}
+      args:
+        chdir: "{{ drupal_core_path }}"
+      when: ('Drupal bootstrap' not in drupal_site_installed.stdout) and rdm_drupal_enable_modules
+      become: no
