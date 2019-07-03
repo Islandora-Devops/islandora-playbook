@@ -1,14 +1,14 @@
-# CLAW Vagrant Playbook
+# Islandora 8 Vagrant Playbook
 [![LICENSE](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](./LICENSE)
 
 ## Introduction
 
-This is an Ansible playbook for Islandora CLAW. It also has a vagrant file to bring up a development
-environment virtual machine for Islandora CLAW.
+This is an Ansible playbook for Islandora 8. It also has a vagrant file to bring up a development
+environment virtual machine for Islandora 8.
 
 This virtual machine **should not** be used in production **yet**.
 
-If you struggle with following the instructions for setting up the requirements a simpler step-by-step guidelines for turning nearly any computer into an Islandora CLAW environment can be found at "[for Beginners](forBeginners.md)".
+If you struggle with following the instructions for setting up the requirements a simpler step-by-step guidelines for turning nearly any computer into an Islandora 8 environment can be found at "[for Beginners](forBeginners.md)".
 
 ## Requirements
 
@@ -148,7 +148,7 @@ You can access the IIIF interface at: http://localhost:8080/cantaloupe/iiif/2/
 
 ### JWT
 
-CLAW uses JWT for authentication across the stack. Crayfish microservices, Fedora, and Drupal all use them. 
+Islandora 8 uses JWT for authentication across the stack. Crayfish microservices, Fedora, and Drupal all use them. 
 Crayfish and Fedora have been set up to use a master token of `islandora` to make testing easier.  To use it, just set
 the following header in HTTP requests:
 
@@ -167,14 +167,14 @@ You can access the FITS Web Service at http://localhost:8080/fits/
 
 ### Matomo
 
-CLAW Playbook installs an instance of the [Matomo](https://matomo.org/) (formally PIWIK) web analytics platform. You can access your instance at: http://localhost:8000/matomo
+Islandora 8 Playbook installs an instance of the [Matomo](https://matomo.org/) (formally PIWIK) web analytics platform. You can access your instance at: http://localhost:8000/matomo
 
   * username: admin
   * password: islandora
  
 ## Roadmap
 
-1. Get feature parity with [CLAW Vagrant](https://github.com/Islandora-CLAW/claw_vagrant)
+1. Get feature parity with [Islandora 8 Vagrant](https://github.com/Islandora-CLAW/claw_vagrant)
 2. Break each role out into its own git repo, so they can be listed on galaxy
 3. Test install on multiple boxes
 4. Test with other operating systems (?)
