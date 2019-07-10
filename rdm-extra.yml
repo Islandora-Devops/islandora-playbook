@@ -37,10 +37,5 @@
       become: no
 
     - name: Install RDM configured modules with drush.
-      command: >
-        {{ drush_path }} pm-enable -y {{ rdm_drupal_enable_modules | join(" ") }}
-        --root={{ drupal_core_path }}
-      args:
-        chdir: "{{ drupal_core_path }}"
-      when: ('Drupal bootstrap' not in drupal_site_installed.stdout) and rdm_drupal_enable_modules
-      become: no
+      command: "{{ drush_path }} --root={{ drupal_core_path }} -y en {{ rdm_drupal_enable_modules | join(' ') }}"
+
