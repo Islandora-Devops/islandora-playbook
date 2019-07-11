@@ -4,3 +4,9 @@
  alpaca_from_source: yes
  alpaca_version: dev
  alpaca_clone_directory: /opt/alpaca
+
+ alpaca_triplestore_base_url: http://localhost:8080/bigdata
+ alpaca_milliner_base_url: http://localhost:8000/milliner/
+ alpaca_gemini_base_url: http://localhost:8000/gemini/
+ alpaca_houdini_base_url: http://localhost:8000/houdini/convert
+ alpaca_homarus_base_url: http://localhost:8000/homarus/convert
