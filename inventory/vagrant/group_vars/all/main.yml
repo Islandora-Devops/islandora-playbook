@@ -13,6 +13,7 @@ islandora_extra_ubuntu_packages:
   - unzip
   - build-essential
   - vim
+  - python3-mysqldb
 
 islandora_extra_centos_packages:
   - wget
