@@ -1,0 +1,13 @@
+There is no way of tracking patches and declaring them obsolete via composer
+under Ansible, so here is a list of patches that have been applies, 
+where they are applied, and what Drupal.org issue they are from.
+
+These patches should be reviewed is tde deploy script fils as they may
+no lnoger be needed if the issue is solved.
+
+Rules action: Grant access by role error
+
+https://www.drupal.org/project/content_access/issues/2895333
+
+dm-extra.yml step: name: Download drupal rules patch.
+
