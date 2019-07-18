@@ -5,8 +5,10 @@
   vars:
     rdm_drupal_composer_dependencies:
       - "drupal/conditional_fields:*"
+      - "drupal/content_access:*"
       - "drupal/markup:*"
       - "drupal/select_or_other:*"
+      - "drupal/rules:*"
       - "drupal/clamav:*"
       - "islandora-rdm/islandora_rdm:*"
 
@@ -16,6 +18,8 @@
       - select_or_other
       - clamav
       - islandora_rdm
+      - rules
+      - content_access
 
 
   tasks:
@@ -39,3 +43,21 @@
     - name: Install RDM configured modules with drush.
       command: "{{ drush_path }} --root={{ drupal_core_path }} -y en {{ rdm_drupal_enable_modules | join(' ') }}"
 
+    - name: Download drupal rules patch.
+      get_url:
+        url: https://www.drupal.org/files/issues/rules_action.patch
+        dest: /tmp/rules_action.patch
+
+    - name: Apply the patch from the drupal docroot.
+#      shell: "patch -p1 < /tmp/rules_action.patch chdir={{ drupal_core_path }}/modules/contrib/content_access" 
+      patch:
+        src: /tmp/rules_action.patch
+        basedir: "{{ drupal_core_path }}/modules/contrib/content_access"
+        remote_src: yes
+        strip: 1
+
+    - name: Restart apache (or nginx, and/or php-fpm, etc.) to rebuild opcode cache.
+      service: name=apache2 state=restarted
+
+    - name: Clear Drupal caches (because it's always a good idea).
+      command: "drush cr chdir={{ drupal_core_path }}"
