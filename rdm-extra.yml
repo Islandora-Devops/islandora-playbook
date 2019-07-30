@@ -9,7 +9,7 @@
       - "drupal/select_or_other:*"
       - "drupal/rules:*"
       - "drupal/clamav:*"
-      - "islandora-rdm/islandora_rdm:*"
+      - "islandora-rdm/islandora_rdm:dev-8.x-1.x"
 
     rdm_drupal_enable_modules:
       - conditional_fields
