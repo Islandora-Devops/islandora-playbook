@@ -2,4 +2,4 @@
 
 webserver_app: yes
 openseadragon_iiiv_set_var: yes
-openseadragon_iiiv_server: http://localhost:8080/cantaloupe/iiif/2
+openseadragon_iiiv_server: "http://{{ hostvars[groups['tomcat'][0]].ansible_host  }}:8080/cantaloupe/iiif/2"
