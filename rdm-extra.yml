@@ -17,6 +17,7 @@
       - select_or_other
       - clamav
       - islandora_rdm 
+      - data_management_plan
 
   tasks:
     - name: Ubuntu packages for RDM
