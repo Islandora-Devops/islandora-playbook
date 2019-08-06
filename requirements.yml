@@ -46,7 +46,7 @@
 
 - src: https://github.com/Islandora-Devops/ansible-role-alpaca
   name: Islandora-Devops.alpaca
-  version: 1.0.0
+  version: master
 
 #- src: https://github.com/Islandora-Devops/ansible-role-apix
 #  name: Islandora-Devops.apix
@@ -80,9 +80,9 @@
   name: Islandora-Devops.tomcat8
   version: 1.0.0
 
-- src: https://github.com/Islandora-Devops/ansible-role-fits
+- src: https://github.com/ajstanley/ansible-role-fits
   name: Islandora-Devops.fits
-  version: 1.0.0
+  version: master
 
 - src: https://github.com/Islandora-Devops/ansible-role-grok
   name: Islandora-Devops.grok

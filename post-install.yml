@@ -10,15 +10,12 @@
 
   tasks:
 
-    - name: Install islandora_defaults module
-      command: "{{ drush_path }} --root {{ drupal_core_path }} -y en islandora_defaults"
+    - name: Import islandora features
+      command: "{{ drush_path }} --root {{ drupal_core_path }} -y fim --bundle=islandora islandora_core_feature,islandora_defaults"
 
-    - name: Import feature
-      command: "{{ drush_path }} --root {{ drupal_core_path }} -y fim --bundle=islandora islandora_defaults"
-      
     - name: Add admin to fedoraAdmin role
       command: "{{ drush_path }} --root {{ drupal_core_path }} -y urol fedoraadmin admin"
-      
+
     - name: Install islandora_search
       command: "{{ drush_path }} --root {{ drupal_core_path }} -y en islandora_search"
 
