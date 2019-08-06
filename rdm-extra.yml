@@ -4,11 +4,13 @@
 
   vars:
     rdm_drupal_composer_dependencies:
+      - "dompdf/dompdf:*"
       - "drupal/conditional_fields:*" 
       - "drupal/markup:*"
       - "drupal/select_or_other:*"
       - "drupal/rules:*"
       - "drupal/clamav:*"
+      - "drupal/entity_print:*"
       - "islandora-rdm/islandora_rdm:dev-8.x-1.x"
 
     rdm_drupal_enable_modules:
@@ -16,8 +18,14 @@
       - markup
       - select_or_other
       - clamav
+      - entity_print
       - islandora_rdm 
+      - islandora_rdm_site
       - data_management_plan
+
+    rdm_services:
+      - clamav-daemon
+      - clamav-freshclam
 
   tasks:
     - name: Ubuntu packages for RDM
@@ -27,7 +35,20 @@
       with_items:
         - clamav
         - clamav-daemon
+        - php7.2-zip
       when: ansible_os_family == "Debian"
+
+    - name: ClamAV Freshclam service
+      service:
+        name: clamav-freshclam
+        state: started
+        enabled: yes
+
+    - name: ClamAV Daemon service
+      service:
+        name: clamav-daemon
+        state: started
+        enabled: yes
 
     - name: Install RDM dependencies with composer require (this may take a while).
       composer:
