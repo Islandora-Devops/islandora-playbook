@@ -44,6 +44,8 @@ drupal_enable_modules:
   - content_browser
   - matomo
   - pdf
+  - islandora_core_feature
+  - controlled_access_terms_defaults
   - islandora_defaults
   - islandora_fits
 drupal_trusted_hosts:
