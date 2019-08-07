@@ -10,6 +10,9 @@
 
   tasks:
 
+    - name: Import feature
+      command: "{{ drush_path }} --root {{ drupal_core_path }} -y fim --bundle=islandora islandora_defaults"
+      
     - name: Add admin to fedoraAdmin role
       command: "{{ drush_path }} --root {{ drupal_core_path }} -y urol fedoraadmin admin"
 
