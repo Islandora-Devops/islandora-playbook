@@ -72,8 +72,8 @@ More information about inventories can be found in the [ansible documentation](h
   1. Change the `drupal_trusted_host` configuration in `inventory/production/group_vars/webserver/drupal.yml` to reflect your IP or domain name
   1. To run drupal on port 80, change the following variables:
       * apache_listen_port to 80 in `inventory/production/group_vars/webserver/apache.yml`
-      * crayfish_milliner_drupal_base_url `inventory/production/group_vars/crayfish.yml`
-      * crayfish_milliner_gemini_base_url `inventory/production/group_vars/crayfish.yml`
+      * crayfish_drupal_base_url `inventory/production/group_vars/crayfish.yml`
+      * crayfish_gemini_base_url `inventory/production/group_vars/crayfish.yml`
       * milliner.baseUrl `inventory/production/group_vars/karaf.yml`
   1. Any other variable changes you wish.
 1. Install the roles using `ansible-galaxy`: `$ ansible-galaxy install -r requirements.yml`
