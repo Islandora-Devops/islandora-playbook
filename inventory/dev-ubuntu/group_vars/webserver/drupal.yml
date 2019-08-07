@@ -6,7 +6,7 @@ drupal_core_owner: "{{ ansible_user }}"
 drupal_composer_dependencies:
   - "zaporylie/composer-drupal-optimizations:^1.0"
   - "drupal/console:~1.0"
-  - "drupal/devel:^2.0"
+#  - "drupal/devel:*"
   - "drupal/rdfui:^1.0-beta1"
   - "drupal/restui:^1.16"
   - "drupal/search_api_solr:^2.0"
@@ -15,8 +15,8 @@ drupal_composer_dependencies:
   - "drupal/matomo:^1.7"
   - "drupal/pdf:1.x-dev"
   - "islandora/carapace:1.0.0"
-  - "islandora/islandora_defaults:1.0.0"
-drupal_composer_project_package: "islandora/drupal-project:8.6.10"
+  - "islandora/islandora_defaults:dev-8.x-1.x"
+drupal_composer_project_package: "islandora/drupal-project:8.7"
 drupal_composer_project_options: "--prefer-dist --stability dev --no-interaction"
 drupal_core_path: "{{ drupal_composer_install_dir }}/web"
 drupal_db_user: drupal8
@@ -58,3 +58,5 @@ drupal_gemini_pseudo_bundles:
   - file:media
   - audio:media
   - video:media
+openseadragon_composer_item: "islandora/openseadragon:dev-8.x-1.x"
+
