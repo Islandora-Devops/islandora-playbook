@@ -7,7 +7,7 @@
 
  triplestore_namespace: islandora
  alpaca_triplestore_base_url: "http://{{ hostvars[groups['tomcat'][0]].ansible_host  }}:8080/bigdata"
- alpaca_milliner_base_url: "http://{{ hostvars[groups['webserver'][0]].ansible_host  }}:{{ apache_listen_port }}/milliner"
- alpaca_gemini_base_url: "http://{{ hostvars[groups['webserver'][0]].ansible_host  }}:{{ apache_listen_port }}/gemini"
+ alpaca_milliner_base_url: "http://{{ hostvars[groups['webserver'][0]].ansible_host  }}:{{ apache_listen_port }}/milliner/"
+ alpaca_gemini_base_url: "http://{{ hostvars[groups['webserver'][0]].ansible_host  }}:{{ apache_listen_port }}/gemini/"
  alpaca_houdini_base_url: "http://{{ hostvars[groups['webserver'][0]].ansible_host  }}:{{ apache_listen_port }}/houdini"
  alpaca_homarus_base_url: "http://{{ hostvars[groups['webserver'][0]].ansible_host  }}:{{ apache_listen_port }}/homarus"
