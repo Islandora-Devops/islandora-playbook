@@ -86,7 +86,7 @@
 
 - src: https://github.com/Islandora-Devops/ansible-role-grok
   name: Islandora-Devops.grok
-  version: 1.0.0
+  version: 2.0.0
 
 - src: https://github.com/Islandora-Devops/ansible-role-karaf
   name: Islandora-Devops.karaf
