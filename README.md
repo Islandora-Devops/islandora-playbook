@@ -33,14 +33,14 @@ export ISLANDORA_VAGRANT_MEMORY=4096
 
 _CENTOS support is WIP and not to be considered stable_
 
-Ubuntu 16.04 is the default linux distribution used by claw-playbook.  If you want to use CENTOS 7 instead, set the `ISLANDORA_DISTRO` environment variable to `centos/7`.  The easiest way to do this is to export the environment variable into your shell before running Vagrant commands. Otherwise you will have to provide the variable for every Vagrant command you issue.
+Ubuntu 18.04 is the default linux distribution used by claw-playbook. If you want to use CENTOS 7 instead, set the `ISLANDORA_DISTRO` environment variable to `centos/7`. The easiest way to do this is to export the environment variable into your shell before running Vagrant commands. Otherwise you will have to provide the variable for every Vagrant command you issue.
 
 ```bash
 ISLANDORA_DISTRO="centos/7" vagrant up
 ISLANDORA_DISTRO="centos/7" vagrant ssh
 ```
 
-If you are not using `vagrant up` to bring up a box, and are running `ansible-playbook` against it manually, you will need to set `ansible_ssh_user` to `vagrant` for your hosts.  It's easiest to add this value to `inventory/vagrant/group_vars/all.yml` to set the value for all hosts.  This is not neccessary if using Vagrant, as the ssh user is passed to ansible via the Vagrantfile.
+If you are not using `vagrant up` to bring up a box, and are running `ansible-playbook` against it manually, you will need to set `ansible_ssh_user` to `vagrant` for your hosts. It's easiest to add this value to `inventory/vagrant/group_vars/all.yml` to set the value for all hosts. This is not neccessary if using Vagrant, as the ssh user is passed to ansible via the Vagrantfile.
 
 ## Use
 
@@ -77,9 +77,7 @@ More information about inventories can be found in the [ansible documentation](h
       * milliner.baseUrl `inventory/production/group_vars/karaf.yml`
   1. Any other variable changes you wish.
 1. Install the roles using `ansible-galaxy`: `$ ansible-galaxy install -r requirements.yml`
-1. Provision the server:
-- If the host you are provisioning is a Ubuntu 16.04 machine, you may wish to have the playbook install Python for you. This is a requirement to run the playbook. You can do this by passing an additional variable on the command line like this. `$ ansible-playbook -i inventory/production playbook.yml -e "islandora_distro=ubuntu/xenial64"`
-- If the host you are provisioning is a Centos/7 machine, you may wish to have the playbook install Python for you. This is a requirement to run the playbook. You can do this by passing an additional variable on the command line like this. `$ ansible-playbook -i inventory/production playbook.yml -e "islandora_distro=centos/7"`
+1. Provision the server: `$ ansible-playbook -i inventory/production playbook.yml`
 
 ## Connect
 
@@ -149,7 +147,7 @@ You can access the IIIF interface at: http://localhost:8080/cantaloupe/iiif/2/
 ### JWT
 
 CLAW uses JWT for authentication across the stack. Crayfish microservices, Fedora, and Drupal all use them. 
-Crayfish and Fedora have been set up to use a master token of `islandora` to make testing easier.  To use it, just set
+Crayfish and Fedora have been set up to use a master token of `islandora` to make testing easier. To use it, just set
 the following header in HTTP requests:
 
   * `Authorization: Bearer islandora`
