@@ -60,5 +60,7 @@
 
     - name: Install RDM configured modules with drush.
       command: "{{ drush_path }} --root={{ drupal_core_path }} -y en {{ rdm_drupal_enable_modules | join(' ') }}"
+      ignore_errors: yes
+      
 
 
