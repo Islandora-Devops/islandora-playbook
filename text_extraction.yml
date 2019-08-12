@@ -3,11 +3,6 @@
 - hosts: webserver
   become: yes
 
-  # installs everything needed to make islandora_text_extraction work.
-  vars:
-    webserver_app_user: "{% if ansible_os_family == 'RedHat' %}apache{% else %}www-data{% endif %}"
-    vagrant_user: "{% if ansible_os_family == 'RedHat' %}vagrant{% else %}ubuntu{% endif %}"
-
   tasks:
     - name: "Install pdftotext (Debian family)"
       apt:
@@ -21,21 +16,11 @@
         update_cache: yes
       when: ansible_os_family == "Redhat"
 
-
     - name: Download Islandora Text Extraction module
       composer:
         command: require
         arguments: islandora-rdm/islandora_text_extraction
         working_dir: "{{ drupal_core_path }}/.."
-
-    - name: Chown Islandora Text Extraction module
-      file:
-        dest: "{{ drupal_core_path }}/modules/contrib/islandora_text_extraction"
-        state: directory
-        owner: "{{ webserver_app_user }}"
-        group: "{{ webserver_app_user }}"
-        mode: 0775
-        recurse: yes
 
     - name: Enable text extraction module
       command: "{{ drush_path }} --root {{ drupal_core_path }} -y en islandora_text_extraction"
