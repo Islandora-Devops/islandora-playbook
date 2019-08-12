@@ -1,0 +1,198 @@
+---
+
+- hosts: webserver
+  become: yes
+
+  tasks:
+    - name: Check for Existing microservice
+      stat:
+        path: /var/www/html/riprap/vendor
+      register: riprap
+
+    - name: Get Riprap Microservice from Github
+      git:
+        repo: https://github.com/mjordan/riprap.git
+        dest: /var/www/html/riprap
+        force: yes
+      when: riprap.stat.exists == False
+
+    - name: Change riprap directory ownership, group and permissions
+      file:
+        path: /var/www/html/riprap
+        owner: "{{ ansible_user }}"
+        group: "{{ ansible_user }}"
+        mode: '0755'
+        recurse: True
+
+    - name: Composer Install Riprap Microservice
+      composer:
+        command: install
+        working_dir: /var/www/html/riprap
+      ignore_errors: yes
+      when: riprap.stat.exists == False
+      become_user: "{{ ansible_user }}"
+
+    - name: Open permissions on riprap cache
+      file:
+        path: /var/www/html/riprap/var/cache
+        owner: "{{ ansible_user }}"
+        group: "{{ ansible_user }}"
+        mode: '0777'
+        recurse: True
+
+
+      
+    - name: Composer Update Riprap Microservice
+      command: "composer update"
+      args:
+        chdir: /var/www/html/riprap
+
+      become_user: "{{ ansible_user }}"
+
+    - name: Install Drupal Islandora Riprap module from Github
+      git:
+        repo: https://github.com/mjordan/islandora_riprap.git
+        dest: "{{ drupal_core_path }}/modules/contrib/islandora_riprap"
+        force: yes
+
+    - name: Enable Riprap drupal module
+      command: "{{ drush_path }} --root {{ drupal_core_path }} -y en islandora_riprap"
+
+    - name: Enable JSON:API module (not currently enabled by default
+      command: "{{ drush_path }} --root {{ drupal_core_path }} -y en jsonapi"
+
+    - name: Define sql path
+      set_fact:
+        sql_table: "/var/www/html/riprap/riprap_table.sql"
+
+    - name: Create sql file
+      copy:
+        dest: "{{ sql_table }}"
+        content: |
+          CREATE TABLE IF NOT EXISTS fixity_check_event (
+              id INT AUTO_INCREMENT,
+              event_uuid varchar(50) NOT NULL,
+              resource_id varchar(255) NOT NULL,
+              timestamp varchar(50) NOT NULL,
+              digest_algorithm varchar(50) NOT NULL,
+              digest_value varchar(255) NOT NULL,
+              event_detail varchar(50) NOT NULL,
+              event_outcome varchar(50) NOT NULL,
+              event_type varchar(50) NOT NULL,
+              event_outcome_detail_note varchar(50) NOT NULL,
+              PRIMARY KEY (id)
+          )  ENGINE=INNODB;
+
+    - name:  Create table in database
+      mysql_db:
+        name: "{{ drupal_db_name }}"
+        state: import
+        target: "{{ sql_table }}"
+
+    - name: Delete table file
+      file:
+        path: "{{ sql_table }}"
+        state: absent
+
+    - name: Build site for Riprap microservice
+      blockinfile:
+        path: "/etc/apache2/conf-available/riprap.conf"
+        create: yes
+        block: |
+          Alias "/api/fixity" "/var/www/html/riprap/public"
+          <Directory "/var/www/html/riprap/public">
+            FallbackResource /index.php
+            Require all granted
+            DirectoryIndex index.php
+            SetEnvIf Authorization "(.*)" HTTP_AUTHORIZATION=$1
+          </Directory>
+
+    - name: Enable riprap site
+      file:
+        src: "/etc/apache2/conf-available/riprap.conf"
+        dest: "/etc/apache2/conf-enabled/riprap.conf"
+        state: link
+
+    - name: Add Islandora Ansible Routes
+      blockinfile:
+        path: "/var/www/html/riprap/config/routes.yaml"
+        create: no
+        block: |
+          app_riprap_fixity_events_read_is_islandora:
+              path: /
+              controller: App\Controller\FixityController::read
+              methods: [GET, HEAD]
+
+          app_riprap_fixity_events_add_islandora:
+              path: /
+              controller: App\Controller\FixityController::add
+              methods: [POST]
+
+          app_riprap_fixity_events_update_islandora:
+              path: /
+              controller: App\Controller\FixityController::update
+              methods: [PATCH]
+
+    - name: Build config file
+      blockinfile:
+        path: "/var/www/html/riprap/rdm_config.yml"
+        create: yes
+        block: |
+          # Riprap config file for using Islandora/database plugins.
+
+          ####################
+          # General settings #
+          ####################
+
+          fixity_algorithm: sha256
+
+          ###########
+          # Plugins #
+          ###########
+
+          plugins.fetchresourcelist: ['PluginFetchResourceListFromDrupal']
+          drupal_baseurl: '{{ crayfish_drupal_base_url }}'
+          # admin/islandora
+          jsonapi_authorization_headers: ['Authorization: Basic YWRtaW46aXNsYW5kb3Jh']
+          drupal_media_auth: ['{{ drupal_account_name }}', '{{ drupal_account_pass }}']
+          drupal_content_types: ['islandora_object']
+          drupal_media_tags: ['/taxonomy/term/17']
+          use_fedora_urls: true
+          gemini_endpoint: '{{ crayfish_gemini_base_url }}'
+          gemini_auth_header: 'Bearer islandora' 
+          # Can be a maximum of 50.
+          jsonapi_page_size: 50
+          # The number of resources to check in one Riprap run; if absent, will use
+          # value defined in jsonapi_page_size. Must be a multiple of number specified
+          # in jsonapi_page_size.
+          max_resources: 1000
+          jsonapi_pager_data_file_path: '/var/www/html/riprap/var/fetchresourcelist.from.drupal.pager.txt'
+
+          plugins.fetchdigest: PluginFetchDigestFromFedoraAPI
+          fedoraapi_method: HEAD
+          fedoraapi_digest_header_leader_pattern: "^.+="
+
+          plugins.persist: PluginPersistToDatabase
+
+          plugins.postcheck: ['PluginPostCheckCopyFailures']
+          # Absolute or relative to the Riprap application directory.
+          failures_log_path: '/tmp/riprap_failed_events.log'
+        
+
+    
+    - name: Edit .env file
+      lineinfile:
+        path: /var/www/html/riprap/.env
+        regexp: 'DATABASE_URL=sqlite:///%kernel.project_dir%/var/data.db'
+        line: 'DATABASE_URL=mysql://{{ drupal_db_user}}:{{ drupal_db_password }}@127.0.0.1:3306/{{ drupal_db_name }}'
+
+    - name: Create daily cron job
+      cron:
+        name: "update fixity"
+        minute: "0"
+        hour: "5"
+        job: "php /var/www/html/riprap/bin/console app:riprap:check_fixity --settings=/var/www/html/riprap/rdm_config.yml"
+
+
+
+
