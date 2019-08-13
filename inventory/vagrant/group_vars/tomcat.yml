@@ -6,6 +6,16 @@ tomcat8_users:
     roles:
       - manager-gui
 
+# For production use either "jdbc-mysql" or "jdbc-postgresql"
+#fcrepo_persistence: file-simple
+fcrepo_persistence: jdbc-mysql
+
+# Used for mysql or postgres object persistence.
+fcrepo_db_name: fcrepo
+fcrepo_db_user: fcrepo
+fcrepo_db_host: "127.0.0.1"
+fcrepo_db_port: "3306"
+
 tomcat8_java_opts:
   - -Djava.awt.headless=true
   - -Dfile.encoding=UTF-8
@@ -24,6 +34,16 @@ tomcat8_java_opts:
   - -Dcom.bigdata.rdf.sail.webapp.ConfigParams.propertyFile={{ blazegraph_home_dir }}/conf/RWStore.properties
   - -Dcantaloupe.config={{ cantaloupe_symlink }}/cantaloupe.properties
   - -Dorg.apache.tomcat.util.buf.UDecoder.ALLOW_ENCODED_SLASH=true
+  # For Fedora MySQL object persistence
+  - -Dfcrepo.mysql.username={{ fcrepo_db_name }}
+  - -Dfcrepo.mysql.password={{ fcrepo_db_password }}
+  - -Dfcrepo.mysql.host={{ fcrepo_db_host }}
+  - -Dfcrepo.mysql.port={{ fcrepo_db_port }}
+  # For Fedora Postgresql object persistence
+  # - -Dfcrepo.postgresql.username={{ fcrepo_db_name }}
+  # - -Dfcrepo.postgresql.password={{ fcrepo_db_password }}
+  # - -Dfcrepo.postgresql.host={{ fcrepo_db_host }}
+  # - -Dfcrepo.postgresql.port={{ fcrepo_db_port }}
 
 fcrepo_syn_tomcat_home: "{{ tomcat8_home }}"
 fcrepo_syn_default_public_key_path: "{{ fcrepo_syn_tomcat_home }}/conf/public.key"
