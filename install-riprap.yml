@@ -58,6 +58,24 @@
     - name: Enable Riprap drupal module
       command: "{{ drush_path }} --root {{ drupal_core_path }} -y en islandora_riprap"
 
+    - name: Create Config directory
+      file:
+        path: "{{ drupal_core_path }}/modules/contrib/islandora_riprap/config/optional"
+        state: directory
+        owner: www-data
+        group: www-data
+        mode: 0755
+      
+    - name: Add RDM config
+      copy:
+        dest: "{{ drupal_core_path }}/modules/contrib/islandora_riprap/config/optional/slandora_riprap.settings.yml"
+        content: |
+            riprap_rest_endpoint: 'http://localhost/api/fixity'
+            number_of_events: '10'
+            gemini_rest_endpoint: 'http://localhost/gemini'
+            use_drupal_urls: 0
+            show_riprap_warnings: 0
+
     - name: Enable JSON:API module (not currently enabled by default
       command: "{{ drush_path }} --root {{ drupal_core_path }} -y en jsonapi"
 
@@ -193,6 +211,10 @@
         hour: "5"
         job: "php /var/www/html/riprap/bin/console app:riprap:check_fixity --settings=/var/www/html/riprap/rdm_config.yml"
 
+    - name: restart apache
+      service:
+        name: apache2
+        state: restarted
 
 
 
