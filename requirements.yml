@@ -70,7 +70,7 @@
 
 - src: https://github.com/seth-shaw-unlv/ansible-role-fcrepo
   name: Islandora-Devops.fcrepo
-  version: dev-issue-1244
+  version: issue-1244
 
 - src: https://github.com/Islandora-Devops/ansible-role-fcrepo-syn
   name: Islandora-Devops.fcrepo-syn
