@@ -173,7 +173,7 @@
           # admin/islandora
           jsonapi_authorization_headers: ['Authorization: Basic YWRtaW46aXNsYW5kb3Jh']
           drupal_media_auth: ['{{ drupal_account_name }}', '{{ drupal_account_pass }}']
-          drupal_content_types: ['islandora_object']
+          drupal_content_types: ['islandora_rdm_dataset']
           drupal_media_tags: ['/taxonomy/term/17']
           use_fedora_urls: true
           gemini_endpoint: '{{ crayfish_gemini_base_url }}'
