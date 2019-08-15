@@ -1,7 +1,7 @@
 ---
 
 - name: Set default solr server to point to CLAW core
-  command: "{{ drush_path }} --root {{ drupal_core_path }} -y config-set search_api.server.default_solr_server backend_config.connector_config.core CLAW"
+  command: "{{ drush_path }} --root {{ drupal_core_path }} -y config-set search_api.server.default_solr_server backend_config.connector_config.core {{ solr_cores[0] }}"
   register: set_search_api_config
   changed_when: "'Do you want to update' in set_search_api_config.stdout"
 
@@ -23,7 +23,7 @@
 # https://www.drupal.org/project/search_api_solr/issues/3015993
 - name: Set solr_install_path in solrcore.properties
   lineinfile:
-    path: /var/solr/data/CLAW/conf/solrcore.properties
+    path: /var/solr/data/{{ solr_cores[0] }}/conf/solrcore.properties
     regexp: '^solr\.install\.dir=.*$'
     line: solr.install.dir={{ solr_install_path }}
     state: present
