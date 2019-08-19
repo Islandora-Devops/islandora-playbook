@@ -12,6 +12,7 @@
       - "drupal/clamav:*"
       - "drupal/entity_print:*"
       - "islandora-rdm/islandora_rdm:dev-8.x-1.x"
+      - "drupal/orcid:1.x-dev"
 
     rdm_drupal_enable_modules:
       - conditional_fields
@@ -22,7 +23,8 @@
       - islandora_rdm 
       - islandora_rdm_site
       - islandora_rdm_data_management_plan
-      - islandora_rdm_solr_config.features
+      - islandora_rdm_solr_config
+      - orcid
 
     rdm_services:
       - clamav-daemon
@@ -62,6 +64,14 @@
     - name: Install RDM configured modules with drush.
       command: "{{ drush_path }} --root={{ drupal_core_path }} -y en {{ rdm_drupal_enable_modules | join(' ') }}"
       ignore_errors: yes
+
+    - name: Set ORCID client_id
+      command: "{{ drush_path }} --root {{ drupal_core_path }} cset orcid.settings client_id {{ client_id }} -y"
+      when: client_id is defined
+
+    - name: Set ORCID client_secret
+      command: "{{ drush_path }} --root {{ drupal_core_path }} cset orcid.settings client_secret {{ client_secret }} -y"
+      when: client_secret is defined
       
 
 

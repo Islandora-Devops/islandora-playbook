@@ -13,4 +13,5 @@
 - import_playbook: install-riprap.yml
 - import_playbook: post-install.yml
 - import_playbook: rdm-extra.yml
+- import_playbook: orcid_integration.yml
 
