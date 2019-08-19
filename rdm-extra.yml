@@ -22,6 +22,7 @@
       - islandora_rdm 
       - islandora_rdm_site
       - islandora_rdm_data_management_plan
+      - islandora_rdm_solr_config.features
 
     rdm_services:
       - clamav-daemon
