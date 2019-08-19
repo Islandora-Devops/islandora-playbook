@@ -34,16 +34,6 @@ tomcat8_java_opts:
   - -Dcom.bigdata.rdf.sail.webapp.ConfigParams.propertyFile={{ blazegraph_home_dir }}/conf/RWStore.properties
   - -Dcantaloupe.config={{ cantaloupe_symlink }}/cantaloupe.properties
   - -Dorg.apache.tomcat.util.buf.UDecoder.ALLOW_ENCODED_SLASH=true
-  # For Fedora MySQL object persistence
-  - -Dfcrepo.mysql.username={{ fcrepo_db_name }}
-  - -Dfcrepo.mysql.password={{ fcrepo_db_password }}
-  - -Dfcrepo.mysql.host={{ fcrepo_db_host }}
-  - -Dfcrepo.mysql.port={{ fcrepo_db_port }}
-  # For Fedora Postgresql object persistence
-  # - -Dfcrepo.postgresql.username={{ fcrepo_db_name }}
-  # - -Dfcrepo.postgresql.password={{ fcrepo_db_password }}
-  # - -Dfcrepo.postgresql.host={{ fcrepo_db_host }}
-  # - -Dfcrepo.postgresql.port={{ fcrepo_db_port }}
 
 fcrepo_syn_tomcat_home: "{{ tomcat8_home }}"
 fcrepo_syn_default_public_key_path: "{{ fcrepo_syn_tomcat_home }}/conf/public.key"
