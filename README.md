@@ -1,14 +1,14 @@
-# Islandora 8 Vagrant Playbook
+# CLAW Vagrant Playbook
 [![LICENSE](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](./LICENSE)
 
 ## Introduction
 
-This is an Ansible playbook for Islandora 8. It also has a vagrant file to bring up a development
-environment virtual machine for Islandora 8.
+This is an Ansible playbook for Islandora CLAW. It also has a vagrant file to bring up a development
+environment virtual machine for Islandora CLAW.
 
 This virtual machine **should not** be used in production **yet**.
 
-If you struggle with following the instructions for setting up the requirements a simpler step-by-step guidelines for turning nearly any computer into an Islandora 8 environment can be found at "[for Beginners](forBeginners.md)".
+If you struggle with following the instructions for setting up the requirements a simpler step-by-step guidelines for turning nearly any computer into an Islandora CLAW environment can be found at "[for Beginners](forBeginners.md)".
 
 ## Requirements
 
@@ -33,14 +33,14 @@ export ISLANDORA_VAGRANT_MEMORY=4096
 
 _CENTOS support is WIP and not to be considered stable_
 
-Ubuntu 16.04 is the default linux distribution used by claw-playbook.  If you want to use CENTOS 7 instead, set the `ISLANDORA_DISTRO` environment variable to `centos/7`.  The easiest way to do this is to export the environment variable into your shell before running Vagrant commands. Otherwise you will have to provide the variable for every Vagrant command you issue.
+Ubuntu 18.04 is the default linux distribution used by claw-playbook. If you want to use CENTOS 7 instead, set the `ISLANDORA_DISTRO` environment variable to `centos/7`. The easiest way to do this is to export the environment variable into your shell before running Vagrant commands. Otherwise you will have to provide the variable for every Vagrant command you issue.
 
 ```bash
 ISLANDORA_DISTRO="centos/7" vagrant up
 ISLANDORA_DISTRO="centos/7" vagrant ssh
 ```
 
-If you are not using `vagrant up` to bring up a box, and are running `ansible-playbook` against it manually, you will need to set `ansible_ssh_user` to `vagrant` for your hosts.  It's easiest to add this value to `inventory/vagrant/group_vars/all.yml` to set the value for all hosts.  This is not neccessary if using Vagrant, as the ssh user is passed to ansible via the Vagrantfile.
+If you are not using `vagrant up` to bring up a box, and are running `ansible-playbook` against it manually, you will need to set `ansible_ssh_user` to `vagrant` for your hosts. It's easiest to add this value to `inventory/vagrant/group_vars/all.yml` to set the value for all hosts. This is not neccessary if using Vagrant, as the ssh user is passed to ansible via the Vagrantfile.
 
 ## Use
 
@@ -72,14 +72,12 @@ More information about inventories can be found in the [ansible documentation](h
   1. Change the `drupal_trusted_host` configuration in `inventory/production/group_vars/webserver/drupal.yml` to reflect your IP or domain name
   1. To run drupal on port 80, change the following variables:
       * apache_listen_port to 80 in `inventory/production/group_vars/webserver/apache.yml`
-      * crayfish_milliner_drupal_base_url `inventory/production/group_vars/crayfish.yml`
-      * crayfish_milliner_gemini_base_url `inventory/production/group_vars/crayfish.yml`
+      * crayfish_drupal_base_url `inventory/production/group_vars/crayfish.yml`
+      * crayfish_gemini_base_url `inventory/production/group_vars/crayfish.yml`
       * milliner.baseUrl `inventory/production/group_vars/karaf.yml`
   1. Any other variable changes you wish.
 1. Install the roles using `ansible-galaxy`: `$ ansible-galaxy install -r requirements.yml`
-1. Provision the server:
-- If the host you are provisioning is a Ubuntu 16.04 machine, you may wish to have the playbook install Python for you. This is a requirement to run the playbook. You can do this by passing an additional variable on the command line like this. `$ ansible-playbook -i inventory/production playbook.yml -e "islandora_distro=ubuntu/xenial64"`
-- If the host you are provisioning is a Centos/7 machine, you may wish to have the playbook install Python for you. This is a requirement to run the playbook. You can do this by passing an additional variable on the command line like this. `$ ansible-playbook -i inventory/production playbook.yml -e "islandora_distro=centos/7"`
+1. Provision the server: `$ ansible-playbook -i inventory/production playbook.yml`
 
 ## Connect
 
@@ -148,8 +146,8 @@ You can access the IIIF interface at: http://localhost:8080/cantaloupe/iiif/2/
 
 ### JWT
 
-Islandora 8 uses JWT for authentication across the stack. Crayfish microservices, Fedora, and Drupal all use them. 
-Crayfish and Fedora have been set up to use a master token of `islandora` to make testing easier.  To use it, just set
+CLAW uses JWT for authentication across the stack. Crayfish microservices, Fedora, and Drupal all use them. 
+Crayfish and Fedora have been set up to use a master token of `islandora` to make testing easier. To use it, just set
 the following header in HTTP requests:
 
   * `Authorization: Bearer islandora`
@@ -167,14 +165,14 @@ You can access the FITS Web Service at http://localhost:8080/fits/
 
 ### Matomo
 
-Islandora 8 Playbook installs an instance of the [Matomo](https://matomo.org/) (formally PIWIK) web analytics platform. You can access your instance at: http://localhost:8000/matomo
+CLAW Playbook installs an instance of the [Matomo](https://matomo.org/) (formally PIWIK) web analytics platform. You can access your instance at: http://localhost:8000/matomo
 
   * username: admin
   * password: islandora
  
 ## Roadmap
 
-1. Get feature parity with [Islandora 8 Vagrant](https://github.com/Islandora-CLAW/claw_vagrant)
+1. Get feature parity with [CLAW Vagrant](https://github.com/Islandora-CLAW/claw_vagrant)
 2. Break each role out into its own git repo, so they can be listed on galaxy
 3. Test install on multiple boxes
 4. Test with other operating systems (?)

@@ -15,8 +15,8 @@ drupal_composer_dependencies:
   - "drupal/matomo:^1.7"
   - "drupal/pdf:1.x-dev"
   - "islandora/carapace:1.0.0"
-  - "islandora/islandora_defaults:1.0.0"
-drupal_composer_project_package: "islandora/drupal-project:8.6.10"
+  - "islandora/islandora_defaults:dev-8.x-1.x"
+drupal_composer_project_package: "islandora/drupal-project:8.7"
 drupal_composer_project_options: "--prefer-dist --stability dev --no-interaction"
 drupal_core_path: "{{ drupal_composer_install_dir }}/web"
 drupal_db_user: drupal8
@@ -47,10 +47,11 @@ drupal_enable_modules:
   - controlled_access_terms_defaults
 drupal_trusted_hosts:
   - ^localhost$
+  - "{{ hostvars[groups['webserver'][0]].ansible_host }}"
 drupal_trusted_hosts_file: "{{ drupal_core_path }}/sites/default/settings.php"
 drupal_public_filesystem: "{{ drupal_core_path }}/sites/default/files"
 drupal_external_libraries_directory: "{{ drupal_core_path }}/libraries"
-fedora_base_url: "http://localhost:8080/fcrepo/rest/"
+fedora_base_url: "http://{{ hostvars[groups['tomcat'][0]].ansible_host }}:8080/fcrepo/rest/"
 drupal_jsonld_remove_format: true
 drupal_gemini_pseudo_bundles:
   - islandora_object:node
@@ -58,3 +59,4 @@ drupal_gemini_pseudo_bundles:
   - file:media
   - audio:media
   - video:media
+openseadragon_composer_item: "islandora/openseadragon:dev-8.x-1.x"
