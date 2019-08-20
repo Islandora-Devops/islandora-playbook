@@ -67,11 +67,11 @@
 
     - name: Set ORCID client_id
       command: "{{ drush_path }} --root {{ drupal_core_path }} cset orcid.settings client_id {{ client_id }} -y"
-      when: client_id is defined
+      when: client_id is defined and client_id  != ''
 
     - name: Set ORCID client_secret
       command: "{{ drush_path }} --root {{ drupal_core_path }} cset orcid.settings client_secret {{ client_secret }} -y"
-      when: client_secret is defined
+      when: client_secret is defined and client_secret  != ''
       
 
 
