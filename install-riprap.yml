@@ -2,23 +2,26 @@
 
 - hosts: webserver
   become: yes
+  vars:
+    riprap_home: /var/www/html
+    webserver_app_user: "{% if ansible_os_family == 'RedHat' %}apache{% else %}www-data{% endif %}"
 
   tasks:
     - name: Check for Existing microservice
       stat:
-        path: /var/www/html/riprap/vendor
+        path: "{{ riprap_home }}/riprap/vendor"
       register: riprap
 
     - name: Get Riprap Microservice from Github
       git:
         repo: https://github.com/mjordan/riprap.git
-        dest: /var/www/html/riprap
+        dest: "{{ riprap_home }}/riprap"
         force: yes
       when: riprap.stat.exists == False
 
     - name: Change riprap directory ownership, group and permissions
       file:
-        path: /var/www/html/riprap
+        path: "{{ riprap_home }}/riprap"
         owner: "{{ ansible_user }}"
         group: "{{ ansible_user }}"
         mode: '0755'
@@ -27,14 +30,14 @@
     - name: Composer Install Riprap Microservice
       composer:
         command: install
-        working_dir: /var/www/html/riprap
+        working_dir: "{{ riprap_home }}/riprap"
       ignore_errors: yes
       when: riprap.stat.exists == False
       become_user: "{{ ansible_user }}"
 
     - name: Open permissions on riprap cache
       file:
-        path: /var/www/html/riprap/var/cache
+        path: ":{{ riprap_home }}/riprap/var/cache"
         owner: "{{ ansible_user }}"
         group: "{{ ansible_user }}"
         mode: '0777'
@@ -45,7 +48,7 @@
     - name: Composer Update Riprap Microservice
       command: "composer update"
       args:
-        chdir: /var/www/html/riprap
+        chdir: "{{ riprap_home }}/riprap"
 
       become_user: "{{ ansible_user }}"
 
@@ -62,8 +65,8 @@
       file:
         path: "{{ drupal_core_path }}/modules/contrib/islandora_riprap/config/optional"
         state: directory
-        owner: www-data
-        group: www-data
+        owner: "{{ webserver_app_user }}"
+        group: "{{ webserver_app_user }}"
         mode: 0755
       
     - name: Add RDM config
@@ -81,7 +84,7 @@
 
     - name: Define sql path
       set_fact:
-        sql_table: "/var/www/html/riprap/riprap_table.sql"
+        sql_table: "{{ riprap_home }}/riprap/riprap_table.sql"
 
     - name: Create sql file
       copy:
@@ -117,8 +120,8 @@
         path: "/etc/apache2/conf-available/riprap.conf"
         create: yes
         block: |
-          Alias "/api/fixity" "/var/www/html/riprap/public"
-          <Directory "/var/www/html/riprap/public">
+          Alias "/api/fixity" "{{ riprap_home }}/riprap/public"
+          <Directory "{{ riprap_home }}/riprap/public">
             FallbackResource /index.php
             Require all granted
             DirectoryIndex index.php
@@ -133,7 +136,7 @@
 
     - name: Add Islandora Ansible Routes
       blockinfile:
-        path: "/var/www/html/riprap/config/routes.yaml"
+        path: "{{ riprap_home }}/riprap/config/routes.yaml"
         create: no
         block: |
           app_riprap_fixity_events_read_is_islandora:
@@ -153,7 +156,7 @@
 
     - name: Build config file
       blockinfile:
-        path: "/var/www/html/riprap/rdm_config.yml"
+        path: "{{ riprap_home }}/riprap/rdm_config.yml"
         create: yes
         block: |
           # Riprap config file for using Islandora/database plugins.
@@ -184,7 +187,7 @@
           # value defined in jsonapi_page_size. Must be a multiple of number specified
           # in jsonapi_page_size.
           max_resources: 1000
-          jsonapi_pager_data_file_path: '/var/www/html/riprap/var/fetchresourcelist.from.drupal.pager.txt'
+          jsonapi_pager_data_file_path: '{{ riprap_home }}/riprap/var/fetchresourcelist.from.drupal.pager.txt'
 
           plugins.fetchdigest: PluginFetchDigestFromFedoraAPI
           fedoraapi_method: HEAD
@@ -200,7 +203,7 @@
     
     - name: Edit .env file
       lineinfile:
-        path: /var/www/html/riprap/.env
+        path: "{{ riprap_home }}/riprap/.env"
         regexp: 'DATABASE_URL=sqlite:///%kernel.project_dir%/var/data.db'
         line: 'DATABASE_URL=mysql://{{ drupal_db_user}}:{{ drupal_db_password }}@127.0.0.1:3306/{{ drupal_db_name }}'
 
@@ -209,7 +212,7 @@
         name: "update fixity"
         minute: "0"
         hour: "5"
-        job: "php /var/www/html/riprap/bin/console app:riprap:check_fixity --settings=/var/www/html/riprap/rdm_config.yml"
+        job: "php {{ riprap_home }}/riprap/bin/console app:riprap:check_fixity --settings={{ riprap_home }}/riprap/rdm_config.yml"
 
     - name: restart apache
       service:
