@@ -9,7 +9,6 @@
 - import_playbook: tomcat.yml
 - import_playbook: crayfish.yml
 - import_playbook: karaf.yml
-- import_playbook: text_extraction.yml
 - import_playbook: install-riprap.yml
 - import_playbook: post-install.yml
 - import_playbook: rdm-extra.yml
