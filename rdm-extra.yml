@@ -72,6 +72,26 @@
     - name: Set ORCID client_secret
       command: "{{ drush_path }} --root {{ drupal_core_path }} cset orcid.settings client_secret {{ client_secret }} -y"
       when: client_secret is defined and client_secret  != ''
+
+    - name: Setup clock syncing
+      blockinfile:
+        path: /etc/systemd/timesyncd.conf
+        create: no
+        insertafter: '^\[Time\]'
+        content: |
+          NTP=ur.ntp.srv
+          FallbackNTP=ur.fallbackntp.srv
+
+
+    - name: Sync clocks
+      command: "{{ item }}"
+      with_items:
+        - sudo systemctl daemon-reload
+        - sudo timedatectl set-ntp off
+        - sudo timedatectl set-ntp on
+
+
+
       
 
 
