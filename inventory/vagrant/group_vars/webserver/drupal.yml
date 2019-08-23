@@ -37,8 +37,7 @@ drupal_enable_modules:
   - simpletest
   - restui
   - devel
-  - search_api_solr
-  - search_api_solr_defaults
+  - search_api_solr 
   - facets
   - content_browser
   - matomo

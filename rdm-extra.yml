@@ -22,7 +22,7 @@
       - entity_print
       - islandora_rdm 
       - islandora_rdm_site
-      - islandora_rdm_data_management_plan
+      - islandora_rdm_data_management_plan A
       - islandora_rdm_solr_config
       - orcid
 
