@@ -68,9 +68,9 @@
   name: Islandora-Devops.drupal-openseadragon
   version: 1.0.0
 
-- src: https://github.com/seth-shaw-unlv/ansible-role-fcrepo
+- src: https://github.com/Islandora-Devops/ansible-role-fcrepo
   name: Islandora-Devops.fcrepo
-  version: issue-1244
+  version: 2.0.0
 
 - src: https://github.com/Islandora-Devops/ansible-role-fcrepo-syn
   name: Islandora-Devops.fcrepo-syn
