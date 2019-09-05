@@ -1,0 +1,7 @@
+---
+crayfish_version_tag: dev
+crayfish_db: "{{ claw_db }}"
+
+crayfish_fedora_base_url: "http://{{ hostvars[groups['tomcat'][0]].ansible_host }}:8080/fcrepo/rest"
+crayfish_drupal_base_url: "http://{{ hostvars[groups['webserver'][0]].ansible_host }}:{{ apache_listen_port }}"
+crayfish_gemini_base_url: "http://{{ hostvars[groups['webserver'][0]].ansible_host }}:{{ apache_listen_port }}/gemini"

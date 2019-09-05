@@ -1,0 +1,11 @@
+---
+
+apache_listen_port: 80
+apache_create_vhosts: true
+apache_vhosts_filename: "islandora.conf"
+apache_remove_default_vhost: true
+apache_vhosts:
+  - servername: "claw.dev"
+    documentroot: "/var/www/html/drupal/web"
+    allow_override: All
+    options: -Indexes +FollowSymLinks

@@ -1,0 +1,76 @@
+---
+
+tomcat8_users:
+  - username: islandora
+    password: "{{ islandora_tomcat_password }}"
+    roles:
+      - manager-gui
+
+# For production use either "jdbc-mysql" or "jdbc-postgresql"
+#fcrepo_persistence: file-simple
+fcrepo_persistence: jdbc-mysql
+
+# Used for mysql or postgres object persistence.
+fcrepo_db_name: fcrepo
+fcrepo_db_user: fcrepo
+fcrepo_db_host: "127.0.0.1"
+fcrepo_db_port: "3306"
+
+tomcat8_java_opts:
+  - -Djava.awt.headless=true
+  - -Dfile.encoding=UTF-8
+  - -server
+  - -Xms512m
+  - -Xmx1024m
+  - -XX:NewSize=256m
+  - -XX:MaxNewSize=256m
+  - -XX:PermSize=256m
+  - -XX:MaxPermSize=256m
+  - -Dfcrepo.home={{ fcrepo_home_dir }}
+  - -Dfcrepo.modeshape.configuration=file://{{ fcrepo_home_dir }}/configs/repository.json
+  - -Dfcrepo.activemq.configuration=file://{{ fcrepo_config_dir }}/activemq.xml
+  - -Dfcrepo.spring.configuration=file://{{ fcrepo_home_dir }}/configs/fcrepo-config.xml
+  - -Dfcrepo.external.content.allowed={{ fcrepo_allowed_external_content_file }}
+  - -Dcom.bigdata.rdf.sail.webapp.ConfigParams.propertyFile={{ blazegraph_home_dir }}/conf/RWStore.properties
+  - -Dcantaloupe.config={{ cantaloupe_symlink }}/cantaloupe.properties
+  - -Dorg.apache.tomcat.util.buf.UDecoder.ALLOW_ENCODED_SLASH=true
+
+fcrepo_syn_tomcat_home: "{{ tomcat8_home }}"
+fcrepo_syn_default_public_key_path: "{{ fcrepo_syn_tomcat_home }}/conf/public.key"
+
+fcrepo_syn_sites:
+  - algorithm: RS256
+    encoding: PEM
+    anonymous: true
+    default: true
+    path: "{{ fcrepo_syn_default_public_key_path }}"
+
+fcrepo_syn_tokens:
+  - user: admin
+    roles:
+      - admin
+      - fedoraAdmin
+    token: "{{ islandora_syn_token }}"
+
+fcrepo_version: "5.1.0"
+fcrepo_auth_header_name: "X-Islandora"
+fcrepo_syn_auth_header: "X-Islandora"
+
+cantaloupe_deploy_war: yes
+cantaloupe_deploy_war_path: "{{ tomcat8_home }}/webapps"
+cantaloupe_user: tomcat8
+cantaloupe_group: tomcat8
+cantaloupe_admin_enabled: "true"
+cantaloupe_OpenJpegProcessor_path_to_binaries: /usr/local/bin
+cantaloupe_log_application_ConsoleAppender_enabled: "false"
+cantaloupe_log_application_FileAppender_enabled: "true"
+cantaloupe_log_application_FileAppender_pathname: "{{ cantaloupe_log_path }}/application.log"
+cantaloupe_log_access_FileAppender_enabled: "true"
+cantaloupe_log_access_FileAppender_pathname: "{{ cantaloupe_log_path }}/access.log"
+cantaloupe_FilesystemResolver_BasicLookupStrategy_path_prefix: /var/www/html/drupal/web/
+cantaloupe_processor_jp2: OpenJpegProcessor
+cantaloupe_cache_source: FilesystemCache
+cantaloupe_cache_derivative: FilesystemCache
+cantaloupe_create_FilesystemCache_dir: yes
+cantaloupe_resolver_static: HttpResolver
+cantaloupe_HttpResolver_BasicLookupStrategy_url_prefix: ""
