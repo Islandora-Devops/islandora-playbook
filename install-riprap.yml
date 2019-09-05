@@ -173,7 +173,7 @@
     - name: Edit Drupal's Setting file
       lineinfile:
         path: "{{ settings_dir }}.settings.php"
-        regex: "# \$settings\['file_private_path'\] = '';"
+        regex: "# \\$settings\\['file_private_path'\\] = '';"
         line: "$settings['file_private_path'] = '{{ private_file_dir }}';"
 
     - name: Build config file
