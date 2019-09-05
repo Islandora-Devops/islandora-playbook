@@ -5,6 +5,8 @@
   vars:
     riprap_home: /var/www/html
     webserver_app_user: "{% if ansible_os_family == 'RedHat' %}apache{% else %}www-data{% endif %}"
+    settings_dir: /var/www/html/drupal/web/sites/default
+    private_file_dir: /var/www/html/private
 
   tasks:
     - name: Check for Existing microservice
@@ -22,8 +24,8 @@
     - name: Change riprap directory ownership, group and permissions
       file:
         path: "{{ riprap_home }}/riprap"
-        owner: "{{ ansible_user }}"
-        group: "{{ ansible_user }}"
+        owner:  "{{ ansible_ssh_user }}"
+        group:  "{{ ansible_ssh_user }}"
         mode: '0755'
         recurse: True
 
@@ -33,13 +35,13 @@
         working_dir: "{{ riprap_home }}/riprap"
       ignore_errors: yes
       when: riprap.stat.exists == False
-      become_user: "{{ ansible_user }}"
+      become_user:  "{{ ansible_ssh_user }}"
 
     - name: Open permissions on riprap cache
       file:
         path: ":{{ riprap_home }}/riprap/var/cache"
-        owner: "{{ ansible_user }}"
-        group: "{{ ansible_user }}"
+        owner:  "{{ ansible_ssh_user }}"
+        group:  "{{ ansible_ssh_user }}"
         mode: '0777'
         recurse: True
 
@@ -50,7 +52,7 @@
       args:
         chdir: "{{ riprap_home }}/riprap"
 
-      become_user: "{{ ansible_user }}"
+      become_user:  "{{ ansible_ssh_user }}"
 
     - name: Install Drupal Islandora Riprap module from Github
       git:
@@ -64,6 +66,14 @@
     - name: Create Config directory
       file:
         path: "{{ drupal_core_path }}/modules/contrib/islandora_riprap/config/optional"
+        state: directory
+        owner: "{{ webserver_app_user }}"
+        group: "{{ webserver_app_user }}"
+        mode: 0755
+
+    - name: Create Private directory
+      file:
+        path: "{{ private_file_dir }}riprap_config"
         state: directory
         owner: "{{ webserver_app_user }}"
         group: "{{ webserver_app_user }}"
@@ -154,9 +164,21 @@
               controller: App\Controller\FixityController::update
               methods: [PATCH]
 
+    - name: Edit .env file
+      lineinfile:
+        path: "{{ riprap_home }}/riprap/.env"
+        regexp: 'DATABASE_URL=sqlite:///%kernel.project_dir%/var/data.db'
+        line: 'DATABASE_URL=mysql://{{ drupal_db_user}}:{{ drupal_db_password }}@127.0.0.1:3306/{{ drupal_db_name }}'
+
+    - name: Edit Drupal's Setting file
+      lineinfile:
+        path: "{{ settings_dir }}.settings.php"
+        regex: "# \$settings\['file_private_path'\] = '';"
+        line: "$settings['file_private_path'] = '{{ private_file_dir }}';"
+
     - name: Build config file
       blockinfile:
-        path: "{{ riprap_home }}/riprap/rdm_config.yml"
+        path: "{{ private_file_dir }}/riprap_config/islandora_riprap_config.yml"
         create: yes
         block: |
           # Riprap config file for using Islandora/database plugins.
@@ -198,21 +220,14 @@
           plugins.postcheck: ['PluginPostCheckCopyFailures']
           # Absolute or relative to the Riprap application directory.
           failures_log_path: '/tmp/riprap_failed_events.log'
-        
 
-    
-    - name: Edit .env file
-      lineinfile:
-        path: "{{ riprap_home }}/riprap/.env"
-        regexp: 'DATABASE_URL=sqlite:///%kernel.project_dir%/var/data.db'
-        line: 'DATABASE_URL=mysql://{{ drupal_db_user}}:{{ drupal_db_password }}@127.0.0.1:3306/{{ drupal_db_name }}'
 
     - name: Create daily cron job
       cron:
         name: "update fixity"
         minute: "0"
         hour: "5"
-        job: "php {{ riprap_home }}/riprap/bin/console app:riprap:check_fixity --settings={{ riprap_home }}/riprap/rdm_config.yml"
+        job: "php {{ riprap_home }}/riprap/bin/console app:riprap:check_fixity --settings={{ private_file_dir }}/riprap_config/islandora_riprap_config.yml"
 
     - name: restart apache
       service:
