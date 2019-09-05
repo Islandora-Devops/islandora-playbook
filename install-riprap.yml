@@ -7,6 +7,7 @@
     webserver_app_user: "{% if ansible_os_family == 'RedHat' %}apache{% else %}www-data{% endif %}"
     settings_dir: /var/www/html/drupal/web/sites/default
     private_file_dir: /var/www/html/private
+    
 
   tasks:
     - name: Check for Existing microservice
@@ -24,8 +25,8 @@
     - name: Change riprap directory ownership, group and permissions
       file:
         path: "{{ riprap_home }}/riprap"
-        owner:  "{{ ansible_ssh_user }}"
-        group:  "{{ ansible_ssh_user }}"
+        owner:  "{{ webserver_app_user }}"
+        group:  "{{ webserver_app_user }}"
         mode: '0755'
         recurse: True
 
@@ -35,13 +36,13 @@
         working_dir: "{{ riprap_home }}/riprap"
       ignore_errors: yes
       when: riprap.stat.exists == False
-      become_user:  "{{ ansible_ssh_user }}"
+      become_user:  "{{ webserver_app_user }}"
 
     - name: Open permissions on riprap cache
       file:
         path: ":{{ riprap_home }}/riprap/var/cache"
-        owner:  "{{ ansible_ssh_user }}"
-        group:  "{{ ansible_ssh_user }}"
+        owner:  "{{ webserver_app_user }}"
+        group:  "{{ webserver_app_user }}"
         mode: '0777'
         recurse: True
 
@@ -52,7 +53,7 @@
       args:
         chdir: "{{ riprap_home }}/riprap"
 
-      become_user:  "{{ ansible_ssh_user }}"
+      become_user:  "{{ webserver_app_user }}"
 
     - name: Install Drupal Islandora Riprap module from Github
       git:
@@ -172,8 +173,7 @@
 
     - name: Edit Drupal's Setting file
       lineinfile:
-        path: "{{ settings_dir }}.settings.php"
-        regex: "# \\$settings\\['file_private_path'\\] = '';"
+        path: "{{ settings_dir }}/settings.php"
         line: "$settings['file_private_path'] = '{{ private_file_dir }}';"
 
     - name: Build config file
