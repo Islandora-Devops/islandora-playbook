@@ -15,7 +15,7 @@ drupal_composer_dependencies:
   - "drupal/matomo:^1.7"
   - "drupal/pdf:1.x-dev"
   - "islandora/carapace:1.0.0"
-  - "islandora/islandora_defaults:dev-8.x-1.x"
+  - "islandora/islandora_defaults:dev-text_extraction"
 drupal_composer_project_package: "islandora/drupal-project:8.7"
 drupal_composer_project_options: "--prefer-dist --stability dev --no-interaction"
 drupal_core_path: "{{ drupal_composer_install_dir }}/web"
