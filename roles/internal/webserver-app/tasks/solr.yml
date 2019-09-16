@@ -9,8 +9,8 @@
   register: set_search_api_config_host
   changed_when: "'Do you want to update' in set_search_api_config.stdout"
 
-- name: Set default solr server to point to CLAW core
-  command: "{{ drush_path }} --root {{ drupal_core_path }} -y config-set search_api.server.default_solr_server backend_config.connector_config.core CLAW"
+- name: Set default solr server to point to first core
+  command: "{{ drush_path }} --root {{ drupal_core_path }} -y config-set search_api.server.default_solr_server backend_config.connector_config.core {{ solr_cores[0] }}"
   register: set_search_api_config_core
   changed_when: "'Do you want to update' in set_search_api_config.stdout"
 
