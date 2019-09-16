@@ -13,3 +13,34 @@
       java_packages:
         - java-1.8.0-openjdk
     - geerlingguy.solr
+
+  tasks:
+    - name: Unarchive solr config
+      unarchive:
+        src: "https://ftp.drupal.org/files/projects/search_api_solr-8.x-2.0.zip"
+        dest: /tmp
+        remote_src: yes
+
+    - name: Get solr config files to copy
+      command: "find /tmp/search_api_solr/solr-conf/7.x -type f"
+      register: files_to_copy
+      changed_when: false
+
+    - name: Copy solr config files
+      copy:
+        src: "{{ item }}"
+        dest: "{{ solr_instance_conf_path }}"
+        owner: "{{ solr_user }}"
+        group: "{{ solr_user }}"
+        remote_src: True
+      with_items:
+        - "{{ files_to_copy.stdout_lines }}"
+
+    # https://www.drupal.org/project/search_api_solr/issues/3015993
+    - name: Set solr_install_path in solrcore.properties
+      lineinfile:
+        path: "{{ solr_instance_conf_path }}/solrcore.properties"
+        regexp: '^solr\.install\.dir=.*$'
+        line: solr.install.dir={{ solr_install_path }}
+        state: present
+      notify: restart solr

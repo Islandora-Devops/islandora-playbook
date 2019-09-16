@@ -6,6 +6,16 @@ tomcat8_users:
     roles:
       - manager-gui
 
+# For production use either "jdbc-mysql" or "jdbc-postgresql"
+#fcrepo_persistence: file-simple
+fcrepo_persistence: jdbc-mysql
+
+# Used for mysql or postgres object persistence.
+fcrepo_db_name: fcrepo
+fcrepo_db_user: fcrepo
+fcrepo_db_host: "127.0.0.1"
+fcrepo_db_port: "3306"
+
 tomcat8_java_opts:
   - -Djava.awt.headless=true
   - -Dfile.encoding=UTF-8
@@ -63,4 +73,4 @@ cantaloupe_cache_source: FilesystemCache
 cantaloupe_cache_derivative: FilesystemCache
 cantaloupe_create_FilesystemCache_dir: yes
 cantaloupe_resolver_static: HttpResolver
-cantaloupe_HttpResolver_BasicLookupStrategy_url_prefix: "http://{{ hostvars[groups['webserver'][0]].ansible_host }}:{{ apache_listen_port }}/"
+cantaloupe_HttpResolver_BasicLookupStrategy_url_prefix: ""
