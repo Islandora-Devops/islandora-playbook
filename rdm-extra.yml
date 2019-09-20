@@ -24,6 +24,7 @@
       - islandora_rdm_site
       - islandora_rdm_data_management_plan
       - islandora_rdm_solr_config
+      - islandora_rdm_workflows
       - orcid
 
     rdm_services:
@@ -59,7 +60,7 @@
         arguments: "{{ item }}"
         working_dir: "{{ drupal_composer_install_dir }}"
       with_items: "{{ rdm_drupal_composer_dependencies|default([]) }}"
-      become: no
+      become: no 
 
     - name: Install RDM configured modules with drush.
       command: "{{ drush_path }} --root={{ drupal_core_path }} -y en {{ rdm_drupal_enable_modules | join(' ') }}"
