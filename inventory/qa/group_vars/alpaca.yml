@@ -1,0 +1,22 @@
+alpaca_blueprint_settings:
+  - pid: ca.islandora.alpaca.connector.ocr
+    in_stream: activemq:queue:islandora-connector-ocr
+    derivative_service_url: http://localhost/hypercube
+    error_max_redeliveries: 5
+    camel_context_id: IslandoraConnectorOCR
+  - pid: ca.islandora.alpaca.connector.houdini
+    in_stream: activemq:queue:islandora-connector-houdini
+    derivative_service_url: "{{ alpaca_houdini_base_url }}/convert"
+    error_max_redeliveries: 5
+    camel_context_id: IslandoraConnectorHoudini
+  - pid: ca.islandora.alpaca.connector.homarus
+    in_stream: activemq:queue:islandora-connector-homarus
+    derivative_service_url: "{{ alpaca_homarus_base_url }}/convert"
+    error_max_redeliveries: 5
+    camel_context_id: IslandoraConnectorHomarus
+  - pid: ca.islandora.alpaca.connector.fits
+    in_stream: activemq:queue:islandora-connector-fits
+    derivative_service_url: http://localhost/crayfits/
+    error_max_redeliveries: 5
+    camel_context_id: IslandoraConnectorFits
+
