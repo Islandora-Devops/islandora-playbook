@@ -58,3 +58,5 @@
     - name: Fetch a Solr query to warm up the application
       command: wget -q -O- http://localhost:8983/solr/ISLANDORA/select?q=warm
       tags: solr
+      args:
+          warn: no
