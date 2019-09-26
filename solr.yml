@@ -2,6 +2,7 @@
 
 - hosts: solr
   become: yes
+  debugger: on_failed
 
   roles:
     - role: geerlingguy.java
@@ -20,11 +21,18 @@
         src: "https://ftp.drupal.org/files/projects/search_api_solr-8.x-2.0.zip"
         dest: /tmp
         remote_src: yes
+      register: solr_config_download_and_extract
+      until: solr_config_download_and_extract is not failed
+      retries: 5
+      tags: solr
 
     - name: Get solr config files to copy
       command: "find /tmp/search_api_solr/solr-conf/7.x -type f"
       register: files_to_copy
       changed_when: false
+      until: files_to_copy is not failed
+      retries: 5
+      tags: solr
 
     - name: Copy solr config files
       copy:
@@ -35,6 +43,7 @@
         remote_src: True
       with_items:
         - "{{ files_to_copy.stdout_lines }}"
+      tags: solr
 
     # https://www.drupal.org/project/search_api_solr/issues/3015993
     - name: Set solr_install_path in solrcore.properties
@@ -44,3 +53,16 @@
         line: solr.install.dir={{ solr_install_path }}
         state: present
       notify: restart solr
+      tags: solr
+
+    - name: Fetch a Solr query to warm up the application
+      uri:
+        url: http://localhost:8983/solr/ISLANDORA/select?q=warm
+        method: GET
+        return_content: yes
+        status_code: [200,412]
+      register: solr_webpage
+      until: solr_webpage.status == 200
+      retries: 20
+      delay: 3
+      tags: solr
