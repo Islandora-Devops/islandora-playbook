@@ -10,10 +10,7 @@
 
   tasks:
 
-    - name: Install islandora_defaults module
-      command: "{{ drush_path }} --root {{ drupal_core_path }} -y en islandora_defaults"
-
-    - name: Import feature
+    - name: Import features
       command: "{{ drush_path }} --root {{ drupal_core_path }} -y fim --bundle=islandora islandora_defaults"
       
     - name: Add admin to fedoraAdmin role
@@ -35,6 +32,9 @@
 
     - name: Set media urls
       command: "{{ drush_path }} --root {{ drupal_core_path }} -y cset --input-format=yaml media.settings standalone_url true"
+
+    - name: Set iiif url
+      command: "{{ drush_path }} --root {{ drupal_core_path }} -y cset --input-format=yaml islandora_iiif.settings iiif_server {{ openseadragon_iiiv_server }}"
 
     - name: Run migrations
       command: "{{ drush_path }} --root {{ drupal_core_path }} -y -l localhost:{{ apache_listen_port }} --userid=1 mim --group=islandora"
