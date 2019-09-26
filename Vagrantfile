@@ -40,7 +40,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.network :forwarded_port, guest: 8983, host: 8983 # Solr
   config.vm.network :forwarded_port, guest: 8161, host: 8161 # Activemq
   config.vm.network :forwarded_port, guest: 8081, host: 8081 # API-X
-  config.vm.network "forwarded_port", guest: 8050, host: 8050 # Microservice
 
   config.vm.provider "virtualbox" do |vb|
     vb.customize ["modifyvm", :id, "--memory", $memory]

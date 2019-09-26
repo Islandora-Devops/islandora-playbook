@@ -1,0 +1,7 @@
+---
+
+- hosts: riprap
+  become: yes
+
+  roles:
+    - Islandora-Devops.riprap

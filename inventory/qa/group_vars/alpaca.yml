@@ -1,7 +1,7 @@
 alpaca_blueprint_settings:
   - pid: ca.islandora.alpaca.connector.ocr
     in_stream: activemq:queue:islandora-connector-ocr
-    derivative_service_url: http://localhost/hypercube
+    derivative_service_url: "{{ alpaca_hypercube_url }}"
     error_max_redeliveries: 5
     camel_context_id: IslandoraConnectorOCR
   - pid: ca.islandora.alpaca.connector.houdini
@@ -16,7 +16,7 @@ alpaca_blueprint_settings:
     camel_context_id: IslandoraConnectorHomarus
   - pid: ca.islandora.alpaca.connector.fits
     in_stream: activemq:queue:islandora-connector-fits
-    derivative_service_url: http://localhost/crayfits/
+    derivative_service_url: "{{ alpaca_fits_url }}"
     error_max_redeliveries: 5
     camel_context_id: IslandoraConnectorFits
 

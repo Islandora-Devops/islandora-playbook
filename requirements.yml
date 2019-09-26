@@ -83,7 +83,7 @@
   name: Islandora-Devops.tomcat8
   version: 1.0.0
 
-- src: https://github.com/Islandora-Devops/ansible-role-fits
+- src: https://github.com/roblib/ansible-role-fits
   name: Islandora-Devops.fits
 
 - src: https://github.com/Islandora-Devops/ansible-role-grok
@@ -101,3 +101,6 @@
 - src: https://github.com/Islandora-Devops/ansible-role-matomo
   name: Islandora-Devops.matomo
   version: 1.0.0
+
+- src: https://github.com/roblib/Islandora-Devops.riprap.git
+  name: Islandora-Devops.riprap
