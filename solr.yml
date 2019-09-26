@@ -61,8 +61,8 @@
         method: GET
         return_content: yes
         status_code: [200,412]
-      tags: solr
       register: solr_webpage
       until: solr_webpage.status == 200
       retries: 20
-      delay: 30
+      delay: 3
+      tags: solr
