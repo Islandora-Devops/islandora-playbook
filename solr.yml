@@ -56,7 +56,13 @@
       tags: solr
 
     - name: Fetch a Solr query to warm up the application
-      command: wget -q -O- http://localhost:8983/solr/ISLANDORA/select?q=warm
+      uri:
+        url: http://localhost:8983/solr/ISLANDORA/select?q=warm
+        method: GET
+        return_content: yes
+        status_code: [200,412]
       tags: solr
-      args:
-          warn: no
+      register: solr_webpage
+      until: solr_webpage.status == 200
+      retries: 20
+      delay: 30
