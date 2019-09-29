@@ -36,12 +36,6 @@
     - name: Set iiif url
       command: "{{ drush_path }} --root {{ drupal_core_path }} -y cset --input-format=yaml islandora_iiif.settings iiif_server {{ openseadragon_iiiv_server }}"
 
-    - name: Set sequence mode
-      command: "{{ drush_path }} --root {{ drupal_core_path }} -y cset --input-format=yaml openseadragon.settings viewer_options.sequenceMode 1"
-
-    - name: Set horizontal strip
-      command: "{{ drush_path }} --root {{ drupal_core_path }} -y cset --input-format=yaml openseadragon.settings viewer_options.showReferenceStrip 1"
-
     - name: Run migrations
       command: "{{ drush_path }} --root {{ drupal_core_path }} -y -l localhost:{{ apache_listen_port }} --userid=1 mim --group=islandora"
 
