@@ -65,4 +65,4 @@ drupal_gemini_pseudo_bundles:
   - file:media
   - audio:media
   - video:media
-openseadragon_composer_item: "islandora/openseadragon:dev-8.x-1.x"
+openseadragon_composer_item: "islandora/openseadragon:dev-paged-content-config"
