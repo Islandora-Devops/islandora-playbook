@@ -14,7 +14,9 @@ drupal_composer_dependencies:
   - "drupal/content_browser:^1.0@alpha"
   - "drupal/matomo:^1.7"
   - "drupal/pdf:1.x-dev"
-  - "islandora/carapace:1.0.0"
+  - "drupal/admin_toolbar:^2.0"
+  - "drupal/rest_oai_pmh:^1.0"
+  - "islandora/carapace:dev-8.x-3.x"
   - "islandora/islandora_defaults:dev-8.x-1.x"
 drupal_composer_project_package: "islandora/drupal-project:8.7"
 drupal_composer_project_options: "--prefer-dist --stability dev --no-interaction"
@@ -42,8 +44,12 @@ drupal_enable_modules:
   - content_browser
   - matomo
   - pdf
-  - islandora_core_feature
+  - admin_toolbar
+  - islandora_defaults
   - controlled_access_terms_defaults
+  - islandora_breadcrumbs
+  - islandora_iiif
+  - islandora_oaipmh
 drupal_trusted_hosts:
   - ^localhost$
   - "{{ hostvars[groups['webserver'][0]].ansible_host }}"

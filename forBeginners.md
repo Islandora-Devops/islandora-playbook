@@ -73,7 +73,7 @@ Open the terminal of your new Ubuntu computer to download the remaining requirem
 
 >$ git --version
 
-1. To install ansible, type the following lines of code, one at a time, into the terminal:
+1. To install Ansible, type the following lines of code, one at a time, into the terminal:
 
 >$ sudo apt-get update
 
