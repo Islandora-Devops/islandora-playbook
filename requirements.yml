@@ -1,6 +1,9 @@
 - src: geerlingguy.php-mysql
   version: 2.0.1
 
+- src: geerlingguy.repo-epel
+  version: 1.2.4
+
 - src: geerlingguy.repo-remi
   version: 1.2.0
 
@@ -62,7 +65,7 @@
 
 - src: https://github.com/Islandora-Devops/ansible-role-crayfish
   name: Islandora-Devops.crayfish
-  version: 1.0.1
+  version: 1.0.2
 
 - src: https://github.com/Islandora-Devops/ansible-role-drupal-openseadragon
   name: Islandora-Devops.drupal-openseadragon
@@ -70,7 +73,7 @@
 
 - src: https://github.com/Islandora-Devops/ansible-role-fcrepo
   name: Islandora-Devops.fcrepo
-  version: 1.0.0
+  version: 2.0.0
 
 - src: https://github.com/Islandora-Devops/ansible-role-fcrepo-syn
   name: Islandora-Devops.fcrepo-syn

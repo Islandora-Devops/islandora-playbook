@@ -2,7 +2,7 @@
 
 If you are reading this document then you are interested in contributing to Islandora 8. All contributions are welcome: use-cases, documentation, code, patches, bug reports, feature requests, etc. You do not need to be a programmer to speak up!
 
-We also have an irc channel -- #islandora -- on freenode.net. Feel free to hang out there, ask questions, and help others out if you can.
+We also have an IRC channel -- #islandora -- on freenode.net. Feel free to hang out there, ask questions, and help others out if you can.
 
 Please note that this project operates under the [Islandora Community Code of Conduct](http://islandora.ca/codeofconduct). By participating in this project you agree to abide by its terms.
 

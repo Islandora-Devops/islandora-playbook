@@ -4,10 +4,20 @@
   become: yes
 
   roles:
+    - role: geerlingguy.java
+      when: "ansible_os_family == 'Debian'"
+      java_packages:
+        - openjdk-8-jdk
+    - role: geerlingguy.java
+      when: "ansible_os_family == 'RedHat'"
+      java_packages:
+        - java-1.8.0-openjdk
     - Islandora-Devops.tomcat8
     - Islandora-Devops.fcrepo
     - Islandora-Devops.fcrepo-syn
     - Islandora-Devops.blazegraph
+    - name: geerlingguy.repo-epel
+      when: ansible_os_family == "RedHat"
     - Islandora-Devops.grok
     - Islandora-Devops.cantaloupe
     - Islandora-Devops.activemq
