@@ -8,6 +8,7 @@
       - "drupal/conditional_fields:*" 
       - "drupal/markup:*"
       - "drupal/select_or_other:*"
+      - "drupal/dynamic_entity_reference:2.0-alpha9"
       - "drupal/rules:*"
       - "drupal/clamav:*"
       - "drupal/entity_print:*"
