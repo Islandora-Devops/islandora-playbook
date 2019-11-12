@@ -73,11 +73,11 @@
 
 
     - name: Set ORCID client_id
-      command: "{{ drush_path }} --root {{ drupal_core_path }} cset orcid.settings client_id {{ client_id }} -y"
+      command: "{{ drush_path }} --root {{ drupal_core_path }} cset orcid.settings client_id {{ orcid_client_id }} -y"
       when: client_id is defined and client_id  != ''
 
     - name: Set ORCID client_secret
-      command: "{{ drush_path }} --root {{ drupal_core_path }} cset orcid.settings client_secret {{ client_secret }} -y"
+      command: "{{ drush_path }} --root {{ drupal_core_path }} cset orcid.settings client_secret {{ orcid_client_secret }} -y"
       when: client_secret is defined and client_secret  != ''
 
     - name: Setup clock syncing

@@ -6,8 +6,8 @@
 - import_playbook: database.yml
 - import_playbook: solr.yml
 - import_playbook: webserver.yml
-- import_playbook: riprap.yml
 - import_playbook: tomcat.yml
+- import_playbook: archival-integrity.yml
 - import_playbook: crayfish.yml
 - import_playbook: karaf.yml
 - import_playbook: post-install.yml
