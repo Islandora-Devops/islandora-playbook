@@ -51,10 +51,6 @@
   name: Islandora-Devops.alpaca
   version: 1.0.1
 
-#- src: https://github.com/Islandora-Devops/ansible-role-apix
-#  name: Islandora-Devops.apix
-#  version: 0.0.1
-
 - src: https://github.com/Islandora-Devops/ansible-role-blazegraph
   name: Islandora-Devops.blazegraph
   version: 1.0.1
@@ -103,3 +99,6 @@
 
 - src: https://github.com/roblib/Islandora-Devops.riprap.git
   name: Islandora-Devops.riprap
+
+- src: https://github.com/roblib/Islandora-Devops.bagger.git
+  name: Islandora-Devops.bagger
