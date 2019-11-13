@@ -7,7 +7,7 @@ VAGRANTFILE_API_VERSION = "2"
 Vagrant.require_version ">= 2.0.1"
 
 $cpus   = ENV.fetch("ISLANDORA_VAGRANT_CPUS", "1")
-$memory = ENV.fetch("ISLANDORA_VAGRANT_MEMORY", "4096")
+$memory = ENV.fetch("ISLANDORA_VAGRANT_MEMORY", "8096")
 $hostname = ENV.fetch("ISLANDORA_VAGRANT_HOSTNAME", "claw")
 $virtualBoxDescription = ENV.fetch("ISLANDORA_VAGRANT_VIRTUALBOXDESCRIPTION", "IslandoraCLAW")
 
@@ -34,12 +34,15 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.synced_folder ".", home_dir + "/islandora"
 
   config.vm.network :forwarded_port, guest: 8000, host: 8000 # Apache
-  config.vm.network :forwarded_port, guest: 8080, host: 8080 # Tomcat
-  config.vm.network :forwarded_port, guest: 3306, host: 3306 # MySQL
+  config.vm.network :forwarded_port, guest: 8080, host: 8082 # Tomcat
+  config.vm.network :forwarded_port, guest: 3306, host: 3307 # MySQL
   config.vm.network :forwarded_port, guest: 5432, host: 5432 # PostgreSQL
   config.vm.network :forwarded_port, guest: 8983, host: 8983 # Solr
   config.vm.network :forwarded_port, guest: 8161, host: 8161 # Activemq
   config.vm.network :forwarded_port, guest: 8081, host: 8081 # API-X
+  config.vm.network "forwarded_port", guest: 8050, host: 8050 # Microservice
+  config.vm.network "forwarded_port", guest: 61613, host: 61613 # Message broker
+
 
   config.vm.provider "virtualbox" do |vb|
     vb.customize ["modifyvm", :id, "--memory", $memory]
