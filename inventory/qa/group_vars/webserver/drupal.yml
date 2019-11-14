@@ -1,1 +1,1 @@
-inventory/vagrant/group_vars/webserver/drupal.yml
+../../../vagrant/group_vars/webserver/drupal.yml

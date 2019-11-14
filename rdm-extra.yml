@@ -73,17 +73,17 @@
       changed_when: "'Do you want to update' in set_search_api_config.stdout"
 
 
-    - name: Set ORCID client_id
-      command: "{{ drush_path }} --root {{ drupal_core_path }} cset orcid.settings client_id {{ orcid_client_id }} -y"
-      when: orcid_client_id is defined and orcid_client_id  != ''
+#    - name: Set ORCID client_id
+#      command: "{{ drush_path }} --root {{ drupal_core_path }} cset orcid.settings client_id {{ orcid_client_id }} -y"
+#      when: orcid_client_id is defined and orcid_client_id  != ''
 
-    - name: Set ORCID client_secret
-      command: "{{ drush_path }} --root {{ drupal_core_path }} cset orcid.settings client_secret {{ orcid_client_secret }} -y"
-      when: orcid_client_secret is defined and orcid_client_secret  != ''
+#    - name: Set ORCID client_secret
+#      command: "{{ drush_path }} --root {{ drupal_core_path }} cset orcid.settings client_secret {{ orcid_client_secret }} -y"
+#      when: orcid_client_secret is defined and orcid_client_secret  != ''
 
-    - name: Set ORCID name field
-      command: "{{ drush_path }} --root {{ drupal_core_path }} cset orcid.settings name_field {{ field_orcid_id }} -y"
-      when: field_orcid_id is defined and field_orcid_id  != ''
+#    - name: Set ORCID name field
+#      command: "{{ drush_path }} --root {{ drupal_core_path }} cset orcid.settings name_field {{ field_orcid_id }} -y"
+#      when: field_orcid_id is defined and field_orcid_id  != ''
 
 
     - name: Setup clock syncing
