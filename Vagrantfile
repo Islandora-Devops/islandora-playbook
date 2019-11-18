@@ -49,7 +49,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end
 
   config.vm.provision :ansible do |ansible|
-    ansible.compatibility_mode="auto"
+    ansible.compatibility_mode = "auto"
     ansible.playbook = "playbook.yml"
     ansible.galaxy_role_file = "requirements.yml"
     ansible.galaxy_command = "ansible-galaxy install --role-file=%{role_file} --roles-path=roles/external"
