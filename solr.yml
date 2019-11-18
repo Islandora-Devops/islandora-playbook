@@ -2,7 +2,7 @@
 
 - hosts: solr
   become: yes
-  debugger: on_failed
+  any_errors_fatal: true
 
   roles:
     - role: geerlingguy.java
