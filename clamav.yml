@@ -9,6 +9,8 @@
         line: 'MaxScanSize {{ php_upload_max_filesize }}'
       - regexp: '^.*MaxFileSize .*$'
         line: 'MaxFileSize {{ php_upload_max_filesize }}'
+      - regexp: '^.*StreamMaxLength .*$'
+        line: 'StreamMaxLength {{ php_upload_max_filesize }}'
 
   roles:
     - name: geerlingguy.clamav
