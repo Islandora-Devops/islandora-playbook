@@ -10,6 +10,7 @@
 - import_playbook: archival-integrity.yml
 - import_playbook: crayfish.yml
 - import_playbook: karaf.yml
-- import_playbook: post-install.yml
+- import_playbook: clamav.yml
+- import_playbook: post-install.yml 
 - import_playbook: rdm-extra.yml
 

@@ -28,32 +28,14 @@
       - islandora_rdm_workflows
       - orcid
 
-    rdm_services:
-      - clamav-daemon
-      - clamav-freshclam
-
   tasks:
     - name: Ubuntu packages for RDM
       package:
         name: "{{ item }}"
         state: present
-      with_items:
-        - clamav
-        - clamav-daemon
+      with_items: 
         - php7.2-zip
       when: ansible_os_family == "Debian"
-
-    - name: ClamAV Freshclam service
-      service:
-        name: clamav-freshclam
-        state: started
-        enabled: yes
-
-    - name: ClamAV Daemon service
-      service:
-        name: clamav-daemon
-        state: started
-        enabled: yes
 
     - name: Install RDM dependencies with composer require (this may take a while).
       composer:

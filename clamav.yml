@@ -1,0 +1,14 @@
+- hosts: webserver
+  become: yes
+
+  vars:
+    clamav_daemon_configuration_changes:
+      - regexp: '^.*LocalSocket .*$'
+        line: 'LocalSocket {{ clamav_daemon_localsocket }}'
+      - regexp: '^.*MaxScanSize .*$'
+        line: 'MaxScanSize {{ php_upload_max_filesize }}'
+      - regexp: '^.*MaxFileSize .*$'
+        line: 'MaxFileSize {{ php_upload_max_filesize }}'
+
+  roles:
+    - name: geerlingguy.clamav
