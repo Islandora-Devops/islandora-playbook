@@ -7,6 +7,7 @@ drupal_composer_dependencies:
   - "zaporylie/composer-drupal-optimizations:^1.0"
   - "drupal/console:~1.0"
   - "drupal/devel:^2.1"
+  - "drupal/features:*"
   - "drupal/rdfui:^1.0-beta1"
   - "drupal/restui:^1.16"
   - "drupal/search_api_solr:^2.0"
@@ -17,7 +18,13 @@ drupal_composer_dependencies:
   - "drupal/admin_toolbar:^2.0"
   - "drupal/rest_oai_pmh:^1.0"
   - "islandora/carapace:dev-8.x-3.x"
-  - "islandora/islandora_defaults:dev-8.x-1.x"
+  - "islandora/islandora:dev-8.x-1.x"
+  - "islandora/openseadragon:dev-8.x-1.x"
+  - "islandora/controlled_access_terms:dev-8.x-1.x"
+  - "drupal/field_group:^3.0"
+  - "drupal/permissions_by_term:^1.51"
+  - "drupal/field_permissions:^1.0"
+  #- "islandora/islandora_defaults:dev-8.x-1.x"
 drupal_composer_project_package: "islandora/drupal-project:8.7"
 drupal_composer_project_options: "--prefer-dist --stability dev --no-interaction"
 drupal_core_path: "{{ drupal_composer_install_dir }}/web"
@@ -42,15 +49,16 @@ drupal_enable_modules:
   - search_api_solr
   - search_api_solr_defaults
   - facets
+  - features
   - content_browser
   - matomo
   - pdf
-  - admin_toolbar
-  - islandora_defaults
+  - admin_toolbar 
   - controlled_access_terms_defaults
   - islandora_breadcrumbs
   - islandora_iiif
   - islandora_oaipmh
+  - islandora_core_feature
 drupal_trusted_hosts:
   - ^localhost$
   - "{{ hostvars[groups['webserver'][0]].ansible_host }}"
