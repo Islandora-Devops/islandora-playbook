@@ -1,9 +1,1 @@
-#solr_version: "6.6.0"
-
-solr_cores:
-  - CLAW
-
-solr_install_path: /opt/solr
-
-solr_user: solr
-solr_instance_conf_path: /var/solr/data/CLAW/conf
+../../vagrant/group_vars/solr.yml

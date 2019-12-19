@@ -78,8 +78,9 @@
   name: Islandora-Devops.fcrepo-syn
   version: 1.0.0
 
-- src: https://github.com/roblib/ansible-role-tomcat8
-  name: Islandora-Devops.tomcat8 
+- src: https://github.com/Islandora-Devops/ansible-role-tomcat8
+  name: Islandora-Devops.tomcat8
+  version: 1.0.0
 
 - src: https://github.com/roblib/ansible-role-fits
   name: Islandora-Devops.fits

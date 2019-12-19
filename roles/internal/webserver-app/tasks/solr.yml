@@ -1,17 +1,16 @@
 ---
 
+
 # Only tasks related to configuring search_api_solr are put here
 # Solr server configuration should go into the solr playbook: https://github.com/Islandora-Devops/claw-playbook/blob/dev/solr.yml
 
-#- name: Set default solr server host from hostvars
-#  command: "{{ drush_path }} --root {{ drupal_core_path }} -y config-set search_api.server.default_solr_server backend_config.connector_config.host {{ hostvars[groups['solr'][0]].ansible_host  }}"
-#  register: set_search_api_config_host
-#  changed_when: "'Do you want to update' in set_search_api_config.stdout"
+- name: Set default solr server host from hostvars
+  command: "{{ drush_path }} --root {{ drupal_core_path }} -y config-set search_api.server.default_solr_server backend_config.connector_config.host {{ hostvars[groups['solr'][0]].ansible_host  }}"
+  register: set_search_api_config_host
+  changed_when: "'Do you want to update' in set_search_api_config.stdout"
 
-#- name: Set default solr server to point to CLAW core
-#  command: "{{ drush_path }} --root {{ drupal_core_path }} -y config-set search_api.server.default_solr_server backend_config.connector_config.core CLAW"
-#  register: set_search_api_config_core
-#  changed_when: "'Do you want to update' in set_search_api_config.stdout"
-
-
+- name: Set default solr server to point to first core
+  command: "{{ drush_path }} --root {{ drupal_core_path }} -y config-set search_api.server.default_solr_server backend_config.connector_config.core {{ solr_cores[0] }}"
+  register: set_search_api_config_core
+  changed_when: "'Do you want to update' in set_search_api_config.stdout"
 
