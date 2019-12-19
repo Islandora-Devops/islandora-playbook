@@ -24,7 +24,7 @@
       - islandora_rdm 
       - islandora_rdm_site
       - islandora_rdm_data_management_plan
-      - islandora_rdm_solr_config
+#      - islandora_rdm_solr_config
       - islandora_rdm_workflows
       - orcid
 
@@ -48,12 +48,6 @@
     - name: Install RDM configured modules with drush.
       command: "{{ drush_path }} --root={{ drupal_core_path }} -y en {{ rdm_drupal_enable_modules | join(' ') }}"
 #      ignore_errors: yes
-
-    - name: Set default solr server to point to CLAW core
-      command: "{{ drush_path }} --root {{ drupal_core_path }} -y config-set search_api.server.default_solr_server backend_config.connector_config.core CLAW"
-      register: set_search_api_config
-      changed_when: "'Do you want to update' in set_search_api_config.stdout"
-
 
 #    - name: Set ORCID client_id
 #      command: "{{ drush_path }} --root {{ drupal_core_path }} cset orcid.settings client_id {{ orcid_client_id }} -y"
@@ -82,22 +76,4 @@
         - sudo systemctl daemon-reload
         - sudo timedatectl set-ntp off
         - sudo timedatectl set-ntp on
-
-
-# Copied from roles/internal/webserver-app/tasks/solr.yml
-
-    - name: Set default solr server host from hostvars
-      command: "{{ drush_path }} --root {{ drupal_core_path }} -y config-set search_api.server.default_solr_server backend_config.connector_config.host {{ hostvars[groups['solr'][0]].ansible_host  }}"
-      register: set_search_api_config_host
-      changed_when: "'Do you want to update' in set_search_api_config.stdout"
-
-    - name: Set default solr server to point to CLAW core
-      command: "{{ drush_path }} --root {{ drupal_core_path }} -y config-set search_api.server.default_solr_server backend_config.connector_config.core CLAW"
-      register: set_search_api_config_core
-      changed_when: "'Do you want to update' in set_search_api_config.stdout"
-
-
-
-      
-
 
