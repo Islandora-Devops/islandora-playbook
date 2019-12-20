@@ -56,8 +56,7 @@ drupal_enable_modules:
   - admin_toolbar 
   - controlled_access_terms_defaults
   - islandora_breadcrumbs
-  - islandora_iiif
-  - islandora_oaipmh
+  - islandora_iiif 
   - islandora_core_feature
 drupal_trusted_hosts:
   - ^localhost$
