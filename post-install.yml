@@ -11,7 +11,7 @@
   tasks:
 
     - name: Import features
-      command: "{{ drush_path }} --root {{ drupal_core_path }} -y fim --bundle=islandora islandora_defaults"
+      command: "{{ drush_path }} --root {{ drupal_core_path }} -y fim --bundle=islandora islandora_rdm_defaults"
       
     - name: Add admin to fedoraAdmin role
       command: "{{ drush_path }} --root {{ drupal_core_path }} -y urol fedoraadmin admin"
@@ -72,9 +72,9 @@
         mode: 0775
         recurse: yes
 
-    - name: Chown islandora_defaults feature
+    - name: Chown islandora_rdm_defaults feature
       file:
-        dest: "{{ drupal_core_path }}/modules/contrib/islandora_defaults"
+        dest: "{{ drupal_core_path }}/modules/contrib/islandora_rdm_defaults"
         state: directory
         owner: "{{ webserver_app_user }}"
         group: "{{ webserver_app_user }}"
