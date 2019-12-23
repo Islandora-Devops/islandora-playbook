@@ -12,6 +12,7 @@
       - "drupal/rules:*"
       - "drupal/clamav:*"
       - "drupal/entity_print:*"
+      - "drupal/simple_sitemap:*"
       - "islandora-rdm/islandora_rdm:dev-8.x-1.x"
       - "drupal/orcid:1.x-dev"
 
@@ -21,11 +22,11 @@
       - select_or_other
       - clamav
       - entity_print
-#      - islandora_rdm 
-#      - islandora_rdm_site
-#      - islandora_rdm_data_management_plan
-##      - islandora_rdm_solr_config
-#      - islandora_rdm_workflows
+      - simple_sitemap
+      - islandora_rdm 
+      - islandora_rdm_site
+      - islandora_rdm_data_management_plan 
+      - islandora_rdm_workflows
       - orcid
 
   tasks:

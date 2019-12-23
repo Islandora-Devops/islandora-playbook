@@ -7,8 +7,15 @@
   vars:
     webserver_app_user: "{% if ansible_os_family == 'RedHat' %}apache{% else %}www-data{% endif %}"
     vagrant_user: "{% if ansible_os_family == 'RedHat' %}vagrant{% else %}ubuntu{% endif %}"
+    rdm_post_install_modules:
+      - features
 
   tasks:
+
+    - name: Enable Features module
+      command: "{{ drush_path }} --root={{ drupal_core_path }} -y en {{ rdm_post_install_modules | join(' ') }}"
+#      ignore_errors: yes
+
 
     - name: Import features
       command: "{{ drush_path }} --root {{ drupal_core_path }} -y fim --bundle=islandora islandora_rdm_defaults"
