@@ -14,6 +14,7 @@
       - "drupal/entity_print:*"
       - "drupal/simple_sitemap:*"
       - "islandora-rdm/islandora_rdm:dev-8.x-1.x"
+      - "islandora-rdm/islandora_rdm_multifile_media:dev-8.x-1.x"
       - "drupal/orcid:1.x-dev"
 
     rdm_drupal_enable_modules:
@@ -23,7 +24,9 @@
       - clamav
       - entity_print
       - simple_sitemap
-      - islandora_rdm 
+      - islandora_rdm
+      - islandora_rdm_defaults
+      - islandora_rdm_multifile_media
       - islandora_rdm_site
       - islandora_rdm_data_management_plan 
       - islandora_rdm_workflows

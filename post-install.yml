@@ -17,8 +17,8 @@
 #      ignore_errors: yes
 
 
-    - name: Import features
-      command: "{{ drush_path }} --root {{ drupal_core_path }} -y fim --bundle=islandora islandora_rdm_defaults"
+#    - name: Import features
+#      command: "{{ drush_path }} --root {{ drupal_core_path }} -y fim --bundle=islandora"
       
     - name: Add admin to fedoraAdmin role
       command: "{{ drush_path }} --root {{ drupal_core_path }} -y urol fedoraadmin admin"
