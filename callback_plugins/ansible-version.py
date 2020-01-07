@@ -25,7 +25,7 @@ class CallbackModule(CallbackBase):
         # Can't use `on_X` because this isn't forwards compatible with Ansible 2.0+
         if current_version < self.minimum_version or current_version > self.maximum_version:
             CallbackModule.print_red_bold(
-                "Islandora-Playbook restriction: only an Ansible between {minversion} and {maxversion} is supported."
+                "Islandora-Playbook restriction: only an Ansible version between {minversion} and {maxversion} is supported."
                 .format(minversion=self.minimum_version, maxversion=self.maximum_version)
             )
             sys.exit(1)
