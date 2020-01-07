@@ -1,0 +1,5 @@
+---
+  # Minimum version of ansible this playbook works with.
+  islandora_ansible_version_min: 2.6.0
+  # Maximum version of ansible this playbook works with.
+  islandora_ansible_version_max: 2.8.7
