@@ -63,8 +63,7 @@
   version: 1.0.0
 
 - src: https://github.com/Islandora-Devops/ansible-role-crayfish
-  name: Islandora-Devops.crayfish
-  version: 1.0.2
+  name: Islandora-Devops.crayfish 
 
 - src: https://github.com/Islandora-Devops/ansible-role-drupal-openseadragon
   name: Islandora-Devops.drupal-openseadragon
