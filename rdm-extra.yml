@@ -80,4 +80,7 @@
         - sudo systemctl daemon-reload
         - sudo timedatectl set-ntp off
         - sudo timedatectl set-ntp on
+        - 
+    - name: Check Deployment Addresses
+      command: "sudo sed -i 's/8000/{{ apache_listen_port }}/g' /opt/karaf/deploy/*"
 
