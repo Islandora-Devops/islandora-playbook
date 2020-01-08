@@ -1,4 +1,6 @@
 # -*- encoding:utf-8 -*-
+# Copied from https://adamj.eu/tech/2016/08/19/restricting-the-ansible-version-in-use/
+# and edited to our use-case.
 from __future__ import absolute_import, division, print_function, unicode_literals
 
 import sys
