@@ -16,6 +16,8 @@
       - "islandora-rdm/islandora_rdm:dev-8.x-1.x"
       - "islandora-rdm/islandora_rdm_multifile_media:dev-8.x-1.x"
       - "drupal/orcid:1.x-dev"
+      - "islandora-rdm/islandora_tus:dev-8.x-1.x"
+      - "drupal/uppy:1.x-dev"
 
     rdm_drupal_enable_modules:
       - conditional_fields
@@ -31,6 +33,7 @@
       - islandora_rdm_data_management_plan 
       - islandora_rdm_workflows
       - orcid
+      - uppy
 
   tasks:
     - name: Ubuntu packages for RDM
@@ -62,7 +65,10 @@
 #      when: orcid_client_secret is defined and orcid_client_secret  != ''
 
     - name: Set ORCID name field
-      command: "{{ drush_path }} --root {{ drupal_core_path }} cset orcid.settings name_field  field_orcid_id  -y"
+      command: "{{ drush_path }} --root {{ drupal_core_path }} cset orcid.settings name_field field_orcid_id  -y"
+
+    - name: Set TUS Scheme
+      command: "{{ drush_path }} --root {{ drupal_core_path }} cset tus.settings scheme public://  -y"
 
     - name: Setup clock syncing
       blockinfile:
