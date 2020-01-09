@@ -33,6 +33,7 @@
       - islandora_rdm_data_management_plan 
       - islandora_rdm_workflows
       - orcid
+      - tus
       - uppy
 
   tasks:
