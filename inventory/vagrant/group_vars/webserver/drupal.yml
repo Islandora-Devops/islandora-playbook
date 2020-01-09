@@ -18,6 +18,7 @@ drupal_composer_dependencies:
   - "drupal/rest_oai_pmh:^1.0"
   - "islandora/carapace:dev-8.x-3.x"
   - "islandora/islandora_defaults:dev-8.x-1.x"
+  - "islandora-rdm/islandora_fits:dev-master"
 drupal_composer_project_package: "islandora/drupal-project:8.8.1"
 drupal_composer_project_options: "--prefer-dist --stability dev --no-interaction"
 drupal_core_path: "{{ drupal_composer_install_dir }}/web"
@@ -48,6 +49,8 @@ drupal_enable_modules:
   - admin_toolbar
   - islandora_defaults
   - controlled_access_terms_defaults
+  - islandora_defaults
+  - islandora_fits
   - islandora_breadcrumbs
   - islandora_iiif
   - islandora_oaipmh
