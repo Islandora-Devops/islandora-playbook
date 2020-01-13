@@ -18,6 +18,7 @@
       - "drupal/orcid:1.x-dev"
       - "islandora-rdm/islandora_tus:dev-8.x-1.x"
       - "drupal/uppy:1.x-dev"
+      - "islandora-rdm/csv_field_preview"
 
     rdm_drupal_enable_modules:
       - conditional_fields
@@ -35,6 +36,7 @@
       - orcid
       - tus
       - uppy
+      - csv_field_preview
 
   tasks:
     - name: Ubuntu packages for RDM
