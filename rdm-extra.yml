@@ -73,15 +73,6 @@
     - name: Set TUS Scheme
       command: "{{ drush_path }} --root {{ drupal_core_path }} cset tus.settings scheme public://  -y"
 
-    - name: Setup clock syncing
-      blockinfile:
-        path: /etc/systemd/timesyncd.conf
-        create: no
-        insertafter: '^\[Time\]'
-        content: |
-          NTP=ur.ntp.srv
-          FallbackNTP=ur.fallbackntp.srv
-
     - name: Check Deployment Addresses
       command: "sed -i 's/8000/{{ apache_listen_port }}/g' /opt/karaf/deploy/*"
       become: yes
