@@ -75,5 +75,5 @@
 
     - name: Check Deployment Addresses
       command: "sed -i 's/8000/{{ apache_listen_port }}/g' /opt/karaf/deploy/*"
-      become: yes
+      become_user: root
 
