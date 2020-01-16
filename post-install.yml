@@ -22,7 +22,6 @@
       
     - name: Add admin to fedoraAdmin role
       command: "{{ drush_path }} --root {{ drupal_core_path }} -y urol fedoraadmin admin"
-      
 
     # Set jsonld module to strip ?_format=jsonld
     - name: Set JSONLD Config
