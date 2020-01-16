@@ -16,6 +16,7 @@ drupal_composer_dependencies:
   - "drupal/pdf:1.x-dev"
   - "drupal/admin_toolbar:^2.0"
   - "drupal/rest_oai_pmh:^1.0"
+  - "islandora-rdm/islandora_fits:dev-master"
   - "islandora/carapace:dev-8.x-3.x"
   - "islandora-rdm/islandora_rdm_defaults:dev-8.x-1.x"
 drupal_composer_project_package: "islandora/drupal-project:8.7"
