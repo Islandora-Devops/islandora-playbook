@@ -56,7 +56,7 @@
 
 - src: https://github.com/Islandora-Devops/ansible-role-blazegraph
   name: Islandora-Devops.blazegraph
-  version: 1.0.1
+  version: master
 
 - src: https://github.com/Islandora-Devops/ansible-role-cantaloupe
   name: Islandora-Devops.cantaloupe
@@ -91,7 +91,7 @@
 
 - src: https://github.com/Islandora-Devops/ansible-role-karaf
   name: Islandora-Devops.karaf
-  version: 1.0.0
+  version: master
 
 - src: https://github.com/Islandora-Devops/ansible-role-keymaster
   name: Islandora-Devops.keymaster
