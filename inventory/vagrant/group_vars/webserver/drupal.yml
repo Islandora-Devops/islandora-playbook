@@ -48,8 +48,7 @@ drupal_enable_modules:
   - islandora_core_feature
   - admin_toolbar
   - islandora_rdm_defaults
-  - controlled_access_terms_defaults
-  - islandora_defaults
+  - controlled_access_terms_defaults 
   - islandora_fits
   - islandora_breadcrumbs
   - islandora_iiif
