@@ -57,7 +57,7 @@
 
 - src: https://github.com/Islandora-Devops/ansible-role-blazegraph
   name: Islandora-Devops.blazegraph
-  version: 1.0.1
+  version: master
 
 - src: https://github.com/Islandora-Devops/ansible-role-cantaloupe
   name: Islandora-Devops.cantaloupe
