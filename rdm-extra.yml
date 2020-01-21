@@ -46,6 +46,11 @@
         - php7.2-zip
       when: ansible_os_family == "Debian"
 
+    - name: Enable patching in composer
+      composer:
+        command: config
+        arguments: extra.enable-patching true
+      
     - name: Install RDM dependencies with composer require (this may take a while).
       composer:
         command: require
