@@ -49,6 +49,7 @@
     - name: Enable patching in composer
       composer:
         command: config
+        working_dir: "{{ drupal_composer_install_dir }}"
         arguments: extra.enable-patching true
       
     - name: Install RDM dependencies with composer require (this may take a while).
