@@ -36,6 +36,7 @@
       - tus
       - uppy
       - csv_field_preview
+      - islandora_rdm_media_types
 
   tasks:
     - name: Ubuntu packages for RDM
@@ -77,8 +78,20 @@
 
     - name: Set TUS Scheme
       command: "{{ drush_path }} --root {{ drupal_core_path }} cset tus.settings scheme public://  -y"
+#    Our file model requires FITS methods not present in base islandora_fits
+    - name: Pull FITS branch
+      command: "git pull newFileModel"
+      args:
+        chdir: "{{ drupal_core_path }}/modules/contrib/islandora_fits"
+    - name: Set FITS branch
+      command: "git checkout newFileModel"
+      args:
+        chdir: "{{ drupal_core_path }}/modules/contrib/islandora_fits"
 
     - name: Check Deployment Addresses
-      command: "sed -i 's/8000/{{ apache_listen_port }}/g' /opt/karaf/deploy/*"
+      command: "sed -i 's/8000/{{ apache_listen_port }}/g' /opt/karaf/deploy/{{ item }}"
+      with_items:
+        - ca.islandora.alpaca.connector.fits.blueprint.xml
+        - ca.islandora.alpaca.connector.ocr.blueprint.xml
       become_user: root
 
