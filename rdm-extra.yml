@@ -47,6 +47,24 @@
         - php7.2-zip
       when: ansible_os_family == "Debian"
 
+    #    Our file model requires FITS methods not present in base islandora_fits
+    - name: Pull FITS branch
+      command: "git pull origin newFileModel"
+      args:
+        chdir: "{{ drupal_core_path }}/modules/contrib/islandora_fits"
+      become_user: root
+    - name: Set FITS branch
+      command: "git checkout newFileModel"
+      args:
+        chdir: "{{ drupal_core_path }}/modules/contrib/islandora_fits"
+
+    - name: Check Deployment Addresses
+      command: "sed -i 's/8000/{{ apache_listen_port }}/g' /opt/karaf/deploy/{{ item }}"
+      with_items:
+        - ca.islandora.alpaca.connector.fits.blueprint.xml
+        - ca.islandora.alpaca.connector.ocr.blueprint.xml
+      become_user: root
+
     - name: Enable patching in composer
       composer:
         command: config
@@ -78,20 +96,5 @@
 
     - name: Set TUS Scheme
       command: "{{ drush_path }} --root {{ drupal_core_path }} cset tus.settings scheme public://  -y"
-#    Our file model requires FITS methods not present in base islandora_fits
-    - name: Pull FITS branch
-      command: "git pull newFileModel"
-      args:
-        chdir: "{{ drupal_core_path }}/modules/contrib/islandora_fits"
-    - name: Set FITS branch
-      command: "git checkout newFileModel"
-      args:
-        chdir: "{{ drupal_core_path }}/modules/contrib/islandora_fits"
 
-    - name: Check Deployment Addresses
-      command: "sed -i 's/8000/{{ apache_listen_port }}/g' /opt/karaf/deploy/{{ item }}"
-      with_items:
-        - ca.islandora.alpaca.connector.fits.blueprint.xml
-        - ca.islandora.alpaca.connector.ocr.blueprint.xml
-      become_user: root
 
