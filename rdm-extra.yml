@@ -20,6 +20,7 @@
       - "islandora-rdm/csv_field_preview"
 
     rdm_drupal_enable_modules:
+      - islandora_rdm_media_types
       - conditional_fields
       - markup
       - select_or_other
@@ -36,7 +37,7 @@
       - tus
       - uppy
       - csv_field_preview
-      - islandora_rdm_media_types
+
 
   tasks:
     - name: Ubuntu packages for RDM
