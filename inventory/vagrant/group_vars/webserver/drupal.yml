@@ -18,7 +18,7 @@ drupal_composer_dependencies:
   - "drupal/rest_oai_pmh:^1.0"
   - "islandora/carapace:dev-8.x-3.x"
   - "islandora/islandora_defaults:dev-8.x-1.x"
-  - "islandora-rdm/islandora_fits:dev-master"
+  - "islandora-rdm/islandora_fits:dev-master#b8a126ebaa896402c6ba341047363a05857d0a60"
 drupal_composer_project_package: "islandora/drupal-project:8.7"
 drupal_composer_project_options: "--prefer-dist --stability dev --no-interaction"
 drupal_core_path: "{{ drupal_composer_install_dir }}/web"
