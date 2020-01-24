@@ -19,9 +19,7 @@
       - "drupal/uppy:1.x-dev"
       - "islandora-rdm/csv_field_preview"
 
-    rdm_drupal_enable_modules:
-      - islandora_rdm_multifile_media
-      - islandora_rdm_media_types
+    rdm_drupal_enable_modules: 
       - conditional_fields
       - markup
       - select_or_other
@@ -31,6 +29,7 @@
       - islandora_rdm
       - islandora_rdm_defaults
       - islandora_rdm_multifile_media
+      - islandora_rdm_media_types
       - islandora_rdm_site
       - islandora_rdm_data_management_plan 
       - islandora_rdm_workflows
@@ -38,7 +37,7 @@
       - tus
       - uppy
       - csv_field_preview
-
+      
 
   tasks:
     - name: Ubuntu packages for RDM
