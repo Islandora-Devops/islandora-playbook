@@ -15,7 +15,7 @@ If you struggle with following the instructions for setting up the requirements 
 1. [VirtualBox](https://www.virtualbox.org/)
 2. [Vagrant](http://www.vagrantup.com/) (Known to work with 2.0.1 - 2.1.2)
 3. [git](https://git-scm.com/)
-4. [ansible](https://www.ansible.com/community) 2.3+
+4. [ansible](https://www.ansible.com/community) (restricted to versions 2.6.0 - 2.8.7)
 5. [virtualbox-vbguest](https://github.com/dotless-de/vagrant-vbguest) plugin (If targeting CENTOS)
 
 ## Variables
