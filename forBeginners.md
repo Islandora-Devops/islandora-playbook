@@ -98,4 +98,3 @@ Open the terminal of your new Ubuntu computer to download the remaining requirem
 
 >$ vagrant up
 
-
