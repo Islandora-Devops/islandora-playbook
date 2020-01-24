@@ -33,14 +33,14 @@ export ISLANDORA_VAGRANT_MEMORY=4096
 
 _CENTOS support is WIP and not to be considered stable_
 
-Ubuntu 18.04 is the default linux distribution used by claw-playbook. If you want to use CENTOS 7 instead, set the `ISLANDORA_DISTRO` environment variable to `centos/7`. The easiest way to do this is to export the environment variable into your shell before running Vagrant commands. Otherwise you will have to provide the variable for every Vagrant command you issue.
+Ubuntu 18.04 is the default Linux distribution used by claw-playbook. If you want to use CENTOS 7 instead, set the `ISLANDORA_DISTRO` environment variable to `centos/7`. The easiest way to do this is to export the environment variable into your shell before running Vagrant commands. Otherwise you will have to provide the variable for every Vagrant command you issue.
 
 ```bash
 ISLANDORA_DISTRO="centos/7" vagrant up
 ISLANDORA_DISTRO="centos/7" vagrant ssh
 ```
 
-If you are not using `vagrant up` to bring up a box, and are running `ansible-playbook` against it manually, you will need to set `ansible_ssh_user` to `vagrant` for your hosts. It's easiest to add this value to `inventory/vagrant/group_vars/all.yml` to set the value for all hosts. This is not neccessary if using Vagrant, as the ssh user is passed to ansible via the Vagrantfile.
+If you are not using `vagrant up` to bring up a box, and are running `ansible-playbook` against it manually, you will need to set `ansible_ssh_user` to `vagrant` for your hosts. It's easiest to add this value to `inventory/vagrant/group_vars/all.yml` to set the value for all hosts. This is not necessary if using Vagrant, as the ssh user is passed to Ansible via the Vagrantfile.
 
 ## Use
 
@@ -66,7 +66,7 @@ Optionally if you need to specify a username, password or port to connect to the
 ```
 default ansible_ssh_host=my_ip_or_domain_name ansible_ssh_user=my_user ansible_ssh_pass=my_super_secret_password ansible_ssh_port=my_port
 ```
-More information about inventories can be found in the [ansible documentation](http://docs.ansible.com/ansible/latest/intro_inventory.html).
+More information about inventories can be found in the [Ansible documentation](http://docs.ansible.com/ansible/latest/intro_inventory.html).
 1. Update the inventory variables as you see fit to customize your Islandora installation. 
   1. You should modify `group_vars\all\passwords.yml` to use more secure passwords. These passwords can be encrypted using [Ansible Vault](https://docs.ansible.com/ansible/latest/vault.html) if you wish to keep your inventory secure.
   1. Change the `drupal_trusted_host` configuration in `inventory/production/group_vars/webserver/drupal.yml` to reflect your IP or domain name
@@ -95,9 +95,9 @@ The default Drupal login details are:
   * username: drupal8
   * password: islandora
 
-### Fedora4
+### Fedora5
 
-The Fedora 4 REST API can be accessed at [http://localhost:8080/fcrepo/rest](http://localhost:8080/fcrepo/rest). 
+The Fedora 5 REST API can be accessed at [http://localhost:8080/fcrepo/rest](http://localhost:8080/fcrepo/rest). 
 
 Authentication is done via [Syn](https://github.com/Islandora-CLAW/Syn) using [JWT](https://jwt.io) tokens.
 
@@ -137,7 +137,7 @@ You can access the ActiveMQ administrative interface at: http://localhost:8161/a
 
 ### Cantaloupe
 
-You can access the Canataloupe admin interface at: http://localhost:8080/cantaloupe/admin
+You can access the Cantaloupe admin interface at: http://localhost:8080/cantaloupe/admin
 
   * username: admin
   * password: islandora

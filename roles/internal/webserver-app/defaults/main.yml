@@ -11,6 +11,6 @@ webserver_app_drupal_config_path: /opt/islandora/configs/drupal
 
 webserver_app_user: "{% if ansible_os_family == 'RedHat' %}apache{% else %}www-data{% endif %}"
 solr_user: solr
-solr_instance_conf_path: /var/solr/data/CLAW/conf
+solr_instance_conf_path: /var/solr/data/{{ solr_cores[0] }}/conf
 
 webserver_document_root: /var/www/html
