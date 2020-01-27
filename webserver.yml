@@ -18,6 +18,7 @@
     - geerlingguy.drush
     - geerlingguy.drupal-console
     - geerlingguy.drupal
+    - perms-fix
     - Islandora-Devops.drupal-openseadragon
     - webserver-app
     - Islandora-Devops.matomo

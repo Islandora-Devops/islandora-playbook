@@ -1,0 +1,8 @@
+---
+  - name: Edit permissions for default.services.yml
+    file:
+      state: directory
+      path: "{{ drupal_core_path }}/sites/default"
+      owner: "{% if ansible_os_family == 'RedHat' %}vagrant{% else %}ubuntu{% endif %}"
+      group: "{% if ansible_os_family == 'RedHat' %}vagrant{% else %}ubuntu{% endif %}"
+      mode: '1777'
