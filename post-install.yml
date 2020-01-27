@@ -11,10 +11,8 @@
   tasks:
 
     - name: Import feature
-      command:
-        cmd: "drupal features:import islandora_defaults"
-        chdir: "{{ drupal_composer_install_dir }}"
-      
+      command: "{{ drush_path }} --root {{ drupal_core_path }} -y fim --bundle=islandora islandora_defaults"
+
     - name: Add admin to fedoraAdmin role
       command: "{{ drush_path }} --root {{ drupal_core_path }} -y urol fedoraadmin admin"
 
@@ -50,7 +48,7 @@
             append=yes
 
     - name: Create the default files simpletest directory
-      file: 
+      file:
         path: "{{ drupal_public_filesystem }}/simpletest"
         state: directory
         owner: "{{ webserver_app_user }}"
@@ -59,7 +57,7 @@
         recurse: yes
 
     - name: Create the sites simpletest directory
-      file: 
+      file:
         path: "{{ drupal_core_path }}/sites/simpletest"
         state: directory
         owner: "{{ webserver_app_user }}"
