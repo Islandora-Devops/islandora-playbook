@@ -3,6 +3,6 @@
     file:
       state: directory
       path: "{{ drupal_core_path }}/sites/default"
-      owner: "{% if ansible_os_family == 'RedHat' %}vagrant{% else %}ubuntu{% endif %}"
-      group: "{% if ansible_os_family == 'RedHat' %}vagrant{% else %}ubuntu{% endif %}"
+      owner: "{{ webserver_app_user }}"
+      group: "{{ webserver_app_user }}"
       mode: '1777'
