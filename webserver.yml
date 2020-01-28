@@ -6,6 +6,9 @@
   vars:
     php_version: "7.2"
 
+  environment:
+    COMPOSER_MEMORY_LIMIT: -1
+
   roles:
     - name: geerlingguy.repo-remi
       when: ansible_os_family == "RedHat"
