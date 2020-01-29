@@ -1,0 +1,8 @@
+---
+  - name: Edit permissions for default.services.yml
+    file:
+      state: directory
+      path: "{{ drupal_core_path }}/sites/default"
+      owner: "{{ webserver_app_user }}"
+      group: "{{ webserver_app_user }}"
+      mode: '1777'

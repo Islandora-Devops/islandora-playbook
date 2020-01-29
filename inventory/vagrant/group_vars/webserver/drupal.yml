@@ -7,6 +7,7 @@ drupal_composer_dependencies:
   - "zaporylie/composer-drupal-optimizations:^1.0"
   - "drupal/console:~1.0"
   - "drupal/devel:^2.1"
+  - "drush/drush:^9.0"
   - "drupal/rdfui:^1.0-beta1"
   - "drupal/restui:^1.16"
   - "drupal/search_api_solr:^2.0"
@@ -17,9 +18,8 @@ drupal_composer_dependencies:
   - "drupal/admin_toolbar:^2.0"
   - "drupal/rest_oai_pmh:^1.0"
   - "islandora-rdm/islandora_fits:dev-master"
-  - "islandora/carapace:dev-8.x-3.x"
   - "islandora-rdm/islandora_rdm_defaults:dev-8.x-1.x"
-drupal_composer_project_package: "islandora/drupal-project:8.7"
+drupal_composer_project_package: "islandora/drupal-project:8.8.1"
 drupal_composer_project_options: "--prefer-dist --stability dev --no-interaction"
 drupal_core_path: "{{ drupal_composer_install_dir }}/web"
 drupal_db_user: drupal8
