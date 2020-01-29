@@ -9,12 +9,15 @@ host = RbConfig::CONFIG['host_os']
 
 # List memory
 if host =~ /darwin/
+  $cpus = `sysctl -n hw.ncpu`.to_i
   # conver to MB
   $mem = `sysctl -n hw.memsize`.to_i / 1024 / 1024
 elsif host =~ /linux/
+  $cpus = `nproc`.to_i
   $mem = `grep 'MemTotal' /proc/meminfo | sed -e 's/MemTotal://' -e 's/ kB//'`.to_i / 1024
 else
   # else windows commands
+  $cpus = `wmic cpu get NumberOfCores`.split("\n")[2].to_i
   $mem = `wmic OS get TotalVisibleMemorySize`.split("\n")[2].to_i / 1024
 end
 
@@ -62,7 +65,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.provider "virtualbox" do |vb|
     if $vms_running == 0
       if ENV["ISLANDORA_VAGRANT_CPUS"] == ''
-        vb.customize ["modifyvm", :id, "--cpuexecutioncap", "50"]
+        vb.customize ["modifyvm", :id, "--ioapic", "on"]
+        vb.customize ["modifyvm", :id, "--cpus", $cpus]
       else
         vb.customize ["modifyvm", :id, "--cpus", $cpus]
       end
