@@ -5,11 +5,29 @@
 VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.require_version ">= 2.0.1"
+host = RbConfig::CONFIG['host_os']
+
+# List memory
+if host =~ /darwin/
+  # conver to MB
+  $mem = `sysctl -n hw.memsize`.to_i / 1024 / 1024
+elsif host =~ /linux/
+  $mem = `grep 'MemTotal' /proc/meminfo | sed -e 's/MemTotal://' -e 's/ kB//'`.to_i / 1024
+else
+  # else windows commands
+  $mem = `wmic OS get TotalVisibleMemorySize`.split("\n")[2].to_i / 1024
+end
+
+# Use whichever is larger, 1/2 the RAM or 4GB.
+$mem = [$mem / 2, 4096].max
 
 $cpus   = ENV.fetch("ISLANDORA_VAGRANT_CPUS", "1")
-$memory = ENV.fetch("ISLANDORA_VAGRANT_MEMORY", "4096")
+$memory = ENV.fetch("ISLANDORA_VAGRANT_MEMORY", $mem)
+
 $hostname = ENV.fetch("ISLANDORA_VAGRANT_HOSTNAME", "islandora8")
 $virtualBoxDescription = ENV.fetch("ISLANDORA_VAGRANT_VIRTUALBOXDESCRIPTION", "Islandora 8")
+
+$vms_running = `VBoxManage list runningvms | wc -l | sed 's/[^0-9]//g'`
 
 # Available boxes are 'ubuntu/xenial64' and 'centos/7'
 $vagrantBox = ENV.fetch("ISLANDORA_DISTRO", "ubuntu/bionic64")
@@ -42,8 +60,17 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.network :forwarded_port, guest: 8081, host: 8081 # API-X
 
   config.vm.provider "virtualbox" do |vb|
-    vb.customize ["modifyvm", :id, "--memory", $memory]
-    vb.customize ["modifyvm", :id, "--cpus", $cpus]
+    if $vms_running == 0
+      if ENV["ISLANDORA_VAGRANT_CPUS"] == ''
+        vb.customize ["modifyvm", :id, "--cpuexecutioncap", "50"]
+      else
+        vb.customize ["modifyvm", :id, "--cpus", $cpus]
+      end
+      vb.customize ["modifyvm", :id, "--memory", $memory]
+    else
+      memory = if ENV["ISLANDORA_VAGRANT_MEMORY"] == "" then "4096" else ENV["ISLANDORA_VAGRANT_MEMORY"] end
+      vb.customize ["modifyvm", :id, "--memory", $memory]
+    end
     vb.customize ["modifyvm", :id, "--description", $virtualBoxDescription]
     vb.customize ["modifyvm", :id, "--audio", "none"]
   end
