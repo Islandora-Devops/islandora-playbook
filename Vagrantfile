@@ -23,6 +23,7 @@ end
 
 # Use whichever is larger, 1/2 the RAM or 4GB.
 $mem = [$mem / 2, 4096].max
+$detected_cpus = [$detected_cpus / 2, 1].max
 
 $cpus   = ENV.fetch("ISLANDORA_VAGRANT_CPUS", "1")
 $memory = ENV.fetch("ISLANDORA_VAGRANT_MEMORY", $mem)
