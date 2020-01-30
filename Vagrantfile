@@ -9,15 +9,15 @@ host = RbConfig::CONFIG['host_os']
 
 # List memory
 if host =~ /darwin/
-  $cpus = `sysctl -n hw.ncpu`.to_i
+  $detected_cpus = `sysctl -n hw.ncpu`.to_i
   # conver to MB
   $mem = `sysctl -n hw.memsize`.to_i / 1024 / 1024
 elsif host =~ /linux/
-  $cpus = `nproc`.to_i
+  $detected_cpus = `nproc`.to_i
   $mem = `grep 'MemTotal' /proc/meminfo | sed -e 's/MemTotal://' -e 's/ kB//'`.to_i / 1024
 else
   # else windows commands
-  $cpus = `wmic cpu get NumberOfCores`.split("\n")[2].to_i
+  $detected_cpus = `wmic cpu get NumberOfCores`.split("\n")[2].to_i
   $mem = `wmic OS get TotalVisibleMemorySize`.split("\n")[2].to_i / 1024
 end
 
@@ -30,7 +30,8 @@ $memory = ENV.fetch("ISLANDORA_VAGRANT_MEMORY", $mem)
 $hostname = ENV.fetch("ISLANDORA_VAGRANT_HOSTNAME", "islandora8")
 $virtualBoxDescription = ENV.fetch("ISLANDORA_VAGRANT_VIRTUALBOXDESCRIPTION", "Islandora 8")
 
-$vms_running = `VBoxManage list runningvms | wc -l | sed 's/[^0-9]//g'`
+$vms_running = `VBoxManage list runningvms | wc -l | sed 's/[^0-9]//g'`.to_i
+$cpus_checks = ENV.fetch("ISLANDORA_VAGRANT_CPUS", "")
 
 # Available boxes are 'ubuntu/xenial64' and 'centos/7'
 $vagrantBox = ENV.fetch("ISLANDORA_DISTRO", "ubuntu/bionic64")
@@ -64,17 +65,17 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.vm.provider "virtualbox" do |vb|
     if $vms_running == 0
-      if ENV["ISLANDORA_VAGRANT_CPUS"] == ''
+      if $cpus_checks == ""
         vb.customize ["modifyvm", :id, "--ioapic", "on"]
-        vb.customize ["modifyvm", :id, "--cpus", $cpus]
+        vb.customize ["modifyvm", :id, "--cpus", $detected_cpus]
       else
         vb.customize ["modifyvm", :id, "--cpus", $cpus]
       end
-      vb.customize ["modifyvm", :id, "--memory", $memory]
     else
-      memory = if ENV["ISLANDORA_VAGRANT_MEMORY"] == "" then "4096" else ENV["ISLANDORA_VAGRANT_MEMORY"] end
-      vb.customize ["modifyvm", :id, "--memory", $memory]
+      vb.customize ["modifyvm", :id, "--cpus", $cpus]
     end
+
+    vb.customize ["modifyvm", :id, "--memory", $memory]
     vb.customize ["modifyvm", :id, "--description", $virtualBoxDescription]
     vb.customize ["modifyvm", :id, "--audio", "none"]
   end
