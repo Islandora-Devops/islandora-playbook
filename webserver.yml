@@ -19,6 +19,7 @@
     - geerlingguy.git
     - geerlingguy.composer
     - geerlingguy.drush
+    - perms-fix
     - geerlingguy.drupal-console
     - geerlingguy.drupal
     - perms-fix
