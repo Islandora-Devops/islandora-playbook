@@ -28,6 +28,8 @@
       - simple_sitemap
       - islandora_rdm
       - islandora_rdm_defaults
+
+    rdm_drupal_enable_modules2:
       - islandora_rdm_multifile_media
       - islandora_rdm_media_types
       - islandora_rdm_site
@@ -49,11 +51,15 @@
       when: ansible_os_family == "Debian"
 
     #    Our file model requires FITS methods not present in base islandora_fits
+    - name: Set git email
+      command: git config --global user.email user@example.com
+
     - name: Pull FITS branch
       command: "git pull origin newFileModel"
       args:
         chdir: "{{ drupal_core_path }}/modules/contrib/islandora_fits"
       become_user: root
+
     - name: Set FITS branch
       command: "git checkout newFileModel"
       args:
@@ -80,10 +86,12 @@
         arguments: "{{ item }}"
         working_dir: "{{ drupal_composer_install_dir }}"
       with_items: "{{ rdm_drupal_composer_dependencies|default([]) }}"
-      become: no 
+      become: no
 
     - name: Install RDM configured modules with drush.
-      command: "{{ drush_path }} --root={{ drupal_core_path }} -y en {{ rdm_drupal_enable_modules | join(' ') }}"
+      command: "{{ drush_path }} --root=/var/www/html/drupal/web -y en {{ rdm_drupal_enable_modules | join(' ') }}"
+    - name: Install RDM configured modules with drush2.
+      command: "{{ drush_path }} --root=/var/www/html/drupal/web -y en {{ rdm_drupal_enable_modules2 | join(' ') }}"
 #      ignore_errors: yes
 
 #    - name: Set ORCID client_id
