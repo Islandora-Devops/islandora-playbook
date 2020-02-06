@@ -25,7 +25,7 @@
 
     - name: Unarchive solr config
       unarchive:
-        src: http://localhost:8000/solr_config.zip
+        src: http://{{ hostvars[groups['webserver'][0]].ansible_host }}:{{ apache_listen_port }}/solr_config.zip
         dest: /tmp/solr_config
         remote_src: yes
       tags: solr
@@ -61,7 +61,7 @@
 
     - name: Fetch a Solr query to warm up the application
       uri:
-        url: http://localhost:8983/solr/{{ solr_cores[0] }}/select?q=warm
+        url: http://{{ hostvars[groups['solr'][0]].ansible_host  }}:8983/solr/{{ solr_cores[0] }}/select?q=warm
         method: GET
         return_content: yes
         status_code: [200,412]
