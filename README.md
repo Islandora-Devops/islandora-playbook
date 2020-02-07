@@ -117,14 +117,6 @@ You can access the Solr administration UI at http://localhost:8983/solr/
 You can connect to the machine via ssh:
 
   * `vagrant ssh`
-  * `ssh -p 2222 ubuntu@localhost`
-
-### VM
-
-The default VM login details are:
-  
-  * username: ubuntu
-  * password: ubuntu
   
 ### ActiveMQ
 
