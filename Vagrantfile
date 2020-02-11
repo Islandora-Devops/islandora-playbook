@@ -61,4 +61,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     ansible.extra_vars = { "islandora_distro" => $vagrantBox }
   end
 
+  config.vm.provision "disable-syn", type: "shell", run: "never" do |s|
+    s.inline = "/bin/bash /home/vagrant/islandora/config-syn.sh disable; service tomcat8 restart"
+  end
+
+  config.vm.provision "enable-syn", type: "shell", run: "never" do |s|
+    s.inline = "/bin/bash /home/vagrant/islandora/config-syn.sh enable; service tomcat8 restart"
+  end
 end
