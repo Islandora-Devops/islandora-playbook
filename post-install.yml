@@ -6,7 +6,7 @@
   # add some vars here so we can run with --start-at-task if desired
   vars:
     webserver_app_user: "{% if ansible_os_family == 'RedHat' %}apache{% else %}www-data{% endif %}"
-    vagrant_user: "{% if ansible_os_family == 'RedHat' %}vagrant{% else %}ubuntu{% endif %}"
+    vagrant_user: "vagrant"
 
   tasks:
 
