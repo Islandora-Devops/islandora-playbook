@@ -14,8 +14,8 @@ $virtualBoxDescription = ENV.fetch("ISLANDORA_VAGRANT_VIRTUALBOXDESCRIPTION", "I
 # Available boxes are 'ubuntu/xenial64' and 'centos/7'
 $vagrantBox = ENV.fetch("ISLANDORA_DISTRO", "ubuntu/bionic64")
 
-# On Ubuntu, user is ubuntu, on all others, user is vagrant
-$vagrantUser = if $vagrantBox == "ubuntu/bionic64" then "ubuntu" else "vagrant" end
+# vagrant is the main user
+$vagrantUser = "vagrant"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.provider "virtualbox" do |v|
