@@ -1,0 +1,57 @@
+---
+
+# used to override variables in the playbook via the extra vars commandline
+# option.  Add your site specific vars here.  If you need values from
+# the terraform script, we will need to template them correctly.
+# 
+# Thoughts on templating: 
+#   - add the vars here with a default value and use subsequent calls on the
+#     provisioner call in terraform to override.
+# 
+#   - can we use functions in this file to do filters/templating?  Needs 
+#     testing.
+
+
+# internal_hostname - "-e int_host='somedomain'" can be passed via the cmdline to template externaly
+internal_hostname: "{{ int_host | default('localhost') }}"
+
+# external_hostname - "-e ext_host='somedomain'" can be passed via the cmdline to template externally
+external_hostname: "{{ ext_host | default('localhost') }}"
+
+# ansible mods
+ansible_host: vm
+ansible_port: 22
+ansible_ssh_private_key_file: /root/.ssh/id_rsa
+
+# php mods
+php_upload_max_filesize: 1024M
+php_post_max_size: 1024M
+php_max_execution_time: 300
+
+# TODO: Needs templating, maybe.  localhost may be ok.
+openseadragon_iiiv_server: "http://{{internal_hostname}}:8080/cantaloupe/iiif/2"
+
+# apache stuff
+apache_listen_port: "{{ ext_port | default('8000')}}"
+apache_vhosts:
+  - servername: "{{external_hostname}}"
+    documentroot: "/var/www/html/drupal/web"
+    allow_override: All
+    options: -Indexes +FollowSymLinks
+
+# drupal stuff
+drupal_domain: "{{external_hostname}}"
+drupal_trusted_hosts: 
+  - ^localhost$
+  - "{{ hostvars[groups['webserver'][0]].ansible_host }}"
+  - "{{external_hostname}}"
+
+# crayfish stuff
+crayfish_drupal_base_url: "http://{{ internal_hostname }}:{{ apache_listen_port }}"
+crayfish_gemini_base_url: "http://{{ internal_hostname }}:{{ apache_listen_port }}/gemini"
+
+# karaf stuff
+alpaca_milliner_base_url: "http://{{ internal_hostname  }}:{{ apache_listen_port }}/milliner/"
+alpaca_gemini_base_url: "http://{{ internal_hostname  }}:{{ apache_listen_port }}/gemini/"
+alpaca_houdini_base_url: "http://{{ internal_hostname }}:{{ apache_listen_port }}/houdini"
+alpaca_homarus_base_url: "http://{{ internal_hostname  }}:{{ apache_listen_port }}/homarus"
