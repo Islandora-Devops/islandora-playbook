@@ -1,8 +1,5 @@
 #solr_version: "6.6.0"
 
-solr_cores:
-  - ISLANDORA
-
 solr_install_path: /opt/solr
 
 solr_user: solr
