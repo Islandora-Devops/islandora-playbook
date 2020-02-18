@@ -94,10 +94,10 @@
     - name: Clear cache
       command: "{{ drush_path }} --root {{ drupal_core_path }} -y cr"
 
-   - name: Template a file to /etc/files.conf
-     template:
-       src: config-syn.sh.j2
-       dest: /home/vagrant/config-syn.sh
-       owner: vagrant
-       group: vagrant
-       mode: '0644'
+    - name: Template a file to /etc/files.conf
+      template:
+        src: config-syn.sh.j2
+        dest: /home/vagrant/config-syn.sh
+        owner: vagrant
+        group: vagrant
+        mode: '0644'
