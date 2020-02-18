@@ -22,7 +22,6 @@
     # Set jsonld module to strip ?_format=jsonld
     - name: Set JSONLD Config
       command: "{{ drush_path }} --root {{ drupal_core_path }} -y cset --input-format=yaml jsonld.settings remove_jsonld_format {{ drupal_jsonld_remove_format }}"
-
     - name: Set Gemini URL
       command: "{{ drush_path }} --root {{ drupal_core_path }} -y cset --input-format=yaml islandora.settings gemini_url {{ crayfish_gemini_base_url }}"
 
@@ -95,3 +94,10 @@
     - name: Clear cache
       command: "{{ drush_path }} --root {{ drupal_core_path }} -y cr"
 
+   - name: Template a file to /etc/files.conf
+     template:
+       src: config-syn.sh.j2
+       dest: /home/vagrant/config-syn.sh
+       owner: vagrant
+       group: vagrant
+       mode: '0644'

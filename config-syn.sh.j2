@@ -13,8 +13,8 @@
 # author: bseeger
 # since: Feb 2020
 
-TOMCAT_USERS_FILE=/var/lib/tomcat8/conf/tomcat-users.xml
-SYN_SETTINGS_FILE=/var/lib/tomcat8/conf/syn-settings.xml
+TOMCAT_USERS_FILE={{ tomcat8_home }}/conf/tomcat-users.xml
+SYN_SETTINGS_FILE={{ tomcat8_home }}/conf/syn-settings.xml
 #TOMCAT_USERS_FILE=./tomcat-users.xml    # for testing
 #SYN_SETTINGS_FILE=./syn-settings.xml    # for testing
 ISLANDORA_USER='<user username="islandora" password="islandora" roles="manager-gui"\/>'
