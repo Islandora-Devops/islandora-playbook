@@ -60,7 +60,7 @@ drupal_enable_modules:
   - islandora_iiif
   - islandora_oaipmh
   - migrate_islandora_csv
-  - migrate_7x_claw
+  - islandora_migrate_7x_claw_feature
 drupal_trusted_hosts:
   - ^localhost$
   - "{{ hostvars[groups['webserver'][0]].ansible_host }}"
