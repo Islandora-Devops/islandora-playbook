@@ -41,6 +41,7 @@
       - uppy
       - csv_field_preview
       - readonly_field_widget
+      - islandora_rdm_file_transmission_fixity
       
 
   tasks:
