@@ -18,6 +18,7 @@
       - "islandora-rdm/tus:dev-8.x-1.x"
       - "drupal/uppy:1.x-dev"
       - "islandora-rdm/csv_field_preview"
+      - "drupal/readonly_field_widget:^1.3"
 
     rdm_drupal_enable_modules: 
       - conditional_fields
@@ -39,6 +40,7 @@
       - tus
       - uppy
       - csv_field_preview
+      - readonly_field_widget
       
 
   tasks:
