@@ -65,3 +65,21 @@
     - name: change selinux enforcement to permissive
       command: setenforce permissive
       when: ansible_os_family == "RedHat" and disable_selinux and selinux_permissive == "enforcing"
+
+    # Check if we may be re-running
+    - name: Check for possible re-run
+      stat:
+        path: "{{ drupal_composer_install_dir }}/web/sites/default/"
+      register: defaultdir_exists
+   
+    # if we are re-running, change the perms on the default dir so composer 
+    # doesn't error out.   
+    - name: Set writable perms on the default/ directory 
+      file: 
+        path: "{{ drupal_composer_install_dir }}/web/sites/default/"
+        mode: u+rw
+        recurse: yes
+        owner: "{{ ansible_user }}"
+      when:  defaultdir_exists.stat.exists == true
+      become: yes
+
