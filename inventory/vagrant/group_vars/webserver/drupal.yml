@@ -59,6 +59,7 @@ drupal_enable_modules:
   - islandora_breadcrumbs
   - islandora_iiif
   - islandora_oaipmh
+  - islandora_search
   - migrate_islandora_csv
   - islandora_migrate_7x_claw_feature
 drupal_trusted_hosts:
