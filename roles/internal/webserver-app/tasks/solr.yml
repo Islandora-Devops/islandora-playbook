@@ -6,7 +6,7 @@
 - name: Add a patch for symfony-event-dispatcher per the INSTALL.md docs on search_api_solr:3.8
   composer:
     command: require
-    arguments: symfony/event-dispatcher:'4.3.4 as 3.4.99' solarium/solarium:^5.1.4 drupal/search_api_solr
+    arguments: symfony/event-dispatcher:'4.3.4 as 3.4.99' solarium/solarium:^5.1 drupal/search_api_solr
     working_dir: "{{ drupal_composer_install_dir }}"
 
 - name: Set default solr server host from hostvars
