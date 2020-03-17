@@ -57,6 +57,7 @@ drupal_enable_modules:
   - islandora_breadcrumbs
   - islandora_iiif
   - islandora_oaipmh
+  - islandora_search
 drupal_trusted_hosts:
   - ^localhost$
   - "{{ hostvars[groups['webserver'][0]].ansible_host }}"
