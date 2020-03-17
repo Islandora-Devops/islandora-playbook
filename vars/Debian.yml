@@ -1,5 +1,7 @@
 ---
 
+grok_version_tag: v3.1.0
+
 php_packages_extra:
   - libapache2-mod-php7.2
   - php7.2-mysql
