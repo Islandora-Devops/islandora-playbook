@@ -16,18 +16,22 @@
     - geerlingguy.solr
 
   tasks:
+
+    - name: Make tmp dir for solr config
+      file:
+        path: /tmp/solr_config
+        state: directory
+      tags: solr
+
     - name: Unarchive solr config
       unarchive:
-        src: "https://ftp.drupal.org/files/projects/search_api_solr-8.x-2.0.zip"
-        dest: /tmp
+        src: http://{{ hostvars[groups['webserver'][0]].ansible_host }}:{{ apache_listen_port }}/solr_config.zip
+        dest: /tmp/solr_config
         remote_src: yes
-      register: solr_config_download_and_extract
-      until: solr_config_download_and_extract is not failed
-      retries: 5
       tags: solr
 
     - name: Get solr config files to copy
-      command: "find /tmp/search_api_solr/solr-conf/7.x -type f"
+      command: "find /tmp/solr_config -type f"
       register: files_to_copy
       changed_when: false
       until: files_to_copy is not failed
@@ -57,7 +61,7 @@
 
     - name: Fetch a Solr query to warm up the application
       uri:
-        url: http://localhost:8983/solr/ISLANDORA/select?q=warm
+        url: http://{{ hostvars[groups['solr'][0]].ansible_host  }}:8983/solr/{{ solr_cores[0] }}/select?q=warm
         method: GET
         return_content: yes
         status_code: [200,412]
