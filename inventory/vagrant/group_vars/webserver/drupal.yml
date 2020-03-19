@@ -50,7 +50,6 @@ drupal_enable_modules:
   - islandora_core_feature
   - admin_toolbar
   - transliterate_filenames
-  - islandora_rdm_defaults
   - controlled_access_terms_defaults 
   - islandora_fits
   - islandora_breadcrumbs
