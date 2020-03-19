@@ -101,6 +101,10 @@
       command: "{{ drush_path }} --root=/var/www/html/drupal/web -y en {{ rdm_drupal_enable_modules2 | join(' ') }}"
 #      ignore_errors: yes
 
+    - name: Import RDM features
+      command: "{{ drush_path }} --root {{ drupal_core_path }} -y fim islandora_rdm_types,islandora_rdm_data_management_plan,islandora_rdm_defaults,slandora_rdm_media_types,islandora_rdm_logging,islandora_rdm_rdm_model_feature --bundle=islandora_rdm"
+
+
 #    - name: Set ORCID client_id
 #      command: "{{ drush_path }} --root {{ drupal_core_path }} cset orcid.settings client_id {{ orcid_client_id }} -y"
 #      when: orcid_client_id is defined and orcid_client_id  != ''
