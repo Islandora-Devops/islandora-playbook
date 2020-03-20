@@ -21,7 +21,7 @@ drupal_composer_dependencies:
   - "drupal/field_permissions:*"
   - "islandora-rdm/islandora_fits:dev-master" 
   - "islandora/carapace:dev-8.x-3.x"
-  - "islandora/islandora:*"
+  - "islandora/islandora:dev-8.x-1.x"
   - "islandora/controlled_access_terms:dev-8.x-1.x"
 drupal_composer_project_package: "islandora/drupal-project:8.8.1"
 drupal_composer_project_options: "--prefer-dist --stability dev --no-interaction"
