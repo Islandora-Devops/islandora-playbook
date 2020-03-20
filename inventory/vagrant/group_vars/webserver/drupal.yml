@@ -18,8 +18,11 @@ drupal_composer_dependencies:
   - "drupal/admin_toolbar:^2.0"
   - "drupal/rest_oai_pmh:^1.0"
   - "drupal/transliterate_filenames:^1.3"
+  - "drupal/field_permissions:*"
   - "islandora-rdm/islandora_fits:dev-master" 
   - "islandora/carapace:dev-8.x-3.x"
+  - "islandora/islandora:*"
+  - "islandora/controlled_access_terms:dev-8.x-1.x"
 drupal_composer_project_package: "islandora/drupal-project:8.8.1"
 drupal_composer_project_options: "--prefer-dist --stability dev --no-interaction"
 drupal_core_path: "{{ drupal_composer_install_dir }}/web"
@@ -52,8 +55,8 @@ drupal_enable_modules:
   - transliterate_filenames
   - controlled_access_terms_defaults 
   - islandora_fits
-  - islandora_breadcrumbs
-  - islandora_iiif
+#  - islandora_breadcrumbs
+#  - islandora_iiif
 
 drupal_trusted_hosts:
   - ^localhost$
