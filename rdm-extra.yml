@@ -117,6 +117,9 @@
     - name: Set ORCID name field
       command: "{{ drush_path }} --root {{ drupal_core_path }} cset orcid.settings name_field field_orcid_id  -y"
 
+    - name: Reinstall Tus
+        command: "{{ drush_path }} --root {{ drupal_core_path }} dre tus  -y"
+
     - name: Set TUS Scheme
       command: "{{ drush_path }} --root {{ drupal_core_path }} cset tus.settings scheme public://  -y"
 
