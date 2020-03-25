@@ -1,6 +1,17 @@
 ---
 
 # Comment in to build Alpaca from source
-# alpaca_from_source: yes
-# alpaca_version: your-branch-name
-# alpaca_clone_directory: /opt/alpaca
+ alpaca_from_source: yes
+ alpaca_version: dev
+ alpaca_clone_directory: /opt/alpaca
+ alpaca_karaf_repos:
+  - mvn:org.apache.camel.karaf/apache-camel/2.20.4/xml/features
+  - mvn:org.apache.activemq/activemq-karaf/5.15.0/xml/features
+  - mvn:ca.islandora.alpaca/islandora-karaf/1.0.2/xml/features
+
+ triplestore_namespace: islandora
+ alpaca_triplestore_base_url: "http://{{ hostvars[groups['tomcat'][0]].ansible_host  }}:8080/bigdata"
+ alpaca_milliner_base_url: "http://{{ hostvars[groups['webserver'][0]].ansible_host  }}:{{ apache_listen_port }}/milliner/"
+ alpaca_gemini_base_url: "http://{{ hostvars[groups['webserver'][0]].ansible_host  }}:{{ apache_listen_port }}/gemini/"
+ alpaca_houdini_base_url: "http://{{ hostvars[groups['webserver'][0]].ansible_host  }}:{{ apache_listen_port }}/houdini"
+ alpaca_homarus_base_url: "http://{{ hostvars[groups['webserver'][0]].ansible_host  }}:{{ apache_listen_port }}/homarus"

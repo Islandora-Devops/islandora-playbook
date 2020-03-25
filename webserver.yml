@@ -6,6 +6,9 @@
   vars:
     php_version: "7.2"
 
+  environment:
+    COMPOSER_MEMORY_LIMIT: -1
+
   roles:
     - name: geerlingguy.repo-remi
       when: ansible_os_family == "RedHat"
@@ -18,6 +21,7 @@
     - geerlingguy.drush
     - geerlingguy.drupal-console
     - geerlingguy.drupal
+    - perms-fix
     - Islandora-Devops.drupal-openseadragon
     - webserver-app
     - Islandora-Devops.matomo

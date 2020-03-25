@@ -2,6 +2,7 @@
 
 - hosts: solr
   become: yes
+  any_errors_fatal: true
 
   roles:
     - role: geerlingguy.java
@@ -13,3 +14,59 @@
       java_packages:
         - java-1.8.0-openjdk
     - geerlingguy.solr
+
+  tasks:
+
+    - name: Make tmp dir for solr config
+      file:
+        path: /tmp/solr_config
+        state: directory
+      tags: solr
+
+    - name: Unarchive solr config
+      unarchive:
+        src: http://{{ hostvars[groups['webserver'][0]].ansible_host }}:{{ apache_listen_port }}/solr_config.zip
+        dest: /tmp/solr_config
+        remote_src: yes
+      tags: solr
+
+    - name: Get solr config files to copy
+      command: "find /tmp/solr_config -type f"
+      register: files_to_copy
+      changed_when: false
+      until: files_to_copy is not failed
+      retries: 5
+      tags: solr
+
+    - name: Copy solr config files
+      copy:
+        src: "{{ item }}"
+        dest: "{{ solr_instance_conf_path }}"
+        owner: "{{ solr_user }}"
+        group: "{{ solr_user }}"
+        remote_src: True
+      with_items:
+        - "{{ files_to_copy.stdout_lines }}"
+      tags: solr
+
+    # https://www.drupal.org/project/search_api_solr/issues/3015993
+    - name: Set solr_install_path in solrcore.properties
+      lineinfile:
+        path: "{{ solr_instance_conf_path }}/solrcore.properties"
+        regexp: '^solr\.install\.dir=.*$'
+        line: solr.install.dir={{ solr_install_path }}
+        state: present
+      notify: restart solr
+      tags: solr
+
+    - name: Fetch a Solr query to warm up the application
+      uri:
+        url: http://{{ hostvars[groups['solr'][0]].ansible_host  }}:8983/solr/{{ solr_cores[0] }}/select?q=warm
+        method: GET
+        return_content: yes
+        status_code: [200,412]
+      register: solr_webpage
+      until: solr_webpage.status == 200
+      retries: 20
+      delay: 3
+      tags: solr

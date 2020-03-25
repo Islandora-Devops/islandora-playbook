@@ -8,18 +8,18 @@ Vagrant.require_version ">= 2.0.1"
 
 $cpus   = ENV.fetch("ISLANDORA_VAGRANT_CPUS", "1")
 $memory = ENV.fetch("ISLANDORA_VAGRANT_MEMORY", "4096")
-$hostname = ENV.fetch("ISLANDORA_VAGRANT_HOSTNAME", "claw")
-$virtualBoxDescription = ENV.fetch("ISLANDORA_VAGRANT_VIRTUALBOXDESCRIPTION", "IslandoraCLAW")
+$hostname = ENV.fetch("ISLANDORA_VAGRANT_HOSTNAME", "islandora8")
+$virtualBoxDescription = ENV.fetch("ISLANDORA_VAGRANT_VIRTUALBOXDESCRIPTION", "Islandora 8")
 
 # Available boxes are 'ubuntu/xenial64' and 'centos/7'
-$vagrantBox = ENV.fetch("ISLANDORA_DISTRO", "ubuntu/xenial64")
+$vagrantBox = ENV.fetch("ISLANDORA_DISTRO", "ubuntu/bionic64")
 
-# On Ubuntu, user is ubuntu, on all others, user is vagrant
-$vagrantUser = if $vagrantBox == "ubuntu/xenial64" then "ubuntu" else "vagrant" end
+# vagrant is the main user
+$vagrantUser = "vagrant"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.provider "virtualbox" do |v|
-    v.name = "Islandora CLAW Ansible"
+    v.name = "Islandora 8 Ansible"
   end
 
   config.vm.hostname = $hostname
@@ -49,6 +49,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end
 
   config.vm.provision :ansible do |ansible|
+    ansible.compatibility_mode = "auto"
     ansible.playbook = "playbook.yml"
     ansible.galaxy_role_file = "requirements.yml"
     ansible.galaxy_command = "ansible-galaxy install --role-file=%{role_file} --roles-path=roles/external"

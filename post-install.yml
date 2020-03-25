@@ -6,38 +6,32 @@
   # add some vars here so we can run with --start-at-task if desired
   vars:
     webserver_app_user: "{% if ansible_os_family == 'RedHat' %}apache{% else %}www-data{% endif %}"
-    vagrant_user: "{% if ansible_os_family == 'RedHat' %}vagrant{% else %}ubuntu{% endif %}"
+    vagrant_user: "vagrant"
 
   tasks:
-    # Some tomfoolery to get the demo module to install.
-    # Subject to https://www.drupal.org/node/2599228
-    # Should be fixed in Drupal 8.7
-    - name: Install islandora_defaults module (fail ok)
-      command: "{{ drush_path }} --root {{ drupal_core_path }} -y en islandora_defaults"
-      ignore_errors: yes
-    - name: Update entities
-      command: "{{ drush_path }} --root {{ drupal_core_path }} -y entity:updates"
-    - name: Uninstall islandora_defaults module
-      command: "{{ drush_path }} --root {{ drupal_core_path }} -y pmu islandora_defaults"
-    - name: Install islandora_defaults module (should not fail)
-      command: "{{ drush_path }} --root {{ drupal_core_path }} -y en islandora_defaults"
-    - name: Import feature
-      command: "{{ drush_path }} --root {{ drupal_core_path }} -y fim --bundle=islandora islandora_defaults"
+
     - name: Add admin to fedoraAdmin role
       command: "{{ drush_path }} --root {{ drupal_core_path }} -y urol fedoraadmin admin"
-    - name: Install islandora_search
-      command: "{{ drush_path }} --root {{ drupal_core_path }} -y en islandora_search"
 
     # Set jsonld module to strip ?_format=jsonld
     - name: Set JSONLD Config
       command: "{{ drush_path }} --root {{ drupal_core_path }} -y cset --input-format=yaml jsonld.settings remove_jsonld_format {{ drupal_jsonld_remove_format }}"
 
     - name: Set Gemini URL
-      command: "{{ drush_path }} --root {{ drupal_core_path }} -y cset --input-format=yaml islandora.settings gemini_url {{ crayfish_milliner_gemini_base_url }}"
+      command: "{{ drush_path }} --root {{ drupal_core_path }} -y cset --input-format=yaml islandora.settings gemini_url {{ crayfish_gemini_base_url }}"
 
     - name: Set pseudo field bundles
       command: "{{ drush_path }} --root {{ drupal_core_path }} -y cset --input-format=yaml islandora.settings gemini_pseudo_bundles.{{ item.0 }} {{ item.1 }}"
       with_indexed_items: "{{ drupal_gemini_pseudo_bundles }}"
+
+    - name: Set media urls
+      command: "{{ drush_path }} --root {{ drupal_core_path }} -y cset --input-format=yaml media.settings standalone_url true"
+
+    - name: Set iiif url
+      command: "{{ drush_path }} --root {{ drupal_core_path }} -y cset --input-format=yaml islandora_iiif.settings iiif_server {{ openseadragon_iiiv_server }}"
+
+    - name: Set iiif manifest view
+      command: "{{ drush_path }} --root {{ drupal_core_path }} -y cset --input-format=yaml openseadragon.settings manifest_view iiif_manifest"
 
     - name: Run migrations
       command: "{{ drush_path }} --root {{ drupal_core_path }} -y -l localhost:{{ apache_listen_port }} --userid=1 mim --group=islandora"
@@ -48,7 +42,7 @@
             append=yes
 
     - name: Create the default files simpletest directory
-      file: 
+      file:
         path: "{{ drupal_public_filesystem }}/simpletest"
         state: directory
         owner: "{{ webserver_app_user }}"
@@ -57,14 +51,14 @@
         recurse: yes
 
     - name: Create the sites simpletest directory
-      file: 
+      file:
         path: "{{ drupal_core_path }}/sites/simpletest"
         state: directory
         owner: "{{ webserver_app_user }}"
         group: "{{ webserver_app_user }}"
         mode: 0775
         recurse: yes
-    
+
     - name: Chown islandora core feature
       file:
         dest: "{{ drupal_core_path }}/modules/contrib/islandora/modules/islandora_core_feature"
@@ -91,3 +85,7 @@
         group: "{{ webserver_app_user }}"
         mode: 0775
         recurse: yes
+
+    - name: Clear cache
+      command: "{{ drush_path }} --root {{ drupal_core_path }} -y cr"
+

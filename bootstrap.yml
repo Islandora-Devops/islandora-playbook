@@ -6,7 +6,7 @@
   gather_facts: false
 
   tasks:
-    # python isn't installed by default on ubuntu 16.04 so we need
+    # python isn't installed by default on ubuntu so we need
     # to do that with the raw command before
     - name: install python
       raw: test -e /usr/bin/python || (apt-get update; apt-get install -y python;)
@@ -14,7 +14,7 @@
       changed_when:
         - output.stdout != ""
         - output.stdout != "\r\n"
-      when: islandora_distro|default('') == "ubuntu/xenial64"
+      when: islandora_distro|default('') is match("ubuntu/")
 
     # Manually gather facts once python is installed
     - name: gather facts
@@ -65,3 +65,21 @@
     - name: change selinux enforcement to permissive
       command: setenforce permissive
       when: ansible_os_family == "RedHat" and disable_selinux and selinux_permissive == "enforcing"
+
+    # Check if we may be re-running
+    - name: Check for possible re-run
+      stat:
+        path: "{{ drupal_composer_install_dir }}/web/sites/default/"
+      register: defaultdir_exists
+   
+    # if we are re-running, change the perms on the default dir so composer 
+    # doesn't error out.   
+    - name: Set writable perms on the default/ directory 
+      file: 
+        path: "{{ drupal_composer_install_dir }}/web/sites/default/"
+        mode: u+rw
+        recurse: yes
+        owner: "{{ ansible_user }}"
+      when:  defaultdir_exists.stat.exists == true
+      become: yes
+
