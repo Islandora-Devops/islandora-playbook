@@ -22,6 +22,7 @@
       - "drupal/readonly_field_widget:^1.3"
       - "drupal/matomo_reports:^1.0"
       - "drupal/gdpr:*"
+      - "drupal/eu_cookie_compliance:*"
 
     rdm_drupal_enable_modules: 
       - conditional_fields
@@ -33,6 +34,7 @@
       - matomo_reports
       - islandora_rdm
       - islandora_rdm_defaults
+      - eu_cookie_compliance
 
     rdm_drupal_enable_modules2:
       - islandora_rdm_multifile_media
@@ -87,6 +89,14 @@
         command: config
         working_dir: "{{ drupal_composer_install_dir }}"
         arguments: extra.enable-patching true
+
+    - name: Download drupal core patch.
+      get_url:
+        url: https://www.drupal.org/files/issues/2020-02-02/2890844-65.drupal.patch
+        dest: /tmp/2890844-65.drupal.patch
+
+    - name: Apply the patch from the drupal docroot.
+      shell: "patch -p1 < /tmp/2890844-65.drupal.patch chdir=/var/www/html/drupal/web"
       
     - name: Install RDM dependencies with composer require (this may take a while).
       composer:
@@ -104,7 +114,6 @@
 
     - name: Import RDM features
       command: "{{ drush_path }} --root {{ drupal_core_path }} -y fim islandora_rdm_types,islandora_rdm_data_management_plan,islandora_rdm_defaults,islandora_rdm_media_types --bundle=islandora_rdm"
-
 
 #    - name: Set ORCID client_id
 #      command: "{{ drush_path }} --root {{ drupal_core_path }} cset orcid.settings client_id {{ orcid_client_id }} -y"
