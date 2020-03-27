@@ -97,6 +97,7 @@
 
     - name: Apply the patch from the drupal docroot.
       shell: "patch -p1 < /tmp/2890844-65.drupal.patch chdir=/var/www/html/drupal/web"
+      ignore_errors: yes
       
     - name: Install RDM dependencies with composer require (this may take a while).
       composer:
