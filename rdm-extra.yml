@@ -23,8 +23,10 @@
       - "drupal/matomo_reports:^1.0"
       - "drupal/gdpr:*"
       - "drupal/eu_cookie_compliance:*"
+      - 'drupal/entity_reference_unpublished:^1.1'
 
-    rdm_drupal_enable_modules: 
+    rdm_drupal_enable_modules:
+      - entity_reference_unpublished
       - conditional_fields
       - markup
       - select_or_other
