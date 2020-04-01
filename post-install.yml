@@ -16,7 +16,7 @@
 
 
     - name: Import features
-      command: "{{ drush_path }} --root {{ drupal_core_path }} -y fim islandora_core_feature,controlled_access_terms_defaults --bundle=islandora"
+      command: "{{ drush_path }} --root {{ drupal_core_path }} -y fim islandora_core_feature,controlled_access_terms_defaults,islandora_rdm_solr_config --bundle=islandora"
 
     - name: Add admin to fedoraAdmin role
       command: "{{ drush_path }} --root {{ drupal_core_path }} -y urol fedoraadmin admin"

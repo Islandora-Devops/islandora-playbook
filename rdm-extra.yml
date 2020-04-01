@@ -5,10 +5,10 @@
   vars:
     rdm_drupal_composer_dependencies:
       - "dompdf/dompdf:*"
-      - "drupal/conditional_fields:*" 
+      - "drupal/conditional_fields:*"
       - "drupal/markup:*"
       - "drupal/select_or_other:*"
-      - "drupal/dynamic_entity_reference:2.0-alpha9" 
+      - "drupal/dynamic_entity_reference:2.0-alpha9"
       - "drupal/clamav:*"
       - "drupal/entity_print:*"
       - "drupal/simple_sitemap:*"
@@ -42,23 +42,24 @@
       - islandora_rdm_multifile_media
       - islandora_rdm_media_types
       - islandora_rdm_site
-      - islandora_rdm_data_management_plan 
+      - islandora_rdm_data_management_plan
       - islandora_rdm_workflows
       - orcid
       - tus
       - uppy
       - csv_field_preview
       - readonly_field_widget
-      - islandora_rdm_file_transmission_fixity 
+      - islandora_rdm_file_transmission_fixity
       - gdpr
-      
+      - islandora_rdm_solr_config
+
 
   tasks:
     - name: Ubuntu packages for RDM
       package:
         name: "{{ item }}"
         state: present
-      with_items: 
+      with_items:
         - php7.2-zip
       when: ansible_os_family == "Debian"
 
@@ -66,17 +67,17 @@
     - name: Set git email
       command: git config --global user.email user@example.com
 
-    - name: Pull FITS branch
-      command: "git pull origin newFileModel"
-      args:
-        chdir: "{{ drupal_core_path }}/modules/contrib/islandora_fits"
-      become_user: root
-
     - name: Set FITS branch
       command: "git checkout newFileModel"
       args:
         chdir: "{{ drupal_core_path }}/modules/contrib/islandora_fits"
       ignore_errors: yes
+      become_user: root
+
+    - name: Pull FITS branch
+      command: "git pull origin newFileModel"
+      args:
+        chdir: "{{ drupal_core_path }}/modules/contrib/islandora_fits"
       become_user: root
 
     - name: Check Deployment Addresses
@@ -100,7 +101,7 @@
     - name: Apply the patch from the drupal docroot.
       shell: "patch -p1 < /tmp/2890844-65.drupal.patch chdir=/var/www/html/drupal/web"
       ignore_errors: yes
-      
+
     - name: Install RDM dependencies with composer require (this may take a while).
       composer:
         command: require
@@ -113,25 +114,25 @@
       command: "{{ drush_path }} --root=/var/www/html/drupal/web -y en {{ rdm_drupal_enable_modules | join(' ') }}"
     - name: Install RDM configured modules with drush2.
       command: "{{ drush_path }} --root=/var/www/html/drupal/web -y en {{ rdm_drupal_enable_modules2 | join(' ') }}"
-#      ignore_errors: yes
+    #      ignore_errors: yes
 
     - name: Import RDM features
       command: "{{ drush_path }} --root {{ drupal_core_path }} -y fim islandora_rdm_types,islandora_rdm_data_management_plan,islandora_rdm_defaults,islandora_rdm_media_types --bundle=islandora_rdm"
 
-#    - name: Set ORCID client_id
-#      command: "{{ drush_path }} --root {{ drupal_core_path }} cset orcid.settings client_id {{ orcid_client_id }} -y"
-#      when: orcid_client_id is defined and orcid_client_id  != ''
+    #    - name: Set ORCID client_id
+    #      command: "{{ drush_path }} --root {{ drupal_core_path }} cset orcid.settings client_id {{ orcid_client_id }} -y"
+    #      when: orcid_client_id is defined and orcid_client_id  != ''
 
-#    - name: Set ORCID client_secret
-#      command: "{{ drush_path }} --root {{ drupal_core_path }} cset orcid.settings client_secret {{ orcid_client_secret }} -y"
-#      when: orcid_client_secret is defined and orcid_client_secret  != ''
+    #    - name: Set ORCID client_secret
+    #      command: "{{ drush_path }} --root {{ drupal_core_path }} cset orcid.settings client_secret {{ orcid_client_secret }} -y"
+    #      when: orcid_client_secret is defined and orcid_client_secret  != ''
 
     - name: Set ORCID name field
       command: "{{ drush_path }} --root {{ drupal_core_path }} cset orcid.settings name_field field_orcid_id  -y"
 
     - name: Uninstall Tus
       command: "{{ drush_path }} --root=/var/www/html/drupal/web  pm-uninstall tus  -y"
-  
+
     - name: Reinstall Tus
       command: "{{ drush_path }} --root=/var/www/html/drupal/web   en tus  -y"
 
