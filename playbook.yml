@@ -7,7 +7,7 @@
 - import_playbook: webserver.yml
 - import_playbook: solr.yml
 - import_playbook: tomcat.yml
-- import-playbook: setup_private_file_system.yml
+- import_playbook: setup_private_file_system.yml
 - import_playbook: archival-integrity.yml
 - import_playbook: crayfish.yml
 - import_playbook: karaf.yml
