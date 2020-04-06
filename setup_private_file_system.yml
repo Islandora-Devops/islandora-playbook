@@ -7,12 +7,7 @@
     private_file_dir: /var/www/html/private
 
   tasks:
-  name: Edit Drupal's Setting file
-    lineinfile:
-      path: "{{ settings_dir }}/settings.php"
-      line: "$settings['file_private_path'] = '{{ private_file_dir }}';"
-
-
-
-
-
+    - name: Edit Drupal's Setting file
+      lineinfile:
+        path: "{{ settings_dir }}/settings.php"
+        line: "$settings['file_private_path'] = '{{ private_file_dir }}';"
