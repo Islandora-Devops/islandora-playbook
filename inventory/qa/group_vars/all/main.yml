@@ -42,3 +42,6 @@ php_packages_state: "latest"
 
 # Extras required for RDM installations
 drupal_base_url: "http://localhost"
+matomo_site_name: "Islandora RDM"
+matomo_site_url: http://localhost
+matomo_site_timezone: "America/Toronto"
