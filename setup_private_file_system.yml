@@ -1,0 +1,16 @@
+- name: Setup private file system
+  hosts: webserver
+  become: yes
+
+  vars:
+    settings_dir: /var/www/html/drupal/web/sites/default
+    file_private_dir: /var/www/html/private
+
+  tasks:
+    - name: Edit Drupal's Setting file
+      lineinfile:
+       path: "{{ settings_dir }}/settings.php"
+        line: "$settings['file_private_path'] = '{{ private_file_dir }}';"
+
+
+
