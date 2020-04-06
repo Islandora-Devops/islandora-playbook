@@ -24,7 +24,7 @@
       - "drupal/gdpr:*"
       - "drupal/eu_cookie_compliance:*"
       - 'drupal/entity_reference_unpublished:^1.1'
-      - 'islandora_datacite_doi:dev-8.x-1.x'
+      - 'islandora-rdm/islandora_datacite_doi:dev-8.x-1.x'
 
     rdm_drupal_enable_modules:
       - entity_reference_unpublished
