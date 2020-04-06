@@ -4,7 +4,7 @@
 
   vars:
     settings_dir: /var/www/html/drupal/web/sites/default
-    file_private_dir: /var/www/html/private
+    private_file_dir: /var/www/html/private
 
   tasks:
   name: Edit Drupal's Setting file
