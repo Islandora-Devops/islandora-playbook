@@ -1,8 +1,8 @@
 ---
 
 # Comment in to build Alpaca from source
- alpaca_from_source: yes
- alpaca_version: dev
+ alpaca_from_source: no
+ alpaca_version: 1.0.3
  alpaca_clone_directory: /opt/alpaca
  alpaca_karaf_repos:
   - mvn:org.apache.camel.karaf/apache-camel/2.20.4/xml/features
