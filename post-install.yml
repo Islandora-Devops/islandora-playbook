@@ -86,6 +86,13 @@
         mode: 0775
         recurse: yes
 
+    - name: Remove drupal scaffolding
+      composer:
+        command: remove
+        arguments: "drupal/core-composer-scaffold"
+        working_dir: "{{ drupal_composer_install_dir }}"
+      ignore_errors: yes
+
     - name: Clear cache
       command: "{{ drush_path }} --root {{ drupal_core_path }} -y cr"
 
