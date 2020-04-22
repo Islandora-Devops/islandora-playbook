@@ -86,6 +86,22 @@
         mode: 0775
         recurse: yes
 
+    - name: Chown default.settings.yml
+      file:
+        dest: "{{ drupal_core_path }}/sites/default/default.settings.yml"
+        state: file
+        owner: "{{ webserver_app_user }}"
+        group: "{{ webserver_app_user }}"
+        mode: 0664
+
+    - name: Chown default.services.yml
+      file:
+        dest: "{{ drupal_core_path }}/sites/default/default.services.yml"
+        state: file
+        owner: "{{ webserver_app_user }}"
+        group: "{{ webserver_app_user }}"
+        mode: 0664
+
     - name: Remove drupal scaffolding
       composer:
         command: remove
