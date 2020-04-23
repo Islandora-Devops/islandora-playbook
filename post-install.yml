@@ -88,7 +88,7 @@
 
     - name: Chown default.settings.yml
       file:
-        dest: "{{ drupal_core_path }}/sites/default/default.settings.yml"
+        dest: "{{ drupal_core_path }}/sites/default/default.settings.php"
         state: file
         owner: "{{ webserver_app_user }}"
         group: "{{ webserver_app_user }}"
