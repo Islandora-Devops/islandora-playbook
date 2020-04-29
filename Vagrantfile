@@ -48,6 +48,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     vb.customize ["modifyvm", :id, "--cpus", $cpus]
     vb.customize ["modifyvm", :id, "--description", $virtualBoxDescription]
     vb.customize ["modifyvm", :id, "--audio", "none"]
+    vb.customize ["modifyvm", :id, "--uart1", "0x3F8", "4"]
+    vb.customize ["modifyvm", :id, "--uartmode1", "disconnected" ]
   end
 
   if $vagrantBox != "islandora/8" then
