@@ -1,0 +1,41 @@
+version: '3.1'
+
+services:
+
+  vm:
+    build:
+      context: ./docker/vm
+    container_name: vm
+    ports:
+      - 8000:8000
+      - 8080:8080
+      - 3306:3306
+      - 5432:5432
+      - 8983:8983
+      - 8161:8161
+    networks:
+      - islandora
+    privileged: true  
+    volumes:
+      - keys:/root/.ssh
+
+  ansible:
+    container_name: ansible
+    build:
+      context: ./docker/ansible
+    networks:
+      - islandora
+    depends_on: 
+      - vm
+    volumes:
+      - keys:/root/.ssh
+      - ./:/root/playbook:Z
+  
+networks:
+  islandora:
+    driver: bridge
+
+volumes:
+  keys:
+    driver: local
+    
