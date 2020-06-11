@@ -3,12 +3,25 @@
 
 ## Introduction
 
-This is an Ansible playbook for Islandora 8. It also has a vagrant file to bring up a development
-environment virtual machine for Islandora 8.
+This is an Ansible playbook for Islandora 8. It also has a vagrant file to bring up a release or development virtual machine for Islandora 8.
 
 This virtual machine **should not** be used in production **yet**.
 
 ## Variables
+
+### Base box
+
+By default, Vagrant creates a complete Islandora 8 1.1.0 instance. This version is the current offical release of Islandora.
+
+If you want to build a VM that pulls in the latest Islandora code (suitable for a development environment, for example), before running `vagrant up`, open `Vagrantfile` and change the `$vagrantBox` variable to either 'ubuntu/bionic64' or 'centos/7':
+
+```
+# Available boxes are 'islandora/8', ubuntu/bionic64' and 'centos/7'
+# Use 'ubuntu/bionic64' or 'centos/7' to build a dev environment from scratch.
+# Use 'islandora/8' if you just want to download a ready to run VM.
+$vagrantBox = ENV.fetch("ISLANDORA_DISTRO", "islandora/8")
+```
+
 
 ### System Resources
 
