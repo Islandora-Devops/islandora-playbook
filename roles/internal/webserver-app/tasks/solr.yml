@@ -3,12 +3,6 @@
 
 # Only tasks related to configuring search_api_solr are put here
 # Solr server configuration should go into the solr playbook: https://github.com/Islandora-Devops/claw-playbook/blob/dev/solr.yml
-- name: Add a patch for symfony-event-dispatcher per the INSTALL.md docs on search_api_solr:3.8
-  composer:
-    command: require
-    arguments: symfony/event-dispatcher:'4.3.4 as 3.4.99' solarium/solarium:^5.1 drupal/search_api_solr
-    working_dir: "{{ drupal_composer_install_dir }}"
-
 - name: Set default solr server host from hostvars
   command: "{{ drush_path }} --root {{ drupal_core_path }} -y config-set search_api.server.default_solr_server backend_config.connector_config.host {{ hostvars[groups['solr'][0]].ansible_host  }}"
   register: set_search_api_config_host
