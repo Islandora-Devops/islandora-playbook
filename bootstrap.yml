@@ -58,7 +58,7 @@
     # Parse sestatus down to one of two options.
     - name: Set selinux permissive fact
       set_fact:
-        selinux_permissive: "{{ sestatus_out.stdout|regex_search('Current mode.*(permissive|enforcing)')|regex_search('(permissive|enforcing)') }}"
+        selinux_permissive: "{{ sestatus_out.stdout|regex_search('Current mode.*(permissive|enforcing|disabled)')|regex_search('(permissive|enforcing|disabled)') }}"
       when: ansible_os_family == "RedHat"
 
     # Change Selinux to permissive
