@@ -47,9 +47,9 @@
   name: Islandora-Devops.activemq
   version: master
 
-- src: https://github.com/Islandora-Devops/ansible-role-alpaca
+- src: https://github.com/Natkeeran/ansible-role-alpaca
   name: Islandora-Devops.alpaca
-  version: master
+  version: fits
 
 #- src: https://github.com/Islandora-Devops/ansible-role-apix
 #  name: Islandora-Devops.apix
@@ -63,9 +63,9 @@
   name: Islandora-Devops.cantaloupe
   version: master
 
-- src: https://github.com/Islandora-Devops/ansible-role-crayfish
+- src: https://github.com/Natkeeran/ansible-role-crayfish
   name: Islandora-Devops.crayfish
-  version: master
+  version: fits
 
 - src: https://github.com/Islandora-Devops/ansible-role-drupal-openseadragon
   name: Islandora-Devops.drupal-openseadragon
@@ -83,9 +83,9 @@
   name: Islandora-Devops.tomcat8
   version: master
 
-- src: https://github.com/Islandora-Devops/ansible-role-fits
+- src: https://github.com/Natkeeran/ansible-role-fits
   name: Islandora-Devops.fits
-  version: master
+  version: fits
 
 - src: https://github.com/Islandora-Devops/ansible-role-grok
   name: Islandora-Devops.grok

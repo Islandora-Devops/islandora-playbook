@@ -106,3 +106,12 @@
     dest: "{{ drupal_external_libraries_directory }}/pdf.js"
     creates: "{{ drupal_external_libraries_directory }}/pdf.js/build"
     remote_src: yes
+
+- name: Download Islandora FITS
+  composer:
+    command: require
+    arguments: islandora-rdm/islandora_fits
+    working_dir: "{{ drupal_core_path }}/.."
+
+- name: Enable Islansdora FITS
+  command: "{{ drush_path }} --root {{ drupal_core_path }} -y en islandora_fits"
