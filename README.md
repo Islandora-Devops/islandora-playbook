@@ -43,7 +43,7 @@ ISLANDORA_DISTRO="centos/7" vagrant ssh
 
 ## Use
 
-Detailed installation and usage instructions can be found on the [official installation documentation for Islandora 8](https://islandora.github.io/documentation/installation/).
+Detailed installation and usage instructions can be found on the [official installation documentation for Islandora 8](https://islandora.github.io/documentation/installation/playbook/).
 
 ## Connect
 
