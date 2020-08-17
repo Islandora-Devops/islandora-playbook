@@ -17,6 +17,7 @@ drupal_composer_dependencies:
   - "drupal/pdf:1.x-dev"
   - "drupal/admin_toolbar:^2.0"
   - "drupal/rest_oai_pmh:^1.0"
+  - "drupal/file_replace"
   - "drupal/transliterate_filenames:^1.3"
   - "islandora/carapace:dev-8.x-3.x"
   - "islandora/islandora_defaults:dev-8.x-1.x"
@@ -50,6 +51,7 @@ drupal_enable_modules:
   - pdf
   - admin_toolbar
   - transliterate_filenames
+  - file_replace
   - islandora_defaults
   - controlled_access_terms_defaults
   - islandora_defaults
