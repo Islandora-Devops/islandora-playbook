@@ -107,7 +107,7 @@
     creates: "{{ drupal_external_libraries_directory }}/pdf.js/build"
     remote_src: yes
 
-- name: Add project's /vendor/bin to $PATH
+- name: Add project's /vendor/bin to $PATH (ubuntu)
   lineinfile:
     path: ~/.profile
     line: 'PATH="$PATH:{{ webserver_document_root }}/drupal/vendor/bin"'
@@ -115,7 +115,7 @@
   become: false
   when: ansible_os_family == "Debian"
 
-- name: 
+- name: Add project's /vendor/bin to $PATH (centos)
   lineinfile:
     path: ~/.bash_profile
     line: 'PATH="$PATH:{{ webserver_document_root }}/drupal/vendor/bin"'
