@@ -19,7 +19,6 @@
     - geerlingguy.git
     - geerlingguy.composer
     - geerlingguy.drush
-    - geerlingguy.drupal-console
     - geerlingguy.drupal
     - perms-fix
     - Islandora-Devops.drupal-openseadragon
