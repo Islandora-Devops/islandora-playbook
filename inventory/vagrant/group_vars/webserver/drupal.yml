@@ -43,7 +43,6 @@ drupal_enable_modules:
   - restui
   - devel
   - search_api_solr
-  - search_api_solr_defaults
   - facets
   - content_browser
   - matomo
