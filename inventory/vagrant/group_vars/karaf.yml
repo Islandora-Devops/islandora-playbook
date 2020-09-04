@@ -7,7 +7,7 @@
  alpaca_karaf_repos:
   - mvn:org.apache.camel.karaf/apache-camel/2.20.4/xml/features
   - mvn:org.apache.activemq/activemq-karaf/5.15.0/xml/features
-  - mvn:ca.islandora.alpaca/islandora-karaf/1.0.2/xml/features
+  - mvn:ca.islandora.alpaca/islandora-karaf/LATEST/xml/features
 
  triplestore_namespace: islandora
  alpaca_triplestore_base_url: "http://{{ hostvars[groups['tomcat'][0]].ansible_host  }}:8080/bigdata"
