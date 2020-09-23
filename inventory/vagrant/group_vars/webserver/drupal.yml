@@ -19,7 +19,7 @@ drupal_composer_dependencies:
   - "drupal/rest_oai_pmh:^1.0"
   - "drupal/transliterate_filenames:^1.3"
   - "islandora/carapace:dev-8.x-3.x"
-  - "islandora/islandora_defaults:dev-issue-1561"
+  - "islandora/islandora_defaults:dev-8.x-1.x"
   - "islandora-rdm/islandora_fits:dev-master"
 drupal_composer_project_package: "islandora/drupal-project:8.8.1"
 drupal_composer_project_options: "--prefer-dist --stability dev --no-interaction"
