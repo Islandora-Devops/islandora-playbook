@@ -3,8 +3,8 @@
 grok_version_tag: v3.1.0
 
 php_packages_extra:
-  - libapache2-mod-php7.2
-  - php7.2-mysql
-  - php7.2-pgsql
-  - php7.2-gd
+  - libapache2-mod-php7.4
+  - php7.4-mysql
+  - php7.4-pgsql
+  - php7.4-gd
 
