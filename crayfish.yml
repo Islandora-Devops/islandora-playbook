@@ -4,7 +4,7 @@
   become: yes
 
   vars:
-    php_version: "7.2"
+    php_version: "7.4"
 
   roles:
     - name: geerlingguy.repo-remi

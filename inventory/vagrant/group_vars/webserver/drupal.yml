@@ -4,10 +4,9 @@ drupal_build_composer_project: true
 drupal_composer_install_dir: /var/www/html/drupal
 drupal_core_owner: "{{ ansible_user }}"
 drupal_composer_dependencies:
-  - "zaporylie/composer-drupal-optimizations:^1.0"
-  - "drupal/console:~1.0"
+  - "zaporylie/composer-drupal-optimizations:^1.1" 
   - "drupal/devel:^2.0"
-  - "drush/drush:^9.0"
+  - "drush/drush:^10.3"
   - "drupal/rdfui:^1.0-beta1"
   - "drupal/restui:^1.16"
   - "drupal/search_api_solr:^4.1"
@@ -20,8 +19,8 @@ drupal_composer_dependencies:
   - "drupal/transliterate_filenames:^1.3"
   - "islandora/carapace:dev-8.x-3.x"
   - "islandora/islandora_defaults:dev-8.x-1.x"
-  - "islandora-rdm/islandora_fits:dev-master"
-drupal_composer_project_package: "islandora/drupal-project:8.8.1"
+  - "islandora-rdm/islandora_fits:dev-8.x-1.x"
+drupal_composer_project_package: "drupal/recommended-project:8.9.7"
 drupal_composer_project_options: "--prefer-dist --stability dev --no-interaction"
 drupal_core_path: "{{ drupal_composer_install_dir }}/web"
 drupal_db_user: drupal8
