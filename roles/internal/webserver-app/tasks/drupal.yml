@@ -25,24 +25,24 @@
   register: uninstall_search
   changed_when: "'successfully uninstalled' in uninstall_search.stdout"
 
-- name: Get Carapace status
-  command: "{{ drush_path }} --root {{ drupal_core_path }} pm-list --format=json"
-  register: carapace_enabled
-  changed_when: false
+# - name: Get Carapace status
+#   command: "{{ drush_path }} --root {{ drupal_core_path }} pm-list --format=json"
+#   register: carapace_enabled
+#   changed_when: false
 
-- name: Enable Carapace if not enabled
-  command: "{{ drush_path }} --root {{ drupal_core_path }} then -y carapace"
-  when: ((carapace_enabled.stdout|from_json).carapace.status|lower) != 'enabled'
+# - name: Enable Carapace if not enabled
+#   command: "{{ drush_path }} --root {{ drupal_core_path }} then -y carapace"
+#   when: ((carapace_enabled.stdout|from_json).carapace.status|lower) != 'enabled'
 
-- name: Test if theme is Carapace
-  command: "{{ drush_path }} --root {{ drupal_core_path }} -y config-get system.theme default"
-  register: drupal_theme_carapace
-  changed_when: false
-  check_mode: no
+# - name: Test if theme is Carapace
+#   command: "{{ drush_path }} --root {{ drupal_core_path }} -y config-get system.theme default"
+#   register: drupal_theme_carapace
+#   changed_when: false
+#   check_mode: no
 
-- name: Set theme to carapace
-  command: "{{ drush_path }} --root {{ drupal_core_path }} -y config-set system.theme default carapace"
-  when: "'carapace' not in drupal_theme_carapace.stdout"
+# - name: Set theme to carapace
+#   command: "{{ drush_path }} --root {{ drupal_core_path }} -y config-set system.theme default carapace"
+#   when: "'carapace' not in drupal_theme_carapace.stdout"
 
 - name: Set permissions on the public files directory
   file:
