@@ -48,7 +48,6 @@ drupal_enable_modules:
   - serialization
   - basic_auth
   - rest
-  - simpletest
   - restui
   - devel
   - features
