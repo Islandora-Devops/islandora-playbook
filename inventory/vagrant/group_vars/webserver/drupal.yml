@@ -23,7 +23,6 @@ drupal_composer_dependencies:
   - "drupal/jwt:^1.0@beta"
   - "drupal/flysystem:^2.0@alpha"
   - "drupal/context:^4.0@beta"
-  - "islandora/chullo:dev-d9"
   - "islandora/crayfish-commons:dev-update_http_foundation"
   - "islandora/controlled_access_terms:dev-8.x-1.x"
   - "islandora/openseadragon:dev-d9"
