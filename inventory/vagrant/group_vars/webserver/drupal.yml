@@ -28,7 +28,7 @@ drupal_composer_dependencies:
   - "islandora/islandora:dev-d9_islandora"
   - "islandora/islandora_defaults:dev-d9"
   - "islandora-rdm/islandora_fits:dev-8.x-1.x"
-drupal_composer_project_package: "drupal/recommended-project:9.1.0"
+drupal_composer_project_package: "drupal/recommended-project:^9.1"
 drupal_composer_project_options: "--prefer-dist --stability dev --no-interaction"
 drupal_core_path: "{{ drupal_composer_install_dir }}/web"
 drupal_db_user: drupal8
