@@ -7,7 +7,6 @@ drupal_composer_dependencies:
   - "zaporylie/composer-drupal-optimizations:^1.1" 
   - "drupal/devel:^4.0"
   - "drupal/core-dev:^9.1"
-  # - "phpspec/prophecy-phpunit"
   - "drush/drush:^10.3"
   - "drupal/rdfui:^1.0-beta1"
   - "drupal/restui:^1.16"
