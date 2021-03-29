@@ -1,3 +1,4 @@
+ansible_python_interpreter: python3
 mysql_root_username: root
 mysql_root_password: "{{ islandora_db_root_password  }}"
 

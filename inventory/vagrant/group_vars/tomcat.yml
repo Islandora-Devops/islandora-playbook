@@ -1,6 +1,6 @@
 ---
 
-tomcat8_users:
+tomcat9_users:
   - username: islandora
     password: "{{ islandora_tomcat_password }}"
     roles:
@@ -16,7 +16,7 @@ fcrepo_db_user: fcrepo
 fcrepo_db_host: "127.0.0.1"
 fcrepo_db_port: "3306"
 
-tomcat8_java_opts:
+tomcat9_java_opts:
   - -Djava.awt.headless=true
   - -Dfile.encoding=UTF-8
   - -server
@@ -35,7 +35,8 @@ tomcat8_java_opts:
   - -Dcantaloupe.config={{ cantaloupe_symlink }}/cantaloupe.properties
   - -Dorg.apache.tomcat.util.buf.UDecoder.ALLOW_ENCODED_SLASH=true
 
-fcrepo_syn_tomcat_home: "{{ tomcat8_home }}"
+fcrepo_syn_tomcat_home: "{{ tomcat9_home }}"
+#fcrepo_syn_default_public_key_path: "/etc/tomcat9/public.key"
 fcrepo_syn_default_public_key_path: "{{ fcrepo_syn_tomcat_home }}/conf/public.key"
 
 fcrepo_syn_sites:
@@ -57,9 +58,9 @@ fcrepo_auth_header_name: "X-Islandora"
 fcrepo_syn_auth_header: "X-Islandora"
 
 cantaloupe_deploy_war: yes
-cantaloupe_deploy_war_path: "{{ tomcat8_home }}/webapps"
-cantaloupe_user: tomcat8
-cantaloupe_group: tomcat8
+cantaloupe_deploy_war_path: "{{ tomcat9_home }}/webapps"
+cantaloupe_user: tomcat
+cantaloupe_group: tomcat
 cantaloupe_admin_enabled: "true"
 cantaloupe_OpenJpegProcessor_path_to_binaries: /usr/local/bin
 cantaloupe_log_application_ConsoleAppender_enabled: "false"
