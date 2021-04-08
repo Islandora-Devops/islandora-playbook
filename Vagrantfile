@@ -11,8 +11,8 @@ $memory = ENV.fetch("ISLANDORA_VAGRANT_MEMORY", "4096")
 $hostname = ENV.fetch("ISLANDORA_VAGRANT_HOSTNAME", "islandora8")
 $virtualBoxDescription = ENV.fetch("ISLANDORA_VAGRANT_VIRTUALBOXDESCRIPTION", "Islandora 8")
 
-# Available boxes are 'islandora/8', ubuntu/bionic64' and 'centos/7'
-# Use 'ubuntu/bionic64' or 'centos/7' to build a dev environment from scratch.
+# Available boxes are 'islandora/8' and 'ubuntu/focal64'
+# Use 'ubuntu/focal64' to build a dev environment from scratch.
 # Use 'islandora/8' if you just want to download a ready to run VM.
 $vagrantBox = ENV.fetch("ISLANDORA_DISTRO", "islandora/8")
 

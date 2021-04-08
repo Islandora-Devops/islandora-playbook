@@ -10,6 +10,35 @@
 
   tasks:
 
+    - name: Create a directory if it does not exist
+      ansible.builtin.file:
+        path: /etc/systemd/system/tomcat9.service.d
+        state: directory
+        mode: '0755'
+    
+    - name: Add Cantaloupe cache to Tomcat writable paths
+      lineinfile:
+        path: "/etc/systemd/system/tomcat9.service.d/override.conf"
+        regexp: 'var/cache/cantaloupe/$'
+        line: 'ReadWritePaths=/var/cache/cantaloupe/'
+        insertafter: EOF
+
+    - name: Add Cantaloupe log to Tomcat writable paths
+      lineinfile:
+        path: "/etc/systemd/system/tomcat9.service.d/override.conf"
+        regexp: 'var/log/cantaloupe/$'
+        line: 'ReadWritePaths=/var/log/cantaloupe'
+        insertafter: EOF
+
+    - name: restart daemon service
+      ansible.builtin.systemd:
+        daemon_reload: yes
+    
+    - name: start tomcat9
+      service:
+        name: tomcat9
+        state: started    
+
     - name: Add admin to fedoraAdmin role
       command: "{{ drush_path }} --root {{ drupal_core_path }} -y urol fedoraadmin admin"
 

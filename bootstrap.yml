@@ -9,7 +9,7 @@
     # python isn't installed by default on ubuntu so we need
     # to do that with the raw command before
     - name: install python
-      raw: test -e /usr/bin/python || (apt-get update; apt-get install -y python;)
+      raw: test -e /usr/bin/python || (apt-get update; apt-get install -y python3;)
       register: output
       changed_when:
         - output.stdout != ""
