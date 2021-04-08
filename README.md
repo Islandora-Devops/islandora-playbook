@@ -13,11 +13,11 @@ This virtual machine **should not** be used in production **yet**.
 
 By default, Vagrant creates a complete Islandora 8 1.1.0 instance. This version is the current offical release of Islandora.
 
-If you want to build a VM that pulls in the latest Islandora code (suitable for a development environment, for example), before running `vagrant up`, open `Vagrantfile` and change the `$vagrantBox` variable to either 'ubuntu/bionic64' or 'centos/7':
+If you want to build a VM that pulls in the latest Islandora code (suitable for a development environment, for example), before running `vagrant up`, open `Vagrantfile` and change the `$vagrantBox` variable to 'ubuntu/focal64':
 
 ```
-# Available boxes are 'islandora/8', ubuntu/bionic64' and 'centos/7'
-# Use 'ubuntu/bionic64' or 'centos/7' to build a dev environment from scratch.
+# Available boxes are 'islandora/8' and 'ubuntu/focal64'
+# Use 'ubuntu/focal64' to build a dev environment from scratch.
 # Use 'islandora/8' if you just want to download a ready to run VM.
 $vagrantBox = ENV.fetch("ISLANDORA_DISTRO", "islandora/8")
 ```
@@ -30,15 +30,6 @@ By default the virtual machine that is built uses 4GB of RAM. Your host machine 
 ```bash
 export ISLANDORA_VAGRANT_CPUS=4
 export ISLANDORA_VAGRANT_MEMORY=5040
-```
-
-### Using CENTOS
-
-Ubuntu 18.04 is the default Linux distribution used by islandora-playbook. If you want to use CENTOS 7 instead, set the `ISLANDORA_DISTRO` environment variable to `centos/7`. The easiest way to do this is to export the environment variable into your shell before running Vagrant commands. Otherwise you will have to provide the variable for every Vagrant command you issue.
-
-```bash
-ISLANDORA_DISTRO="centos/7" vagrant up
-ISLANDORA_DISTRO="centos/7" vagrant ssh
 ```
 
 ## Use
@@ -122,9 +113,8 @@ CLAW Playbook installs an instance of the [Matomo](https://matomo.org/) (formall
  
 ## Roadmap
 
-Our highest priority moving forward is testing installation on different network topologies (e.g. 2, 3, 4 server setups, etc...) 
+The playbook is in maintenance mode as new development is focused on [ISLE](https://islandora.github.io/documentation/installation/docker-compose/) for development and production.
  
 ## Maintainers
 
 * [Jonathan Green](https://github.com/jonathangreen)
-
