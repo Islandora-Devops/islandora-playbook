@@ -2,7 +2,7 @@
 
 drupal_build_composer_project: true
 drupal_composer_install_dir: /var/www/html/drupal
-drupal_composer_project_package: roblib/islandora-project
+drupal_composer_project_package: roblib/islandora-project:bd-dev
 
 drupal_core_owner: "{{ ansible_user }}"
 drupal_composer_dependencies: ""
@@ -14,7 +14,7 @@ drupal_db_backend: "{{ claw_db }}"
 drupal_db_host: "127.0.0.1"
 drupal_domain: "claw.dev"
 drupal_site_name: "Islandora 8"
-drupal_install_profile: islandora_profile
+drupal_install_profile: islandora_install_profile_demo
 drupal_account_name: admin
 
 drupal_enable_modules:
@@ -26,6 +26,7 @@ drupal_trusted_hosts:
 drupal_trusted_hosts_file: "{{ drupal_core_path }}/sites/default/settings.php"
 drupal_public_filesystem: "{{ drupal_core_path }}/sites/default/files"
 drupal_external_libraries_directory: "{{ drupal_core_path }}/libraries"
+drupal_content_sync_path: "{{ drupal_composer_install_dir }}/content/sync"
 fedora_base_url: "http://{{ hostvars[groups['tomcat'][0]].ansible_host }}:8080/fcrepo/rest/"
 drupal_jsonld_remove_format: true
 drupal_gemini_pseudo_bundles:

@@ -83,3 +83,15 @@
   become: false
   when: ansible_os_family == "RedHat"
 
+  // Content sync settings
+  name: Create content sync directory.
+  file:
+    path: "{{ drupal_composer_install_dir }}/content/sync"
+    state: directory
+    owner: "{{ webserver_app_user }}"
+    group: "{{ webserver_app_user }}"
+    recurse: yes
+  name: ADd content sync directory setting
+  //global $content_directories;
+  //$content_directories['sync'] = "/var/www/drupal/content/sync";
+
