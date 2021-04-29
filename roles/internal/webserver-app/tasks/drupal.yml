@@ -17,7 +17,7 @@
           ],
         ],
       ];
-      
+
       global $content_directories;
       $content_directories['sync'] = "{{ drupal_composer_install_dir }}/content/sync";
     path: "{{ drupal_trusted_hosts_file }}"
@@ -95,4 +95,8 @@
     group: "{{ webserver_app_user }}"
     recurse: yes
 
+- name: Enable Bartik theme
+  command: "{{ drush_path }} --root {{ drupal_core_path }} -y theme:enable bartik"
+  register: enable_bartik
+  changed_when: "'Successfully enabled theme: bartik' in enable_bartik.stdout"
 
