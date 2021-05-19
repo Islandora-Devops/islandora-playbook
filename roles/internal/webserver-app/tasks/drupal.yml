@@ -100,3 +100,10 @@
   register: enable_bartik
   changed_when: "'Successfully enabled theme: bartik' in enable_bartik.stdout"
 
+# Ensure correct broker and gemini URLs
+- name: Set broker URL
+  command: "{{ drush_path }} --root {{ drupal_core_path }} -y cset islandora.settings broker_url tcp://localhost:61613"
+
+- name: Set Gemini URL
+  command: "{{ drush_path }} --root {{ drupal_core_path }} -y cset islandora.settings gemini_url http://localhost:8000"
+   
