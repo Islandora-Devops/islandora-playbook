@@ -16,6 +16,10 @@ $virtualBoxDescription = ENV.fetch("ISLANDORA_VAGRANT_VIRTUALBOXDESCRIPTION", "I
 # Use 'islandora/8' if you just want to download a ready to run VM.
 $vagrantBox = ENV.fetch("ISLANDORA_DISTRO", "islandora/8")
 
+# You can tell Ansible to install a different Drupal install profile.
+$drupalProject = ENV.fetch("ISLANDORA_PROFILE_PROJECT", "roblib/islandora_profile:1.x-dev")
+$drupalProfile = ENV.fetch("ISLANDORA_PROFILE", "islandora_profile")
+
 # vagrant is the main user
 $vagrantUser = "vagrant"
 
@@ -41,7 +45,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.network :forwarded_port, guest: 5432, host: 5432 # PostgreSQL
   config.vm.network :forwarded_port, guest: 8983, host: 8983 # Solr
   config.vm.network :forwarded_port, guest: 8161, host: 8161 # Activemq
-  config.vm.network :forwarded_port, guest: 8081, host: 8081 # API-X
+
 
   config.vm.provider "virtualbox" do |vb|
     vb.customize ["modifyvm", :id, "--memory", $memory]
@@ -63,7 +67,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       ansible.host_vars = {
         "all" => { "ansible_ssh_user" => $vagrantUser }
       }
-      ansible.extra_vars = { "islandora_distro" => $vagrantBox }
+      ansible.extra_vars = { "islandora_distro" => $vagrantBox,
+                             "islandora_profile_project" => $drupalProject,
+                             "islandora_profile" => $drupalProfile}
     end
   end
 
