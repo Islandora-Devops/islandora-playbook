@@ -17,7 +17,7 @@ $virtualBoxDescription = ENV.fetch("ISLANDORA_VAGRANT_VIRTUALBOXDESCRIPTION", "I
 $vagrantBox = ENV.fetch("ISLANDORA_DISTRO", "islandora/8")
 
 # You can tell Ansible to install a different Drupal install profile.
-$drupalProject = ENV.fetch("ISLANDORA_PROFILE_PROJECT", "roblib/islandora_profile:1.x-dev")
+$drupalProject = ENV.fetch("ISLANDORA_PROFILE_PROJECT", "islandora/islandora_profile:1.x-dev")
 $drupalProfile = ENV.fetch("ISLANDORA_PROFILE", "islandora_profile")
 
 # vagrant is the main user

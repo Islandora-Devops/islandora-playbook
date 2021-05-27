@@ -2,12 +2,12 @@
 
 drupal_build_composer_project: true
 drupal_composer_install_dir: /var/www/html/drupal
-drupal_composer_project_package: roblib/islandora-project:main-dev
+drupal_composer_project_package: islandora/islandora-project:main-dev
 
 drupal_core_owner: "{{ ansible_user }}"
 drupal_composer_dependencies:
   - "--with-all-dependencies {{ islandora_profile_project }}"
-drupal_composer_project_options: "--prefer-dist --stability dev --no-interaction --repository='{\"type\": \"vcs\", \"url\": \"https://github.com/roblib/islandora-project\"}'"
+drupal_composer_project_options: "--prefer-dist --stability dev --no-interaction"
 drupal_core_path: "{{ drupal_composer_install_dir }}/web"
 drupal_db_user: drupal8
 drupal_db_name: drupal8
