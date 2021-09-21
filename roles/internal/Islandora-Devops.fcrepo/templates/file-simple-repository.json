@@ -1,0 +1,30 @@
+{
+    "name" : "repo",
+    "jndiName" : "",
+    "workspaces" : {
+        "predefined" : ["default"],
+        "default" : "default",
+        "allowCreation" : true
+    },
+    "storage" : {
+        "persistence": {
+            "type": "file",
+            "path" : "{{ fcrepo_object_directory }}"
+        },
+        "binaryStorage" : {
+            "type" : "file",
+            "directory" : "{{ fcrepo_binary_directory }}",
+            "minimumBinarySizeInBytes" : 4096
+        }
+    },
+    "security" : {
+        "anonymous" : {
+            "roles" : ["readonly","readwrite","admin"],
+            "useOnFailedLogin" : false
+        },
+        "providers" : [
+            { "classname" : "org.fcrepo.auth.common.BypassSecurityServletAuthenticationProvider" }
+        ]
+    },
+    "node-types" : ["fedora-node-types.cnd", "file:/opt/fcrepo/configs/claw.cnd"]
+}

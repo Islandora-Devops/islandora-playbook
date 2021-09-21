@@ -1,0 +1,36 @@
+# Download Matomo
+- name: Check if Matomo has been installed already.
+  stat:
+    path: "{{ matomo_install_dir }}"
+  register: matomo_install_path_status
+
+- name: Download Matomo key
+  get_url:
+    url: "http://builds.matomo.org/matomo-{{ matomo_version }}.tar.gz.asc"
+    dest: "{{ webserver_document_root }}/matomo.tar.gz.asc"
+    force: no
+  when: matomo_install_path_status.stat.isdir is not defined
+  register: matomo_key_download_status
+  
+- name: Download Matomo.
+  get_url:
+    url: "https://builds.matomo.org/matomo-{{ matomo_version }}.tar.gz"
+    dest: "{{ webserver_document_root }}/matomo.tar.gz"
+    force: no
+  when: matomo_install_path_status.stat.isdir is not defined and matomo_key_download_status.changed
+  register: matomo_download_status
+  
+- name: Expand Matomo.
+  unarchive:
+    src: "{{ webserver_document_root }}/matomo.tar.gz"
+    dest: "{{ webserver_document_root }}"
+    owner: "{{ matomo_user }}"
+    group: "{{ matomo_user }}"
+    copy: no
+  when: matomo_download_status.changed
+
+#- name: Rename matomo directory.
+#  command: mv "{{ webserver_document_root }}/piwik" "{{ webserver_document_root }}/matomo"
+#  args:
+#    creates: "{{ webserver_document_root }}/matomo"
+

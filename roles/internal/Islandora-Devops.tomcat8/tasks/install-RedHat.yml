@@ -1,0 +1,43 @@
+---
+
+- name: group add
+  group:
+    name: "{{ tomcat9_server_group }}"
+  become: yes
+
+
+- name: user add
+  user:
+    name: "{{ tomcat9_server_user }}"
+    group: "{{ tomcat9_server_group }}"
+    home: "{{ tomcat9_user_home }}"
+    createhome: no
+  become: yes
+
+- name: download and extract
+  unarchive:
+    src: "{{ tomcat_binary_url }}"
+    dest: "/opt/"
+    remote_src: yes
+  become: yes
+
+- name: symlink install directory
+  file:
+    src: "{{ tomcat_target_dir }}"
+    path: "{{ tomcat9_home }}"
+    state: link
+  become: yes
+
+- name: change ownership of target installation
+  file:
+    path: "{{ tomcat_target_dir }}"
+    owner: "{{ tomcat9_server_user }}"
+    group: "{{ tomcat9_server_group }}"
+    state: directory
+    recurse: yes
+  become: yes
+
+- name: systemd
+  template: src=tomcat.service.j2 dest=/etc/systemd/system/tomcat9.service
+  notify: restart tomcat9
+  become: yes

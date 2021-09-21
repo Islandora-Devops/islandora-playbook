@@ -1,0 +1,49 @@
+
+- name: Set template files (Fedora 5)
+  set_fact:
+    template_files:
+      - claw.cnd
+      - fcrepo-config.xml
+  when: fcrepo_parsed_version is version_compare("6.0.0", "<")
+
+- name: Set template files (Fedora 6)
+  set_fact:
+    template_files:
+      - fcrepo.properties
+      - namespaces.yml
+  when: fcrepo_parsed_version is version_compare("6.0.0", ">=")
+
+- name: Copy templated fcrepo config files
+  template:
+    src: "{{ item }}"
+    dest: "{{ fcrepo_config_dir }}/{{ item }}"
+    owner: "{{ fcrepo_user }}"
+    group: "{{ fcrepo_user }}"
+  with_items: "{{ template_files }}"
+  notify: restart tomcat9
+
+- name: Copy templated repository.json
+  template:
+    src: "{{ fcrepo_persistence }}-repository.json"
+    dest: "{{ fcrepo_home_dir }}/configs/repository.json"
+    owner: "{{ fcrepo_user }}"
+    group: "{{ fcrepo_user }}"
+  notify: restart tomcat9
+  when: fcrepo_parsed_version is version_compare("6.0.0", "<")
+
+- name: Copy fedora activemq configuration
+  template:
+    src: "{{ fcrepo_activemq_template }}"
+    dest: "{{ fcrepo_config_dir }}/activemq.xml"
+    owner: "{{ fcrepo_user }}"
+    group: "{{ fcrepo_user }}"
+  notify: restart tomcat9
+
+# ADDED by dbernstein
+- name: Template out allowed external content paths
+  template:
+    src: allowed-external-content.txt.j2
+    dest: "{{ fcrepo_allowed_external_content_file }}"
+    owner: "{{ fcrepo_user }}"
+    group: "{{ fcrepo_user }}"
+  notify: restart tomcat9

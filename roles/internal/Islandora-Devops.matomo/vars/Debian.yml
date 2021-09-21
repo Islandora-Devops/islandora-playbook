@@ -1,0 +1,6 @@
+---
+apache_service: apache2
+httpd_conf_directory_enabled: "{{httpd_conf_directory}}/conf-enabled"
+
+__matomo_user: www-data
+__httpd_conf_directory: /etc/apache2

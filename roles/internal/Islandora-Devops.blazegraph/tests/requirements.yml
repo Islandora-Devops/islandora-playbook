@@ -1,0 +1,4 @@
+---
+  - src: geerlingguy.java
+    version: 1.8.1
+  - Islandora-Devops.tomcat9

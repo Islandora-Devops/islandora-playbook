@@ -1,0 +1,14 @@
+---
+
+- name: Create Matomo DB (mysql)
+  mysql_db:
+    name: "{{ matomo_db_name }}"
+    state: present
+  register: matomo_db_exists
+
+- name: Create Matomo DB User (mysql)
+  mysql_user:
+    name: "{{ matomo_db_user }}"
+    password: "{{ matomo_db_password }}"
+    state: present
+    priv: "{{matomo_db_name}}.*:ALL"

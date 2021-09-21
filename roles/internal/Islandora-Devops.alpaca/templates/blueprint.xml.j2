@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- managed by ansible -->
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:cm="http://aries.apache.org/blueprint/xmlns/blueprint-cm/v1.1.0"
+       xsi:schemaLocation="
+       http://aries.apache.org/blueprint/xmlns/blueprint-cm/v1.1.0 http://aries.apache.org/schemas/blueprint-cm/blueprint-cm-1.1.0.xsd
+       http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd
+       http://camel.apache.org/schema/blueprint http://camel.apache.org/schema/blueprint/camel-blueprint.xsd">
+
+  <cm:property-placeholder id="properties" persistent-id="{{ item.pid }}" update-strategy="reload" >
+    <cm:default-properties>
+      <cm:property name="error.maxRedeliveries" value="{{ item.error_max_redeliveries }}"/>
+      <cm:property name="in.stream" value="{{ item.in_stream }}"/>
+      <cm:property name="derivative.service.url" value="{{ item.derivative_service_url }}"/>
+    </cm:default-properties>
+  </cm:property-placeholder>
+
+  <reference id="broker" interface="org.apache.camel.Component" filter="(osgi.jndi.service.name=fcrepo/Broker)"/>
+
+  <bean id="http" class="org.apache.camel.component.http4.HttpComponent"/>
+  <bean id="https" class="org.apache.camel.component.http4.HttpComponent"/>
+
+  <camelContext id="{{ item.camel_context_id }}" xmlns="http://camel.apache.org/schema/blueprint">
+    <package>ca.islandora.alpaca.connector.derivative</package>
+  </camelContext>
+
+</blueprint>

@@ -1,0 +1,13 @@
+---
+
+openseadragon_drush_path: /usr/local/bin/drush
+
+openseadragon_composer_item: "islandora/openseadragon:1.0.0"
+openseadragon_composer_root: "/var/www/html/drupal"
+openseadragon_sites:
+  - default
+openseadragon_version: 2.4.1
+openseadragon_temp_folder: /tmp
+
+openseadragon_iiiv_set_var: false
+openseadragon_iiiv_server:

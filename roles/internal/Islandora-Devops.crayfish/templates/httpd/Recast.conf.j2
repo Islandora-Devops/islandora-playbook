@@ -1,0 +1,9 @@
+# managed by Ansible
+
+Alias "/recast" "/var/www/html/Crayfish/Recast/src"
+<Directory "/var/www/html/Crayfish/Recast/src">
+  FallbackResource /recast/index.php
+  Require all granted
+  DirectoryIndex index.php
+  SetEnvIf Authorization "(.*)" HTTP_AUTHORIZATION=$1
+</Directory>

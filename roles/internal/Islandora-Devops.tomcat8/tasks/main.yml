@@ -1,0 +1,18 @@
+---
+
+- include: "define-home.yml"
+  tags:
+    - tomcat9
+    - tomcat9-config
+    - tomcat9-install
+  
+- include: "install-{{ ansible_os_family }}.yml"
+  tags:
+    - tomcat9
+    - tomcat9-install
+
+- include: config.yml
+  static: no
+  tags:
+    - tomcat9
+    - tomcat9-config

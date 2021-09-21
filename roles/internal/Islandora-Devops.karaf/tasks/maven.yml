@@ -1,0 +1,8 @@
+---
+
+- name: Copy templated Karaf maven config
+  template:
+    src: "{{ karaf_maven_template }}"
+    dest: "{{ karaf_install_symlink }}/etc"
+    owner: "{{ karaf_user }}"
+    group: "{{ karaf_user }}"

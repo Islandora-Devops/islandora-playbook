@@ -1,0 +1,38 @@
+---
+
+- name: template /etc/default/tomcat9
+  template:
+    src: tomcat-defaults.j2
+    dest: /etc/default/tomcat9
+  notify: restart tomcat9
+  when: ansible_os_family == 'Debian'
+
+- name: template {{tomcat9_home}}/bin/setenv.sh
+  template:
+    src: setenv.sh.j2
+    dest: "{{ tomcat9_config_dir }}/setenv.sh"
+  notify: restart tomcat9
+  when: ansible_os_family == 'RedHat'
+
+- name: server configuration
+  template:
+    src: server.xml.j2
+    dest: "{{ tomcat9_config_dir }}/server.xml"
+  notify: restart tomcat9
+  become: yes
+
+- name: template tomcat-users.xml
+  template:
+    src: tomcat-users.xml.j2
+    dest: "{{ tomcat9_config_dir }}/tomcat-users.xml"
+    owner: "{{ tomcat9_server_user }}"
+    group: "{{ tomcat9_server_group }}"
+    mode: "640"
+  notify: restart tomcat9
+
+- name: start tomcat
+  service:
+    name: "{{tomcat_service_name}}"
+    state: started
+    enabled: yes
+  become: yes

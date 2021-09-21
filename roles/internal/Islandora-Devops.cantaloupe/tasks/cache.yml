@@ -1,0 +1,8 @@
+---
+
+- name: create cantaloupe cache dir
+  file:
+    state: directory
+    path: "{{ cantaloupe_FilesystemCache_pathname }}"
+    owner: "{{ cantaloupe_user }}"
+    group: "{{ cantaloupe_group }}"

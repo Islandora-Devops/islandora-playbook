@@ -1,0 +1,26 @@
+---
+- hosts: all
+
+  pre_tasks:
+    - name: Install dependancies (apt)
+      apt:
+        update_cache: yes
+        cache_valid_time: 600
+        name: "{{ item }}"
+      with_items:
+        - git
+        - build-essential
+      when: ansible_os_family == 'Debian'
+
+    - name: Install dependancies (yum)
+      yum:
+        name: "{{ item }}"
+      with_items:
+        - git
+        - gcc
+        - gcc-c++
+        - make
+      when: ansible_os_family == 'RedHat'
+
+  roles:
+    - role_under_test

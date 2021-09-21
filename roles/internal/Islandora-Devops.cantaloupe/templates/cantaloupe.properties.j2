@@ -1,0 +1,747 @@
+###########################################################################
+# This file is managed by Ansible
+###########################################################################
+
+###########################################################################
+# GENERAL SETTINGS
+###########################################################################
+
+# !! Leave blank to use the JVM default temporary directory.
+temp_pathname = {{ cantaloupe_temp_pathname }}
+
+# !! Configures the HTTP server. (Standalone mode only.)
+http.enabled = {{ cantaloupe_http_enabled }}
+http.host = {{ cantaloupe_http_host }}
+http.port = {{ cantaloupe_http_port }}
+http.http2.enabled = {{ cantaloupe_http2_enabled }}
+
+# !! Configures the HTTPS server. (Standalone mode only.)
+https.enabled = {{ cantaloupe_https_enabled }}
+https.host = {{ cantaloupe_https_host }}
+https.port = {{ cantaloupe_https_port }}
+# Secure HTTP/2 requires Java 9 or later.
+https.http2.enabled = {{ cantaloupe_https2_enabled }}
+
+# !! Available values are `JKS` and `PKCS12`. (Standalone mode only.)
+https.key_store_type = {{ cantaloupe_https_key_store_type }}
+https.key_store_password = {{ cantaloupe_https_key_store_password }}
+https.key_store_path = {{ cantaloupe_https_key_store_path }}
+https.key_password = {{ cantaloupe_https_key_password }}
+
+# !! Maximum size of the HTTP(S) request queue. Leave blank to use the
+# default.
+http.accept_queue_limit = {{ cantaloupe_http_accept_queue_limit }}
+
+# Base URI to use for internal links, such as Link headers and JSON-LD
+# @id values, in a reverse-proxy context. This should only be used when
+# X-Forwarded-* headers cannot be used instead. (See the user manual.)
+base_uri = {{ cantaloupe_base_uri }}
+
+# Normally, slashes in a URI path component must be percent-encoded as
+# "%2F". If your proxy is not able to pass these through without decoding,
+# you can define an alternate character or character sequence to substitute
+# for a slash. Supply the non-percent-encoded version here, and use the
+# percent-encoded version in URLs.
+slash_substitute = {{ cantaloupe_slash_substitute }}
+
+# Maximum number of pixels to return in a response, to prevent overloading
+# the server. Requests for more pixels than this will receive an error
+# response. Set to 0 for no maximum.
+max_pixels = {{ cantaloupe_max_pixels }}
+
+# Maximum scale to allow (1.0 = full scale; 0 = no maximum).
+max_scale = {{ cantaloupe_max_scale }}
+
+print_stack_trace_on_error_pages = {{ cantaloupe_print_stack_trace_on_error_pages }}
+
+###########################################################################
+# DELEGATE SCRIPT
+###########################################################################
+
+# Enables the delegate script: a Ruby script containing various delegate
+# methods. (See the user manual.)
+delegate_script.enabled = {{ cantaloupe_delegate_script_enabled }}
+
+# !! This can be an absolute path, or a filename; if only a filename is
+# specified, it will be searched for in the same folder as this file, and
+# then the current working directory.
+delegate_script.pathname = {{ cantaloupe_delegate_script_pathname }}
+
+# Enables the invocation cache, which caches method invocations and return
+# values in memory. See the user manual for more information.
+delegate_script.cache.enabled = {{ cantaloupe_delegate_script_cache_enabled }}
+
+###########################################################################
+# ENDPOINTS
+###########################################################################
+
+# Enables the IIIF Image API 1.x endpoint, at /iiif/1.
+endpoint.iiif.1.enabled = {{ cantaloupe_endpoint_iiif_1_enabled }}
+
+# Enables the IIIF Image API 2.x endpoint, at /iiif/2.
+endpoint.iiif.2.enabled = {{ cantaloupe_endpoint_iiif_2_enabled }}
+
+# Controls the response Content-Disposition header for images. Allowed
+# values are `inline`, `attachment`, and `none`. This can be overridden
+# using the ?response-content-disposition query argument.
+endpoint.iiif.content_disposition = {{ cantaloupe_endpoint_iiif_content_disposition }}
+
+# Minimum size that will be used in info.json `sizes` keys.
+endpoint.iiif.min_size = {{ cantaloupe_endpoint_iiif_min_size }}
+
+# Minimum size that will be used in info.json `tiles` keys. The user manual
+# explains how these are calculated.
+endpoint.iiif.min_tile_size = {{ cantaloupe_endpoint_iiif_min_tile_size }}
+
+# If true, requests for sizes other than those contained in an information
+# response will be denied.
+endpoint.iiif.2.restrict_to_sizes = {{ cantaloupe_endpoint_iiif_2_restrict_to_sizes }}
+
+# Enables the Control Panel, at /admin.
+endpoint.admin.enabled = {{ cantaloupe_admin_enabled }}
+endpoint.admin.username = {{ cantaloupe_admin_username }}
+endpoint.admin.secret = {{ cantaloupe_admin_password }}
+
+# Enables the administrative HTTP API. (See the user manual.)
+endpoint.api.enabled = {{ cantaloupe_endpoint_api_enabled }}
+
+# HTTP Basic credentials to access the HTTP API.
+endpoint.api.username = {{ cantaloupe_endpoint_api_username }}
+endpoint.api.secret = {{ cantaloupe_endpoint_api_secret }}
+
+###########################################################################
+# SOURCES
+###########################################################################
+
+# Uses one source for all requests. Available values are `FilesystemSource`,
+# `HttpSource`, `JdbcSource`, `S3Source`, and `AzureStorageSource`.
+source.static = {{ cantaloupe_resolver_static }}
+
+# If true, `source.static` will be overridden, and the `source()` delegate
+# method will be used to select a source per-request.
+source.delegate = {{ cantaloupe_resolver_delegate }}
+
+#----------------------------------------
+# FilesystemSource
+#----------------------------------------
+
+# How to look up files. Allowed values are `BasicLookupStrategy` and
+# `ScriptLookupStrategy`. ScriptLookupStrategy uses the delegate script for
+# dynamic lookups; see the user manual.
+FilesystemSource.lookup_strategy = {{ cantaloupe_FilesystemResolver_lookup_strategy }}
+
+# Server-side path that will be prefixed to the identifier in the URL.
+# Trailing slash is important!
+FilesystemSource.BasicLookupStrategy.path_prefix = {{ cantaloupe_FilesystemResolver_BasicLookupStrategy_path_prefix }}
+
+# Server-side path or extension that will be suffixed to the identifier in
+# the URL.
+FilesystemSource.BasicLookupStrategy.path_suffix = {{ cantaloupe_FilesystemResolver_BasicLookupStrategy_path_suffix }}
+
+#----------------------------------------
+# HttpSource
+#----------------------------------------
+
+# Trusts insecure certificates and cipher suites.
+HttpSource.allow_insecure = {{ cantaloupe_HttpSource_allow_insecure }}
+
+# Request timeout in seconds.
+HttpSource.request_timeout = {{ cantaloupe_HttpSource_request_timeout }}
+
+# Tells HttpSource how to look up resources. Allowed values are
+# `BasicLookupStrategy` and `ScriptLookupStrategy`. ScriptLookupStrategy
+# uses a delegate method for dynamic lookups; see the user manual.
+HttpSource.lookup_strategy = {{ cantaloupe_HttpResolver_lookup_strategy }}
+
+# URL that will be prefixed to the identifier in the request URL.
+# Trailing slash is important!
+HttpSource.BasicLookupStrategy.url_prefix = {{ cantaloupe_HttpResolver_BasicLookupStrategy_url_prefix }}
+
+# Path, extension, query string, etc. that will be suffixed to the
+# identifier in the request URL.
+HttpSource.BasicLookupStrategy.url_suffix = {{ cantaloupe_HttpResolver_BasicLookupStrategy_url_suffix }}
+
+# Enables access to resources that require HTTP Basic authentication.
+HttpSource.BasicLookupStrategy.auth.basic.username = {{ cantaloupe_HttpResolver_auth_basic_username }}
+HttpSource.BasicLookupStrategy.auth.basic.secret = {{ cantaloupe_HttpResolver_auth_basic_secret }}
+
+# Read data in chunks when it may be more efficient. (This also may end up
+# being less efficient, depending on many variables; see the user manual.)
+HttpSource.chunking.enabled = {{ cantaloupe_HttpSource_chunking_enabled }}
+
+# Chunk size.
+HttpSource.chunking.chunk_size = {{ cantaloupe_HttpSource_chunking_chunk_size }}
+
+# The per-request chunk cache caches downloaded chunks in memory during
+# a request, and clears them when the request is complete.
+HttpSource.chunking.cache.enabled = {{ cantaloupe_HttpSource_chunking_cache_enabled }}
+
+# Max per-request chunk cache size.
+HttpSource.chunking.cache.max_size = {{ cantaloupe_HttpSource_chunking_cache_max_size }}
+
+#----------------------------------------
+# S3Source
+#----------------------------------------
+
+# !! Endpoint URI.
+# For AWS endpoints, see:
+# https://docs.aws.amazon.com/general/latest/gr/rande.html#s3_region
+S3Source.endpoint = {{ cantaloupe_S3Source_endpoint }}
+
+# !! Credentials for your AWS account.
+# See: http://aws.amazon.com/security-credentials
+# Note that this info can be obtained from elsewhere rather than setting
+# it here; see the user manual.
+S3Source.access_key_id = {{ cantaloupe_AmazonS3Resolver_access_key_id }}
+S3Source.secret_key = {{ cantaloupe_AmazonS3Resolver_secret_key }}
+
+# How to look up objects. Allowed values are `BasicLookupStrategy` and
+# `ScriptLookupStrategy`. ScriptLookupStrategy uses a delegate method for
+# dynamic lookups; see the user manual.
+S3Source.lookup_strategy = {{ cantaloupe_AmazonS3Resolver_lookup_strategy }}
+
+# !! Name of the bucket containing images to be served.
+S3Source.BasicLookupStrategy.bucket.name = {{ cantaloupe_AmazonS3Resolver_bucket_name }}
+
+# Path within the bucket that will be prefixed to the identifier in the URL.
+# Trailing slash is important!
+S3Source.BasicLookupStrategy.path_prefix = {{ cantaloupe_S3Source_BasicLookupStrategy_path_prefix }}
+
+# Path or extension that will be suffixed to the identifier in the URL.
+S3Source.BasicLookupStrategy.path_suffix = {{ cantaloupe_S3Source_BasicLookupStrategy_path_suffix }}
+
+# Read data in chunks when it may be more efficient. (This also may end up
+# being less efficient, depending on many variables; see the user manual.)
+S3Source.chunking.enabled = {{ cantaloupe_S3Source_chunking_enabled }}
+
+# Chunk size.
+S3Source.chunking.chunk_size = {{ cantaloupe_S3Source_chunking_chunk_size }}
+
+# The per-request chunk cache caches downloaded chunks in memory during
+# a request, and clears them when the request is complete.
+S3Source.chunking.cache.enabled = {{ cantaloupe_S3Source_chunking_cache_enabled }}
+
+# Max per-request chunk cache size.
+S3Source.chunking.cache.max_size = {{ cantaloupe_S3Source_chunking_cache_max_size }}
+
+#----------------------------------------
+# AzureStorageSource
+#----------------------------------------
+
+# !! Name of your Azure account.
+# Leave blank if using URI with a SAS token in your object key.
+AzureStorageSource.account_name = {{ cantaloupe_AzureStorageResolver_account_name }}
+
+# !! Key of your Azure account.
+# Leave blank if using URI with a SAS token in your object key.
+AzureStorageSource.account_key = {{ cantaloupe_AzureStorageResolver_account_key }}
+
+# !! Name of the container containing images to be served.
+# Leave blank if using URI with the container in your object key.
+AzureStorageSource.container_name = {{ cantaloupe_AzureStorageResolver_container_name }}
+
+# Tells AzureStorageSource how to look up objects. Allowed values are
+# `BasicLookupStrategy` and `ScriptLookupStrategy`. ScriptLookupStrategy
+# uses a delegate method for dynamic lookups; see the user manual.
+AzureStorageSource.lookup_strategy = {{ cantaloupe_AzureStorageResolver_lookup_strategy }}
+
+# Read data in chunks when it may be more efficient. (This also may end up
+# being less efficient, depending on many variables; see the user manual.)
+AzureStorageSource.chunking.enabled = {{ cantaloupe_AzureStorageSource_chunking_enabled }}
+
+# Chunk size.
+AzureStorageSource.chunking.chunk_size = {{ cantaloupe_AzureStorageSource_chunking_chunk_size }}
+
+# The per-request chunk cache caches downloaded chunks in memory during
+# a request, and clears them when the request is complete.
+AzureStorageSource.chunking.cache.enabled = {{ cantaloupe_AzureStorageSource_chunking_cache_enabled }}
+
+# Max per-request chunk cache size.
+AzureStorageSource.chunking.cache.max_size = {{ cantaloupe_AzureStorageSource_chunking_cache_max_size }}
+
+#----------------------------------------
+# JdbcSource
+#----------------------------------------
+
+# Note: JdbcSource requires some delegate methods to be implemented in
+# addition to the configuration here, and a JDBC driver to be installed on
+# the classpath; see the user manual.
+
+# !!
+JdbcSource.url = {{ cantaloupe_JdbcResolver_url }}
+# !!
+JdbcSource.user = {{ cantaloupe_JdbcResolver_user }}
+# !!
+JdbcSource.password = {{ cantaloupe_JdbcResolver_password }}
+
+# !! Connection timeout in seconds.
+JdbcSource.connection_timeout = {{ cantaloupe_JdbcResolver_connection_timeout }}
+
+###########################################################################
+# PROCESSORS
+###########################################################################
+
+#----------------------------------------
+# Processor Selection
+#----------------------------------------
+
+# * If set to `AutomaticSelectionStrategy`, a "best" available processor
+#   will be selected per-request based on formats and installed
+#   dependencies.
+# * If set to `ManualSelectionStrategy`, a processor will be chosen based
+#   on the rest of the keys in this section.
+processor.selection_strategy = {{ cantaloupe_processor_selection_strategy }}
+
+# Built-in processors are `Java2dProcessor`, `GraphicsMagickProcessor`,
+# `ImageMagickProcessor`, `TurboJpegProcessor`, `KakaduNativeProcessor`,
+# `KakaduDemoProcessor`, `OpenJpegProcessor`, `JaiProcessor`,
+# `PdfBoxProcessor`, and `FfmpegProcessor`.
+# Some of these have third-party dependencies and won't work out-of-the-box.
+
+# These format-specific definitions are optional.
+processor.ManualSelectionStrategy.avi = {{ cantaloupe_processor_avi }}
+processor.ManualSelectionStrategy.bmp =
+processor.ManualSelectionStrategy.dcm = {{ cantaloupe_processor_dcm }}
+processor.ManualSelectionStrategy.flv = {{ cantaloupe_processor_flv }}
+processor.ManualSelectionStrategy.gif =
+processor.ManualSelectionStrategy.jp2 = {{ cantaloupe_processor_jp2 }}
+processor.ManualSelectionStrategy.jpg =
+processor.ManualSelectionStrategy.mov = {{ cantaloupe_processor_mov }}
+processor.ManualSelectionStrategy.mp4 = {{ cantaloupe_processor_mp4 }}
+processor.ManualSelectionStrategy.mpg = {{ cantaloupe_processor_mpg }}
+processor.ManualSelectionStrategy.pdf = {{ cantaloupe_processor_pdf }}
+processor.ManualSelectionStrategy.png =
+processor.ManualSelectionStrategy.tif =
+processor.ManualSelectionStrategy.webm = {{ cantaloupe_processor_webm }}
+processor.ManualSelectionStrategy.webp = {{ cantaloupe_processor_webp }}
+
+# Fall back to this processor for any formats not assigned above.
+processor.ManualSelectionStrategy.fallback = {{ cantaloupe_processor_fallback }}
+
+#----------------------------------------
+# Global Processor Configuration
+#----------------------------------------
+
+# Controls how content is fed to processors from stream-based sources.
+# * `StreamStrategy` will try to stream a source image from a source when
+#   possible, and use `processor.fallback_retrieval_strategy` otherwise.
+# * `DownloadStrategy` will download it to a temporary file, and delete
+#   it after the request is complete.
+# * `CacheStrategy` will download it into the source cache using
+#   FilesystemCache, which must also be configured. (This will perform a
+#   lot better than DownloadStrategy if you can spare the disk space.)
+processor.stream_retrieval_strategy = StreamStrategy
+
+# Controls how an incompatible StreamSource + FileProcessor combination is
+# dealt with.
+# * `DownloadStrategy` and `CacheStrategy` work the same as above.
+# * `AbortStrategy` causes the request to fail.
+processor.fallback_retrieval_strategy = {{ cantaloupe_StreamProcessor_retrieval_strategy }}
+
+# Resolution of vector rasterization (of e.g. PDFs) at a scale of 1.
+processor.dpi = {{ cantaloupe_processor_dpi }}
+
+# Color of the background when an image is rotated or alpha-flattened, for
+# output formats that don't support transparency.
+# This may not be respected for indexed color derivative images.
+processor.background_color = {{ cantaloupe_processor_background_color }}
+
+# Available values are `bell`, `bspline`, `bicubic`, `box`, `hermite`,
+# `lanczos3`, `mitchell`, `triangle`. (JaiProcessor & KakaduNativeProcessor
+# ignore these.)
+processor.downscale_filter = {{ cantaloupe_processor_downscale_filter }}
+processor.upscale_filter = {{ cantaloupe_processor_upscale_filter }}
+
+# Intensity of an unsharp mask from 0 to 1.
+processor.sharpen = {{ cantaloupe_processor_sharpen }}
+
+# Attempts to copy source image metadata (EXIF, IPTC, XMP) into derivative
+# images. (This is not foolproof; see the user manual.)
+processor.metadata.preserve = {{ cantaloupe_processor_metadata_preserve }}
+
+# Whether to auto-rotate images using the EXIF `Orientation` field.
+# The check for this field can impair performance slightly.
+processor.metadata.respect_orientation = {{ cantaloupe_processor_metadata_respect_orientation }}
+
+# Progressive JPEGs are usually more compact.
+processor.jpg.progressive = {{ cantaloupe_processor_jpg_progressive }}
+
+# JPEG output quality (1-100).
+processor.jpg.quality = {{ cantaloupe_processor_jpg_quality }}
+
+# TIFF output compression type. Available values are `Deflate`, `JPEG`,
+# `LZW`, and `RLE`. Leave blank for no compression.
+processor.tif.compression = {{ cantaloupe_processor_tif_compression }}
+
+#----------------------------------------
+# ImageIO Plugin Preferences
+#----------------------------------------
+
+# These override the default plugins used by the application and should not
+# normally be changed.
+processor.imageio.bmp.reader = {{ cantaloupe_processor_imageio_bmp_reader }}
+processor.imageio.gif.reader = {{ cantaloupe_processor_imageio_gif_reader }}
+processor.imageio.gif.writer = {{ cantaloupe_processor_imageio_gif_writer }}
+processor.imageio.jpg.reader = {{ cantaloupe_processor_imageio_jpg_reader }}
+processor.imageio.jpg.writer = {{ cantaloupe_processor_imageio_jpg_writer }}
+processor.imageio.png.reader = {{ cantaloupe_processor_imageio_png_reader }}
+processor.imageio.png.writer = {{ cantaloupe_processor_imageio_png_writer }}
+processor.imageio.tif.reader = {{ cantaloupe_processor_imageio_tif_reader }}
+processor.imageio.tif.writer = {{ cantaloupe_processor_imageio_tif_writer }}
+
+#----------------------------------------
+# FfmpegProcessor
+#----------------------------------------
+
+# Optional absolute path of the directory containing the FFmpeg binaries.
+# Overrides the PATH.
+FfmpegProcessor.path_to_binaries = {{ cantaloupe_FfmpegProcessor_path_to_binaries }}
+
+#----------------------------------------
+# GraphicsMagickProcessor
+#----------------------------------------
+
+# !! Optional absolute path of the directory containing the GraphicsMagick
+# binary. Overrides the PATH.
+GraphicsMagickProcessor.path_to_binaries = {{ cantaloupe_GraphicsMagickProcessor_path_to_binaries }}
+
+#----------------------------------------
+# ImageMagickProcessor
+#----------------------------------------
+
+# !! Optional absolute path of the directory containing the ImageMagick
+# binary. Overrides the PATH.
+ImageMagickProcessor.path_to_binaries = {{ cantaloupe_ImageMagickProcessor_path_to_binaries }}
+
+#----------------------------------------
+# KakaduDemoProcessor
+#----------------------------------------
+
+# Optional absolute path of the directory containing kdu_expand.
+# Overrides the PATH.
+KakaduDemoProcessor.path_to_binaries = {{ cantaloupe_KakaduProcessor_path_to_binaries }}
+
+#----------------------------------------
+# OpenJpegProcessor
+#----------------------------------------
+
+# Optional absolute path of the directory containing opj_decompress.
+# Overrides the PATH.
+OpenJpegProcessor.path_to_binaries = {{ cantaloupe_OpenJpegProcessor_path_to_binaries }}
+
+###########################################################################
+# CLIENT-SIDE CACHING
+###########################################################################
+
+# Whether to enable the response Cache-Control header.
+cache.client.enabled = {{ cantaloupe_cache_client_enabled }}
+
+cache.client.max_age = {{ cantaloupe_cache_client_max_age }}
+cache.client.shared_max_age = {{ cantaloupe_cache_client_shared_max_age }}
+cache.client.public = {{ cantaloupe_cache_client_public }}
+cache.client.private = {{ cantaloupe_cache_client_private }}
+cache.client.no_cache = {{ cantaloupe_cache_client_no_cache }}
+cache.client.no_store = {{ cantaloupe_cache_client_no_store }}
+cache.client.must_revalidate = {{ cantaloupe_cache_client_must_revalidate }}
+cache.client.proxy_revalidate = {{ cantaloupe_cache_client_proxy_revalidate }}
+cache.client.no_transform = {{ cantaloupe_cache_client_no_transform }}
+
+###########################################################################
+# SERVER-SIDE CACHING
+###########################################################################
+
+# N.B.: The source cache may be used if the
+# `processor.stream_retrieval_strategy` and/or
+# `processor.fallback_retrieval_strategy` keys are set to `CacheStrategy`.
+
+# FilesystemCache is the only available source cache.
+cache.server.source = {{ cantaloupe_cache_source }}
+
+# Amount of time source cache content remains valid. Set to blank or 0
+# for forever.
+cache.server.source.ttl_seconds = {{ cantaloupe_cache_server_ttl_seconds }}
+
+# Enables the derivative (processed image) cache.
+cache.server.derivative.enabled = {{ cantaloupe_cache_server_derivative_enabled }}
+
+# Available values are `FilesystemCache`, `JdbcCache`, `RedisCache`,
+# `HeapCache`, `S3Cache`, and `AzureStorageCache`.
+cache.server.derivative = {{ cantaloupe_cache_derivative }}
+
+# Amount of time derivative cache content remains valid. Set to blank or 0
+# for forever.
+cache.server.derivative.ttl_seconds = {{ cantaloupe_cache_server_derivative_ttl_seconds }}
+
+# Whether to use the Java heap as a "level 1" cache for image infos, either
+# independently or in front of a "level 2" derivative cache (if enabled).
+cache.server.info.enabled = {{ cantaloupe_cache_server_info_enabled }}
+
+# If true, when a source reports that the requested source image has gone
+# missing, all cached information relating to it (if any) will be deleted.
+# (This is effectively always false when cache.server.resolve_first is also
+# false.)
+cache.server.purge_missing = {{ cantaloupe_cache_server_purge_missing }}
+
+# If true, the source image will be confirmed to exist before a cached copy
+# is returned. If false, the cached copy will be returned without checking.
+# Resolving first is safer but slower.
+cache.server.resolve_first = {{ cantaloupe_cache_server_resolve_first }}
+
+# !! Enables the cache worker, which periodically purges invalid cache
+# items in the background.
+cache.server.worker.enabled = {{ cantaloupe_cache_server_worker_enabled }}
+
+# !! The cache worker will wait this many seconds before starting its
+# next shift.
+cache.server.worker.interval = {{ cantaloupe_cache_server_worker_interval }}
+
+#----------------------------------------
+# FilesystemCache
+#----------------------------------------
+
+# If this directory does not exist, it will be created automatically.
+FilesystemCache.pathname = {{ cantaloupe_FilesystemCache_pathname }}
+
+# Levels of folder hierarchy in which to store cached images. Deeper depth
+# results in fewer files per directory. Set to 0 to disable subdirectories.
+# Purge the cache after changing this.
+FilesystemCache.dir.depth = {{ cantaloupe_FilesystemCache_dir_depth }}
+
+# Number of characters in tree directory names. Should be set to
+# 16^n < (max number of directory entries your filesystem can deal with).
+# Purge the cache after changing this.
+FilesystemCache.dir.name_length = {{ cantaloupe_FilesystemCache_dir_depth }}
+
+#----------------------------------------
+# HeapCache
+#----------------------------------------
+
+# Target cache size, in bytes or a number ending in M, MB, G, GB, etc.
+# This is not a hard limit, and may be transiently exceeded.
+# Ensure your heap can accommodate this size.
+HeapCache.target_size = {{ cantaloupe_HeapCache_target_size }}
+
+# If true, the cache contents will be written to a file on exit and during
+# cache worker shifts, and read back in at startup.
+HeapCache.persist = {{ cantaloupe_HeapCache_persist }}
+
+# When the contents are persisted, this specifies the location of the cache
+# file. If the parent directory does not exist, it will be created
+# automatically.
+HeapCache.persist.filesystem.pathname = {{ cantaloupe_HeapCache_persist_filesystem_pathname }}
+
+#----------------------------------------
+# JdbcCache
+#----------------------------------------
+
+# !!
+JdbcCache.url = {{ cantaloupe_JdbcCache_url }}
+# !!
+JdbcCache.user = {{ cantaloupe_JdbcCache_user }}
+# !!
+JdbcCache.password = {{ cantaloupe_JdbcCache_password }}
+
+# !! Connection timeout in seconds.
+JdbcCache.connection_timeout = {{ cantaloupe_JdbcCache_connection_timeout }}
+
+# These must be created manually; see the user manual.
+JdbcCache.derivative_image_table = {{ cantaloupe_JdbcCache_derivative_image_table }}
+JdbcCache.info_table = {{ cantaloupe_JdbcCache_info_table }}
+
+#----------------------------------------
+# S3Cache
+#----------------------------------------
+
+# !! Endpoint URI.
+# For AWS endpoints, see:
+# https://docs.aws.amazon.com/general/latest/gr/rande.html#s3_region
+S3Cache.endpoint = {{ cantaloupe_S3Cache_endpoint }}
+
+# !! Credentials for your AWS account.
+# See: http://aws.amazon.com/security-credentials
+# Note that this info can be obtained from elsewhere rather than setting it
+# here; see the user manual.
+S3Cache.access_key_id = {{ cantaloupe_AmazonS3Cache_access_key_id }}
+S3Cache.secret_key = {{ cantaloupe_AmazonS3Cache_secret_key }}
+
+# !! Name of a bucket to use to hold cached data.
+S3Cache.bucket.name = {{ cantaloupe_AmazonS3Cache_bucket_name }}
+
+# !! String that will be prefixed to object keys.
+S3Cache.object_key_prefix = {{ cantaloupe_AmazonS3Cache_object_key_prefix }}
+
+# !! Maximum number of concurrent HTTP connections to AWS. Leave blank to
+# use the default.
+S3Cache.max_connections = {{ cantaloupe_S3Cache_max_connections }}
+
+#----------------------------------------
+# AzureStorageCache
+#----------------------------------------
+
+# !! Credentials for your Azure account.
+AzureStorageCache.account_name = {{ cantaloupe_AzureStorageCache_account_name }}
+AzureStorageCache.account_key = {{ cantaloupe_AzureStorageCache_account_key }}
+
+# !! Name of the container containing cached images.
+AzureStorageCache.container_name = {{ cantaloupe_AzureStorageCache_container_name }}
+
+# !! String that will be prefixed to object keys.
+AzureStorageCache.object_key_prefix = {{ cantaloupe_AzureStorageCache_object_key_prefix }}
+
+#----------------------------------------
+# RedisCache
+#----------------------------------------
+
+# !! Redis connection info.
+RedisCache.host = {{ cantaloupe_RedisCache_host }}
+RedisCache.port = {{ cantaloupe_RedisCache_port }}
+RedisCache.ssl = {{ cantaloupe_RedisCache_ssl }}
+RedisCache.password = {{ cantaloupe_RedisCache_password }}
+RedisCache.database = {{ cantaloupe_RedisCache_database }}
+
+###########################################################################
+# OVERLAYS
+###########################################################################
+
+# Whether to enable overlays.
+overlays.enabled = {{ cantaloupe_overlays_enabled }}
+
+# Controls how overlays are configured. `BasicStrategy` will use the
+# `overlays.BasicStrategy.*` keys in this section. `ScriptStrategy` will
+# use a delegate method. (See the user manual.)
+overlays.strategy = {{ cantaloupe_overlays_strategy }}
+
+# `image` or `string`.
+overlays.BasicStrategy.type = {{ cantaloupe_overlays_BasicStrategy_type }}
+
+# Absolute path or URL of the overlay image. Must be a PNG file.
+overlays.BasicStrategy.image = {{ cantaloupe_overlays_BasicStrategy_image }}
+
+# Overlay text.
+overlays.BasicStrategy.string = {{ cantaloupe_overlays_BasicStrategy_string }}
+
+# For possible values, launch with the -Dcantaloupe.list_fonts option.
+overlays.BasicStrategy.string.font = {{ cantaloupe_overlays_BasicStrategy_string_font }}
+
+# Font size in points.
+overlays.BasicStrategy.string.font.size = {{ cantaloupe_overlays_BasicStrategy_string_font_size }}
+
+# If the string doesn't fit in the image at the above size, the largest size
+# at which it does fit will be used, down to this.
+overlays.BasicStrategy.string.font.min_size = {{ cantaloupe_overlays_BasicStrategy_string_font_min_size }}
+
+# Font weight. 1 = regular, 2 = bold. Unfortunately, many fonts don't
+# support fractional weights.
+overlays.BasicStrategy.string.font.weight = {{ cantaloupe_overlays_BasicStrategy_string_font_weight }}
+
+# Point spacing between glyphs, typically between -0.1 and 0.1.
+overlays.BasicStrategy.string.glyph_spacing = {{ cantaloupe_overlays_BasicStrategy_string_glyph_spacing }}
+
+# CSS color syntax is supported.
+overlays.BasicStrategy.string.color = {{ cantaloupe_overlays_BasicStrategy_string_color }}
+
+# CSS color syntax is supported.
+overlays.BasicStrategy.string.stroke.color = {{ cantaloupe_overlays_BasicStrategy_string_stroke_color }}
+
+# Stroke width in pixels.
+overlays.BasicStrategy.string.stroke.width = {{ cantaloupe_overlays_BasicStrategy_string_stroke_width }}
+
+# Color of a rectangular background to draw under the string.
+# CSS color syntax and alpha are supported.
+overlays.BasicStrategy.string.background.color = {{ cantaloupe_overlays_BasicStrategy_string_background_color }}
+
+# Allowed values: `top left`, `top center`, `top right`, `left center`,
+# `center`, `right center`, `bottom left`, `bottom center`, `bottom right`,
+# `repeat` (images only).
+overlays.BasicStrategy.position = {{ cantaloupe_overlays_BasicStrategy_position }}
+
+# Pixel margin between the overlay and the image edge. Does not apply to
+# `repeat` position.
+overlays.BasicStrategy.inset = {{ cantaloupe_overlays_BasicStrategy_inset }}
+
+# Output images less than this many pixels wide will not receive an overlay.
+# Set to 0 to add the overlay regardless.
+overlays.BasicStrategy.output_width_threshold = {{ cantaloupe_overlays_BasicStrategy_output_width_threshold }}
+
+# Output images less than this many pixels tall will not receive an overlay.
+# Set to 0 to add the overlay regardless.
+overlays.BasicStrategy.output_height_threshold = {{ cantaloupe_overlays_BasicStrategy_output_height_threshold }}
+
+###########################################################################
+# REDACTIONS
+###########################################################################
+
+# See the user manual for information about how redactions work.
+redaction.enabled = {{ cantaloupe_redaction_enabled }}
+
+###########################################################################
+# LOGGING
+###########################################################################
+
+#----------------------------------------
+# Application Log
+#----------------------------------------
+
+# `trace`, `debug`, `info`, `warn`, `error`, `all`, or `off`
+log.application.level = {{ cantaloupe_log_application_level }}
+
+log.application.ConsoleAppender.enabled = {{ cantaloupe_log_application_ConsoleAppender_enabled }}
+
+# N.B.: Don't enable FileAppender and RollingFileAppender simultaneously!
+log.application.FileAppender.enabled = {{ cantaloupe_log_application_FileAppender_enabled }}
+log.application.FileAppender.pathname = {{ cantaloupe_log_application_FileAppender_pathname }}
+
+log.application.RollingFileAppender.enabled = {{ cantaloupe_log_application_RollingFileAppender_enabled }}
+log.application.RollingFileAppender.pathname = {{ cantaloupe_log_application_RollingFileAppender_pathname }}
+log.application.RollingFileAppender.policy = {{ cantaloupe_log_application_RollingFileAppender_policy }}
+log.application.RollingFileAppender.TimeBasedRollingPolicy.filename_pattern = {{ cantaloupe_log_application_RollingFileAppender_TimeBasedRollingPolicy_filename_pattern }}
+log.application.RollingFileAppender.TimeBasedRollingPolicy.max_history = {{ cantaloupe_log_application_RollingFileAppender_TimeBasedRollingPolicy_max_history }}
+
+# See the "SyslogAppender" section for a list of facilities:
+# http://logback.qos.ch/manual/appenders.html
+log.application.SyslogAppender.enabled = {{ cantaloupe_log_application_SyslogAppender_enabled }}
+log.application.SyslogAppender.host = {{ cantaloupe_log_application_SyslogAppender_host }}
+log.application.SyslogAppender.port = {{ cantaloupe_log_application_SyslogAppender_port }}
+log.application.SyslogAppender.facility = {{ cantaloupe_log_application_SyslogAppender_facility }}
+
+#----------------------------------------
+# Error Log
+#----------------------------------------
+
+# Application log messages with a severity of WARN or greater can be copied
+# into a dedicated error log, which may make them easier to spot.
+
+# N.B.: Don't enable FileAppender and RollingFileAppender simultaneously!
+log.error.FileAppender.enabled = {{ cantaloupe_log_error_FileAppender_enabled }}
+log.error.FileAppender.pathname = {{ cantaloupe_log_error_FileAppender_pathname }}
+
+log.error.RollingFileAppender.enabled = {{ cantaloupe_log_error_RollingFileAppender_enabled }}
+log.error.RollingFileAppender.pathname = {{ cantaloupe_log_error_RollingFileAppender_pathname }}
+log.error.RollingFileAppender.policy = {{ cantaloupe_log_error_RollingFileAppender_policy }}
+log.error.RollingFileAppender.TimeBasedRollingPolicy.filename_pattern = {{ cantaloupe_log_error_RollingFileAppender_TimeBasedRollingPolicy_filename_pattern }}
+log.error.RollingFileAppender.TimeBasedRollingPolicy.max_history = {{ cantaloupe_log_error_RollingFileAppender_TimeBasedRollingPolicy_max_history }}
+
+#----------------------------------------
+# Access Log
+#----------------------------------------
+
+log.access.ConsoleAppender.enabled = {{ cantaloupe_log_access_ConsoleAppender_enabled }}
+
+# N.B.: Don't enable FileAppender and RollingFileAppender simultaneously!
+log.access.FileAppender.enabled = {{ cantaloupe_log_access_FileAppender_enabled }}
+log.access.FileAppender.pathname = {{ cantaloupe_log_access_FileAppender_pathname }}
+
+# RollingFileAppender is an alternative to using something like
+# FileAppender + logrotate.
+log.access.RollingFileAppender.enabled = {{ cantaloupe_log_access_RollingFileAppender_enabled }}
+log.access.RollingFileAppender.pathname = {{ cantaloupe_log_access_RollingFileAppender_pathname }}
+log.access.RollingFileAppender.policy = {{ cantaloupe_log_access_RollingFileAppender_policy }}
+log.access.RollingFileAppender.TimeBasedRollingPolicy.filename_pattern = {{ cantaloupe_log_access_RollingFileAppender_TimeBasedRollingPolicy_filename_pattern }}
+log.access.RollingFileAppender.TimeBasedRollingPolicy.max_history = {{ cantaloupe_log_access_RollingFileAppender_TimeBasedRollingPolicy_max_history }}
+
+# See the "SyslogAppender" section for a list of facilities:
+# http://logback.qos.ch/manual/appenders.html
+log.access.SyslogAppender.enabled = {{ cantaloupe_log_access_SyslogAppender_enabled }}
+log.access.SyslogAppender.host = {{ cantaloupe_log_access_SyslogAppender_host }}
+log.access.SyslogAppender.port = {{ cantaloupe_log_access_SyslogAppender_port }}
+log.access.SyslogAppender.facility = {{ cantaloupe_log_access_SyslogAppender_facility }}

@@ -1,0 +1,101 @@
+---
+
+- name: Add ImageMagick repo (apt)
+  apt_repository:
+    repo: 'ppa:lyrasis/imagemagick-jp2'
+  when: ansible_os_family == "Debian"
+
+- name: Install epel repository
+  yum:
+    name: epel-release
+    state: present
+  when: ansible_os_family == "RedHat"
+
+- name: Add nux repository for ffmpeg on CentOS
+  yum:
+    name: http://li.nux.ro/download/nux/dextop/el7/x86_64/nux-dextop-release-0-5.el7.nux.noarch.rpm
+    state: present
+  when: ansible_os_family == "RedHat"
+
+- name: Add nux desktop repository signing key
+  rpm_key:
+    key: /etc/pki/rpm-gpg/RPM-GPG-KEY-nux.ro
+  when: ansible_os_family == "RedHat"
+
+- name: Install requisite packages
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items: "{{ crayfish_packages }}"
+
+- name: Install crayfish code
+  git:
+    repo: https://github.com/Islandora/Crayfish.git
+    dest: "{{ crayfish_install_dir }}"
+    version: "{{ crayfish_version_tag }}"
+    force: yes
+
+- name: Build crayfish code including dependencies
+  composer:
+    command: install
+    working_dir: "{{ crayfish_install_dir }}/{{ item }}"
+  with_items: "{{ crayfish_services }}"
+
+- name: Get SSL keys
+  include_role:
+    name: Islandora-Devops.keymaster
+  vars:
+    ssl_key_public_output_path: "{{ crayfish_install_dir }}/public.key"
+
+- name: Install auth config
+  template:
+    src: "syn-settings.xml.jp2"
+    dest: "{{ crayfish_install_dir }}/syn-settings.xml"
+
+- name: Configure crayfish code (Silex)
+  template:
+    src: "{{ item }}.config.yaml.j2"
+    dest: "{{ crayfish_install_dir }}/{{ item }}/cfg/config.yaml"
+  with_items: "{{ crayfish_silex_services }}"
+
+- name: Configure crayfish code (Symfony)
+  include_tasks: "./tasks/symfony_config.yml"
+  with_items: "{{ crayfish_symfony_services }}"
+
+- name: Create Islandora log dir
+  file:
+    path: "{{ crayfish_log_directory }}"
+    state: directory
+    owner: "{{ crayfish_user }}"
+    group: "{{ crayfish_user }}"
+    mode: "urwx,gr,o-rwx"
+
+- name: Create httpd config directories
+  file:
+    path: "{{ httpd_conf_directory }}/{{ item }}/"
+    state: directory
+    owner: "{{ crayfish_user }}"
+    group: "{{ crayfish_user }}"
+    mode: "urwx,gr,o-rwx"
+  with_items:
+    - "conf-available"
+    - "conf-enabled"
+  when: ansible_os_family == "RedHat"
+
+- name: Install crayfish httpd config file
+  template:
+    src: "httpd/{{ item }}.conf.j2"
+    dest: "{{ httpd_conf_directory }}/conf-available/{{ item }}.conf"
+    owner: "{{ crayfish_user }}"
+    group: "{{ crayfish_user }}"
+  with_items: "{{ crayfish_services }}"
+
+- name: Symlink crayfish httpd config file into action
+  file:
+    src: "{{ httpd_conf_directory }}/conf-available/{{ item }}.conf"
+    dest: "{{ httpd_conf_directory_enabled }}/{{ item }}.conf"
+    owner: "{{ crayfish_user }}"
+    group: "{{ crayfish_user }}"
+    state: link
+  with_items: "{{ crayfish_services }}"
+  notify: restart apache

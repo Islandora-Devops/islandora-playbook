@@ -1,0 +1,24 @@
+# TODO: find a better way here, this is ugly and will bite us
+- name: Set fits.home in catalina.properties
+  lineinfile:
+    path: "{{ tomcat9_home }}/conf/catalina.properties"
+    regexp: "^fits.home="
+    line: "fits.home={{ fits_install_symlink }}"
+  notify: restart tomcat9
+
+- name: Set shared.loader in catalina.properties
+  lineinfile:
+    path: "{{ tomcat9_home }}/conf/catalina.properties"
+    line: 'shared.loader=${fits.home}/lib/*.jar'
+  notify: restart tomcat9
+
+- name: Wait for FITS to finish coming back up
+  wait_for:
+    path: "{{ tomcat9_home }}/webapps/fits/WEB-INF/classes"
+    state: present
+
+- name: Configure FITS web service logging
+  template:
+    src: log4j.properties.j2
+    dest: "{{ tomcat9_home }}/webapps/fits/WEB-INF/classes/log4j.properties"
+  notify: restart tomcat9

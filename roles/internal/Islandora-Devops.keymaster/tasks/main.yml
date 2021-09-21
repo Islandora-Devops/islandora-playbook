@@ -1,0 +1,50 @@
+---
+
+- name: Check if the private key  already exists locally
+  stat:
+    path: "{{ local_ssl_key_directory }}/{{ local_ssl_key_private_file }}"
+  delegate_to: 127.0.0.1
+  register: "key"
+  become: no
+
+- name: Create Local JWT Key Directory
+  file:
+    state: directory
+    path: "{{ local_ssl_key_directory }}"
+  delegate_to: 127.0.0.1
+  become: no
+
+- name: Create Remote JWT Key Path
+  file:
+    state: directory
+    path: "{{ ssl_key_directory }}"
+
+- name: Create Local JWT Private Key
+  command: openssl genrsa -out "{{ local_ssl_key_directory }}/{{ local_ssl_key_private_file }}" 2048
+  args:
+    creates: "{{ local_ssl_key_directory }}/{{ local_ssl_key_private_file }}"
+  when: not key.stat.exists 
+  delegate_to: 127.0.0.1
+  become: no
+
+- name: Create Local JWT Public Key
+  command: openssl rsa -pubout -in "{{ local_ssl_key_directory }}/{{ local_ssl_key_private_file }}" -out "{{ local_ssl_key_directory }}/{{ local_ssl_key_public_file }}"
+  args:
+    creates: "{{ local_ssl_key_directory }}/{{ local_ssl_key_public_file }}"
+  delegate_to: 127.0.0.1
+  become: no
+
+- name: Copy public key out
+  copy:
+    src: "{{ local_ssl_key_directory }}/{{ local_ssl_key_public_file }}"
+    dest: "{{ ssl_key_public_output_path }}"
+    mode: 0644
+    remote_src: no
+  
+    
+- name: Copy private key out
+  copy:
+    src: "{{ local_ssl_key_directory }}/{{ local_ssl_key_private_file }}"
+    dest: "{{ ssl_key_private_output_path }}"
+    mode: 0644
+    remote_src: no

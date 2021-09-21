@@ -1,0 +1,20 @@
+---
+- hosts: all
+  become: yes
+
+  vars:
+    crayfish_version_tag: "dev"
+    php_version: "7.4"
+    php_packages_extra:
+      - libapache2-mod-php7.4
+      - php7.4-mysql
+
+  roles:
+    - geerlingguy.apache
+    - geerlingguy.php-versions
+    - geerlingguy.php
+    - geerlingguy.composer
+    - geerlingguy.git
+    - geerlingguy.mysql
+    - role: role_under_test
+      crayfish_db: mysql

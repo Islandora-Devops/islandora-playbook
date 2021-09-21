@@ -1,0 +1,34 @@
+---
+
+- name: Check if modules are enabled
+  shell: "{{ openseadragon_drush_path }} --root {{ openseadragon_composer_root }}/web pm-list --format=json"
+  register: openseadragon_enable_module_status
+  changed_when: False
+  check_mode: no
+
+- name: Enable modules
+  shell: "{{ openseadragon_drush_path }} --root {{ openseadragon_composer_root }}/web -y en openseadragon"
+  when: (openseadragon_enable_module_status.stdout|from_json).openseadragon.status != 'Enabled'
+
+- name: Copy openseadragon library definition to correct location.
+  copy:
+    remote_src: yes
+    src: "{{ openseadragon_composer_root }}/web/modules/contrib/openseadragon/openseadragon.json"
+    dest: "{{ openseadragon_composer_root }}/web/sites/{{ item }}/files/library-definitions"
+  with_items: "{{ openseadragon_sites }}"
+
+- name: Check IIIF URL
+  command:
+    "{{ openseadragon_drush_path }} --root {{ openseadragon_composer_root }}/web cget openseadragon.settings iiif_server --format=json"
+  when: openseadragon_iiiv_set_var
+  changed_when: false
+  failed_when: false
+  register: openseadragon_iiiv_status
+
+- name: Set IIIF URL
+  command:
+    "{{ openseadragon_drush_path }} --root {{ openseadragon_composer_root }}/web cset openseadragon.settings iiif_server {{ openseadragon_iiiv_server }} --yes"
+  when: >
+    not openseadragon_iiiv_status.skipped|default(false) and
+    (openseadragon_iiiv_status.rc == 1 or
+    (openseadragon_iiiv_status.stdout|from_json)['openseadragon.settings:iiif_server'] != openseadragon_iiiv_server)

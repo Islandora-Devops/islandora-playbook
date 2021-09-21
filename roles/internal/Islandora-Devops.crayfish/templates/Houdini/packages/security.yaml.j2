@@ -1,0 +1,40 @@
+# This file managed by Ansible
+
+# To disable Syn checking, set syn_enabled=false in crayfish_commons.yaml and remove this configuration file.
+security:
+
+    # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
+    providers:
+        jwt_user_provider:
+            id: Islandora\Crayfish\Commons\Syn\JwtUserProvider
+
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+        main:
+            # Need stateless or it reloads the User based on a token.
+            stateless: true
+{%if crayfish_houdini_jwt_enabled == true %}
+            anonymous: false
+
+            provider: jwt_user_provider
+            guard:
+                authenticators:
+                    - Islandora\Crayfish\Commons\Syn\JwtAuthenticator
+
+            # activate different ways to authenticate
+            # https://symfony.com/doc/current/security.html#firewalls-authentication
+
+            # https://symfony.com/doc/current/security/impersonating_user.html
+            # switch_user: true
+
+
+    # Easy way to control access for large sections of your site
+    # Note: Only the *first* access control that matches will be used
+    access_control:
+        # - { path: ^/admin, roles: ROLE_ADMIN }
+        # - { path: ^/profile, roles: ROLE_USER }
+{% else %}
+          anonymous: true
+{% endif %}

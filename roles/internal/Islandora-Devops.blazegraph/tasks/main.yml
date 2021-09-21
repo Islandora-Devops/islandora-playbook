@@ -1,0 +1,26 @@
+---
+
+- include: install.yml
+  tags:
+    - blazegraph
+    - blazegraph-install
+
+- include: download.yml
+  tags:
+    - blazegraph
+    - blazegraph-download
+
+- include: logging.yml
+  tags:
+    - blazegraph
+    - blazegraph-logging
+
+- include: config.yml
+  tags:
+    - blazegraph
+    - blazegraph-config
+
+- include: namespace.yml
+  tags:
+    - blazegraph
+    - blazegraph-namespace
