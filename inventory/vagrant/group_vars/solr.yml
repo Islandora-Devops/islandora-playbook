@@ -1,4 +1,4 @@
-#solr_version: "6.6.0"
+#solr_version: "7.7.3"
 
 solr_cores:
   - ISLANDORA
