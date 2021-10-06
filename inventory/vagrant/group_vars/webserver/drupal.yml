@@ -23,8 +23,8 @@ drupal_composer_dependencies:
   - "drupal/jwt:^1.0@beta"
   - "drupal/flysystem:^2.0@alpha"
   - "drupal/context:^4.0@beta"
-  - "islandora/controlled_access_terms:^2.x"
-  - "islandora/islandora_defaults:^2.x"
+  - "islandora/controlled_access_terms:^2"
+  - "islandora/islandora_defaults:^2"
   - "islandora-rdm/islandora_fits:dev-8.x-1.x"
 drupal_composer_project_package: "drupal/recommended-project:^9.1"
 drupal_composer_project_options: "--prefer-dist --stability dev --no-interaction"
@@ -76,4 +76,4 @@ drupal_gemini_pseudo_bundles:
   - file:media
   - audio:media
   - video:media
-openseadragon_composer_item: "islandora/openseadragon:^2.x"
+openseadragon_composer_item: "islandora/openseadragon:^2"
