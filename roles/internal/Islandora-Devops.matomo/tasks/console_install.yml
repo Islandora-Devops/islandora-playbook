@@ -1,0 +1,29 @@
+
+# Create database from mysql dump
+- name: prepare mysql dump restore
+  template:
+    src: "matomo.sql.j2"
+    dest: "{{ webserver_document_root }}/matomo.sql"
+    owner: "{{ matomo_user }}"
+    group: "{{ matomo_user }}"
+    force: no
+  register: motomo_sql_dump_create
+
+- name: restore dump
+  mysql_db:
+    name: "{{ matomo_db_name }}"
+    target: "{{ webserver_document_root }}/matomo.sql"
+    state: import
+  ignore_errors: yes
+  when: motomo_sql_dump_create | changed
+
+# create config.ini.php with default settings
+- name: Create config.ini.php
+  template:
+    src:   "config.ini.php.j2"
+    dest:  "{{ matomo_install_dir }}/config/config.ini.php"
+    owner: "{{ matomo_user }}"
+    group: "{{ matomo_user }}"
+    mode:  0664
+    force: no
+  register: motomo_config_create

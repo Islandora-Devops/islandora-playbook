@@ -1,0 +1,9 @@
+---
+local_ssl_key_directory: /tmp
+local_ssl_key_private_file: keymaster-private.key
+local_ssl_key_public_file: keymaster-public.key
+ssl_key_directory: /opt/keys/claw
+ssl_key_public_file: public.key
+ssl_key_private_file: private.key
+ssl_key_private_output_path: "{{ ssl_key_directory }}/{{ ssl_key_private_file }}"
+ssl_key_public_output_path: "{{ ssl_key_directory }}/{{ ssl_key_public_file }}"

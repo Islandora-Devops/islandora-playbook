@@ -1,0 +1,60 @@
+- name: Parse Fcrepo version to pure semantic
+  set_fact:
+    fcrepo_parsed_version: "{{ fcrepo_version | regex_replace('^([0-9]+)\\.([0-9]+)\\.([0-9]+)', '\\1.\\2.\\3') }}"
+
+- name: Download fcrepo war (pre 5.0.0)
+  get_url:
+    url: https://github.com/fcrepo4-exts/fcrepo-webapp-plus/releases/download/fcrepo-webapp-plus-{{ fcrepo_version }}/fcrepo-webapp-plus-{{ fcrepo_version }}.war
+    dest: "{{ fcrepo_war_path }}"
+    owner: "{{ fcrepo_user }}"
+    group: "{{ fcrepo_user }}"
+  when: fcrepo_parsed_version is version_compare("5.0.0", "<")
+
+- name: Download fcrepo war (post 5.0.0)
+  get_url:
+    url: https://github.com/fcrepo4/fcrepo4/releases/download/fcrepo-{{ fcrepo_version }}/fcrepo-webapp-{{ fcrepo_version }}.war
+    dest: "{{ fcrepo_war_path }}"
+    owner: "{{ fcrepo_user }}"
+    group: "{{ fcrepo_user }}"
+  when: fcrepo_parsed_version is version_compare("5.0.0", ">=")
+
+- name: Create fcrepo data directory
+  file:
+    path: "{{ fcrepo_data_dir }}"
+    state: directory
+    owner: "{{ fcrepo_user }}"
+    group: "{{ fcrepo_user }}"
+
+- name: Create fcrepo home directory
+  file:
+    path: "{{ fcrepo_home_dir }}"
+    state: directory
+    owner: "{{ fcrepo_user }}"
+    group: "{{ fcrepo_user }}"
+
+- name: Create fcrepo config directory
+  file:
+    path: "{{ fcrepo_config_dir }}"
+    state: directory
+    owner: "{{ fcrepo_user }}"
+    group: "{{ fcrepo_user }}"
+
+- name: Install python dependencies
+  apt:
+    pkg:
+      - python3-psycopg2
+      - python3-mysqldb
+      - mysql-client 
+    state: present
+    update_cache: yes
+    cache_valid_time: 3600
+  when: ansible_os_family == "Debian"
+
+- name: Install python dependencies 
+  yum:
+    name:
+      - python-psycopg2
+      - MySQL-python
+      - mysql
+    state: present
+  when: ansible_os_family == "RedHat"

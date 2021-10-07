@@ -1,0 +1,17 @@
+---
+
+- set_fact: crayfish_loop="{{ item }}"
+
+- name: Verify/Create Symfony config directories
+  file:
+    state: directory
+    dest: '{{ crayfish_install_dir }}/{{ crayfish_loop }}/config/{{ item.path }}'
+  with_filetree: '../templates/{{ crayfish_loop }}'
+  when: item.state == 'directory'
+
+- name: Template Symfony config files
+  template:
+    src: '{{ item.src }}'
+    dest: '{{ crayfish_install_dir }}/{{ crayfish_loop }}/config/{% if item.path.endswith(".j2") %}{{ item.path[:-3] }}{% else %}{{ item.path }}{% endif %}'
+  with_filetree: '../templates/{{ crayfish_loop }}'
+  when: item.state == 'file'

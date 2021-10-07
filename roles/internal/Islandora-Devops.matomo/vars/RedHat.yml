@@ -1,0 +1,6 @@
+---
+apache_service: httpd
+httpd_conf_directory_enabled: "{{httpd_conf_directory}}/conf.d"
+
+__matomo_user: apache
+__httpd_conf_directory: /etc/httpd

@@ -1,0 +1,6 @@
+__tomcat9_home: /opt/tomcat
+
+# Tomcat binary to dl and related path
+__tomcat9_version: 8.5.28
+__tomcat_binary_url:  "https://archive.apache.org/dist/tomcat/tomcat-8/v{{ tomcat9_version }}/bin/apache-tomcat-{{ tomcat9_version }}.tar.gz"
+__tomcat_target_dir:  "/opt/apache-tomcat-{{ tomcat9_version }}"

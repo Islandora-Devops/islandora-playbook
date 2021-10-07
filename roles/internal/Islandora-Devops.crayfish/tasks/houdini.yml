@@ -1,0 +1,17 @@
+---
+
+- name: Find ImageMagick directories
+  find:
+    paths: /etc
+    pattern: "ImageMagick(?:-\\d)"
+    file_type: directory
+    use_regex: yes
+  register: imagemagick_directories
+
+- name: Allow ImageMagick coder to read and write
+  lineinfile:
+    dest: "{{ item.path }}/policy.xml"
+    regexp: '\s*<policy domain="coder" rights="none" pattern="PDF" />'
+    line: '  <policy domain="coder" rights="read|write" pattern="PDF" />'
+    backrefs: yes
+  with_items: "{{ imagemagick_directories.files }}"

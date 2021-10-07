@@ -1,0 +1,40 @@
+# Install location
+
+matomo_version: "4.4.1"
+matomo_host: localhost
+webserver_document_root: /var/www/html
+matomo_install_dir: /var/www/html/matomo
+matomo_base_url: "http://{{ matomo_host }}:8080/matomo"
+
+# Install options
+console_install: true
+
+# Database
+matomo_db: mysql
+matomo_pgsql_user: postgres
+matomo_db_user: matomo
+matomo_db_password: islandora
+matomo_db_name: matomo
+matomo_db_driver: "{% if matomo_db == 'mysql' %}pdo_mysql{% elif matomo_db == 'pgsql' %}pdo_pgsql{% endif %}"
+matomo_db_port: "{% if matomo_db == 'mysql' %}3306{% elif matomo_db == 'pgsql' %}5432{% endif %}"
+
+matomo_db_options:
+  driver: "{{ matomo_db_driver }}"
+  host: 127.0.0.1
+  port: "{{ matomo_db_port }}"
+  dbname: "{{ matomo_db_name }}"
+  user: "{{ matomo_db_user }}"
+  password: "{{ matomo_db_password }}"
+
+# Site Configs
+matomo_admin_user: admin
+## More info about pwd: https://matomo.org/faq/how-to/faq_191/
+matomo_admin_user_password: $2y$10$vMQuIJ8tgqswNDd3hzBksuOnPPJ/EDcYCBGdPb8pKdnyWXVhf.qB2
+matomo_admin_user_email: admin@islandora.ca
+matomo_site_name: "Islandora CLAW"
+matomo_site_url: http://localhost:8000
+matomo_site_timezone: "America/Toronto"
+
+# Other
+apache_restart_state: restarted
+

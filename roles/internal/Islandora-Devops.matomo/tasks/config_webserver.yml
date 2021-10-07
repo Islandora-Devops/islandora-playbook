@@ -1,0 +1,27 @@
+- name: Create httpd config directories for CentOS
+  file:
+    path: "{{httpd_conf_directory}}/{{ item }}/"
+    state: directory
+    owner: "{{ matomo_user }}"
+    group: "{{ matomo_user }}"
+    mode: "urwx,gr,o-rwx"
+  with_items:
+    - "conf-available"
+    - "conf-enabled"
+  when: ansible_os_family == "RedHat"
+
+- name: Install matomo httpd config file
+  template:
+    src: "matomo.conf.j2"
+    dest: "{{httpd_conf_directory}}/conf-available/matomo.conf"
+    owner: "{{ matomo_user }}"
+    group: "{{ matomo_user }}"
+
+- name: Symlink matomo httpd config file into action
+  file:
+    src: "{{httpd_conf_directory}}/conf-available/matomo.conf"
+    dest: "{{httpd_conf_directory_enabled}}/matomo.conf"
+    owner: "{{ matomo_user }}"
+    group: "{{ matomo_user }}"
+    state: link
+  notify: restart apache

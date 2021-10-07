@@ -1,0 +1,38 @@
+---
+
+- include: user.yml
+  tags:
+    - karaf
+    - karaf-user
+
+- include: download.yml
+  tags:
+    - karaf
+    - karaf-download
+
+- include: install.yml
+  tags:
+    - karaf
+    - karaf-install
+
+- include: logging.yml
+  tags:
+    - karaf
+    - karaf-logging
+
+- include: maven.yml
+  tags:
+    - karaf
+    - karaf-maven
+
+- include: service.yml
+  become: yes
+  become_user: "{{ karaf_user }}"
+  tags:
+    - karaf
+    - karaf-service
+
+- include: systemd.yml
+  tags:
+    - karaf
+    - karaf-systemd

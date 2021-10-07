@@ -1,0 +1,51 @@
+---
+
+- name: Include OS-specific variables
+  include_vars: "{{ ansible_os_family }}.yml"
+
+- name: Define matomo_user
+  set_fact:
+    matomo_user: "{{ __matomo_user }}"
+  when: matomo_user is not defined
+
+- name: Define httpd_conf_directory
+  set_fact:
+    httpd_conf_directory: "{{ __httpd_conf_directory }}"
+  when: httpd_conf_directory is not defined
+
+# Create database
+- include_tasks: db-mysql.yml
+  tags:
+    - matomo
+    - matomo-db
+  when: matomo_db == 'mysql'
+
+- include_tasks: db-pgsql.yml
+  tags:
+    - matomo
+    - matomo-db
+  when: matomo_db == 'pgsql'
+
+- include_tasks: download.yml
+  tags:
+    - matomo
+    - matomo-db
+
+- include_tasks: config_webserver.yml
+  tags:
+    - matomo
+    - matomo-db
+
+- include_tasks: console_install.yml
+  tags:
+    - matomo
+    - matomo-db
+
+- name: Clean role files.
+  file:
+    path: "{{ item }}"
+    state: absent
+  with_items:
+    - "{{ webserver_document_root }}/matomo.sql"
+    - "{{ webserver_document_root }}/piwik.zip"
+    - "{{ webserver_document_root }}/How to install Matomo.html"

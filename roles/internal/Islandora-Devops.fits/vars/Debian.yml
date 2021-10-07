@@ -1,0 +1,7 @@
+---
+
+httpd_conf_directory: "/etc/apache2"
+httpd_conf_directory_enabled: "{{httpd_conf_directory}}/conf-enabled"
+fits_log_path: /var/log/tomcat9
+apache_service: apache2
+apache_restart_state: restarted

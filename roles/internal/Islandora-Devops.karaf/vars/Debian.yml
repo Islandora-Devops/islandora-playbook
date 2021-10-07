@@ -1,0 +1,7 @@
+---
+
+__karaf_java_home: /usr/lib/jvm/java-8-openjdk-amd64
+
+__karaf_java_packages:
+  - openjdk-8-jre
+  - openjdk-8-jdk

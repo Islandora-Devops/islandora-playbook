@@ -1,0 +1,786 @@
+---
+
+# Cantaloupe version
+cantaloupe_version: 4.1.7
+# Where to extract the cantaloupe archive
+cantaloupe_install_root: /opt
+# Target of a symlink from the extracted cantaloupe archive
+cantaloupe_symlink: /opt/cantaloupe
+# Path to cantaloupe logs
+cantaloupe_log_path: /var/log/cantaloupe
+# Cantaloupe user
+cantaloupe_user: cantaloupe
+# Cantaloupe group
+cantaloupe_group: cantaloupe
+
+# Whether to automatically deploy the war file
+cantaloupe_deploy_war: no
+# Where to deploy the war to
+cantaloupe_deploy_war_path: /path/to/tomcat/webapps
+# Name for the deployed war (minus .war), this is the context path
+cantaloupe_deploy_war_filename: cantaloupe
+
+# Create the filesystem cache directory automatically
+cantaloupe_create_FilesystemCache_dir: no
+
+###########################################################################
+# Cantaloupe.properties config
+###########################################################################
+
+###########################################################################
+# GENERAL SETTINGS
+###########################################################################
+
+# !! Leave blank to use the JVM default temporary directory.
+cantaloupe_temp_pathname:
+
+# !! Configures the HTTP server. (Standalone mode only.)
+cantaloupe_http_enabled: "true"
+cantaloupe_http_host: 0.0.0.0
+cantaloupe_http_port: 8182
+cantaloupe_http2_enabled: "false"
+
+# !! Configures the HTTPS server. (Standalone mode only.)
+cantaloupe_https_enabled: "false"
+cantaloupe_https_host: 0.0.0.0
+cantaloupe_https_port: 8183
+cantaloupe_https2_enabled: "false"
+
+# !! Available values are `JKS` and `PKCS12`. (Standalone mode only.)
+cantaloupe_https_key_store_type: JKS
+cantaloupe_https_key_store_password: myPassword
+cantaloupe_https_key_store_path: /path/to/keystore.jks
+cantaloupe_https_key_password: myPassword
+
+#  !! Maximum size of the HTTP(S) request queue. Leave blank to use the
+# default.
+cantaloupe_http_accept_queue_limit:
+
+# Base URI to use for internal links, such as Link headers and JSON-LD @id
+# values, in a reverse-proxy context. This should only be used when
+# X-Forwarded-* headers cannot be used instead (see the user manual).
+cantaloupe_base_uri:
+
+# Normally, slashes in a URI path component must be percent-encoded as
+# "%2F". If your proxy is incapable of passing these through without
+# decoding them, you can define an alternate character or character
+# sequence to substitute for a slash. Supply the non-percent-encoded
+# version here, and use the percent-encoded version in URLs.
+cantaloupe_slash_substitute:
+
+# Maximum number of pixels to return in a response, to prevent overloading
+# the server. Requests for more pixels than this will receive an error
+# response. Set to 0 for no maximum.
+cantaloupe_max_pixels: 400000000
+
+# Maximum scale to allow (1.0 = full scale; 0 = no maximum).
+cantaloupe_max_scale: 1.0
+
+# Sometimes helpful.
+cantaloupe_print_stack_trace_on_error_pages: "true"
+
+###########################################################################
+# DELEGATE SCRIPT
+###########################################################################
+
+# !! Enables the delegate script: a Ruby script containing various delegate
+# methods. (See the user manual.)
+cantaloupe_delegate_script_enabled: "false"
+
+# !! This can be an absolute path, or a filename; if only a
+# filename is specified, it will be searched for in the same folder as this
+# file, and then the current working directory.
+cantaloupe_delegate_script_pathname: delegates.rb
+
+# Enables the invocation cache, which caches method invocations and
+# return values in memory. See the user manual for more information.
+cantaloupe_delegate_script_cache_enabled: "false"
+
+###########################################################################
+# ENDPOINTS
+###########################################################################
+
+# Enables the IIIF Image API 1.x endpoint, at /iiif/1.
+cantaloupe_endpoint_iiif_1_enabled: "true"
+
+# Enables the IIIF Image API 2.x endpoint, at /iiif/2.
+cantaloupe_endpoint_iiif_2_enabled: "true"
+
+# Controls the response Content-Disposition header for images. Allowed
+# values are `inline`, `attachment`, and `none`. This can be overridden
+# using the ?response-content-disposition query argument.
+cantaloupe_endpoint_iiif_content_disposition: inline
+
+# Minimum size that will be used in info.json `sizes` keys.
+cantaloupe_endpoint_iiif_min_size: 64
+
+# Minimum size that will be used in info.json "tiles" keys. See the user
+# manual for an explanation of how these are calculated.
+cantaloupe_endpoint_iiif_min_tile_size: 1024
+
+# If "true", requests for sizes other than those specified in an info.json
+# response will be denied.
+cantaloupe_endpoint_iiif_2_restrict_to_sizes: "false"
+
+# Enables the Control Panel, at /admin.
+cantaloupe_admin_enabled: "true"
+cantaloupe_admin_username: admin
+cantaloupe_admin_password: mypassword
+
+# Enables the administrative REST API. (See the user manual.)
+cantaloupe_endpoint_api_enabled: "false"
+
+# HTTP Basic credentials to access the REST API.
+cantaloupe_endpoint_api_username:
+cantaloupe_endpoint_api_secret:
+
+###########################################################################
+# SOURCES
+###########################################################################
+
+# Uses one source for all requests. Available values are `FilesystemSource`,
+# `HttpSource`, `JdbcSource`, `S3Source`, and `AzureStorageSource`.
+cantaloupe_resolver_static: FilesystemResolver
+
+# If true, `source.static` will be overridden, and the `source()` delegate
+# method will be used to select a source per-request.
+cantaloupe_resolver_delegate: "false"
+
+#----------------------------------------
+# FilesystemSource
+#----------------------------------------
+
+# How to look up files. Allowed values are `BasicLookupStrategy` and
+# `ScriptLookupStrategy`. ScriptLookupStrategy uses the delegate script for
+# dynamic lookups; see the user manual.
+cantaloupe_FilesystemResolver_lookup_strategy: BasicLookupStrategy
+
+# Server-side path that will be prefixed to the identifier in the URL.
+# Trailing slash is important.
+cantaloupe_FilesystemResolver_BasicLookupStrategy_path_prefix: /home/myself/images/
+
+# Server-side path or extension that will be suffixed to the identifier in
+# the URL.
+cantaloupe_FilesystemResolver_BasicLookupStrategy_path_suffix:
+
+#----------------------------------------
+# HttpSource
+#----------------------------------------
+
+# Trusts insecure certificates and cipher suites.
+cantaloupe_HttpSource_allow_insecure: "false"
+
+# Request timeout in seconds.
+cantaloupe_HttpSource_request_timeout:
+
+# Tells HttpResolver how to look up resources. Allowed values are
+# `BasicLookupStrategy` and `ScriptLookupStrategy`. ScriptLookupStrategy
+# uses the delegate script for dynamic lookups; see the user manual for
+# details.
+cantaloupe_HttpResolver_lookup_strategy: BasicLookupStrategy
+
+# URL that will be prefixed to the identifier in the request URL. Trailing
+# slash is important.
+cantaloupe_HttpResolver_BasicLookupStrategy_url_prefix: http://localhost/images/
+
+# Path, extension, query string, etc. that will be suffixed to the
+# identifier in the request URL.
+cantaloupe_HttpResolver_BasicLookupStrategy_url_suffix:
+
+# Used for HTTP Basic authentication.
+cantaloupe_HttpResolver_auth_basic_username:
+cantaloupe_HttpResolver_auth_basic_secret:
+
+# Read data in chunks when it may be more efficient. (This also may end up
+# being less efficient, depending on many variables; see the user manual.)
+cantaloupe_HttpSource_chunking_enabled: "true"
+
+# Chunk size.
+cantaloupe_HttpSource_chunking_chunk_size: 512K
+
+# The per-request chunk cache caches downloaded chunks in memory during
+# a request, and clears them when the request is complete.
+cantaloupe_HttpSource_chunking_cache_enabled: "true"
+
+# Max per-request chunk cache size.
+cantaloupe_HttpSource_chunking_cache_max_size: 5M
+
+#----------------------------------------
+# S3Source
+#----------------------------------------
+
+# !! Endpoint URI.
+# For AWS endpoints, see:
+# https://docs.aws.amazon.com/general/latest/gr/rande.html#s3_region
+cantaloupe_S3Source_endpoint:
+
+# !! Credentials for your AWS account.
+# See: http://aws.amazon.com/security-credentials
+# Note that this info can be obtained from elsewhere rather than setting
+# it here; see the user manual.
+cantaloupe_AmazonS3Resolver_access_key_id:
+cantaloupe_AmazonS3Resolver_secret_key:
+
+# !! Name of the bucket containing images to be served
+cantaloupe_AmazonS3Resolver_bucket_name:
+
+# Tells AmazonS3Resolver how to look up objects. Allowed values are
+# `BasicLookupStrategy` and `ScriptLookupStrategy`. ScriptLookupStrategy
+# uses the delegate script for dynamic lookups; see the user manual for
+# details.
+cantaloupe_AmazonS3Resolver_lookup_strategy: BasicLookupStrategy
+
+# Path within the bucket that will be prefixed to the identifier in the URL.
+# Trailing slash is important!
+cantaloupe_S3Source_BasicLookupStrategy_path_prefix:
+
+# Path or extension that will be suffixed to the identifier in the URL.
+cantaloupe_S3Source_BasicLookupStrategy_path_suffix:
+
+# Read data in chunks when it may be more efficient. (This also may end up
+# being less efficient, depending on many variables; see the user manual.)
+cantaloupe_S3Source_chunking_enabled: "true"
+
+# Chunk size.
+cantaloupe_S3Source_chunking_chunk_size: 512K
+
+# The per-request chunk cache caches downloaded chunks in memory during
+# a request, and clears them when the request is complete.
+cantaloupe_S3Source_chunking_cache_enabled: "true"
+
+# Max per-request chunk cache size.
+cantaloupe_S3Source_chunking_cache_max_size: 5M
+
+#----------------------------------------
+# AzureStorageSource
+#----------------------------------------
+
+# !! Name of your Azure account.
+# Leave blank if using URI with a SAS token in your object key.
+cantaloupe_AzureStorageResolver_account_name:
+
+# !! Key of your Azure account.
+# Leave blank if using URI with a SAS token in your object key.
+cantaloupe_AzureStorageResolver_account_key:
+
+# !! Name of the container containing images to be served.
+# Leave blank if using URI with the container in your object key.
+cantaloupe_AzureStorageResolver_container_name:
+
+# Tells AzureStorageResolver how to look up objects. Allowed values are
+# `BasicLookupStrategy` and `ScriptLookupStrategy`. ScriptLookupStrategy
+# uses the delegate script for dynamic lookups; see the user manual for
+# details.
+cantaloupe_AzureStorageResolver_lookup_strategy: BasicLookupStrategy
+
+# Read data in chunks when it may be more efficient. (This also may end up
+# being less efficient, depending on many variables; see the user manual.)
+cantaloupe_AzureStorageSource_chunking_enabled: "true"
+
+# Chunk size.
+cantaloupe_AzureStorageSource_chunking_chunk_size: 512K
+
+# The per-request chunk cache caches downloaded chunks in memory during
+# a request, and clears them when the request is complete.
+cantaloupe_AzureStorageSource_chunking_cache_enabled: "true"
+
+# Max per-request chunk cache size.
+cantaloupe_AzureStorageSource_chunking_cache_max_size: 5M
+
+#----------------------------------------
+# JdbcSource
+#----------------------------------------
+
+# Note: JdbcResolver requires some delegate methods to be implemented in
+# addition to the configuration here; see the user manual.
+
+# !!
+cantaloupe_JdbcResolver_url: jdbc:postgresql://localhost:5432/my_database
+# !!
+cantaloupe_JdbcResolver_user: postgres
+# !!
+cantaloupe_JdbcResolver_password: postgres
+
+# !! Connection timeout in seconds.
+cantaloupe_JdbcResolver_connection_timeout: 10
+
+###########################################################################
+# PROCESSORS
+###########################################################################
+
+#----------------------------------------
+# Processor Selection
+#----------------------------------------
+
+# * If set to `AutomaticSelectionStrategy`, a "best" available processor
+#   will be selected per-request based on formats and installed
+#   dependencies.
+# * If set to `ManualSelectionStrategy`, a processor will be chosen based
+#   on the rest of the keys in this section.
+cantaloupe_processor_selection_strategy: AutomaticSelectionStrategy
+
+# Built-in processors are `Java2dProcessor`, `GraphicsMagickProcessor`,
+# `ImageMagickProcessor`, `TurboJpegProcessor`, `KakaduNativeProcessor`,
+# `KakaduDemoProcessor`, `OpenJpegProcessor`, `JaiProcessor`,
+# `PdfBoxProcessor`, and `FfmpegProcessor`.
+# Some of these have third-party dependencies and won't work out-of-the-box.
+
+# These format-specific definitions are optional.
+
+cantaloupe_processor_avi: FfmpegProcessor
+cantaloupe_processor_bmp:
+cantaloupe_processor_dcm: ImageMagickProcessor
+cantaloupe_processor_flv: FfmpegProcessor
+cantaloupe_processor_gif:
+cantaloupe_processor_jp2: KakaduProcessor
+cantaloupe_processor_jpg:
+cantaloupe_processor_mov: FfmpegProcessor
+cantaloupe_processor_mp4: FfmpegProcessor
+cantaloupe_processor_mpg: FfmpegProcessor
+cantaloupe_processor_pdf: PdfBoxProcessor
+cantaloupe_processor_png:
+cantaloupe_processor_tif:
+cantaloupe_processor_webm: FfmpegProcessor
+cantaloupe_processor_webp: ImageMagickProcessor
+
+# Fall back to this processor for any formats not assigned above.
+cantaloupe_processor_fallback: Java2dProcessor
+
+#----------------------------------------
+# Global Processor Configuration
+#----------------------------------------
+
+# Expands contrast to utilize available dynamic range. This forces the entire
+# source image to be read into memory, so can be slow with large images.
+cantaloupe_processor_normalize: "false"
+
+# Resolution of vector rasterization (of e.g. PDFs) at a scale of 1.
+cantaloupe_processor_dpi: 150
+
+# Color of the background when an image is rotated. Only affects output
+# formats that do not support transparency.
+cantaloupe_processor_background_color: black
+
+# Available values are `bell`, `bspline`, `bicubic`, `box`, `hermite`,
+# `lanczos3`, `mitchell`, `triangle`.
+# These are used only by FfmpegProcessor, Java2dProcessor, OpenJpegProcessor,
+# and PdfBoxProcessor.
+cantaloupe_processor_downscale_filter: bicubic
+cantaloupe_processor_upscale_filter: bicubic
+
+# Intensity of an unsharp mask from 0 to 1.
+cantaloupe_processor_sharpen: 0
+
+# Attempts to copy source image metadata (EXIF, IPTC, XMP) into derivative
+# images. (This is not foolproof; see the user manual.)
+cantaloupe_processor_metadata_preserve: "false"
+
+# Whether to auto-rotate images using the EXIF `Orientation` field.
+# The check for this field can impair performance slightly.
+cantaloupe_processor_metadata_respect_orientation: "false"
+
+# Progressive JPEGs are generally more space-efficient.
+cantaloupe_processor_jpg_progressive: "true"
+
+# JPEG output quality (1-100).
+cantaloupe_processor_jpg_quality: 80
+
+# TIFF output compression type. Available values are `Deflate`, `JPEG`,
+# `LZW`, and `RLE`. Leave blank for no compression.
+cantaloupe_processor_tif_compression: LZW
+
+# Controls how content is fed to processors from stream-based sources.
+# * `StreamStrategy` will try to stream a source image from a source when
+#   possible, and use `processor.fallback_retrieval_strategy` otherwise.
+# * `DownloadStrategy` will download it to a temporary file, and delete
+#   it after the request is complete.
+# * `CacheStrategy` will download it into the source cache using
+#   FilesystemCache, which must also be configured. (This will perform a
+#   lot better than DownloadStrategy if you can spare the disk space.)
+cantaloupe_processor.stream_retrieval_strategy: StreamStrategy
+
+# Available values are `StreamStrategy` and `CacheStrategy`. StreamStrategy
+# will try to stream source images from non-filesystem resolvers, when this
+# is possible; CacheStrategy will first download them into the source cache
+# using FilesystemCache, which must also be configured.
+cantaloupe_StreamProcessor_retrieval_strategy: StreamStrategy
+
+#----------------------------------------
+# ImageIO Plugin Preferences
+#----------------------------------------
+
+# These override the default plugins used by the application and should not
+# normally be changed.
+cantaloupe_processor_imageio_bmp_reader:
+cantaloupe_processor_imageio_gif_reader:
+cantaloupe_processor_imageio_gif_writer:
+cantaloupe_processor_imageio_jpg_reader:
+cantaloupe_processor_imageio_jpg_writer:
+cantaloupe_processor_imageio_png_reader:
+cantaloupe_processor_imageio_png_writer:
+cantaloupe_processor_imageio_tif_reader:
+cantaloupe_processor_imageio_tif_writer:
+
+#----------------------------------------
+# FfmpegProcessor
+#----------------------------------------
+
+# Optional absolute path of the directory containing the FFmpeg binaries.
+# Overrides the PATH.
+cantaloupe_FfmpegProcessor_path_to_binaries:
+
+#----------------------------------------
+# GraphicsMagickProcessor
+#----------------------------------------
+
+# !! Optional absolute path of the directory containing the GraphicsMagick
+# binary. Overrides the PATH.
+cantaloupe_GraphicsMagickProcessor_path_to_binaries:
+
+#----------------------------------------
+# ImageMagickProcessor
+#----------------------------------------
+
+# !! Optional absolute path of the directory containing the ImageMagick
+# binaries. Overrides the PATH.
+cantaloupe_ImageMagickProcessor_path_to_binaries:
+
+#----------------------------------------
+# KakaduProcessor
+#----------------------------------------
+
+# Optional absolute path of the directory containing the Kakadu binaries.
+# Overrides the PATH.
+cantaloupe_KakaduProcessor_path_to_binaries:
+
+#----------------------------------------
+# OpenJpegProcessor
+#----------------------------------------
+
+# Optional absolute path of the directory containing the OpenJPEG binaries.
+# Overrides the PATH.
+cantaloupe_OpenJpegProcessor_path_to_binaries:
+
+#----------------------------------------
+# PdfBoxProcessor
+#----------------------------------------
+
+# Resolution of the PDF rasterization at a scale of 1. Requests for
+# scales less than 0.5 or larger than 2 will automatically use a lower or
+# higher factor of this.
+cantaloupe_PdfBoxProcessor_dpi: 150
+
+###########################################################################
+# CLIENT-SIDE CACHING
+###########################################################################
+
+# Whether to enable the response Cache-Control header.
+cantaloupe_cache_client_enabled: "true"
+
+cantaloupe_cache_client_max_age: 2592000
+cantaloupe_cache_client_shared_max_age:
+cantaloupe_cache_client_public: "true"
+cantaloupe_cache_client_private: "false"
+cantaloupe_cache_client_no_cache: "false"
+cantaloupe_cache_client_no_store: "false"
+cantaloupe_cache_client_must_revalidate: "false"
+cantaloupe_cache_client_proxy_revalidate: "false"
+cantaloupe_cache_client_no_transform: "true"
+
+###########################################################################
+# SERVER-SIDE CACHING
+###########################################################################
+
+# Enables the source cache. The only available value is `FilesystemCache`.
+# Set blank to disable source image caching.
+# Note that source images will only be cached when a FileProcessor is used
+# with a StreamResolver, or when a StreamProcessor is used with
+# `StreamProcessor.retrieval_strategy` set to `CacheStrategy`.
+cantaloupe_cache_source:
+
+# Enables the derivative (processed image) cache.
+cantaloupe_cache_server_derivative_enabled: "true"
+
+#Available values are `FilesystemCache`, `JdbcCache`, `RedisCache`,
+# `HeapCache`, `S3Cache`, and `AzureStorageCache`.
+cantaloupe_cache_derivative:
+
+# Time before a cached image becomes stale and needs to be reloaded. Set to
+# blank or 0 for infinite.
+cantaloupe_cache_server_ttl_seconds: 2592000
+
+# Amount of time derivative cache content remains valid. Set to blank or 0
+# for forever.
+cantaloupe_cache_server_derivative_ttl_seconds: 2592000
+
+# Whether to use the Java heap as a "level 1" cache for image infos, either
+# independently or in front of a "level 2" derivative cache (if enabled).
+cantaloupe_cache_server_info_enabled: "true"
+
+# If "true", when a resolver reports that the requested source image has gone
+# missing, all cached information relating to it (if any) will be deleted.
+# (This is effectively always "false" when cache.server.resolve_first is also
+# "false".)
+cantaloupe_cache_server_purge_missing: "false"
+
+# If "true", the source image will be confirmed to exist before a cached copy
+# is returned. If "false", the cached copy will be returned without any
+# checking. Resolving first is slower but safer.
+cantaloupe_cache_server_resolve_first: "false"
+
+# !! Enables the cache worker, which periodically purges expired cache
+# items in the background.
+cantaloupe_cache_server_worker_enabled: "false"
+
+# !! The cache worker will wait this many seconds between purgings.
+cantaloupe_cache_server_worker_interval: 86400
+
+#----------------------------------------
+# FilesystemCache
+#----------------------------------------
+
+# If this directory does not exist, it will be created automatically.
+cantaloupe_FilesystemCache_pathname: /var/cache/cantaloupe
+
+# Levels of folder hierarchy in which to store cached images. Deeper depth
+# results in fewer files per directory. Set to 0 to disable subfolders.
+# Purge the cache after changing this.
+cantaloupe_FilesystemCache_dir_depth: 3
+
+# Number of characters in hierarchy directory names. Should be set to
+# 16^n < (max number of directory entries your filesystem can deal with).
+# Purge the cache after changing this.
+cantaloupe_FilesystemCache_dir_name_length: 2
+
+#----------------------------------------
+# HeapCache
+#----------------------------------------
+
+# Target cache size, in bytes or a number ending in M, MB, G, GB, etc.
+# This is not a hard limit, and may be transiently exceeded.
+# Ensure your heap can accommodate this size.
+cantaloupe_HeapCache_target_size: 2G
+
+# If true, the cache contents will be written to a file on exit and during
+# cache worker shifts, and read back in at startup.
+cantaloupe_HeapCache_persist: "false"
+
+# When the contents are persisted, this specifies the location of the cache
+# file. If the parent directory does not exist, it will be created
+# automatically.
+cantaloupe_HeapCache_persist_filesystem_pathname: /var/cache/cantaloupe/heap.cache
+
+#----------------------------------------
+# JdbcCache
+#----------------------------------------
+
+# !!
+cantaloupe_JdbcCache_url: jdbc:postgresql://localhost:5432/cantaloupe
+# !!
+cantaloupe_JdbcCache_user: postgres
+# !!
+cantaloupe_JdbcCache_password:
+
+# !! Connection timeout in seconds.
+cantaloupe_JdbcCache_connection_timeout: 10
+
+# These must be created manually; see the user manual.
+cantaloupe_JdbcCache_derivative_image_table: derivative_cache
+cantaloupe_JdbcCache_info_table: info_cache
+
+#----------------------------------------
+# AmazonS3Cache
+#----------------------------------------
+# !! Endpoint URI.
+# For AWS endpoints, see:
+# https://docs.aws.amazon.com/general/latest/gr/rande.html#s3_region
+cantaloupe_S3Cache_endpoint:
+
+# !! Access key ID and secret key associated with your AWS account.
+# See: http://aws.amazon.com/security-credentials
+cantaloupe_AmazonS3Cache_access_key_id:
+cantaloupe_AmazonS3Cache_secret_key:
+
+# !! Name of a bucket to use to hold cached data.
+cantaloupe_AmazonS3Cache_bucket_name:
+
+# !! String that will be prefixed to object keys.
+cantaloupe_AmazonS3Cache_object_key_prefix:
+
+# !! Maximum number of concurrent HTTP connections to AWS. Leave blank to
+# use the default.
+cantaloupe_S3Cache_max_connections:
+
+#----------------------------------------
+# AzureStorageCache
+#----------------------------------------
+
+# !! Name of your Azure account.
+cantaloupe_AzureStorageCache_account_name:
+
+# !! Key of your Azure account.
+cantaloupe_AzureStorageCache_account_key:
+
+# !! Name of the container containing cached images.
+cantaloupe_AzureStorageCache_container_name:
+
+# !! String that will be prefixed to object keys.
+cantaloupe_AzureStorageCache_object_key_prefix:
+
+#----------------------------------------
+# RedisCache
+#----------------------------------------
+
+# !! Redis connection info.
+cantaloupe_RedisCache_host: localhost
+cantaloupe_RedisCache_port: 6379
+cantaloupe_RedisCache_ssl: "false"
+cantaloupe_RedisCache_password:
+cantaloupe_RedisCache_database: 0
+
+###########################################################################
+# OVERLAYS
+###########################################################################
+
+# Whether to enable overlays.
+cantaloupe_overlays_enabled: "false"
+
+# Specifies how overlays are configured. `BasicStrategy` will use the
+# `overlays.BasicStrategy.*` keys in this section. `ScriptStrategy` will
+# use the `overlay` delegate method. See the user manual for more
+# information.
+cantaloupe_overlays_strategy: BasicStrategy
+
+# `image` or `string`.
+cantaloupe_overlays_BasicStrategy_type: image
+
+# Absolute path or URL of the overlay image. Must be a PNG file.
+cantaloupe_overlays_BasicStrategy_image: /path/to/overlay.png
+
+# Overlay text.
+cantaloupe_overlays_BasicStrategy_string: Copyright \u00A9️ My Great Organization\nAll rights reserved.
+
+# For possible values, launch with the -Dcantaloupe.list_fonts option.
+cantaloupe_overlays_BasicStrategy_string_font: Helvetica
+
+# Font size in points.
+cantaloupe_overlays_BasicStrategy_string_font_size: 24
+
+# If the string doesn't fit in the image at the above size, the largest size
+# at which it does fit will be used, down to this.
+cantaloupe_overlays_BasicStrategy_string_font_min_size: 18
+
+# Font weight. 1 = regular, 2 = bold. Note that many fonts don't support
+# fractional weights.
+cantaloupe_overlays_BasicStrategy_string_font_weight: 1.0
+
+# Point spacing between glyphs, typically between -0.1 and 0.1.
+cantaloupe_overlays_BasicStrategy_string_glyph_spacing: 0.02
+
+# CSS color syntax is supported.
+cantaloupe_overlays_BasicStrategy_string_color: white
+
+# CSS color syntax is supported.
+cantaloupe_overlays_BasicStrategy_string_stroke_color: black
+
+# Stroke width in pixels.
+cantaloupe_overlays_BasicStrategy_string_stroke_width: 1
+
+# Color of a background to draw under the string.
+# CSS color syntax is supported.
+cantaloupe_overlays_BasicStrategy_string_background_color: rgba(0, 0, 0, 100)
+
+# Allowed values: `top left`, `top center`, `top right`, `left center`,
+# `center`, `right center`, `bottom left`, `bottom center`, `bottom right`.
+cantaloupe_overlays_BasicStrategy_position: bottom right
+
+# Pixel margin between the overlay and the image edge.
+cantaloupe_overlays_BasicStrategy_inset: 10
+
+# Output images less than this many pixels wide will not receive an overlay.
+# Set to 0 to add the overlay regardless.
+cantaloupe_overlays_BasicStrategy_output_width_threshold: 400
+
+# Output images less than this many pixels tall will not receive an overlay.
+# Set to 0 to add the overlay regardless.
+cantaloupe_overlays_BasicStrategy_output_height_threshold: 300
+
+###########################################################################
+# REDACTIONS
+###########################################################################
+
+# Whether to enable redactions. See the user manual for information about
+# how these work.
+cantaloupe_redaction_enabled: "false"
+
+###########################################################################
+# LOGGING
+###########################################################################
+
+#----------------------------------------
+# Application Log
+#----------------------------------------
+
+# `trace`, `debug`, `info`, `warn`, `error`, `all`, or `off`
+cantaloupe_log_application_level: debug
+
+cantaloupe_log_application_ConsoleAppender_enabled: "true"
+
+cantaloupe_log_application_FileAppender_enabled: "false"
+cantaloupe_log_application_FileAppender_pathname: /path/to/logs/application.log
+
+# RollingFileAppender is an alternative to using something like
+# FileAppender + logrotate.
+cantaloupe_log_application_RollingFileAppender_enabled: "false"
+cantaloupe_log_application_RollingFileAppender_pathname: /path/to/logs/application.log
+cantaloupe_log_application_RollingFileAppender_policy: TimeBasedRollingPolicy
+cantaloupe_log_application_RollingFileAppender_TimeBasedRollingPolicy_filename_pattern: /path/to/logs/application-%d{yyyy-MM-dd}.log
+cantaloupe_log_application_RollingFileAppender_TimeBasedRollingPolicy_max_history: 30
+
+# See the "SyslogAppender" section for a list of facilities:
+# http://logback.qos.ch/manual/appenders.html
+cantaloupe_log_application_SyslogAppender_enabled: "false"
+cantaloupe_log_application_SyslogAppender_host:
+cantaloupe_log_application_SyslogAppender_port: 514
+cantaloupe_log_application_SyslogAppender_facility: LOCAL0
+
+#----------------------------------------
+# Error Log
+#----------------------------------------
+
+# Application log messages with a severity of WARN or greater can be copied
+# into a dedicated error log, which may make them easier to spot.
+
+# N.B.: Don't enable FileAppender and RollingFileAppender simultaneously!
+cantaloupe_log_error_FileAppender_enabled: "true"
+cantaloupe_log_error_FileAppender_pathname: /var/log/cantaloupe/error.log
+
+cantaloupe_log_error_RollingFileAppender_enabled: "false"
+cantaloupe_log_error_RollingFileAppender_pathname: /path/to/logs/error.log
+cantaloupe_log_error_RollingFileAppender_policy: TimeBasedRollingPolicy
+cantaloupe_log_error_RollingFileAppender_TimeBasedRollingPolicy_filename_pattern: /path/to/logs/error-%d{yyyy-MM-dd}.log
+cantaloupe_log_error_RollingFileAppender_TimeBasedRollingPolicy_max_history: 30
+
+#----------------------------------------
+# Access Log
+#----------------------------------------
+
+cantaloupe_log_access_ConsoleAppender_enabled: "false"
+
+cantaloupe_log_access_FileAppender_enabled: "true"
+cantaloupe_log_access_FileAppender_pathname: /var/log/cantaloupe/access.log
+
+# RollingFileAppender is an alternative to using something like
+# FileAppender + logrotate.
+cantaloupe_log_access_RollingFileAppender_enabled: "false"
+cantaloupe_log_access_RollingFileAppender_pathname: /path/to/logs/access.log
+cantaloupe_log_access_RollingFileAppender_policy: TimeBasedRollingPolicy
+cantaloupe_log_access_RollingFileAppender_TimeBasedRollingPolicy_filename_pattern: /path/to/logs/access-%d{yyyy-MM-dd}.log
+cantaloupe_log_access_RollingFileAppender_TimeBasedRollingPolicy_max_history: 30
+
+# See the "SyslogAppender" section for a list of facilities:
+# http://logback.qos.ch/manual/appenders.html
+cantaloupe_log_access_SyslogAppender_enabled: "false"
+cantaloupe_log_access_SyslogAppender_host:
+cantaloupe_log_access_SyslogAppender_port: 514
+cantaloupe_log_access_SyslogAppender_facility: LOCAL0

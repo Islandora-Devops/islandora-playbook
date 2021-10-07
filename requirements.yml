@@ -29,7 +29,7 @@
   version: 1.4.3
 
 - src: geerlingguy.solr
-  version: 4.2.1
+  version: 5.2.0
 
 - src: geerlingguy.java
   version: 1.10.0
@@ -40,62 +40,3 @@
 - src: geerlingguy.drush
   version: 3.1.1
 
-- src: https://github.com/Islandora-Devops/ansible-role-activemq
-  name: Islandora-Devops.activemq
-  version: main
-
-- src: https://github.com/Islandora-Devops/ansible-role-alpaca
-  name: Islandora-Devops.alpaca
-  version: main
-
-#- src: https://github.com/Islandora-Devops/ansible-role-apix
-#  name: Islandora-Devops.apix
-#  version: 0.0.1
-
-- src: https://github.com/Islandora-Devops/ansible-role-blazegraph
-  name: Islandora-Devops.blazegraph
-  version: main
-
-- src: https://github.com/Islandora-Devops/ansible-role-cantaloupe
-  name: Islandora-Devops.cantaloupe
-  version: main
-
-- src: https://github.com/Islandora-Devops/ansible-role-crayfish
-  name: Islandora-Devops.crayfish
-  version: main
-
-- src: https://github.com/Islandora-Devops/ansible-role-drupal-openseadragon
-  name: Islandora-Devops.drupal-openseadragon
-  version: main
-
-- src: https://github.com/Islandora-Devops/ansible-role-fcrepo
-  name: Islandora-Devops.fcrepo
-  version: main
-
-- src: https://github.com/Islandora-Devops/ansible-role-fcrepo-syn
-  name: Islandora-Devops.fcrepo-syn
-  version: main
-
-- src: https://github.com/Islandora-Devops/ansible-role-tomcat8
-  name: Islandora-Devops.tomcat8
-  version: main
-
-- src: https://github.com/Islandora-Devops/ansible-role-fits
-  name: Islandora-Devops.fits
-  version: main
-
-- src: https://github.com/Islandora-Devops/ansible-role-grok
-  name: Islandora-Devops.grok
-  version: main
-
-- src: https://github.com/Islandora-Devops/ansible-role-karaf
-  name: Islandora-Devops.karaf
-  version: main
-
-- src: https://github.com/Islandora-Devops/ansible-role-keymaster
-  name: Islandora-Devops.keymaster
-  version: main
-
-- src: https://github.com/Islandora-Devops/ansible-role-matomo
-  name: Islandora-Devops.matomo
-  version: main

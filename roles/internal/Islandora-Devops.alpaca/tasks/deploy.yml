@@ -1,0 +1,13 @@
+---
+
+- name: Add Alpaca Repos
+  karaf_repo:
+    state: present
+    name: "{{ item }}"
+  with_items: "{{ alpaca_karaf_repos }}"
+
+- name: Add Alpaca Features
+  karaf_feature:
+    state: present
+    name: "{{ item }}"
+  with_items: "{{ alpaca_features }}"

@@ -1,0 +1,30 @@
+---
+
+- hosts: all
+  become: yes
+  vars:
+    # hostvars[groups['tomcat'][0]].ansible_host isn't getting
+    # pulled in correctly because there is no `tomcat` host group.
+    alpaca_triplestore_base_url: "http://localhost:8080/bigdata"
+
+  pre_tasks:
+    - name: https://github.com/geerlingguy/ansible-role-java/issues/64#issuecomment-393299088
+      file:
+        path: /usr/share/man/man1
+        state: directory
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+      when: ansible_os_family == "Debian"
+
+  roles:
+    - role: geerlingguy.java
+      when: "ansible_os_family == 'Debian'"
+      java_packages:
+        - openjdk-8-jdk
+    - role: geerlingguy.java
+      when: "ansible_os_family == 'RedHat'"
+      java_packages:
+        - java-1.8.0-openjdk
+    - role: Islandora-Devops.tomcat9
+    - role: role_under_test

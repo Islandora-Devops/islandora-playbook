@@ -1,0 +1,9 @@
+- geerlingguy.apache
+- geerlingguy.php-versions
+- geerlingguy.php
+- geerlingguy.composer
+- geerlingguy.mysql
+- geerlingguy.postgresql
+- geerlingguy.git
+- src: Islandora-Devops.keymaster
+  version: 1.1.0

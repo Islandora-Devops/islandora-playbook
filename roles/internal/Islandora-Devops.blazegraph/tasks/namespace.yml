@@ -1,0 +1,37 @@
+---
+
+# This is needed so blazegraph will startup. Otherwise our handlers
+# would fire too late and blazegraph wouldn't start to register the
+# namespaces we need.
+- name: Fire handlers
+  meta: flush_handlers
+
+- name: "Wait for Blazegraph to come up"
+  uri:
+    url: "{{ alpaca_triplestore_base_url }}/#namespaces"
+    status_code: 200
+    timeout: 5
+  register: result
+  until: result.status == 200
+  retries: 60
+  delay: 5
+
+- name: Setup namespace in blazegraph
+  uri:
+    url: "{{ alpaca_triplestore_base_url }}/namespace"
+    method: POST
+    body: "{{ lookup('file', 'blazegraph.properties') }}"
+    status_code: 201
+    headers:
+      Content-Type: "text/plain"
+  when: blazegraph_war_download.changed is defined and blazegraph_war_download.changed
+
+- name: Setup inference in blazegraph
+  uri:
+    url: "{{ alpaca_triplestore_base_url }}/namespace/{{ triplestore_namespace }}/sparql"
+    method: POST
+    body: "{{ lookup('file', 'inference.nt') }}"
+    status_code: 200
+    headers:
+      Content-Type: "text/plain"
+  when: blazegraph_war_download.changed is defined and blazegraph_war_download.changed

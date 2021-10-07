@@ -1,0 +1,77 @@
+#
+# Copyright (c) 2016 by The President and Fellows of Harvard College
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License. You may obtain a copy of the License at:
+# http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software distributed under the License is
+# distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permission and limitations under the License.
+#
+
+#------------------------------------------------------------------------------
+#
+#  The following properties set the logging levels and log appender.  The
+#  log4j.rootCategory variable defines the default log level plus one or more
+#  appenders.
+#
+#  To override the default (rootCategory) log level,
+#  define a property of the form (see below for available values):
+#
+#    Available logger names:
+#      CONSOLE  The command line console (defaults to standard error output)
+#      FILE     The log file to write to.
+#
+#    Possible Log Levels:
+#      ERROR - only errors during processing are logged, or FATAL.
+#      WARN  - warnings, errors and fatal are logged.
+#      INFO  - general info messages and all the above are logged.
+#      DEBUG - more detailed messages and all the above are logged.
+#      TRACE - the most detailed messages and all the above are logged.
+#
+#      OFF   - This will turn off logging for an appender.
+#
+#------------------------------------------------------------------------------
+
+log4j.rootLogger=INFO, CONSOLE, FILE
+
+# create substitutions for appenders
+date-pattern={yyyy-MM-dd HH:mm:ss}
+
+#------------------------------------------------------------------------------
+# direct log messages to console
+#------------------------------------------------------------------------------
+log4j.appender.CONSOLE=org.apache.log4j.ConsoleAppender
+log4j.appender.CONSOLE.Target=System.out
+log4j.appender.CONSOLE.Threshold=ERROR
+log4j.appender.CONSOLE.layout=org.apache.log4j.PatternLayout
+log4j.appender.CONSOLE.layout.ConversionPattern=%d${date-pattern} - %5p - %c{1}:%L - %m%n
+# Detailed appender for debugging, includes thread name:
+#log4j.appender.CONSOLE.layout.ConversionPattern=%d${date-pattern} - %5p - [%t] %c{1}:%L - %m%n
+
+#------------------------------------------------------------------------------
+# direct messages to a log file
+#
+#  The following properties configure the Rolling File appender.
+#  See http://logging.apache.org/log4j/1.2/ for details.
+#
+#------------------------------------------------------------------------------
+log4j.appender.FILE=org.apache.log4j.RollingFileAppender
+# The following path is specific to Tomcat. Modify for another server or destination locations.
+log4j.appender.FILE.File={{ fits_log_path }}/fits-service.log
+#log4j.appender.FILE.File=./fits-service.log
+log4j.appender.FILE.Threshold=INFO
+log4j.appender.FILE.Append=true
+log4j.appender.FILE.MaxFileSize=10MB
+log4j.appender.FILE.MaxBackupIndex=10
+log4j.appender.FILE.layout=org.apache.log4j.PatternLayout
+log4j.appender.FILE.layout.ConversionPattern=%d${date-pattern} - %5p - %c{1}:%L - %m%n
+# Detailed appender for debugging, includes thread name:
+#log4j.appender.FILE.layout.ConversionPattern = %d${date-pattern} - %5p - [%t] %c{1}:%L - %m%n
+
+#----------------------------------------------------------
+#
+# Class- and package-specific loggers for debugging if necessary
+
+log4j.logger.uk.gov.nationalarchives.droid=FATAL,CONSOLE
+log4j.logger.edu.harvard.hul.ois.jhove=FATAL,CONSOLE
+log4j.logger.org.apache.tika=FATAL,CONSOLE

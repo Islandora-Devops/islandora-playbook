@@ -1,0 +1,39 @@
+{
+    "name" : "repo",
+    "jndiName" : "",
+    "workspaces" : {
+        "predefined" : ["default"],
+        "default" : "default",
+        "allowCreation" : true,
+        "cacheSize" : 10000
+    },
+    "storage" : {
+        "persistence": {
+            "type" : "db",
+            "connectionUrl": "jdbc:mysql://{{ fcrepo_db_host }}:{{ fcrepo_db_port }}/{{ fcrepo_db_name }}?createDatabaseIfNotExist=true",
+            "driver" : "com.mysql.jdbc.Driver",
+            "username" : "{{ fcrepo_db_user }}",
+            "password" : "{{ fcrepo_db_password }}"
+        },
+        "binaryStorage" : {
+            "type" : "file",
+            "directory" : "{{ fcrepo_binary_directory }}",
+            "minimumBinarySizeInBytes" : 4096
+        }
+    },
+    "security" : {
+        "anonymous" : {
+            "roles" : ["readonly","readwrite","admin"],
+            "useOnFailedLogin" : false
+        },
+        "providers" : [
+            { "classname" : "org.fcrepo.auth.common.BypassSecurityServletAuthenticationProvider" }
+        ]
+    },
+    "garbageCollection" : {
+        "threadPool" : "modeshape-gc",
+        "initialTime" : "00:00",
+        "intervalInHours" : 24
+    },
+    "node-types" : ["fedora-node-types.cnd", "file:/opt/fcrepo/configs/claw.cnd"]
+}

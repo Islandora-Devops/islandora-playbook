@@ -1,0 +1,17 @@
+---
+
+- include: compile.yml
+  tags:
+    - alpaca
+    - alpaca-compile
+  when: alpaca_from_source
+
+- include: deploy.yml
+  tags:
+    - alpaca
+    - alpaca-deploy
+
+- include: config.yml
+  tags:
+    - alpaca
+    - alpaca-config

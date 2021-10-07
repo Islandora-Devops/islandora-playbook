@@ -1,0 +1,31 @@
+---
+
+- name: Copy templated blazegraph config files
+  template:
+    src: "{{ item }}"
+    dest: "{{ blazegraph_home_dir }}/conf/{{ item }}"
+    owner: "{{ blazegraph_user }}"
+    group: "{{ blazegraph_user }}"
+  with_items:
+    - RWStore.properties
+  notify: restart tomcat9
+
+- name: Copy blazegraph config files
+  copy:
+    src: "{{ item }}"
+    dest: "{{ blazegraph_home_dir }}/conf/{{ item }}"
+    owner: "{{ blazegraph_user }}"
+    group: "{{ blazegraph_user }}"
+  with_items:
+    - blazegraph.properties
+    - inference.nt
+  notify: restart tomcat9
+
+- name: Drop in templated web.xml file
+  template:
+    src: web.xml.j2
+    dest: "{{ blazegraph_webxml_path }}"
+    owner: "{{ blazegraph_user }}"
+    group: "{{ blazegraph_user }}"
+  notify: restart tomcat9
+  when: blazegraph_webxml_template

@@ -1,0 +1,31 @@
+---
+
+# Include variables and define needed variables.
+- name: Include OS-specific variables.
+  include_vars: "{{ ansible_os_family }}.yml"
+
+- name: Define tomcat9_home
+  set_fact:
+    tomcat9_home: "{{ __tomcat9_home }}"
+  when: tomcat9_home is not defined
+
+- name: Define tomcat9_version
+  set_fact:
+    tomcat9_version: "{{ __tomcat9_version }}"
+  when:
+    - tomcat9_version is not defined
+    - __tomcat9_version is defined
+
+- name: Define tomcat_binary_url
+  set_fact:
+    tomcat_binary_url: "{{ __tomcat_binary_url }}"
+  when:
+    - tomcat_binary_url is not defined
+    - __tomcat_binary_url is defined
+
+- name: Define tomcat_target_dir
+  set_fact:
+    tomcat_target_dir: "{{ __tomcat_target_dir }}"
+  when:
+    - tomcat_target_dir is not defined
+    - __tomcat_target_dir is defined

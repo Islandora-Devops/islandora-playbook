@@ -1,0 +1,73 @@
+- name: Build site for FITS microservice
+  blockinfile:
+    path: "{{ httpd_conf_directory }}/conf-available/CrayFits.conf"
+    create: yes
+    block: |
+      Alias "/crayfits" "{{ crayfits_home }}/CrayFits/public"
+      <Directory "{{ crayfits_home }}/CrayFits/public">
+        FallbackResource /crayfits/index.php
+        Require all granted
+        DirectoryIndex index.php
+        SetEnvIf Authorization "(.*)" HTTP_AUTHORIZATION=$1
+      </Directory>
+
+- name: Enable FITS site
+  file:
+    src: "{{ httpd_conf_directory }}/conf-available/CrayFits.conf"
+    dest: "{{ httpd_conf_directory_enabled}}/CrayFits.conf"
+    state: link
+
+- name: Change owner on html dir
+  file:
+    path: "{{ crayfits_home }}"
+    owner: "{{ webserver_app_user }}"
+    group: "{{ webserver_app_user }}"
+
+- name: Install FITS Microservice from Github
+  git:
+    repo: https://github.com/roblib/CrayFits.git
+    dest: "{{ crayfits_home }}/CrayFits"
+    force: yes
+
+- name: Clean Directory (Failure okay)
+  file:
+    path: "{{ crayfits_home }}/CrayFits/vendor/symfony/monolog-bundle"
+  with_items:
+    - absent
+    - directory
+  ignore_errors: yes
+
+- name: Change CrayFits directory ownership, group and permissions
+  file:
+    path: "{{ crayfits_home }}/CrayFits"
+    owner: "{{ webserver_app_user }}"
+    group: "{{ webserver_app_user }}"
+    mode: '0755'
+    recurse: True
+
+- name: Open file for logging
+  file:
+    path: "{{ crayfits_home }}/CrayFits/var"
+    owner: "{{ webserver_app_user }}"
+    group: "{{ webserver_app_user }}"
+    mode: '0777'
+    recurse: True
+
+- name: restart apache
+  service:
+    name: "{{ apache_service }}"
+    state: restarted
+
+- name: Check for Existing microservice
+  stat:
+    path: "{{ crayfits_home }}/CrayFits/vendor"
+  register: crayfits
+
+- name: Run Composer On Fits Microservice
+  composer:
+    command: update
+    working_dir: "{{ crayfits_home }}/CrayFits"
+  ignore_errors: yes
+  when: crayfits.stat.exists == False
+  become: true
+

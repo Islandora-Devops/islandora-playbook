@@ -1,0 +1,40 @@
+---
+
+- name: install tomcat9
+  apt:
+    name: "{{ item }}"
+    state: present
+    cache_valid_time: 3600
+  with_items: "{{ tomcat9_packages }}"
+
+- name: install tomcat9 admin
+  apt:
+    name: "{{ item }}"
+    state: present
+    cache_valid_time: 3600
+  with_items: "{{ tomcat9_admin_packages }}"
+  when: tomcat9_admin_install
+
+- name: Create a directory if it does not exist
+  ansible.builtin.file:
+    path: /etc/systemd/system/tomcat9.service.d
+    state: directory
+    mode: '0755'
+
+- name: Create file with sandbox overrides
+  copy:
+    dest: "/etc/systemd/system/tomcat9.service.d/override.conf"
+    content: |
+      [Service]
+      ReadWritePaths={{ fcrepo_home_dir }}/
+      ReadWritePaths={{ blazegraph_home_dir }}/data/
+    mode: '0644'
+
+- name: restart daemon service
+  ansible.builtin.systemd:
+    daemon_reload: yes
+
+- name: start tomcat9
+  service:
+    name: tomcat9
+    state: started

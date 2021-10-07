@@ -1,0 +1,23 @@
+---
+
+- name: Create Fedora DB (mysql)
+  mysql_db:
+    name: "{{ fcrepo_db_name }}"
+    login_host: "{{ fcrepo_db_host }}"
+    login_port: "{{ fcrepo_db_port }}"
+    login_user: "{{ fcrepo_db_root_user }}"
+    login_password:  "{{ fcrepo_db_root_password }}"
+    state: present
+  register: fcrepo_db_exists
+
+- name: Create Fedora DB User (mysql)
+  mysql_user:
+    name: "{{ fcrepo_db_user }}"
+    password: "{{ fcrepo_db_password }}"
+    login_host: "{{ fcrepo_db_host }}"
+    login_port: "{{ fcrepo_db_port }}"
+    login_user: "{{ fcrepo_db_root_user }}"
+    login_password:  "{{ fcrepo_db_root_password }}"
+    priv: "{{fcrepo_db_name}}.*:ALL"
+    state: present
+    host: "%"

@@ -1,0 +1,21 @@
+---
+
+- name: Create Fedora DB User (pgsql)
+  postgresql_user:
+    name: "{{ fcrepo_db_user }}"
+    password: "{{ fcrepo_db_password }}"
+    login_host: "{{ fcrepo_db_host }}"
+    login_port: "{{ fcrepo_db_port }}"
+    login_user: "{{ fcrepo_db_root_user }}"
+    login_password:  "{{ fcrepo_db_root_password }}"
+
+- name: Create Fedora DB (pgsql)
+  postgresql_db:
+    name: "{{ fcrepo_db_name }}"
+    login_host: "{{ fcrepo_db_host }}"
+    login_port: "{{ fcrepo_db_port }}"
+    login_user: "{{ fcrepo_db_root_user }}"
+    login_password:  "{{ fcrepo_db_root_password }}"
+    state: present
+    owner: "{{ fcrepo_db_user }}"
+  register: fcrepo_db_exists

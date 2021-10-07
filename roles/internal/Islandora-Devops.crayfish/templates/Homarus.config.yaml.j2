@@ -1,0 +1,36 @@
+# managed by Ansible
+
+homarus:
+  # path to the ffmpeg executable
+  executable: {{ crayfish_homarus_executable_config.executable }}
+  mime_types:
+    valid:
+{% for type in crayfish_homarus_executable_config.mime_types.valid %}
+      - {{ type }}
+{% endfor %}
+    default: {{ crayfish_homarus_executable_config.mime_types.default }}
+  mime_to_format:
+    valid:
+{% for format in crayfish_homarus_executable_config.mime_to_format.valid %}
+      - {{ format }}
+{% endfor %}
+    default: {{ crayfish_homarus_executable_config.mime_to_format.default }}
+
+
+fedora_resource:
+  base_url: {{ crayfish_houdini_fedora_base_url }}
+
+log:
+  # Valid log levels are:
+  # DEBUG, INFO, NOTICE, WARNING, ERROR, CRITICAL, ALERT, EMERGENCY, NONE
+  # log level none won't open logfile
+  level: {{ crayfish_homarus_log_level }}
+  file: {{ crayfish_homarus_log_file }}
+
+syn:
+  # toggles JWT security for service
+  enable: {{ crayfish_homarus_jwt_enabled }}
+  # Path to the syn config file for authentication.
+  # example can be found here:
+  # https://github.com/Islandora-CLAW/Syn/blob/main/conf/syn-settings.example.xml
+  config: {{ crayfish_homarus_jwt_config }}

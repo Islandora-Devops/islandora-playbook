@@ -1,0 +1,24 @@
+---
+- hosts: all
+  become: yes
+
+  pre_tasks:
+    - name: https://github.com/geerlingguy/ansible-role-java/issues/64#issuecomment-393299088
+      file:
+        path: /usr/share/man/man1
+        state: directory
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+      when: ansible_os_family == "Debian"
+
+  roles:
+    - role: geerlingguy.java
+      when: "ansible_os_family == 'Debian'"
+      java_packages:
+        - openjdk-8-jdk
+    - role: geerlingguy.java
+      when: "ansible_os_family == 'RedHat'"
+      java_packages:
+        - java-1.8.0-openjdk
+    - role_under_test
