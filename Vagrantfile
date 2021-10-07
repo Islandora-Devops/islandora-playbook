@@ -13,7 +13,8 @@ $virtualBoxDescription = ENV.fetch("ISLANDORA_VAGRANT_VIRTUALBOXDESCRIPTION", "I
 
 # Available boxes are 'islandora/8' and 'ubuntu/focal64'
 # Use 'ubuntu/focal64' to build a dev environment from scratch.
-# Use 'islandora/8' if you just want to download a ready to run VM.
+# Use 'islandora/8' if you just want to download a ready to run VM that is version 1.1.0 of Islandora
+# The 'islandora/8' box is no longer mantained.
 $vagrantBox = ENV.fetch("ISLANDORA_DISTRO", "ubuntu/focal64")
 
 # vagrant is the main user
