@@ -19,15 +19,11 @@ drupal_composer_dependencies:
   - "drupal/rest_oai_pmh:^1.0@beta"
   - "drupal/transliterate_filenames:^1.3"
   - "easyrdf/easyrdf:^1.1"
-  - "drupal/features:^3.11"
-  - "drupal/jwt:^1.0@beta"
-  - "drupal/flysystem:^2.0@alpha"
   - "drupal/context:^4.0@beta"
-  - "islandora/controlled_access_terms:^2"
-  - "islandora/islandora_defaults:^2"
+  - "--with-all-dependencies islandora/islandora_defaults:^2 islandora/openseadragon:^2 islandora/controlled_access_terms:^2"
   - "islandora-rdm/islandora_fits:dev-8.x-1.x"
 drupal_composer_project_package: "drupal/recommended-project:^9.1"
-drupal_composer_project_options: "--prefer-dist --stability dev --no-interaction"
+drupal_composer_project_options: "--prefer-dist --stability dev --no-interaction --with-all-dependencies"
 drupal_core_path: "{{ drupal_composer_install_dir }}/web"
 drupal_db_user: drupal8
 drupal_db_name: drupal8
@@ -46,7 +42,6 @@ drupal_enable_modules:
   - rest
   - restui
   - devel
-  - features
   - search_api_solr
   - facets
   - content_browser
