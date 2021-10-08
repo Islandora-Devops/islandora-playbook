@@ -23,7 +23,7 @@ drupal_composer_dependencies:
   - "--with-all-dependencies islandora/islandora_defaults:^2 islandora/openseadragon:^2 islandora/controlled_access_terms:^2"
   - "islandora-rdm/islandora_fits:dev-8.x-1.x"
 drupal_composer_project_package: "drupal/recommended-project:^9.1"
-drupal_composer_project_options: "--prefer-dist --stability dev --no-interaction --with-all-dependencies"
+drupal_composer_project_options: "--prefer-dist --stability dev --no-interaction"
 drupal_core_path: "{{ drupal_composer_install_dir }}/web"
 drupal_db_user: drupal8
 drupal_db_name: drupal8
