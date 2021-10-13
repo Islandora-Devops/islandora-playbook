@@ -3,7 +3,7 @@
 
 ## Introduction
 
-This is an Ansible playbook for Islandora 8. It also has a vagrant file to bring up a release or development virtual machine for Islandora 8. For an alternative installation using Docker, please see [ISLE](https://islandora.github.io/documentation/installation/docker-compose/).
+This is an Ansible playbook for provisioning an instance of Islandora. This repository includes a Vagrantfile, so `vagrant up` will create a local virtual machine and run the playbook on it. For an alternative installation using Docker, please see [ISLE](https://islandora.github.io/documentation/installation/docker-compose/).
 
 This virtual machine **should not** be used in production **yet**.
 
@@ -11,17 +11,9 @@ This virtual machine **should not** be used in production **yet**.
 
 ### Base box
 
-By default, Vagrant creates a complete Islandora 8 1.1.0 instance. This version is the current offical release of Islandora.
+By default the Vagrantfile builds Islandora on a `ubuntu/focal64` base box.   
 
-If you want to build a VM that pulls in the latest Islandora code (suitable for a development environment, for example), before running `vagrant up`, open `Vagrantfile` and change the `$vagrantBox` variable to 'ubuntu/focal64':
-
-```
-# Available boxes are 'islandora/8' and 'ubuntu/focal64'
-# Use 'ubuntu/focal64' to build a dev environment from scratch.
-# Use 'islandora/8' if you just want to download a ready to run VM.
-$vagrantBox = ENV.fetch("ISLANDORA_DISTRO", "islandora/8")
-```
-
+The [Islandora 8 base box](https://app.vagrantup.com/islandora/boxes/8) is now deprecated.
 
 ### System Resources
 
@@ -34,7 +26,7 @@ export ISLANDORA_VAGRANT_MEMORY=5040
 
 ## Use
 
-Detailed installation and usage instructions can be found on the [official installation documentation for Islandora 8](https://islandora.github.io/documentation/installation/playbook/).
+Detailed installation and usage instructions can be found on the [official installation documentation for Islandora](https://islandora.github.io/documentation/installation/playbook/).
 
 ## Connect
 
@@ -88,7 +80,7 @@ You can access the IIIF interface at: http://localhost:8080/cantaloupe/iiif/2/
 
 ### JWT
 
-Islandora 8 uses JWT for authentication across the stack. Crayfish microservices, Fedora, and Drupal all use them. 
+Islandora uses JWT for authentication across the stack. Crayfish microservices, Fedora, and Drupal all use them.
 Crayfish and Fedora have been set up to use a default token of `islandora` to make testing easier. To use it, just set
 the following header in HTTP requests:
 
