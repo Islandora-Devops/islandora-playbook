@@ -9,6 +9,23 @@ This virtual machine **should not** be used in production **yet**.
 
 ## Variables
 
+### macOS 12.0 Monterey VirtualBox Workaround
+
+VirtualBox has not been updated to work fully with macOS Monterey as of October, 2021.
+A workaround exists, which is to run VirtualBox in non-headless mode.
+
+In your Vagrantfile, add the line 'v.gui = true' to the configuration section near the top:
+
+```
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+  config.vm.provider "virtualbox" do |v|
+    v.name = "Islandora 8 Ansible"
+    v.gui = true
+  end
+```
+
+Discussion of this issue can be found on this issue in Vagrant's GitHub project: https://github.com/hashicorp/vagrant/issues/12557
+
 ### Base box
 
 By default the Vagrantfile builds Islandora on a `ubuntu/focal64` base box.   
