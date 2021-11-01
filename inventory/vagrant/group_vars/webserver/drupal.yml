@@ -1,18 +1,9 @@
 ---
 
-drupal_build_composer_project: false
 drupal_composer_install_dir: /var/www/html/drupal
 drupal_core_owner: "{{ ansible_user }}"
 
-drupal_deploy: true
-drupal_build_composer: false
-drupal_deploy_repo: https://github.com/islandora-devops/islandora-sandbox
-drupal_deploy_version: install-profile
 drupal_deploy_dir: "{{ drupal_composer_install_dir }}"
-drupal_deploy_update: yes
-drupal_deploy_composer_install: yes
-drupal_deploy_accept_hostkey: yes
-
 
 drupal_core_path: "{{ drupal_deploy_dir }}/web"
 drupal_db_user: drupal8
@@ -21,7 +12,6 @@ drupal_db_backend: "{{ claw_db }}"
 drupal_db_host: "127.0.0.1"
 drupal_domain: "claw.dev"
 drupal_site_name: "Islandora 8"
-drupal_install_profile: islandora_install_profile_demo
 drupal_account_name: admin
 
 drupal_trusted_hosts:
