@@ -1,0 +1,12 @@
+
+# This file managed by Ansible
+
+monolog:
+
+  handlers:
+
+    houdini:
+      type: rotating_file
+      path: {{ crayfish_houdini_log_file }}
+      level: {{ crayfish_houdini_log_level }}
+      max_files: 1

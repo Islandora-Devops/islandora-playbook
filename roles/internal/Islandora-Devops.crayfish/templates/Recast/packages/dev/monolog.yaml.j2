@@ -1,0 +1,12 @@
+
+# This file managed by Ansible
+
+monolog:
+
+  handlers:
+
+    recast:
+      type: rotating_file
+      path: {{ crayfish_recast_log_file }}
+      level: {{ crayfish_recast_log_level }}
+      max_files: 1

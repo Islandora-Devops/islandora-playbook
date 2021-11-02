@@ -50,7 +50,7 @@
 
 - name: Install crayfish code
   git:
-    repo: https://github.com/Islandora/Crayfish.git
+    repo: https://github.com/whikloj/Crayfish.git
     dest: "{{ crayfish_install_dir }}"
     version: "{{ crayfish_version_tag }}"
     force: yes
@@ -93,15 +93,9 @@
     src: "syn-settings.xml.jp2"
     dest: "{{ crayfish_install_dir }}/syn-settings.xml"
 
-- name: Configure crayfish code (Silex)
-  template:
-    src: "{{ item }}.config.yaml.j2"
-    dest: "{{ crayfish_install_dir }}/{{ item }}/cfg/config.yaml"
-  with_items: "{{ crayfish_silex_services }}"
-
 - name: Configure crayfish code (Symfony)
   include_tasks: "./tasks/symfony_config.yml"
-  with_items: "{{ crayfish_symfony_services }}"
+  with_items: "{{ crayfish_services }}"
 
 - name: Create httpd config directories
   file:

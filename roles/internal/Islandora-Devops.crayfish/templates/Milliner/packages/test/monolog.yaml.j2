@@ -1,0 +1,12 @@
+
+# This file managed by Ansible
+
+monolog:
+
+  handlers:
+
+    milliner:
+      type: rotating_file
+      path: {{ crayfish_milliner_log_file }}
+      level: {{ crayfish_milliner_log_level }}
+      max_files: 1
