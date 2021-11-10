@@ -17,6 +17,8 @@
           ],
         ],
       ];
+      global $content_directories;
+      $content_directories['sync'] = $app_root.'/../content/sync';
     path: "{{ drupal_trusted_hosts_file }}"
     marker: // {mark} ANSIBLE MANAGED BLOCK
 
@@ -37,6 +39,13 @@
   file:
     state: directory
     path: "{{ webserver_app_drupal_config_path }}"
+    owner: "{{ webserver_app_user }}"
+    group: "{{ webserver_app_user }}"
+
+- name: Create content sync directory.
+  file:
+    state: directory
+    path: "{{ drupal_deploy_dir }}/content/sync"
     owner: "{{ webserver_app_user }}"
     group: "{{ webserver_app_user }}"
 
