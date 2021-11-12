@@ -1,8 +1,0 @@
----
-
-- name: Create Karaf system user
-  user:
-    name: "{{ karaf_user }}"
-    system: yes
-    state: present
-  when: karaf_create_user

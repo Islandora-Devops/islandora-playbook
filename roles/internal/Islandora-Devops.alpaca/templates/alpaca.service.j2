@@ -1,0 +1,18 @@
+[Unit]
+Description=Alpaca messaging routes
+After=syslog.target network.target
+
+[Service]
+Type=forking
+
+Environment=ALPACA_HOME={{ alpaca_clone_directory }}
+Environment=ALPACA_CONFIG=alpaca.conf
+
+ExecStart={{ alpaca_clone_directory }}/startup.sh
+ExecStop=/bin/kill -15 $MAINPID
+
+User={{ alpaca_user }}
+Group={{ alpaca_group }}
+
+[Install]
+WantedBy=default.target

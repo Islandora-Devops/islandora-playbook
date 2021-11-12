@@ -1,0 +1,44 @@
+# Common options
+error.maxRedeliveries={{ alpaca_error_maxRedeliveries }}
+jms.brokerUrl={{ alpaca_jms_baseUrl }}
+jms.username={{ alpaca_jms_username }}
+jms.password={{ alpaca_jms_password }}
+jms.connections={{ alpaca_jms_connections }}
+
+# Custom Http client options
+# All timeouts in milliseconds
+request.configurer.enabled={{ alpaca_request_configurer_enabled }}
+request.timeout={{ alpaca_request_configurer_request_timeout }}
+connection.timeout={{ alpaca_request_configurer_connection_timeout }}
+socket.timeout={{ alpaca_request_configurer_socket_timeout }}
+
+# Solr indexer options
+fcrepo.indexer.enabled={{ alpaca_fcrepo_enabled }}
+fcrepo.indexer.node={{ alpaca_fcrepo_node }}
+fcrepo.indexer.delete={{ alpaca_fcrepo_node_delete }}
+fcrepo.indexer.media={{ alpaca_fcrepo_media }}
+fcrepo.indexer.external={{ alpaca_fcrepo_external }}
+fcrepo.indexer.milliner.baseUrl={{ alpaca_fcrepo_milliner_baseUrl }}
+fcrepo.indexer.concurrent-consumers={{ alpaca_fcrepo_concurrent_consumers }}
+fcrepo.indexer.max-concurrent-consumers={{ alpaca_fcrepo_max_consumers }}
+
+# Triplestore indexer options
+triplestore.indexer.enabled={{ alpaca_triplestore_enabled }}
+triplestore.baseUrl={{ alpaca_triplestore_baseUrl }}
+triplestore.index.stream={{ alpaca_triplestore_input_stream }}
+triplestore.delete.stream={{ alpaca_triplestore_delete_stream }}
+triplestore.indexer.concurrent-consumers={{ alpaca_triplestore_concurrent_consumers }}
+triplestore.indexer.max-concurrent-consumers={{ alpaca_triplestore_max_consumers }}
+
+# Derivative services
+derivative.systems.installed={{ connectors }}
+
+{% for conn in alpaca_derivative_connectors -%}
+  {%- set current = conn.name -%}
+  {%- for key,val in conn.items() -%}
+    {%- if key != 'name' -%}
+derivative.{{ current }}.{{ key|replace('_', '.') }}={{ val }}
+{% endif -%}
+  {%- endfor %}
+
+{% endfor %}

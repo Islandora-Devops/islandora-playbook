@@ -4,26 +4,10 @@ alpaca_from_source: no
 alpaca_version: main
 alpaca_clone_directory: /opt/alpaca
 
-alpaca_karaf_repos:
-  - mvn:org.apache.camel.karaf/apache-camel/2.20.4/xml/features
-  - mvn:org.apache.activemq/activemq-karaf/5.15.0/xml/features
-  - mvn:ca.islandora.alpaca/islandora-karaf/1.0.1/xml/features
+alpaca_user: tomcat
+alpaca_group: tomcat
 
-alpaca_features:
-  - fcrepo-service-activemq
-  - fcrepo-camel
-  - fcrepo-service-camel
-  - fcrepo-indexing-triplestore
-  - islandora-http-client
-  - islandora-indexing-triplestore
-  - islandora-indexing-fcrepo
-  - islandora-connector-derivative
-
-alpaca_karaf_dir: /opt/karaf
-alpaca_karaf_etc_dir: "{{ alpaca_karaf_dir }}/etc"
-alpaca_karaf_deploy_dir: "{{ alpaca_karaf_dir }}/deploy"
-alpaca_karaf_user: karaf
-alpaca_local_mvn_path: /opt/maven/repo
+alpaca_log_level: INFO
 
 triplestore_namespace: islandora
 alpaca_triplestore_base_url: http://localhost:8080/bigdata
@@ -33,50 +17,56 @@ alpaca_houdini_base_url: http://localhost:8000/houdini
 alpaca_homarus_base_url: http://localhost:8000/homarus
 alpaca_fits_base_url: http://localhost:8000/crayfits
 
-alpaca_settings:
-  - pid: ca.islandora.alpaca.http.client
-    settings:
-      token.value: islandora
-  - pid: org.fcrepo.camel.indexing.triplestore
-    settings:
-      input.stream: broker:topic:fedora
-      triplestore.reindex.stream: broker:queue:triplestore.reindex
-      triplestore.baseUrl: "{{ alpaca_triplestore_base_url }}/namespace/{{ triplestore_namespace }}/sparql"
-  - pid: ca.islandora.alpaca.indexing.triplestore
-    settings:
-      error.maxRedeliveries: 10
-      index.stream: broker:queue:islandora-indexing-triplestore-index
-      delete.stream: broker:queue:islandora-indexing-triplestore-delete
-      triplestore.baseUrl: "{{ alpaca_triplestore_base_url }}/namespace/{{ triplestore_namespace }}/sparql"
-  - pid: ca.islandora.alpaca.indexing.fcrepo
-    settings:
-      error.maxRedeliveries: 5
-      node.stream: broker:queue:islandora-indexing-fcrepo-content
-      node.delete.stream: broker:queue:islandora-indexing-fcrepo-delete
-      media.stream: broker:queue:islandora-indexing-fcrepo-media
-      file.stream: broker:queue:islandora-indexing-fcrepo-file
-      file.delete.stream: broker:queue:islandora-indexing-fcrepo-file-delete
-      milliner.baseUrl: "{{ alpaca_milliner_base_url }}"
-      gemini.baseUrl: "{{ alpaca_gemini_base_url }}"
+alpaca_error_maxRedeliveries: 5
 
-alpaca_blueprint_settings:
-  - pid: ca.islandora.alpaca.connector.ocr
-    in_stream: broker:queue:islandora-connector-ocr
-    derivative_service_url: http://localhost:8000/hypercube
-    error_max_redeliveries: 5
-    camel_context_id: IslandoraConnectorOCR
-  - pid: ca.islandora.alpaca.connector.houdini
-    in_stream: broker:queue:islandora-connector-houdini
-    derivative_service_url: "{{ alpaca_houdini_base_url }}/convert"
-    error_max_redeliveries: 5
-    camel_context_id: IslandoraConnectorHoudini
-  - pid: ca.islandora.alpaca.connector.homarus
-    in_stream: broker:queue:islandora-connector-homarus
-    derivative_service_url: "{{ alpaca_homarus_base_url }}/convert"
-    error_max_redeliveries: 5
-    camel_context_id: IslandoraConnectorHomarus
-  - pid: ca.islandora.alpaca.connector.fits
-    in_stream: broker:queue:islandora-connector-fits
-    derivative_service_url: "{{ alpaca_fits_base_url }}"
-    error_max_redeliveries: 5
-    camel_context_id: IslandoraConnectorFits
+alpaca_jms_baseUrl: tcp://localhost:61616
+alpaca_jms_username:
+alpaca_jms_password:
+alpaca_jms_connections: 10
+
+alpaca_request_configurer_enabled: false
+alpaca_request_configurer_request_timeout: -1
+alpaca_request_configurer_connection_timeout: -1
+alpaca_request_configurer_socket_timeout: -1
+
+alpaca_fcrepo_enabled: true
+alpaca_fcrepo_milliner_baseUrl: "{{ alpaca_milliner_base_url }}"
+alpaca_fcrepo_node: queue:islandora-indexing-fcrepo-content
+alpaca_fcrepo_node_delete: queue:islandora-indexing-fcrepo-delete
+alpaca_fcrepo_media: queue:islandora-indexing-fcrepo-media
+alpaca_fcrepo_external: queue:islandora-indexing-fcrepo-external
+alpaca_fcrepo_concurrent_consumers: -1
+alpaca_fcrepo_max_consumers: -1
+
+alpaca_triplestore_enabled: true
+alpaca_triplestore_baseUrl: "{{ alpaca_triplestore_base_url }}/namespace/{{ triplestore_namespace }}/sparql"
+alpaca_triplestore_input_stream: queue:islandora-indexing-triplestore-index
+alpaca_triplestore_delete_stream: queue:islandora-indexing-triplestore-delete
+alpaca_triplestore_concurrent_consumers: -1
+alpaca_triplestore_max_consumers: -1
+
+alpaca_derivative_connectors:
+  - name: ocr
+    enabled: true
+    in_stream: queue:islandora-connector-ocr
+    service_url: http://localhost:8000/hypercube
+    concurrent-consumers: -1
+    max-consumers: -1
+  - name: houdini
+    enabled: true
+    in_stream: queue:islandora-connector-houdini
+    service_url: "{{ alpaca_houdini_base_url }}/convert"
+    concurrent-consumers: -1
+    max-consumers: -1
+  - name: homarus
+    enabled: true
+    in_stream: queue:islandora-connector-homarus
+    service_url: "{{ alpaca_homarus_base_url }}/convert"
+    concurrent-consumers: -1
+    max-consumers: -1
+  - name: fits
+    enabled: true
+    in_stream: queue:islandora-connector-fits
+    service_url: "{{ alpaca_fits_base_url }}"
+    concurrent-consumers: -1
+    max-consumers: -1

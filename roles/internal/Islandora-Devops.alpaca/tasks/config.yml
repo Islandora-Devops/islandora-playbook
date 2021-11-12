@@ -1,13 +1,46 @@
 ---
 
-- name: Template settings
-  template:
-    src: alpaca.cfg.j2
-    dest: "{{ alpaca_karaf_etc_dir }}/{{ item.pid }}.cfg"
-  with_items: "{{ alpaca_settings }}"
+- name: Instantiate connectors variable.
+  set_fact:
+    connectors: ""
 
-- name: Template blueprint files
+- name: Create comma separated list of connectors
+  set_fact:
+    connectors: "{{ connectors }}{{ (idx > 0)|ternary(',','','') }}{{ item.name }}"
+  loop: "{{ alpaca_derivative_connectors }}"
+  loop_control:
+    index_var: idx
+
+- name: Template property and service file
   template:
-    src: blueprint.xml.j2
-    dest: "{{ alpaca_karaf_deploy_dir }}/{{ item.pid }}.blueprint.xml"
-  with_items: "{{ alpaca_blueprint_settings }}"
+    src: "{{ item }}"
+    dest: "{{ alpaca_clone_directory }}/{% if item.endswith('.j2') %}{{ item[:-3] }}{% else %}{{ item }}{% endif %}"
+  with_items:
+    - "alpaca.properties.j2"
+    - "alpaca.conf.j2"
+    - "alpaca.service.j2"
+    - "startup.sh"
+
+- name: Link service file
+  file:
+    src: "{{ alpaca_clone_directory }}/alpaca.service"
+    dest: "/etc/systemd/system/alpaca.service"
+    owner: "{{ alpaca_user }}"
+    group: "{{ alpaca_group }}"
+    state: link
+
+- name: Make log directory
+  file:
+    path: "{{ alpaca_clone_directory }}/logs"
+    state: directory
+    owner: "{{ alpaca_user }}"
+    group: "{{ alpaca_group }}"
+
+- name: Make startup executable
+  file:
+    path: "{{ alpaca_clone_directory }}/startup.sh"
+    state: touch
+    mode: u+rwx,g+rwx,o+rx
+
+- name: Start service
+  command: service alpaca start
