@@ -3,6 +3,7 @@
 alpaca_from_source: no
 alpaca_version: main
 alpaca_clone_directory: /opt/alpaca
+alpaca_jar_path: "{{ alpaca_clone_directory }}/islandora-alpaca-app/build/libs/islandora-alpaca-app-2.0.0-all.jar"
 
 alpaca_user: tomcat
 alpaca_group: tomcat

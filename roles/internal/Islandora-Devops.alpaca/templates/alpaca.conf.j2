@@ -2,7 +2,7 @@
 # the systemd/system/alpaca.service file
 
 ALPACA_HEAP=512m
-ALPACA_JAR=${ALPACA_HOME}/islandora-alpaca-app/build/libs/islandora-alpaca-app-2.0.0-all.jar
+ALPACA_JAR={{ alpaca_jar_path }}
 ALPACA_LOG_DIR=${ALPACA_HOME}/logs
 ALPACA_PROPERTIES=${ALPACA_HOME}/alpaca.properties
 ALPACA_LOG_LEVEL={{ alpaca_log_level }}
