@@ -8,5 +8,5 @@
 - import_playbook: solr.yml
 - import_playbook: tomcat.yml
 - import_playbook: crayfish.yml
-- import_playbook: karaf.yml
+- import_playbook: alpaca.yml
 - import_playbook: post-install.yml

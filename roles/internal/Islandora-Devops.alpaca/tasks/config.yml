@@ -42,5 +42,9 @@
     state: touch
     mode: u+rwx,g+rwx,o+rx
 
-- name: Start service
-  command: service alpaca start
+- name: Reload systemd and start Alpaca
+  systemd:
+    daemon-reload: yes
+    enabled: yes
+    state: restarted
+    name: alpaca
