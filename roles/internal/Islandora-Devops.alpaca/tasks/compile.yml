@@ -7,7 +7,17 @@
     version: "{{ alpaca_version }}"
   register: alpaca_git
 
+- name: Change directory permissions
+  file:
+    path: "{{ alpaca_clone_directory }}"
+    state: directory
+    owner: "{{ alpaca_user }}"
+    group: "{{ alpaca_group }}"
+    recurse: yes
+
 - name: Install Alpaca via Gradle
+  become: yes
+  become_user: "{{ alpaca_user }}"
   command: ./gradlew build shadowJar
   args:
     chdir: "{{ alpaca_clone_directory }}"

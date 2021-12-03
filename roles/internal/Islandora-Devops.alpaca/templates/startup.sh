@@ -1,11 +1,13 @@
 #!/bin/sh
 
-if [ -f "/usr/libexec/tomcat9/tomcat-locate-java.sh" ]; then
-  . /usr/libexec/tomcat9/tomcat-locate-java.sh
-fi
 if [ -z "$JAVA_HOME" ]; then
-  echo "Cannot locate JAVA, please define JAVA_HOME."
-  exit 1
+  if [ -d "/usr/lib/jvm/java-11-openjdk-amd64" ]; then
+    # Make a guess because this is only for Ubuntu
+    export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
+  else
+    echo "Cannot locate JAVA, please define JAVA_HOME."
+    exit 1
+  fi
 fi
 # Source the config file.
 . ${ALPACA_HOME}/${ALPACA_CONFIG}
