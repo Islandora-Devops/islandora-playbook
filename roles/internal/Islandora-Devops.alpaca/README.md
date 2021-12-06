@@ -31,12 +31,12 @@ alpaca_jar_path: "/opt/alpaca/islandora-alpaca-app/build/libs/islandora-alpaca-a
 
 Alpaca user:
 ```
-alpaca_user: tomcat
+alpaca_user: vagrant
 ```
 
 Alpaca group:
 ```
-alpaca_group: tomcat
+alpaca_group: vagrant
 ```
 
 Alpaca log level:
