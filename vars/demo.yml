@@ -1,0 +1,15 @@
+---
+
+drupal_build_composer_project: false
+
+drupal_deploy: true
+drupal_build_composer: false
+drupal_deploy_repo: https://github.com/islandora-devops/islandora-sandbox
+drupal_deploy_version: install-profile
+drupal_deploy_dir: "{{ drupal_composer_install_dir }}"
+drupal_deploy_update: yes
+drupal_deploy_composer_install: yes
+drupal_deploy_accept_hostkey: yes
+
+drupal_install_profile: islandora_install_profile_demo
+openseadragon_composer_item: "islandora/openseadragon:^2"

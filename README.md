@@ -5,7 +5,7 @@
 
 This is an Ansible playbook for provisioning an instance of Islandora. This repository includes a Vagrantfile, so `vagrant up` will create a local virtual machine and run the playbook on it. For an alternative installation using Docker, please see [ISLE](https://islandora.github.io/documentation/installation/docker-compose/).
 
-This virtual machine **should not** be used in production **yet**.
+This virtual machine **should not** be used in production **yet**, however the Ansible inventory can be used as the basis for a server deployment with everything besides the Drupal port behind a firewall.
 
 ## Variables
 
@@ -31,6 +31,16 @@ Discussion of this issue can be found on this issue in Vagrant's GitHub project:
 By default the Vagrantfile builds Islandora on a `ubuntu/focal64` base box.   
 
 The [Islandora 8 base box](https://app.vagrantup.com/islandora/boxes/8) is now deprecated.
+
+### Install Profile
+
+The Unix shell variable 'ISLANDORA_INSTALL_PROFILE' can be one of:
+
+standard - Installs a drupal/recommended-project base install and enables the Islandora and Islandora Defaults modules without any special configuration.
+
+demo - Installs the demo based on the install profile developed by Born Digital. This has a custom theme and more out-of-the-box customizations.
+
+This corresponds to the 'islandoar_profile' Ansible variable.
 
 ### System Resources
 
@@ -63,7 +73,7 @@ The default Drupal login details are:
 
 ### Fedora5
 
-The Fedora 5 REST API can be accessed at [http://localhost:8080/fcrepo/rest](http://localhost:8080/fcrepo/rest). 
+The Fedora 6 REST API can be accessed at [http://localhost:8080/fcrepo/rest](http://localhost:8080/fcrepo/rest). 
 
 Authentication is done via [Syn](https://github.com/Islandora-CLAW/Syn) using [JWT](https://jwt.io) tokens.
 

@@ -83,3 +83,6 @@
       when:  defaultdir_exists.stat.exists == true
       become: yes
 
+    # Include install profile-specific variables
+    - name: include Drupal install profile specific variables
+      include_vars: "vars/{{ islandora_profile }}.yml"

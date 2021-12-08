@@ -30,7 +30,10 @@
     - jwt.config.yml
     - key.key.islandora_rsa_key.yml
   register: drupal_jwt_config
-
+# Workaround for error validating configurations in islandora_defaults.
+- name: Enable Bartik
+  command: "{{ drush_path }} --root {{ drupal_core_path }} theme:enable bartik -y"
+  
 - name: Import JWT Config Into Drupal
   command: "{{ drush_path }} --root {{ drupal_core_path }} config-import -y --partial --source={{ webserver_app_jwt_config_path }}"
   when: drupal_jwt_config.changed is defined and drupal_jwt_config.changed

@@ -15,7 +15,7 @@
     target: "{{ webserver_document_root }}/matomo.sql"
     state: import
   ignore_errors: yes
-  when: motomo_sql_dump_create | changed
+  when: motomo_sql_dump_create is changed
 
 # create config.ini.php with default settings
 - name: Create config.ini.php
