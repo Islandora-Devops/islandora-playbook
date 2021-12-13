@@ -83,6 +83,14 @@
       when:  defaultdir_exists.stat.exists == true
       become: yes
 
+    - name: populate /etc/environment
+      lineinfile:
+        dest: "/etc/environment"
+        state: present
+        regexp: "^{{ item.key }}="
+        line: "{{ item.key }}={{ item.value}}"
+      with_items: "{{ os_environment }}"
+
     # Include install profile-specific variables
     - name: include Drupal install profile specific variables
       include_vars: "vars/{{ islandora_profile }}.yml"
