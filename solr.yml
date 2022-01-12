@@ -90,4 +90,5 @@
       command: "zip -q -d {{ item }} org/apache/logging/log4j/core/lookup/JndiLookup.class"
       with_items:
         - "{{ log4j_jars.stdout_lines }}"
+      ignore_errors: yes
       tags: solr
