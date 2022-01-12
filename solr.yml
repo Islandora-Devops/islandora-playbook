@@ -79,7 +79,7 @@
         cache_valid_time: 3600
     
     - name: Find any instances of vulnurable Log4J core JAR file
-      command: "find / -name log4j-core-2.1[0,1,2,3,4,5,6].?.jar"
+      command: "find / -name log4j-core-2.1[0,1,2,3,4,5].?.jar"
       register: log4j_jars
       changed_when: false
       until: files_to_copy is not failed
