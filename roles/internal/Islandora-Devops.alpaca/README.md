@@ -31,12 +31,12 @@ alpaca_jar_path: "/opt/alpaca/islandora-alpaca-app/build/libs/islandora-alpaca-a
 
 Alpaca user:
 ```
-alpaca_user: vagrant
+alpaca_user: {{ ansible_user }}
 ```
 
 Alpaca group:
 ```
-alpaca_group: vagrant
+alpaca_group: {{ ansible_user }}
 ```
 
 Alpaca log level:

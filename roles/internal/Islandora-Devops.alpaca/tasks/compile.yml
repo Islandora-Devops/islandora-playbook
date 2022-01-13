@@ -2,7 +2,7 @@
 
 - name: Clone CLAW Alpaca
   git:
-    repo: https://github.com/whikloj/Alpaca.git
+    repo: https://github.com/Islandora/Alpaca.git
     dest: "{{ alpaca_clone_directory }}"
     version: "{{ alpaca_version }}"
   register: alpaca_git

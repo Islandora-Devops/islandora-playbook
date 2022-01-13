@@ -2,7 +2,7 @@
 
 # Comment in to build Alpaca from source
  alpaca_from_source: yes
- alpaca_version: one-app
+ alpaca_version: 2.x
  alpaca_clone_directory: /opt/alpaca
  alpaca_log_level: DEBUG
 
