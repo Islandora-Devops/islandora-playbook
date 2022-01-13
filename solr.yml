@@ -70,3 +70,25 @@
       retries: 20
       delay: 3
       tags: solr
+
+    # Log4j December 2021 vulnurability fix.
+    - name: Install zip command
+      apt:
+        name: "zip"
+        state: present
+        cache_valid_time: 3600
+    
+    - name: Find any instances of vulnurable Log4J core JAR file
+      command: "find / -name log4j-core-2.1[0,1,2,3,4,5].?.jar"
+      register: log4j_jars
+      changed_when: false
+      until: files_to_copy is not failed
+      retries: 5
+      tags: solr
+    
+    - name: Delete Log4J JNDI class from JARs
+      command: "zip -q -d {{ item }} org/apache/logging/log4j/core/lookup/JndiLookup.class"
+      with_items:
+        - "{{ log4j_jars.stdout_lines }}"
+      ignore_errors: yes
+      tags: solr

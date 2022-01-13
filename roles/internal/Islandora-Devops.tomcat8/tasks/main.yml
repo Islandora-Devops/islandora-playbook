@@ -11,8 +11,7 @@
     - tomcat9
     - tomcat9-install
 
-- include: config.yml
-  static: no
+- include_tasks: config.yml
   tags:
     - tomcat9
     - tomcat9-config
