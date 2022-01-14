@@ -1,9 +1,9 @@
 ---
 
 alpaca_from_source: no
-alpaca_version: 2.x
+alpaca_version: 2.0.0
 alpaca_clone_directory: /opt/alpaca
-alpaca_jar_path: "{{ alpaca_clone_directory }}/islandora-alpaca-app/build/libs/islandora-alpaca-app-2.0.0-all.jar"
+alpaca_jar_path: "{{ alpaca_clone_directory }}/islandora-alpaca-app-{{ alpaca_version }}-all.jar"
 
 alpaca_user: "{{ ansible_ssh_user }}"
 alpaca_group: "{{ ansible_ssh_user }}"

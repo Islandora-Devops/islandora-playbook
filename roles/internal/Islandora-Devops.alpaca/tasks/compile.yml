@@ -23,3 +23,16 @@
     chdir: "{{ alpaca_clone_directory }}"
   when: alpaca_git.changed
 
+- name: Find Alpaca app jar
+  find:
+    paths: "{{ alpaca_clone_directory }}"
+    patterns: 'islandora-alpaca-app-*-all.jar'
+    recurse: yes
+    file_type: file
+  register: alpaca_files
+
+- name: Change path to jar
+  set_fact:
+    alpaca_jar_path: "{{ alpaca_files.files[0].path }}"
+  when: alpaca_files.files|length > 0
+
