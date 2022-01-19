@@ -40,7 +40,7 @@ standard - Installs a drupal/recommended-project base install and enables the Is
 
 demo - Installs the demo based on the install profile developed by Born Digital. This has a custom theme and more out-of-the-box customizations.
 
-This corresponds to the 'islandoar_profile' Ansible variable.
+This corresponds to the 'islandora_profile' Ansible variable.
 
 ### System Resources
 
