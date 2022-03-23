@@ -5,8 +5,8 @@ alpaca_version: 2.0.0
 alpaca_clone_directory: /opt/alpaca
 alpaca_jar_path: "{{ alpaca_clone_directory }}/islandora-alpaca-app-{{ alpaca_version }}-all.jar"
 
-alpaca_user: "{{ ansible_ssh_user }}"
-alpaca_group: "{{ ansible_ssh_user }}"
+alpaca_user: "{{ ansible_ssh_user | default(ansible_env.SUDO_USER, true) | default(ansible_env.USER, true) | default(ansible_user_id) }}"
+alpaca_group: "{{ ansible_ssh_user | default(ansible_env.SUDO_USER, true) | default(ansible_env.USER, true) | default(ansible_user_id) }}"
 
 alpaca_log_level: INFO
 
