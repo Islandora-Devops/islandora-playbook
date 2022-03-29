@@ -1,8 +1,0 @@
----
-
-- name: Download Karaf
-  get_url:
-    url: http://archive.apache.org/dist/karaf/{{ karaf_version }}/apache-karaf-{{ karaf_version }}.tar.gz
-    dest: "{{ karaf_staging_folder }}"
-    owner: "{{ karaf_user }}"
-    group: "{{ karaf_user }}"

@@ -1,6 +1,6 @@
 # Ansible Role: Blazegraph [![Build Status](https://travis-ci.org/Islandora-Devops/ansible-role-blazegraph.svg?branch=main)](https://travis-ci.org/Islandora-Devops/ansible-role-blazegraph)
 
-An Ansible role that installs [Blazegraph](https://www.blazegraph.com/) in a Karaf container on:
+An Ansible role that installs [Blazegraph](https://www.blazegraph.com/) on:
 
 * Centos/RHEL 7.x
 * Ubuntu Xenial

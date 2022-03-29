@@ -6,10 +6,11 @@
     - alpaca-compile
   when: alpaca_from_source
 
-- include: deploy.yml
+- include: download.yml
   tags:
     - alpaca
-    - alpaca-deploy
+    - alpaca-download
+  when: not alpaca_from_source
 
 - include: config.yml
   tags:

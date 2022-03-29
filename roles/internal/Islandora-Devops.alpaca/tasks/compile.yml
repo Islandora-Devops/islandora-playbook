@@ -1,45 +1,38 @@
 ---
 
-- name: Create maven repository directory
-  file:
-    state: directory
-    path: "{{ alpaca_local_mvn_path }}"
-
-- name: Create maven repository directory
-  file:
-    state: directory
-    path: "~/.m2"
-
-- name: Drop in templated Maven settings
-  template:
-    src: maven.xml.j2
-    dest: "~/.m2/settings.xml"
-
 - name: Clone CLAW Alpaca
   git:
-    repo: https://github.com/Islandora-CLAW/Alpaca.git
+    repo: https://github.com/Islandora/Alpaca.git
     dest: "{{ alpaca_clone_directory }}"
     version: "{{ alpaca_version }}"
   register: alpaca_git
 
+- name: Change directory permissions
+  file:
+    path: "{{ alpaca_clone_directory }}"
+    state: directory
+    owner: "{{ alpaca_user }}"
+    group: "{{ alpaca_group }}"
+    recurse: yes
+
 - name: Install Alpaca via Gradle
-  command: ./gradlew install
+  become: yes
+  become_user: "{{ alpaca_user }}"
+  command: ./gradlew build shadowJar
   args:
     chdir: "{{ alpaca_clone_directory }}"
   when: alpaca_git.changed
 
-- name: Make sure karaf has permissions to directory
-  file:
-    state: directory
-    path: "{{ alpaca_local_mvn_path }}"
+- name: Find Alpaca app jar
+  find:
+    paths: "{{ alpaca_clone_directory }}"
+    patterns: 'islandora-alpaca-app-*-all.jar'
     recurse: yes
-    owner: "{{ alpaca_karaf_user }}"
-    group: "{{ alpaca_karaf_user }}"
+    file_type: file
+  register: alpaca_files
 
-- name: Add local maven repository to karaf
-  lineinfile:
-    state: present
-    path: "{{alpaca_karaf_dir}}/etc/org.ops4j.pax.url.mvn.cfg"
-    insertafter: ^#org\.ops4j\.pax\.url\.mvn\.localRepository=$
-    line: org.ops4j.pax.url.mvn.localRepository={{ alpaca_local_mvn_path }}
-    regexp: ^org\.ops4j\.pax\.url\.mvn\.localRepository=
+- name: Change path to jar
+  set_fact:
+    alpaca_jar_path: "{{ alpaca_files.files[0].path }}"
+  when: alpaca_files.files|length > 0
+

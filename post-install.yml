@@ -60,7 +60,7 @@
       command: "{{ drush_path }} --root {{ drupal_core_path }} -y cset --input-format=yaml openseadragon.settings manifest_view iiif_manifest"
 
     - name: Force Alpaca host setting to override install profile.
-      command: "{{ drush_path }} --root {{ drupal_core_path }} -y -l localhost:{{ apache_listen_port }} cset islandora.settings broker_url tcp://{{ hostvars[groups['karaf'][0]].ansible_host }}:61613"
+      command: "{{ drush_path }} --root {{ drupal_core_path }} -y -l localhost:{{ apache_listen_port }} cset islandora.settings broker_url tcp://{{ hostvars[groups['alpaca'][0]].ansible_host }}:61613"
 
     - name: Run migrations
       command: "{{ drush_path }} --root {{ drupal_core_path }} -y -l localhost:{{ apache_listen_port }} --userid=1 mim --group=islandora"
