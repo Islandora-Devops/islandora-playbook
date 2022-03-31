@@ -19,6 +19,7 @@ fcrepo_db_name: fcrepo
 fcrepo_db_user: fcrepo
 fcrepo_db_host: "127.0.0.1"
 fcrepo_db_port: "3306"
+fcrepo_db_root_password: "{{ islandora_db_root_password }}"
 
 tomcat9_java_opts:
   - -Djava.awt.headless=true
