@@ -17,7 +17,7 @@
   version: 4.0.0
 
 - src: geerlingguy.composer
-  version: 1.7.0
+  version: 1.9.2
 
 - src: geerlingguy.git
   version: 2.0.2

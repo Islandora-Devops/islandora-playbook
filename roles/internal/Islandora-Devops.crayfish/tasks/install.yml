@@ -35,6 +35,14 @@
     version: "{{ crayfish_version_tag }}"
     force: yes
 
+- name: Fix Crayfish directory ownership
+  file:
+    state: directory
+    path: "{{ crayfish_install_dir }}"
+    owner: "{{ webserver_app_user }}"
+    group: "{{ webserver_app_user }}"
+    recurse: yes
+
 - name: Build crayfish code including dependencies
   composer:
     command: install
