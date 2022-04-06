@@ -1,6 +1,7 @@
 ---
 
 - hosts: crayfish
+  become: yes
 
   vars:
     php_version: "7.4"

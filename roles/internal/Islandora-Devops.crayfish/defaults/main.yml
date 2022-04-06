@@ -1,4 +1,4 @@
-crayfish_version_tag: 2.0.0
+crayfish_version_tag: 2.x
 
 crayfish_services:
   - Houdini
@@ -131,3 +131,7 @@ crayfish_recast_prefixes:
   pcdmuse: "http://pcdm.org/use#"
   webac: "http://fedora.info/definitions/v4/webac#"
   vcard: "http://www.w3.org/2006/vcard/ns#"
+
+webserver_app_user: "{% if ansible_os_family == 'RedHat' %}apache{% else %}www-data{% endif %}"
+crayfish_user: "{{ ansible_ssh_user | default(ansible_env.SUDO_USER, true) | default(ansible_env.USER, true) | default(ansible_user_id) }}"
+crayfish_group: "{{ ansible_ssh_user | default(ansible_env.SUDO_USER, true) | default(ansible_env.USER, true) | default(ansible_user_id) }}"

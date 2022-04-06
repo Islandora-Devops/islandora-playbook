@@ -1,5 +1,5 @@
 ---
-crayfish_version_tag: dev
+crayfish_version_tag: 2.x
 crayfish_db: "{{ claw_db }}"
 
 crayfish_fedora_base_url: "http://{{ hostvars[groups['tomcat'][0]].ansible_host }}:8080/fcrepo/rest"

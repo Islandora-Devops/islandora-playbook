@@ -28,14 +28,15 @@
     state: present
   with_items: "{{ crayfish_packages }}"
 
-  - name: Fix Crayfish directory ownership
-    file:
-      state: directory
-      path: "{{ crayfish_install_dir }}"
-      owner: "{{ webserver_app_user }}"
-      group: "{{ webserver_app_user }}"
-      recurse: yes
-      become: yes
+- name: Fix Crayfish directory ownership
+  file:
+    state: directory
+    path: "{{ crayfish_install_dir }}"
+    owner: "{{ webserver_app_user }}"
+    group: "{{ webserver_app_user }}"
+    mode: "g+rw"
+    recurse: yes
+    force: yes
 
 - name: Install crayfish code
   git:
@@ -43,12 +44,14 @@
     dest: "{{ crayfish_install_dir }}"
     version: "{{ crayfish_version_tag }}"
     force: yes
+  become_user: "{{ crayfish_user }}"
 
 - name: Build crayfish code including dependencies
   composer:
     command: install
     working_dir: "{{ crayfish_install_dir }}/{{ item }}"
   with_items: "{{ crayfish_services }}"
+  become_user: "{{ crayfish_user }}"
 
 - name: Get SSL keys
   include_role:

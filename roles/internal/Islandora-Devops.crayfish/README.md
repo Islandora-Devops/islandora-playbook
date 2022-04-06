@@ -11,7 +11,7 @@ Available variables are listed below, along with default values:
 
 ```
 # Crayfish version to install
-crayfish_version_tag: 0.0.7
+crayfish_version_tag: 2.x
 # Crayfish services to install
 crayfish_services:
   - Gemini
