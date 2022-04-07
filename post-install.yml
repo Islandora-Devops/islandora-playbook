@@ -63,7 +63,7 @@
       command: "{{ drush_path }} --root {{ drupal_core_path }} -y -l localhost:{{ apache_listen_port }} cset islandora.settings broker_url tcp://{{ hostvars[groups['alpaca'][0]].ansible_host }}:61613"
 
     - name: Run migrations
-      command: "{{ drush_path }} --root {{ drupal_core_path }} -y -l localhost:{{ apache_listen_port }} --userid=1 mim --group=islandora"
+      command: "{{ drush_path }} --root {{ drupal_core_path }} -y -l localhost:{{ apache_listen_port }} --userid=1 mim islandora_tags,islandora_defaults_tags"
 
     - name: Add vagrant user to webserver app user group
       user: name={{ vagrant_user }}
