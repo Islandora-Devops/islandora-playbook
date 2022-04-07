@@ -38,6 +38,15 @@
     recurse: yes
     force: yes
 
+- name: Create Islandora log dir
+  file:
+    path: "{{ crayfish_log_directory }}"
+    state: directory
+    owner: "{{ crayfish_user }}"
+    group: "{{ crayfish_user }}"
+    mode: "urwx,gr,o-rwx"
+    recurse: yes
+
 - name: Install crayfish code
   git:
     repo: https://github.com/Islandora/Crayfish.git
@@ -45,6 +54,21 @@
     version: "{{ crayfish_version_tag }}"
     force: yes
   become_user: "{{ crayfish_user }}"
+
+- name: "Get symfony/flex version"
+  composer:
+    command: show
+    working_dir: "{{ crayfish_install_dir }}/Houdini"
+    arguments: symfony/flex
+  changed_when: true
+  register: flex_package_info
+  ignore_errors: true
+  
+- name: "Delete Houdini vendor folder to update symfony/flex"
+  file:
+    state: absent
+    path: "{{ crayfish_install_dir }}/Houdini/vendor"
+  when: "'versions : * v1.13.3' in flex_package_info.stdout"
 
 - name: Build crayfish code including dependencies
   composer:
@@ -73,14 +97,6 @@
 - name: Configure crayfish code (Symfony)
   include_tasks: "./tasks/symfony_config.yml"
   with_items: "{{ crayfish_symfony_services }}"
-
-- name: Create Islandora log dir
-  file:
-    path: "{{ crayfish_log_directory }}"
-    state: directory
-    owner: "{{ crayfish_user }}"
-    group: "{{ crayfish_user }}"
-    mode: "urwx,gr,o-rwx"
 
 - name: Create httpd config directories
   file:
