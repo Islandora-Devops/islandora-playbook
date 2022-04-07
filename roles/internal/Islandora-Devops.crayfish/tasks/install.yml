@@ -32,11 +32,12 @@
   file:
     state: directory
     path: "{{ crayfish_install_dir }}"
-    owner: "{{ webserver_app_user }}"
-    group: "{{ webserver_app_user }}"
+    owner: "{{ crayfish_user }}"
+    group: "{{ crayfish_user }}"
     mode: "g+rw"
     recurse: yes
     force: yes
+  become: true
 
 - name: Create Islandora log dir
   file:
@@ -54,6 +55,7 @@
     version: "{{ crayfish_version_tag }}"
     force: yes
   become_user: "{{ crayfish_user }}"
+  become: true
 
 - name: "Get symfony/flex version"
   composer:
@@ -76,6 +78,7 @@
     working_dir: "{{ crayfish_install_dir }}/{{ item }}"
   with_items: "{{ crayfish_services }}"
   become_user: "{{ crayfish_user }}"
+  become: true
 
 - name: Get SSL keys
   include_role:
@@ -117,6 +120,7 @@
     owner: "{{ crayfish_user }}"
     group: "{{ crayfish_user }}"
   with_items: "{{ crayfish_services }}"
+  become: yes
 
 - name: Symlink crayfish httpd config file into action
   file:
@@ -127,3 +131,4 @@
     state: link
   with_items: "{{ crayfish_services }}"
   notify: restart apache
+  become: yes
