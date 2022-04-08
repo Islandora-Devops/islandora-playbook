@@ -6,23 +6,24 @@ drupal_build_composer_project: true
 drupal_composer_dependencies:
   - "zaporylie/composer-drupal-optimizations:^1.1" 
   - "drupal/devel:^4.0"
-  - "drupal/core-dev:^9.1"
+  - "--with-all-dependencies drupal/core:^9.3@stable drupal/core-recommended:^9.3@stable"
+  - "drupal/core-dev:^9.3@stable"
   - "drush/drush:^10.3"
   - "drupal/rdfui:^1.0-beta1"
   - "drupal/restui:^1.16"
   - "drupal/search_api_solr:^4.1"
   - "drupal/facets:^1.6"
-  - "drupal/content_browser:^1.0@alpha"
+  - "drupal/content_browser:^1.0"
   - "drupal/matomo:^1.7"
   - "drupal/pdf:1.x-dev"
-  - "drupal/admin_toolbar:^2.0"
+  - "drupal/admin_toolbar:^3.1"
   - "drupal/rest_oai_pmh:^1.0@beta"
   - "drupal/transliterate_filenames:^1.3"
   - "easyrdf/easyrdf:^1.1"
   - "drupal/context:^4.0@beta"
   - "--with-all-dependencies islandora/islandora_defaults:^2 islandora/openseadragon:^2 islandora/controlled_access_terms:^2"
   - "islandora-rdm/islandora_fits:dev-8.x-1.x"
-drupal_composer_project_package: "drupal/recommended-project:^9.1"
+drupal_composer_project_package: "drupal/recommended-project:^9.3@stable"
 
 drupal_install_profile: standard
 drupal_enable_modules:
