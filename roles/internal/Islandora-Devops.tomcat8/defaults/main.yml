@@ -1,5 +1,6 @@
 tomcat9_packages:
   - tomcat9
+  - libopenjp2-tools
 tomcat9_admin_packages:
   - tomcat9-admin
 
