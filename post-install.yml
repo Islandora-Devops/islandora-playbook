@@ -37,7 +37,7 @@
     - name: start tomcat9
       service:
         name: tomcat9
-        state: started    
+        state: restarted
 
     - name: Add admin to fedoraAdmin role
       command: "{{ drush_path }} --root {{ drupal_core_path }} -y urol fedoraadmin admin"
