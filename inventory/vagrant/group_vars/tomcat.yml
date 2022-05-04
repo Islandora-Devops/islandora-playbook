@@ -69,7 +69,7 @@ cantaloupe_deploy_war_path: "{{ tomcat9_home }}/webapps"
 cantaloupe_user: tomcat
 cantaloupe_group: tomcat
 cantaloupe_admin_enabled: "true"
-cantaloupe_OpenJpegProcessor_path_to_binaries: /usr/local/bin
+cantaloupe_OpenJpegProcessor_path_to_binaries: /usr/bin
 cantaloupe_log_application_ConsoleAppender_enabled: "false"
 cantaloupe_log_application_FileAppender_enabled: "true"
 cantaloupe_log_application_FileAppender_pathname: "{{ cantaloupe_log_path }}/application.log"
@@ -82,3 +82,5 @@ cantaloupe_cache_derivative: FilesystemCache
 cantaloupe_create_FilesystemCache_dir: yes
 cantaloupe_resolver_static: HttpSource
 cantaloupe_HttpResolver_BasicLookupStrategy_url_prefix: ""
+cantaloupe_processor_selection_strategy: ManualSelectionStrategy
+cantaloupe_StreamProcessor_retrieval_strategy: CacheStrategy
