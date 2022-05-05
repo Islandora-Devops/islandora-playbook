@@ -16,6 +16,8 @@ crayfish_log_directory: /var/log/islandora
 crayfish_drupal_base_url: http://localhost:8000
 crayfish_fedora_base_url: http://localhost:8080/fcrepo/rest
 
+crayfish_webserver_app_user: "{% if ansible_os_family == 'RedHat' %}apache{% else %}www-data{% endif %}"
+
 # Houdini default config
 crayfish_houdini_log_file: /var/log/islandora/houdini.log
 crayfish_houdini_log_level: DEBUG
@@ -98,7 +100,7 @@ crayfish_homarus_executable_config:
         format: m4a
       - mimetype: image/jpeg
         format: image2pipe
-    default: 
+    default:
       mimetype: video/mp4
       format: mp4
 
