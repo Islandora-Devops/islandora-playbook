@@ -16,7 +16,7 @@ grok_clone_directory: /opt/grok
 
 Version to install:
 ```
-grok_version_tag: v2.3.0
+grok_version_tag: v3.1.0
 ```
 
 ## Dependencies

@@ -3,7 +3,7 @@
   become: yes
 
   vars:
-    crayfish_version_tag: "dev"
+    crayfish_version_tag: "2.x"
     php_version: "7.4"
     php_packages_extra:
       - libapache2-mod-php7.4

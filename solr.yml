@@ -84,6 +84,7 @@
       changed_when: false
       until: files_to_copy is not failed
       retries: 5
+      ignore_errors: yes
       tags: solr
     
     - name: Delete Log4J JNDI class from JARs

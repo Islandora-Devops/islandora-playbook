@@ -28,18 +28,57 @@
     state: present
   with_items: "{{ crayfish_packages }}"
 
+- name: Fix Crayfish directory ownership
+  file:
+    state: directory
+    path: "{{ crayfish_install_dir }}"
+    owner: "{{ crayfish_user }}"
+    group: "{{ crayfish_user }}"
+    mode: "g+rw"
+    recurse: yes
+    force: yes
+  become: true
+
+- name: Create Islandora log dir
+  file:
+    path: "{{ crayfish_log_directory }}"
+    state: directory
+    owner: "{{ crayfish_user }}"
+    group: "{{ crayfish_user }}"
+    mode: "urwx,gr,o-rwx"
+    recurse: yes
+
 - name: Install crayfish code
   git:
     repo: https://github.com/Islandora/Crayfish.git
     dest: "{{ crayfish_install_dir }}"
     version: "{{ crayfish_version_tag }}"
     force: yes
+  become_user: "{{ crayfish_user }}"
+  become: true
+
+- name: "Get symfony/flex version"
+  composer:
+    command: show
+    working_dir: "{{ crayfish_install_dir }}/Houdini"
+    arguments: symfony/flex
+  changed_when: true
+  register: flex_package_info
+  ignore_errors: true
+  
+- name: "Delete Houdini vendor folder to update symfony/flex"
+  file:
+    state: absent
+    path: "{{ crayfish_install_dir }}/Houdini/vendor"
+  when: "'versions : * v1.13.3' in flex_package_info.stdout"
 
 - name: Build crayfish code including dependencies
   composer:
     command: install
     working_dir: "{{ crayfish_install_dir }}/{{ item }}"
   with_items: "{{ crayfish_services }}"
+  become_user: "{{ crayfish_user }}"
+  become: true
 
 - name: Get SSL keys
   include_role:
@@ -62,14 +101,6 @@
   include_tasks: "./tasks/symfony_config.yml"
   with_items: "{{ crayfish_symfony_services }}"
 
-- name: Create Islandora log dir
-  file:
-    path: "{{ crayfish_log_directory }}"
-    state: directory
-    owner: "{{ crayfish_user }}"
-    group: "{{ crayfish_user }}"
-    mode: "urwx,gr,o-rwx"
-
 - name: Create httpd config directories
   file:
     path: "{{ httpd_conf_directory }}/{{ item }}/"
@@ -89,6 +120,7 @@
     owner: "{{ crayfish_user }}"
     group: "{{ crayfish_user }}"
   with_items: "{{ crayfish_services }}"
+  become: yes
 
 - name: Symlink crayfish httpd config file into action
   file:
@@ -99,3 +131,4 @@
     state: link
   with_items: "{{ crayfish_services }}"
   notify: restart apache
+  become: yes

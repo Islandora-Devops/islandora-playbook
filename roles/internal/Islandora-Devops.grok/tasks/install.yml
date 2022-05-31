@@ -17,6 +17,7 @@
     repo: https://github.com/GrokImageCompression/grok.git
     dest: "{{ grok_clone_directory }}"
     version: "{{ grok_version_tag }}"
+    force: yes
 
 - name: Make build directory
   file:
