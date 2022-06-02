@@ -6,7 +6,6 @@ drupal_build_composer_project: true
 drupal_composer_dependencies:
   - "zaporylie/composer-drupal-optimizations:^1.1" 
   - "drupal/devel:^4.0"
-  - "drupal/core-dev:^9.1"
   - "drush/drush:^10.3"
   - "drupal/rdfui:^1.0-beta1"
   - "drupal/restui:^1.16"
@@ -20,9 +19,11 @@ drupal_composer_dependencies:
   - "drupal/transliterate_filenames:^1.3"
   - "easyrdf/easyrdf:^1.1"
   - "drupal/context:^4.0@beta"
-  - "--with-all-dependencies islandora/islandora_defaults:^2 islandora/openseadragon:^2 islandora/controlled_access_terms:^2"
+  - "drupal/flysystem:^2@beta"
+  - "islandora/islandora:^2.3"
+  - "islandora/islandora_defaults:^2.1"
   - "islandora-rdm/islandora_fits:dev-8.x-1.x"
-drupal_composer_project_package: "drupal/recommended-project:^9.1"
+drupal_composer_project_package: "drupal/recommended-project:^9@stable"
 
 drupal_install_profile: standard
 drupal_enable_modules:

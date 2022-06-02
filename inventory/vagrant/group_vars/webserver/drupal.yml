@@ -1,6 +1,7 @@
 ---
 
 drupal_composer_install_dir: /var/www/html/drupal
+drupal_composer_project_options: "--prefer-dist --no-interaction"
 drupal_core_owner: "{{ ansible_user }}"
 
 drupal_deploy_dir: "{{ drupal_composer_install_dir }}"
