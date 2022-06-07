@@ -18,6 +18,7 @@
     - geerlingguy.php-mysql
     - geerlingguy.git
     - geerlingguy.composer
+    - composer-plugins-fix
     - geerlingguy.drush
     - geerlingguy.drupal
     - perms-fix

@@ -20,8 +20,8 @@ drupal_composer_dependencies:
   - "easyrdf/easyrdf:^1.1"
   - "drupal/context:^4.0@beta"
   - "drupal/flysystem:^2@beta"
-  - "islandora/islandora:^2.3"
-  - "islandora/islandora_defaults:^2.1"
+  - "islandora/islandora:*"
+  - "islandora/islandora_defaults:*"
   - "islandora-rdm/islandora_fits:dev-8.x-1.x"
 drupal_composer_project_package: "drupal/recommended-project:^9@stable"
 
