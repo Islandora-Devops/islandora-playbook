@@ -1,20 +1,15 @@
 ---
 
-  - name: Webserver app user home folder debug
-    debug: var=ansible_env.HOME
-    become_user: "{{ webserver_app_user }}"
-    become: true
-
-  - name: Get webserver app user home folder
-    set_fact:
-      webserver_app_user_home: "{{ ansible_env.HOME }}"
-    become_user: "{{ webserver_app_user }}"
-    become: yes
+  - name: Get webserver app user properties
+    user:
+      name: "{{ webserver_app_user }}"
+      state: present
+    register: webserver_app_user_properties
 
   - name: Create composer config folder for webserver app user
     file:
       state: directory
-      path: "{{ webserver_app_user_home }}/.config"
+      path: "{{ webserver_app_user_properties.home }}/.config"
       owner: "{{ webserver_app_user }}"
       group: "{{ webserver_app_user }}"
 
@@ -23,10 +18,10 @@
       command: config
       global_command: yes
       arguments: "allow-plugins.{{ item }} true"
-    with_items:
-      composer/installers
-      drupal/core-composer-scaffold
-      drupal/core-project-message
-      zaporylie/composer-drupal-optimizations
+    loop:
+      - composer/installers
+      - drupal/core-composer-scaffold
+      - drupal/core-project-message
+      - zaporylie/composer-drupal-optimizations
     become_user: "{{ webserver_app_user }}"
     become: yes

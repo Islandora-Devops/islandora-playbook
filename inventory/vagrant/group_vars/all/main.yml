@@ -14,6 +14,7 @@ islandora_extra_ubuntu_packages:
   - build-essential
   - vim
   - python3-mysqldb
+  - acl
 
 islandora_extra_centos_packages:
   - wget
