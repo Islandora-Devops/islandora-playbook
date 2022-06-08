@@ -1,27 +1,12 @@
 ---
 
-  - name: Get webserver app user properties
-    user:
-      name: "{{ webserver_app_user }}"
-      state: present
-    register: webserver_app_user_properties
-
-  - name: Create composer config folder for webserver app user
-    file:
-      state: directory
-      path: "{{ webserver_app_user_properties.home }}/.config"
-      owner: "{{ webserver_app_user }}"
-      group: "{{ webserver_app_user }}"
-
   - name: Explicitly allow composer plugins for drupal
     community.general.composer:
       command: config
-      global_command: yes
+      global_command: true
       arguments: "allow-plugins.{{ item }} true"
     loop:
       - composer/installers
       - drupal/core-composer-scaffold
       - drupal/core-project-message
       - zaporylie/composer-drupal-optimizations
-    become_user: "{{ webserver_app_user }}"
-    become: yes
