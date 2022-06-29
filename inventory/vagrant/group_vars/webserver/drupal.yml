@@ -18,6 +18,7 @@ drupal_account_name: admin
 drupal_trusted_hosts:
   - ^localhost$
   - "{{ hostvars[groups['webserver'][0]].ansible_host }}"
+  - "^' . preg_quote($_SERVER['SERVER_NAME']) . '$"
 drupal_trusted_hosts_file: "{{ drupal_core_path }}/sites/default/settings.php"
 drupal_public_filesystem: "{{ drupal_core_path }}/sites/default/files"
 drupal_external_libraries_directory: "{{ drupal_core_path }}/libraries"
