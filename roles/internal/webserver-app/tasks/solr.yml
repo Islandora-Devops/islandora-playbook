@@ -15,6 +15,6 @@
 
 - name: Create SOLR config.zip
   command:
-    cmd: "{{ drush_path }} --root {{ drupal_core_path }} -y solr-gsc default_solr_server solr_config.zip 7.1"
+    cmd: "{{ drush_path }} --root {{ drupal_core_path }} -y solr-gsc default_solr_server solr_config.zip {{ solr_version }}"
     chdir: "{{ drupal_core_path }}"
 

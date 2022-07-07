@@ -1,4 +1,4 @@
-solr_version: "8.11.1"
+solr_version: "8.11.2"
 
 solr_cores:
   - ISLANDORA
