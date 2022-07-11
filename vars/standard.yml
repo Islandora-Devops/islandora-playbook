@@ -4,7 +4,6 @@ drupal_build_composer_project: true
 
 
 drupal_composer_dependencies:
-  - "zaporylie/composer-drupal-optimizations:^1.1" 
   - "drupal/devel:^4.0"
   - "drush/drush:^10.3"
   - "drupal/rdfui:^1.0-beta1"
