@@ -51,6 +51,9 @@
 
 - name: Import features
   command: "{{ drush_path }} --root {{ drupal_core_path }} -y fim islandora_core_feature,islandora_defaults"
+
+- name: Enable EVA views
+  command: "{{ drush_path }} --root {{ drupal_core_path }} -y ven display_media"
     
 - name: Import search feature
   command: "{{ drush_path }} --root {{ drupal_core_path }} -y fim islandora_search"
