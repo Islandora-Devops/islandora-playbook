@@ -41,6 +41,7 @@
 
     - name: Add admin to fedoraAdmin role
       command: "{{ drush_path }} --root {{ drupal_core_path }} -y urol fedoraadmin admin"
+      when: islandora_profile != 'minimal'
 
     # Set jsonld module to strip ?_format=jsonld
     - name: Set JSONLD Config
@@ -49,6 +50,7 @@
     - name: Set pseudo field bundles
       command: "{{ drush_path }} --root {{ drupal_core_path }} -y cset --input-format=yaml islandora.settings gemini_pseudo_bundles.{{ item.0 }} {{ item.1 }}"
       with_indexed_items: "{{ drupal_gemini_pseudo_bundles }}"
+      when: islandora_profile != 'minimal'
 
     - name: Set media urls
       command: "{{ drush_path }} --root {{ drupal_core_path }} -y cset --input-format=yaml media.settings standalone_url true"
@@ -62,8 +64,12 @@
     - name: Force Alpaca host setting to override install profile.
       command: "{{ drush_path }} --root {{ drupal_core_path }} -y -l localhost:{{ apache_listen_port }} cset islandora.settings broker_url tcp://{{ hostvars[groups['alpaca'][0]].ansible_host }}:61613"
 
-    - name: Run migrations
-      command: "{{ drush_path }} --root {{ drupal_core_path }} -y -l localhost:{{ apache_listen_port }} --userid=1 mim islandora_tags,islandora_defaults_tags"
+    - name: Run core islandora migration
+      command: "{{ drush_path }} --root {{ drupal_core_path }} -y -l localhost:{{ apache_listen_port }} --userid=1 mim islandora_tags"
+
+    - name: Run islandora defaults migration
+      command: "{{ drush_path }} --root {{ drupal_core_path }} -y -l localhost:{{ apache_listen_port }} --userid=1 mim islandora_defaults_tags"
+      when: islandora_profile != 'minimal'
 
     - name: Add vagrant user to webserver app user group
       user: name={{ vagrant_user }}
@@ -87,6 +93,7 @@
         group: "{{ webserver_app_user }}"
         mode: 0775
         recurse: yes
+      when: islandora_profile != 'minimal'
 
     - name: Chown controlled access terms default configuration
       file:
@@ -96,6 +103,7 @@
         group: "{{ webserver_app_user }}"
         mode: 0775
         recurse: yes
+      when: islandora_profile != 'minimal'
 
     - name: Clear cache
       command: "{{ drush_path }} --root {{ drupal_core_path }} -y cr"
