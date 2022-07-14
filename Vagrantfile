@@ -16,7 +16,7 @@ $virtualBoxDescription = ENV.fetch("ISLANDORA_VAGRANT_VIRTUALBOXDESCRIPTION", "I
 # Use 'islandora/8' if you just want to download a ready to run VM that is version 1.1.0 of Islandora
 # The 'islandora/8' box is no longer mantained.
 $vagrantBox = ENV.fetch("ISLANDORA_DISTRO", "ubuntu/focal64")
-# Currently 'standard' and 'demo' are available.
+# Currently 'standard', 'minimal', and 'demo' are available.
 $drupalProfile = ENV.fetch("ISLANDORA_INSTALL_PROFILE", "standard")
 
 # vagrant is the main user

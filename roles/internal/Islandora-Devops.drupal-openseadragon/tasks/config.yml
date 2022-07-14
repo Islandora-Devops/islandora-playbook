@@ -1,5 +1,8 @@
 ---
 
+- name: Clear drupal cache
+  shell:  "{{ openseadragon_drush_path }} --root {{ openseadragon_composer_root }}/web cr"
+
 - name: Check if modules are enabled
   shell: "{{ openseadragon_drush_path }} --root {{ openseadragon_composer_root }}/web pm-list --format=json"
   register: openseadragon_enable_module_status
