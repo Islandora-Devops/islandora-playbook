@@ -1,6 +1,6 @@
 # Install location
 
-matomo_version: "4.4.1"
+matomo_version: "4.10.1"
 matomo_host: localhost
 webserver_document_root: /var/www/html
 matomo_install_dir: /var/www/html/matomo
@@ -31,7 +31,7 @@ matomo_admin_user: admin
 ## More info about pwd: https://matomo.org/faq/how-to/faq_191/
 matomo_admin_user_password: $2y$10$vMQuIJ8tgqswNDd3hzBksuOnPPJ/EDcYCBGdPb8pKdnyWXVhf.qB2
 matomo_admin_user_email: admin@islandora.ca
-matomo_site_name: "Islandora CLAW"
+matomo_site_name: "Islandora"
 matomo_site_url: http://localhost:8000
 matomo_site_timezone: "America/Toronto"
 
