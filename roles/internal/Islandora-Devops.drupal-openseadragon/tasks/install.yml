@@ -6,6 +6,7 @@
     arguments: "{{ openseadragon_composer_item }}"
     working_dir: "{{ openseadragon_composer_root }}"
   become: no
+  when: openseadragon_composer_require
 
 - name: Check if Seadragon Library Exists
   stat:
