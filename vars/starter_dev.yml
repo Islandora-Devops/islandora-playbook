@@ -9,16 +9,14 @@ drupal_deploy_version: implementation
 drupal_deploy_dir: "{{ drupal_composer_install_dir }}"
 drupal_deploy_composer_install: true
 
-
+# XXX: Not usable with `drupal_deploy`.
 drupal_composer_dependencies: []
-# Presently pointing at the main branch.
-drupal_composer_project_package: 'islandora/islandora-starter-site:dev-main'
 
 # XXX: Strictly, irrelevant due to using the `--existing-config` flag.
 drupal_install_profile: minimal
 
 # None necessary, due to using an existing configuration.
-drupal_enable_module: []
+drupal_enable_modules: []
 
 drupal_site_install_extra_args:
   - '--existing-config'
