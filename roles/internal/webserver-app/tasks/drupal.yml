@@ -21,7 +21,7 @@
       $content_directories['sync'] = $app_root.'/../content/sync';
     path: "{{ drupal_trusted_hosts_file }}"
     marker: // {mark} ANSIBLE MANAGED BLOCK
-    when: webserver_app_do_original_trusted_host_and_more
+  when: webserver_app_do_original_trusted_host_and_more
 
 - name: Trusted Host Settings
   blockinfile:
@@ -34,7 +34,7 @@
       );
     path: "{{ drupal_trusted_hosts_file }}"
     marker: // {mark} ANSIBLE MANAGED BLOCK - trusted hosts
-    when: webserver_app_do_trusted_host
+  when: webserver_app_do_trusted_host
 
 - name: Flysystem "fedora" scheme configuration
   blockinfile:
@@ -50,7 +50,7 @@
       ];
     path: "{{ drupal_site_default_settings }}"
     marker: // {mark} ANSIBLE MANAGED BLOCK - fedora flysystem scheme
-    when: webserver_app_do_fedora_scheme_config
+  when: webserver_app_do_fedora_scheme_config
 
 - name: Content Sync Directory configuration
   blockinfile:
@@ -60,7 +60,7 @@
       $content_directories['sync'] = $app_root.'/../content/sync';
     path: "{{ drupal_site_default_settings }}"
     marker: // {mark} ANSIBLE MANAGED BLOCK - content sync dir
-    when: webserver_app_do_content_sync_config
+  when: webserver_app_do_content_sync_config
 
 
 - name: Uninstall core search module
@@ -103,14 +103,14 @@
 # Set Matomo Settings
 - name: Set Matomo site id.
   command: "{{ drush_path }} --root {{ drupal_core_path }} -y config-set matomo.settings site_id 1"
-  register: set_search_api_config
-  changed_when: "'Do you want to update site_id' in set_search_api_config.stdout"
+  register: set_matomo_site_id_config
+  changed_when: "'Do you want to update site_id' in set_matomo_site_id_config.stdout"
   when: webserver_app_configure_matomo
 
 - name: Set Matomo server url.
   command: "{{ drush_path }} --root {{ drupal_core_path }} -y config-set matomo.settings url_http http://localhost:8000/matomo/"
-  register: set_search_api_config
-  changed_when: "'Do you want to update site_id' in set_search_api_config.stdout"
+  register: set_matomo_server_url_config
+  changed_when: "'Do you want to update site_id' in set_matomo_server_url_config.stdout"
   when: webserver_app_configure_matomo
 
 # pdf.js library
