@@ -14,3 +14,9 @@ drupal_site_install_extra_args:
   - '--existing-config'
 
 openseadragon_composer_require: false
+webserver_app_do_original_trusted_host_and_more: false
+webserver_app_do_trusted_host: true
+webserver_app_do_fedora_scheme_config: true
+webserver_app_uninstall_search_module: false
+webserver_app_feature_import_base: false
+webserver_app_configure_matomo: false

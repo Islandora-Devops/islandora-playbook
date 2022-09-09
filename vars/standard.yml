@@ -45,3 +45,4 @@ drupal_enable_modules:
   - islandora_oaipmh
   - islandora_search
 openseadragon_composer_item: "islandora/openseadragon:^2"
+webserver_app_feature_import_search: true
