@@ -1,0 +1,34 @@
+---
+drupal_build_composer_project: false
+drupal_deploy: true
+# XXX: Just pointing at my repo for the moment, for testing... should be pointed
+# back at Islandora's prior to merging.
+drupal_deploy_repo: https://github.com/adam-vessey/islandora-starter-site.git
+# XXX: Should be made to point at "main".
+drupal_deploy_version: implementation
+drupal_deploy_dir: "{{ drupal_composer_install_dir }}"
+drupal_deploy_composer_install: true
+
+
+drupal_composer_dependencies: []
+# Presently pointing at the main branch.
+drupal_composer_project_package: 'islandora/islandora-starter-site:dev-main'
+
+# XXX: Strictly, irrelevant due to using the `--existing-config` flag.
+drupal_install_profile: minimal
+
+# None necessary, due to using an existing configuration.
+drupal_enable_module: []
+
+drupal_site_install_extra_args:
+  - '--existing-config'
+
+openseadragon_composer_require: false
+webserver_app_do_original_trusted_host_and_more: false
+webserver_app_do_trusted_host: true
+webserver_app_do_fedora_scheme_config: true
+webserver_app_uninstall_search_module: false
+webserver_app_feature_import_base: false
+webserver_app_configure_matomo: false
+webserver_install_matomo: false
+webserver_install_fits: false
