@@ -21,4 +21,5 @@
     - Islandora-Devops.grok
     - Islandora-Devops.cantaloupe
     - Islandora-Devops.activemq
-    - Islandora-Devops.fits
+    - name: Islandora-Devops.fits
+      when: webserver_install_fits

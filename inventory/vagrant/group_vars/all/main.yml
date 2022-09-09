@@ -44,3 +44,6 @@ php_packages_state: "latest"
 os_environment:
   - key: LOG4J_FORMAT_MSG_NO_LOOKUPS 
     value: true
+
+webserver_install_matomo: true
+webserver_install_fits: true
