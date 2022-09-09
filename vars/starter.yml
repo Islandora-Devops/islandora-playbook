@@ -1,6 +1,9 @@
 ---
 drupal_build_composer_project: true
-drupal_composer_dependencies: []
+
+# None necessary, should all be described in the given project.
+#drupal_composer_dependencies: []
+
 # Presently pointing at the main branch.
 drupal_composer_project_package: 'islandora/islandora-starter-site:dev-main'
 
@@ -8,7 +11,7 @@ drupal_composer_project_package: 'islandora/islandora-starter-site:dev-main'
 drupal_install_profile: minimal
 
 # None necessary, due to using an existing configuration.
-drupal_enable_modules: []
+#drupal_enable_modules: []
 
 drupal_site_install_extra_args:
   - '--existing-config'
