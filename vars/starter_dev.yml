@@ -1,11 +1,8 @@
 ---
 drupal_build_composer_project: false
 drupal_deploy: true
-# XXX: Just pointing at my repo for the moment, for testing... should be pointed
-# back at Islandora's prior to merging.
-drupal_deploy_repo: https://github.com/adam-vessey/islandora-starter-site.git
-# XXX: Should be made to point at "main".
-drupal_deploy_version: implementation
+drupal_deploy_repo: https://github.com/Islandora/islandora-starter-site.git
+drupal_deploy_version: main
 drupal_deploy_dir: "{{ drupal_composer_install_dir }}"
 drupal_deploy_composer_install: true
 
