@@ -18,12 +18,19 @@ drupal_install_profile: minimal
 drupal_site_install_extra_args:
   - '--existing-config'
 
+# The "starter" is expected to have all of its composer requirements and config
+# included, including spec'ing what modules are enabled in a site.
 openseadragon_composer_require: false
-webserver_app_do_original_trusted_host_and_more: false
-webserver_app_do_trusted_host: true
-webserver_app_do_fedora_scheme_config: true
 webserver_app_uninstall_search_module: false
 webserver_app_feature_import_base: false
 webserver_app_configure_matomo: false
+
+# We want more granular control over what is added to the "settings.php".
+webserver_app_do_original_trusted_host_and_more: false
+webserver_app_do_trusted_host: true
+webserver_app_do_fedora_scheme_config: true
+
+# Provisioning of some services is out-of-scope of the initial "starter" site
+# effort, based solely on the contents of islandora_defaults.
 webserver_install_matomo: false
 webserver_install_fits: false
