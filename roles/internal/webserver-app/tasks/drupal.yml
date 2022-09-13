@@ -110,7 +110,7 @@
 - name: Set Matomo server url.
   command: "{{ drush_path }} --root {{ drupal_core_path }} -y config-set matomo.settings url_http http://localhost:8000/matomo/"
   register: set_matomo_server_url_config
-  changed_when: "'Do you want to update site_id' in set_matomo_server_url_config.stdout"
+  changed_when: "'Do you want to update url_http' in set_matomo_server_url_config.stdout"
   when: webserver_app_configure_matomo
 
 # pdf.js library
