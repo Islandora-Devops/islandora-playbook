@@ -65,7 +65,9 @@
   changed_when: true
   register: flex_package_info
   ignore_errors: true
-  
+  become: true
+  become_user: "{{ crayfish_user }}"
+
 - name: "Delete Houdini vendor folder to update symfony/flex"
   file:
     state: absent
