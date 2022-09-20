@@ -26,3 +26,6 @@ webserver_app_feature_import_base: false
 webserver_app_do_original_trusted_host_and_more: false
 webserver_app_do_trusted_host: true
 webserver_app_do_fedora_scheme_config: true
+
+post_install_migrate_import_fits_tags: true
+post_install_chown_defaults: false
