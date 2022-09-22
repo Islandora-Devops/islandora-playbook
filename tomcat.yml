@@ -18,7 +18,6 @@
     - Islandora-Devops.blazegraph
     - name: geerlingguy.repo-epel
       when: ansible_os_family == "RedHat"
-    - Islandora-Devops.grok
     - Islandora-Devops.cantaloupe
     - Islandora-Devops.activemq
     - name: Islandora-Devops.fits
