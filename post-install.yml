@@ -65,6 +65,10 @@
     - name: Run migrations
       command: "{{ drush_path }} --root {{ drupal_core_path }} -y -l localhost:{{ apache_listen_port }} --userid=1 mim islandora_tags,islandora_defaults_tags"
 
+    - name: Run islandora_fits migration
+      command: "{{ drush_path }} --root {{ drupal_core_path }} -y -l localhost:{{ apache_listen_port }} --userid=1 mim islandora_fits_tags"
+      when: post_install_migrate_import_fits_tags
+
     - name: Add vagrant user to webserver app user group
       user: name={{ vagrant_user }}
             group={{ webserver_app_user }}
@@ -87,6 +91,7 @@
         group: "{{ webserver_app_user }}"
         mode: 0775
         recurse: yes
+      when: post_install_chown_defaults
 
     - name: Chown controlled access terms default configuration
       file:

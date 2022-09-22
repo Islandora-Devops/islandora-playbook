@@ -1,0 +1,34 @@
+---
+drupal_build_composer_project: false
+drupal_deploy: true
+drupal_deploy_repo: https://github.com/Islandora/islandora-starter-site.git
+drupal_deploy_version: main
+drupal_deploy_dir: "{{ drupal_composer_install_dir }}"
+drupal_deploy_composer_install: true
+drupal_composer_no_dev: false
+
+# XXX: Not usable with `drupal_deploy`.
+#drupal_composer_dependencies: []
+
+# XXX: Strictly, irrelevant due to using the `--existing-config` flag.
+drupal_install_profile: minimal
+
+# None necessary, due to using an existing configuration.
+#drupal_enable_modules: []
+
+drupal_site_install_extra_args:
+  - '--existing-config'
+
+# The "starter" is expected to have all of its composer requirements and config
+# included, including spec'ing what modules are enabled in a site.
+openseadragon_composer_require: false
+webserver_app_uninstall_search_module: false
+webserver_app_feature_import_base: false
+
+# We want more granular control over what is added to the "settings.php".
+webserver_app_do_original_trusted_host_and_more: false
+webserver_app_do_trusted_host: true
+webserver_app_do_fedora_scheme_config: true
+
+post_install_migrate_import_fits_tags: true
+post_install_chown_defaults: false

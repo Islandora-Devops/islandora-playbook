@@ -44,3 +44,9 @@ php_packages_state: "latest"
 os_environment:
   - key: LOG4J_FORMAT_MSG_NO_LOOKUPS 
     value: true
+
+webserver_install_matomo: true
+webserver_install_fits: true
+
+post_install_chown_defaults: true
+post_install_migrate_import_fits_tags: false

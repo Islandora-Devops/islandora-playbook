@@ -44,13 +44,13 @@ By default the Vagrantfile builds Islandora on a `ubuntu/focal64` (20.04 LTS) ba
 
 ### Install Profile
 
-The Unix shell variable 'ISLANDORA_INSTALL_PROFILE' can be one of:
+The Unix shell variable `ISLANDORA_INSTALL_PROFILE` can be one of:
 
-standard - Installs a drupal/recommended-project base install and enables the Islandora and Islandora Defaults modules without any special configuration.
+* `demo`: Installs the demo based on the [install profile](https://github.com/Islandora-Devops/islandora_install_profile_demo) developed by Born Digital. This has a custom theme and more out-of-the-box customizations.
+* `starter`: Installs using [the `islandora/islandora-starter-site` project](https://github.com/Islandora/islandora-starter-site/) as a template, intended for spinning up sites for general usage.
+* `starter_dev`: Similar to `starter`, installs based on [the `islandora/islandora-starter-site` project](https://github.com/Islandora/islandora-starter-site/); however, performs a clone of the repository with its history, intended specifically for development of the starter site.
 
-demo - Installs the demo based on the [install profile](https://github.com/Islandora-Devops/islandora_install_profile_demo) developed by Born Digital. This has a custom theme and more out-of-the-box customizations.
-
-This corresponds to the 'islandora_profile' Ansible variable.
+This corresponds to the `islandora_profile` Ansible variable.
 
 ### System Resources
 

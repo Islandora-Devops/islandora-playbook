@@ -18,7 +18,8 @@ drupal_account_name: admin
 drupal_trusted_hosts:
   - ^localhost$
   - "{{ hostvars[groups['webserver'][0]].ansible_host }}"
-drupal_trusted_hosts_file: "{{ drupal_core_path }}/sites/default/settings.php"
+drupal_site_default_settings: "{{ drupal_core_path }}/sites/default/settings.php"
+drupal_trusted_hosts_file: "{{ drupal_site_default_settings }}"
 drupal_public_filesystem: "{{ drupal_core_path }}/sites/default/files"
 drupal_external_libraries_directory: "{{ drupal_core_path }}/libraries"
 fedora_base_url: "http://{{ hostvars[groups['tomcat'][0]].ansible_host }}:8080/fcrepo/rest/"

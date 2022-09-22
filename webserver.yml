@@ -23,4 +23,5 @@
     - perms-fix
     - Islandora-Devops.drupal-openseadragon
     - webserver-app
-    - Islandora-Devops.matomo
+    - name: Islandora-Devops.matomo
+      when: webserver_install_matomo

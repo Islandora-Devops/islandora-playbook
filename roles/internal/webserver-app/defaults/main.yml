@@ -14,3 +14,12 @@ solr_user: solr
 solr_instance_conf_path: /var/solr/data/{{ solr_cores[0] }}/conf
 
 webserver_document_root: /var/www/html
+
+webserver_app_do_original_trusted_host_and_more: true
+webserver_app_do_trusted_host: false
+webserver_app_do_fedora_scheme_config: false
+webserver_app_do_content_sync_config: false
+webserver_app_uninstall_search_module: true
+webserver_app_feature_import_base: true
+webserver_app_feature_import_search: false
+webserver_app_configure_matomo: true
