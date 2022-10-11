@@ -11,10 +11,7 @@ $memory = ENV.fetch("ISLANDORA_VAGRANT_MEMORY", "4096")
 $hostname = ENV.fetch("ISLANDORA_VAGRANT_HOSTNAME", "islandora8")
 $virtualBoxDescription = ENV.fetch("ISLANDORA_VAGRANT_VIRTUALBOXDESCRIPTION", "Islandora 8")
 
-# Available boxes are 'islandora/8' and 'ubuntu/focal64'
-# Use 'ubuntu/focal64' to build a dev environment from scratch.
-# Use 'islandora/8' if you just want to download a ready to run VM that is version 1.1.0 of Islandora
-# The 'islandora/8' box is no longer mantained.
+# The Vagrant Base Box to use. Currently works with 'ubuntu/focal64'.
 $vagrantBox = ENV.fetch("ISLANDORA_DISTRO", "ubuntu/focal64")
 
 # See the "install profile" section of the README for the full gamut available.
