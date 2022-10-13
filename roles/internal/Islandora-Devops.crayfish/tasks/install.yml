@@ -50,7 +50,7 @@
 
 - name: Install crayfish code
   git:
-    repo: https://github.com/whikloj/Crayfish.git
+    repo: https://github.com/Islandora/Crayfish.git
     dest: "{{ crayfish_install_dir }}"
     version: "{{ crayfish_version_tag }}"
     force: yes
