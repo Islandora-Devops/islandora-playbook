@@ -8,12 +8,15 @@
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 
 parameters:
-    app.executable: {{ crayfish_houdini_executable_config.executable }}
+    app.executable: {{ crayfish_homarus_executable_config.executable }}
     app.formats.valid:
-{% for type in crayfish_houdini_executable_config.formats.valid %}
-      - {{ type }}
+{% for valid_format in crayfish_homarus_executable_config.formats.valid %}
+      - mimetype: {{ valid_format['mimetype'] }}
+        format: {{ valid_format['format'] }}
 {% endfor %}
-    app.formats.default: {{ crayfish_houdini_executable_config.formats.default }}
+    app.formats.defaults:
+      mimetype: {{ crayfish_homarus_executable_config.formats.default.mimetype }}
+      format: {{ crayfish_homarus_executable_config.formats.default.format }}
 
 services:
     # default configuration for services in *this* file
@@ -23,8 +26,8 @@ services:
 
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
-    App\Islandora\Houdini\:
-      resource: '../src/'
+    App\Islandora\Homarus\:
+      resource: '../src/*'
       exclude:
         - '../src/DependencyInjection/'
         - '../src/Entity/'
@@ -33,13 +36,10 @@ services:
 
     # controllers are imported separately to make sure services can be injected
     # as action arguments even if you don't extend any base controller class
-    App\Islandora\Houdini\Controller\HoudiniController:
+    App\Islandora\Homarus\Controller\HomarusController:
       public: false
       arguments:
         $formats: '%app.formats.valid%'
-        $default_format: '%app.formats.default%'
+        $defaults: '%app.formats.defaults%'
         $executable: '%app.executable%'
       tags: ['controller.service_arguments']
-
-    # add more service definitions when explicit configuration is needed
-    # please note that last definitions always *replace* previous ones

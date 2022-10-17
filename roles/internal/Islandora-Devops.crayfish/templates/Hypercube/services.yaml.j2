@@ -8,12 +8,8 @@
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 
 parameters:
-    app.executable: {{ crayfish_houdini_executable_config.executable }}
-    app.formats.valid:
-{% for type in crayfish_houdini_executable_config.formats.valid %}
-      - {{ type }}
-{% endfor %}
-    app.formats.default: {{ crayfish_houdini_executable_config.formats.default }}
+  app.tesseract_executable: {{ crayfish_hypercube_tesseract_executable }}
+  app.pdftotext_executable: {{ crayfish_hypercube_pdftotext_executable }}
 
 services:
     # default configuration for services in *this* file
@@ -23,7 +19,7 @@ services:
 
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
-    App\Islandora\Houdini\:
+    App\Islandora\Hypercube\:
       resource: '../src/'
       exclude:
         - '../src/DependencyInjection/'
@@ -33,13 +29,12 @@ services:
 
     # controllers are imported separately to make sure services can be injected
     # as action arguments even if you don't extend any base controller class
-    App\Islandora\Houdini\Controller\HoudiniController:
+    App\Islandora\Hypercube\Controller\HypercubeController:
       public: false
       arguments:
-        $formats: '%app.formats.valid%'
-        $default_format: '%app.formats.default%'
-        $executable: '%app.executable%'
-      tags: ['controller.service_arguments']
+        $tesseract_executable: '%app.tesseract_executable%'
+        $pdftotext_executable: '%app.pdftotext_executable%'
+      tags: [ 'controller.service_arguments' ]
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones

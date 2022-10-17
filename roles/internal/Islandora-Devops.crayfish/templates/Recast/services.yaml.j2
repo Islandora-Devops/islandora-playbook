@@ -6,24 +6,23 @@
 
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
-
 parameters:
-    app.executable: {{ crayfish_houdini_executable_config.executable }}
-    app.formats.valid:
-{% for type in crayfish_houdini_executable_config.formats.valid %}
-      - {{ type }}
+    app.drupal_base_url: {{ crayfish_recast_drupal_base_url }}
+    app.fedora_base_url: {{ crayfish_recast_fedora_base_url }}
+    app.namespaces:
+{% for key, value in crayfish_recast_prefixes.items() %}    
+        {{ key }}: {{ value }}
 {% endfor %}
-    app.formats.default: {{ crayfish_houdini_executable_config.formats.default }}
 
 services:
     # default configuration for services in *this* file
     _defaults:
-      autowire: true      # Automatically injects dependencies in your services.
-      autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+        autowire: true      # Automatically injects dependencies in your services.
+        autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
 
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
-    App\Islandora\Houdini\:
+    App\Islandora\Recast\:
       resource: '../src/'
       exclude:
         - '../src/DependencyInjection/'
@@ -33,13 +32,15 @@ services:
 
     # controllers are imported separately to make sure services can be injected
     # as action arguments even if you don't extend any base controller class
-    App\Islandora\Houdini\Controller\HoudiniController:
-      public: false
+    App\Islandora\Recast\Controller\RecastController:
       arguments:
-        $formats: '%app.formats.valid%'
-        $default_format: '%app.formats.default%'
-        $executable: '%app.executable%'
+        $drupal_base_url: '%app.drupal_base_url%'
+        $fcrepo_base_url: '%app.fedora_base_url%'
+        $namespaces: '%app.namespaces%'
       tags: ['controller.service_arguments']
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+
+    # A guzzle instance as a service
+    GuzzleHttp\Client: ~

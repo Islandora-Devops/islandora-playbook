@@ -15,7 +15,7 @@
         path: /etc/systemd/system/tomcat9.service.d
         state: directory
         mode: '0755'
-    
+
     - name: Add Cantaloupe cache to Tomcat writable paths
       lineinfile:
         path: "/etc/systemd/system/tomcat9.service.d/override.conf"
@@ -33,7 +33,7 @@
     - name: restart daemon service
       ansible.builtin.systemd:
         daemon_reload: yes
-    
+
     - name: start tomcat9
       service:
         name: tomcat9

@@ -7,16 +7,6 @@ crayfish_services:
   - Homarus
   - Recast
 
-# Temporary to allow Silex/Symfony 4 differences
-crayfish_silex_services:
-  - Milliner
-  - Hypercube
-  - Homarus
-  - Recast
-
-crayfish_symfony_services:
-  - Houdini
-
 crayfish_install_dir: /var/www/html/Crayfish
 
 crayfish_syn_token: islandora
@@ -25,6 +15,8 @@ crayfish_log_directory: /var/log/islandora
 
 crayfish_drupal_base_url: http://localhost:8000
 crayfish_fedora_base_url: http://localhost:8080/fcrepo/rest
+
+crayfish_webserver_app_user: "{% if ansible_os_family == 'RedHat' %}apache{% else %}www-data{% endif %}"
 
 # Houdini default config
 crayfish_houdini_log_file: /var/log/islandora/houdini.log
@@ -69,6 +61,7 @@ crayfish_milliner_fedora_base_url: "{{ crayfish_fedora_base_url }}"
 crayfish_milliner_drupal_base_url: "{{ crayfish_drupal_base_url }}"
 crayfish_milliner_modified_date_predicate: http://schema.org/dateModified
 crayfish_milliner_strip_format_jsonld: true
+crayfish_milliner_is_fedora_6: true
 
 # OS Dependent variables set in vars can be overridden here
 # crayfish_user: www-data
@@ -91,26 +84,25 @@ crayfish_homarus_fedora_base_url: "{{ crayfish_fedora_base_url }}"
 
 crayfish_homarus_executable_config:
   executable: ffmpeg
-  mime_types:
+  formats:
     valid:
-      - video/mp4
-      - video/x-msvideo
-      - video/ogg
-      - audio/x-wav
-      - audio/mpeg
-      - audio/aac
-      - image/jpeg
-    default: video/mp4
-  mime_to_format:
-    valid:
-      - video/mp4_mp4
-      - video/x-msvideo_avi
-      - video/ogg_ogg
-      - audio/x-wav_wav
-      - audio/mpeg_mp3
-      - audio/aac_m4a
-      - image/jpeg_image2pipe
-    default: mp4
+      - mimetype: video/mp4
+        format: mp4
+      - mimetype: video/x-msvideo
+        format: avi
+      - mimetype: video/ogg
+        format: ogg
+      - mimetype: audio/x-wav
+        format: wav
+      - mimetype: audio/mpeg
+        format: mp3
+      - mimetype: audio/aac
+        format: m4a
+      - mimetype: image/jpeg
+        format: image2pipe
+    default:
+      mimetype: video/mp4
+      format: mp4
 
 # recast
 crayfish_recast_log_file: /var/log/islandora/recast.log
