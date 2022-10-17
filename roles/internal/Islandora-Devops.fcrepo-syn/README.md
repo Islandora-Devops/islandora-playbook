@@ -1,6 +1,6 @@
 # Ansible Role: Syn
 
-An Ansible role that installs the Tomcat Valve [Syn](https://github.com/Islandora-CLAW/Syn) on:
+An Ansible role that installs the Tomcat Valve [Syn](https://github.com/Islandora/Syn) on:
 
 * Centos/RHEL 7.x
 * Ubuntu Xenial

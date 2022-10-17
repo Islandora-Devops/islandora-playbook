@@ -1,6 +1,6 @@
 # Ansible Role: Crayfish [![Build Status](https://travis-ci.org/Islandora-Devops/ansible-role-crayfish.svg?branch=main)](https://travis-ci.org/Islandora-Devops/ansible-role-crayfish)
 
-An Ansible role that installs [Crayfish](https://github.com/Islandora-CLAW/Crayfish) on:
+An Ansible role that installs [Crayfish](https://github.com/Islandora/Crayfish) on:
 
 * Centos/RHEL 7.x
 * Ubuntu Xenial

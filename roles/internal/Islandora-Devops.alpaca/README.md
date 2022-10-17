@@ -1,6 +1,6 @@
 # Ansible Role: Alpaca
 
-An Ansible role that installs [Alpaca](https://github.com/Islandora-CLAW/Alpaca) in a Tomcat 8 servlet container on:
+An Ansible role that installs [Alpaca](https://github.com/Islandora/Alpaca) in a Tomcat 8 servlet container on:
 
 * Centos/RHEL 7.x
 * Ubuntu Xenial

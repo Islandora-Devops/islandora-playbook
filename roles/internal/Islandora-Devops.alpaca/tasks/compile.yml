@@ -9,7 +9,7 @@
   when:
     - alpaca_clone_directory not in __git_config_global_safe_dir_alpaca.stdout_lines
 
-- name: Clone CLAW Alpaca
+- name: Clone Alpaca
   git:
     repo: https://github.com/Islandora/Alpaca.git
     dest: "{{ alpaca_clone_directory }}"
