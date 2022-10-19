@@ -1,9 +1,6 @@
 # Ansible Role: Drupal-OpenSeadragon
 
-An Ansible role that installs the [Drupal 8 field formatter](https://github.com/Islandora/openseadragon) and [OpenSeadragon library](https://openseadragon.github.io/) on:
-
-* Centos/RHEL 7.x
-* Ubuntu Xenial
+An Ansible role that installs the [Drupal field formatter](https://github.com/Islandora/openseadragon) and [OpenSeadragon library](https://openseadragon.github.io/).
 
 ## Role Variables
 
@@ -52,7 +49,7 @@ openseadragon_iiiv_server:
 
 ## Dependencies
 
-* Drupal 8
+* Drupal
 * Drush
 * Working IIIF image server (like [islandora.cantaloupe](https://github.com/Islandora-DevOps/ansible-role-cantaloupe))
 
