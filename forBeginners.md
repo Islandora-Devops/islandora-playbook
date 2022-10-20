@@ -58,7 +58,7 @@ On the Islandora sandbox computer, follow these [instructions](https://tutorials
   1. Restart.
   1. Congratulations on your new Linux computer!
 
-#### Step four: Download Requirements for Islandora
+#### Step four: Download Requirements for the Islandora Playbook
 
 On your new Ubuntu computer, download the following:
 1. [Virtual Box](https://www.virtualbox.org/)
@@ -85,14 +85,14 @@ Open the terminal of your new Ubuntu computer to download the remaining requirem
 
 >$ sudo apt-get install ansible
 
-#### Step five: Clone and Run Islandora vagrant
+#### Step five: Clone the Islandora Playbook and run Vagrant
 1. To download Islandora, type the following into the terminal:
 
->$ git clone https://github.com/Islandora-Devops/claw-playbook.git
+>$ git clone https://github.com/Islandora-Devops/islandora-playbook.git
 
 2. When that script has finished running, open or move into the appropriate folder by typing the following into the terminal:
 
->$ cd claw-playbook
+>$ cd islandora-playbook
 
 3. To run the scripts, type:
 

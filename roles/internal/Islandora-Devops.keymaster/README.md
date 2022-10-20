@@ -11,7 +11,7 @@ Available variables are listed below, along with default values:
 
 ```
 # Source directory for keys.
-ssl_key_directory: /opt/keys/claw
+ssl_key_directory: /opt/keys/islandora
 # Public key filename
 ssl_key_public_file: public.key
 # Private key filename

@@ -2,7 +2,7 @@
 - name: Set template files (Fedora 5)
   set_fact:
     template_files:
-      - claw.cnd
+      - islandora.cnd
       - fcrepo-config.xml
   when: fcrepo_parsed_version is version_compare("6.0.0", "<")
 

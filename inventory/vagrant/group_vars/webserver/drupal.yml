@@ -10,9 +10,9 @@ drupal_core_path: "{{ drupal_deploy_dir }}/web"
 
 drupal_db_user: drupal8
 drupal_db_name: drupal8
-drupal_db_backend: "{{ claw_db }}"
+drupal_db_backend: "{{ islandora_db }}"
 drupal_db_host: "127.0.0.1"
-drupal_domain: "claw.dev"
+drupal_domain: "islandora.dev"
 drupal_site_name: "Islandora 8"
 drupal_account_name: admin
 
