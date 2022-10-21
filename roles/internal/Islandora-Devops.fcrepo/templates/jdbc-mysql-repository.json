@@ -35,5 +35,5 @@
         "initialTime" : "00:00",
         "intervalInHours" : 24
     },
-    "node-types" : ["fedora-node-types.cnd", "file:/opt/fcrepo/configs/claw.cnd"]
+    "node-types" : ["fedora-node-types.cnd", "file:/opt/fcrepo/configs/islandora.cnd"]
 }

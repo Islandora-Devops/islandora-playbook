@@ -1,6 +1,6 @@
 ---
 crayfish_version_tag: 3.x
-crayfish_db: "{{ claw_db }}"
+crayfish_db: "{{ islandora_db }}"
 
 crayfish_fedora_base_url: "http://{{ hostvars[groups['tomcat'][0]].ansible_host }}:8080/fcrepo/rest"
 crayfish_drupal_base_url: "http://{{ hostvars[groups['webserver'][0]].ansible_host }}:{{ apache_listen_port }}"

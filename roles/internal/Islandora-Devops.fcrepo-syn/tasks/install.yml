@@ -9,7 +9,7 @@
 
 - name: Download syn jar file
   get_url:
-    url: https://github.com/Islandora-CLAW/Syn/releases/download/v{{ fcrepo_syn_version }}/islandora-syn-{{ fcrepo_syn_version }}-all.jar
+    url: https://github.com/Islandora/Syn/releases/download/v{{ fcrepo_syn_version }}/islandora-syn-{{ fcrepo_syn_version }}-all.jar
     dest: "{{ fcrepo_syn_folder }}"
     owner: "{{ fcrepo_syn_user }}"
     group: "{{ fcrepo_syn_user }}"

@@ -1,6 +1,6 @@
-# CLAW Sandbox Creation for Beginners
+# Sandbox Creation for Beginners
 
-This document will explain, in the simplest step-by-step possible, how to take a computer from "unwanted box in the corner with no operating system" to working Islandora CLAW sandbox.
+This document will explain, in the simplest step-by-step possible, how to take a computer from "unwanted box in the corner with no operating system" to working Islandora sandbox.
 
 ## Terminology:
 Some terminology you may need to understand to follow this step-by-step document:
@@ -37,7 +37,7 @@ You will also need an empty USB drive with at least 2 GB of space and a computer
   
   * If you're not sure how much RAM and free memory on your hard drive is on the computer and you have a Windows computer, you can follow this [tutorial](https://www.computerhope.com/issues/ch000149.htm) to check that it meets the requirements.
 
-  * If you don't have an operating system on the machine you want to use for your sandbox, you can try to install the Ubuntu operating system as described in step 2 and 3, then follow the instructions in this [tutorial](https://howtoubuntu.org/how-to-find-out-how-much-ram-is-installed-in-ubuntu) to make sure you have more than 3 GB of RAM (called Memory in the tutorial) and 4GB of hard drive memory (called Disk in the tutorial) required to run the default version of Islandora CLAW.
+  * If you don't have an operating system on the machine you want to use for your sandbox, you can try to install the Ubuntu operating system as described in step 2 and 3, then follow the instructions in this [tutorial](https://howtoubuntu.org/how-to-find-out-how-much-ram-is-installed-in-ubuntu) to make sure you have more than 3 GB of RAM (called Memory in the tutorial) and 4GB of hard drive memory (called Disk in the tutorial) required to run the default version of Islandora.
 
 #### Step two: Create a bootable drive of Ubuntu
 
@@ -58,7 +58,7 @@ On the Islandora sandbox computer, follow these [instructions](https://tutorials
   1. Restart.
   1. Congratulations on your new Linux computer!
 
-#### Step four: Download Requirements for Islandora
+#### Step four: Download Requirements for the Islandora Playbook
 
 On your new Ubuntu computer, download the following:
 1. [Virtual Box](https://www.virtualbox.org/)
@@ -85,14 +85,14 @@ Open the terminal of your new Ubuntu computer to download the remaining requirem
 
 >$ sudo apt-get install ansible
 
-#### Step five: Clone and Run Islandora CLAW vagrant
-1. To download Islandora CLAW, type the following into the terminal:
+#### Step five: Clone the Islandora Playbook and run Vagrant
+1. To download Islandora, type the following into the terminal:
 
->$ git clone https://github.com/Islandora-Devops/claw-playbook.git
+>$ git clone https://github.com/Islandora-Devops/islandora-playbook.git
 
 2. When that script has finished running, open or move into the appropriate folder by typing the following into the terminal:
 
->$ cd claw-playbook
+>$ cd islandora-playbook
 
 3. To run the scripts, type:
 
