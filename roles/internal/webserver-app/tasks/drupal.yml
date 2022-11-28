@@ -113,19 +113,6 @@
   changed_when: "'Do you want to update url_http' in set_matomo_server_url_config.stdout"
   when: webserver_app_configure_matomo
 
-# pdf.js library
-- name: ensure pdf.js directory exists
-  file:
-    path: "{{ drupal_external_libraries_directory }}/pdf.js"
-    state: directory
-
-- name: Unarchive pdf.js library
-  unarchive:
-    src: "https://github.com/mozilla/pdf.js/releases/download/v2.14.305/pdfjs-2.14.305-dist.zip"
-    dest: "{{ drupal_external_libraries_directory }}/pdf.js"
-    creates: "{{ drupal_external_libraries_directory }}/pdf.js/build"
-    remote_src: yes
-
 - name: Add project's /vendor/bin to $PATH (ubuntu)
   lineinfile:
     path: ~/.profile

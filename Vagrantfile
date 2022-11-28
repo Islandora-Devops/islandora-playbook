@@ -15,7 +15,7 @@ $virtualBoxDescription = ENV.fetch("ISLANDORA_VAGRANT_VIRTUALBOXDESCRIPTION", "I
 $vagrantBox = ENV.fetch("ISLANDORA_DISTRO", "ubuntu/focal64")
 
 # See the "install profile" section of the README for the full gamut available.
-$drupalProfile = ENV.fetch("ISLANDORA_INSTALL_PROFILE", "starter")
+$drupalProfile = ENV.fetch("ISLANDORA_INSTALL_PROFILE", "starter_dev")
 
 # vagrant is the main user
 $vagrantUser = "vagrant"
@@ -23,6 +23,7 @@ $vagrantUser = "vagrant"
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.provider "virtualbox" do |v|
     v.name = "Islandora 8 Ansible Sandbox"
+    v.gui = true
   end
 
   config.vm.hostname = $hostname
