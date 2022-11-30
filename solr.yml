@@ -6,14 +6,15 @@
 
   roles:
     - role: geerlingguy.java
-      when: "ansible_os_family == 'Debian'"
+      when: "ansible_os_family == 'Debian' and islandora_build_base_box|bool == True"
       java_packages:
         - openjdk-8-jdk
     - role: geerlingguy.java
-      when: "ansible_os_family == 'RedHat'"
+      when: "ansible_os_family == 'RedHat' and islandora_build_base_box|bool == True"
       java_packages:
         - java-1.8.0-openjdk
-    - geerlingguy.solr
+    - role: geerlingguy.solr
+      when: islandora_build_base_box|bool == True
 
   tasks:
 
@@ -29,6 +30,7 @@
         dest: /tmp/solr_config
         remote_src: yes
       tags: solr
+      when: islandora_build_base_box|bool == False
 
     - name: Get solr config files to copy
       command: "find /tmp/solr_config -type f"
@@ -37,6 +39,7 @@
       until: files_to_copy is not failed
       retries: 5
       tags: solr
+      when: islandora_build_base_box|bool == False
 
     - name: Copy solr config files
       copy:
@@ -48,6 +51,7 @@
       with_items:
         - "{{ files_to_copy.stdout_lines }}"
       tags: solr
+      when: islandora_build_base_box|bool == False
 
     # https://www.drupal.org/project/search_api_solr/issues/3015993
     - name: Set solr_install_path in solrcore.properties
@@ -58,6 +62,7 @@
         state: present
       notify: restart solr
       tags: solr
+      when: islandora_build_base_box|bool == False
 
     - name: Fetch a Solr query to warm up the application
       uri:
@@ -77,7 +82,8 @@
         name: "zip"
         state: present
         cache_valid_time: 3600
-    
+      when: islandora_build_base_box|bool == True
+
     - name: Find any instances of vulnurable Log4J core JAR file
       command: "find / -name log4j-core-2.1[0,1,2,3,4,5].?.jar"
       register: log4j_jars
@@ -86,10 +92,12 @@
       retries: 5
       ignore_errors: yes
       tags: solr
-    
+      when: islandora_build_base_box|bool == True
+
     - name: Delete Log4J JNDI class from JARs
       command: "zip -q -d {{ item }} org/apache/logging/log4j/core/lookup/JndiLookup.class"
       with_items:
         - "{{ log4j_jars.stdout_lines }}"
       ignore_errors: yes
       tags: solr
+      when: islandora_build_base_box|bool == True

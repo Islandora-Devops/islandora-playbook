@@ -64,7 +64,7 @@
 
 
 - name: Uninstall core search module
-  command: "{{ drush_path }} --root {{ drupal_core_path }} -y pm-uninstall search"
+  command: "{{ drush_path }} --root={{ drupal_core_path }} -y pm-uninstall search"
   register: uninstall_search
   changed_when: "'successfully uninstalled' in uninstall_search.stdout"
   when: webserver_app_uninstall_search_module
@@ -93,22 +93,22 @@
   when: webserver_app_do_content_sync_config or webserver_app_do_original_trusted_host_and_more
 
 - name: Import features
-  command: "{{ drush_path }} --root {{ drupal_core_path }} -y fim islandora_core_feature,islandora_defaults"
+  command: "{{ drush_path }} --root={{ drupal_core_path }} -y fim islandora_core_feature,islandora_defaults"
   when: webserver_app_feature_import_base
 
 - name: Import search feature
-  command: "{{ drush_path }} --root {{ drupal_core_path }} -y fim islandora_search"
+  command: "{{ drush_path }} --root={{ drupal_core_path }} -y fim islandora_search"
   when: webserver_app_feature_import_search
 
 # Set Matomo Settings
 - name: Set Matomo site id.
-  command: "{{ drush_path }} --root {{ drupal_core_path }} -y config-set matomo.settings site_id 1"
+  command: "{{ drush_path }} --root={{ drupal_core_path }} -y config-set matomo.settings site_id 1"
   register: set_matomo_site_id_config
   changed_when: "'Do you want to update site_id' in set_matomo_site_id_config.stdout"
   when: webserver_app_configure_matomo
 
 - name: Set Matomo server url.
-  command: "{{ drush_path }} --root {{ drupal_core_path }} -y config-set matomo.settings url_http http://localhost:8000/matomo/"
+  command: "{{ drush_path }} --root={{ drupal_core_path }} -y config-set matomo.settings url_http http://localhost:8000/matomo/"
   register: set_matomo_server_url_config
   changed_when: "'Do you want to update url_http' in set_matomo_server_url_config.stdout"
   when: webserver_app_configure_matomo

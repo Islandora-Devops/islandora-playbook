@@ -26,7 +26,6 @@
     dest: "/etc/systemd/system/tomcat9.service.d/override.conf"
     content: |
       [Service]
-      ReadWritePaths={{ fcrepo_home_dir }}/
       ReadWritePaths={{ blazegraph_home_dir }}/data/
     mode: '0644'
 

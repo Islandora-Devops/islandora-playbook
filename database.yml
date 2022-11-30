@@ -4,7 +4,8 @@
   become: yes
 
   pre_tasks:
-    - set_fact:
+    - name: Just set the database type to mysql
+      set_fact:
         islandora_db: 'mysql'
       when: islandora_db is not defined
       tags:
@@ -12,6 +13,6 @@
 
   roles:
     - role: geerlingguy.mysql
-      when: islandora_db == 'mysql'
+      when: "islandora_build_base_box|bool == True and islandora_db == 'mysql'"
     - role: geerlingguy.postgresql
-      when: islandora_db == 'pgsql'
+      when: "islandora_build_base_box|bool == True and islandora_db == 'pgsql'"

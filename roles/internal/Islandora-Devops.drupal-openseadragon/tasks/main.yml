@@ -1,8 +1,17 @@
 ---
 
+- name: Look for drush in expected path
+  ansible.builtin.stat:
+    path: "/usr/local/bin/drush"
+  register: drush_stat
+
 - name: Use drush_path if defined
   set_fact: openseadragon_drush_path="{{ drush_path }}"
-  when: drush_path != ''
+  when: drush_path is defined and drush_path != ''
+
+- name: Use found drush instead
+  set_fact: openseadragon_drush_path="/usr/local/bin/drush"
+  when: drush_path is not defined and drush_stat.stat.exists
 
 - include: install.yml
   tags:

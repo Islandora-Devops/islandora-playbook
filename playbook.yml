@@ -9,4 +9,6 @@
 - import_playbook: tomcat.yml
 - import_playbook: crayfish.yml
 - import_playbook: alpaca.yml
+  when: "islandora_build_base_box|bool == False"
 - import_playbook: post-install.yml
+  when: "islandora_build_base_box|bool == False"

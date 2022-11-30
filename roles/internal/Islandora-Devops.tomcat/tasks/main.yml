@@ -5,13 +5,15 @@
     - tomcat9
     - tomcat9-config
     - tomcat9-install
-  
+
 - include: "install-{{ ansible_os_family }}.yml"
+  when: "islandora_build_base_box is defined and islandora_build_base_box|bool == True"
   tags:
     - tomcat9
     - tomcat9-install
 
 - include_tasks: config.yml
+  when: "islandora_build_base_box is defined and islandora_build_base_box|bool == True"
   tags:
     - tomcat9
     - tomcat9-config
