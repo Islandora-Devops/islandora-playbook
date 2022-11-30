@@ -57,7 +57,7 @@
   become_user: "{{ crayfish_user }}"
   become: true
 
-- name: "Get symfony/flex version"
+- name: "Get symfony/flex version (failure OK)"
   composer:
     command: show
     working_dir: "{{ crayfish_install_dir }}/Houdini"
