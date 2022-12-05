@@ -11,11 +11,13 @@ $memory = ENV.fetch("ISLANDORA_VAGRANT_MEMORY", "4096")
 $hostname = ENV.fetch("ISLANDORA_VAGRANT_HOSTNAME", "islandora8")
 $virtualBoxDescription = ENV.fetch("ISLANDORA_VAGRANT_VIRTUALBOXDESCRIPTION", "Islandora 8")
 
+# The Vagrant Base Box to use. Currently works with 'ubuntu/focal64'.
+$vagrantBox = ENV.fetch("ISLANDORA_DISTRO", "ubuntu/focal64")
+
 # See the "install profile" section of the README for the full gamut available.
 $drupalProfile = ENV.fetch("ISLANDORA_INSTALL_PROFILE", "starter")
 
 # Build the base box, defaults to install a machine with the existing one.
-# You should also change the v.name to "Islandora 8 Base Box" or something when building and then back again after.
 $buildBaseBox=ENV.fetch("ISLANDORA_BUILD_BASE", "false").to_s.downcase == "true"
 
 # vagrant is the main user
@@ -34,7 +36,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   # Every Vagrant virtual environment requires a box to build off of.
   if $buildBaseBox
-    config.vm.box = "ubuntu/focal64"
+    config.vm.box = $vagrantBox
   else
     config.vm.box = "islandora_base"
   end
@@ -73,11 +75,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       ansible.host_vars = {
         "all" => { "ansible_ssh_user" => $vagrantUser }
       }
-      ansible.extra_vars = { "islandora_distro" => "ubuntu/focal64",
+      ansible.extra_vars = { "islandora_distro" => $vagrantBox,
                              "islandora_profile" => $drupalProfile,
                              "islandora_build_base_box" => $buildBaseBox }
-      ansible.raw_ssh_args = [ "-o UserKnownHostsFile=/dev/null -o IdentitiesOnly=yes -o ControlMaster=auto -o ControlPersist=60s" ]
-      # ansible.verbose = true
     end
   end
 
