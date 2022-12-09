@@ -7,16 +7,16 @@ An Ansible role that installs [Crayfish](https://github.com/Islandora/Crayfish) 
 
 ## Role Variables
 
-Available variables are listed below, along with default values:
+Key Available variables are listed below, along with default values:
 
 ```
 # Crayfish version to install
-crayfish_version_tag: 2.x
+crayfish_version_tag: 3.x
 # Crayfish services to install
 crayfish_services:
-  - Gemini
   - Houdini
   - Milliner
+  - Homarus
   - Hypercube
   - Recast
 # Default crayfish static JWT token
@@ -25,16 +25,27 @@ crayfish_syn_token: islandora
 crayfish_install_dir: /var/www/html/Crayfish
 # Crayfish log directory
 crayfish_log_dir: /var/log/islandora
-# Apache configuration directory
-crayfish_apache_conf_dir: /etc/apache2
+# URLs to Drupal and Fedora
+crayfish_drupal_base_url: http://localhost:8000
+crayfish_fedora_base_url: http://localhost:8080/fcrepo/rest
 ```
+More detailed variables can be seen in `defaults/main.yml`.
+
 Some OS dependent variables are set in vars/* but can be overridden if desired:
 
 ```
 # crayfish_user: www-data
 # httpd_conf_directory: /etc/apache2
 # crayfish_packages:
-#   - ImageMagick
+#   - imagemagick
+#   - tesseract-ocr
+#   - tesseract-ocr-fra
+#   - tesseract-ocr-deu
+#   - tesseract-ocr-ita
+#   - tesseract-ocr-spa
+#   - tesseract-ocr-srp
+#   - ffmpeg
+#   - poppler-utils
 ```
 =======
 `crayfish_db` can be set to: 
