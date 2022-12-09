@@ -103,6 +103,7 @@ crayfish_homarus_executable_config:
     default:
       mimetype: video/mp4
       format: mp4
+  tempdirectory: /tmp/
 
 # recast
 crayfish_recast_log_file: /var/log/islandora/recast.log
