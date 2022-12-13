@@ -17,6 +17,7 @@ parameters:
     app.formats.defaults:
       mimetype: {{ crayfish_homarus_executable_config.formats.default.mimetype }}
       format: {{ crayfish_homarus_executable_config.formats.default.format }}
+    app.tempDirectory: {{ crayfish_homarus_executable_config.tempdirectory }}
 
 services:
     # default configuration for services in *this* file
@@ -42,4 +43,5 @@ services:
         $formats: '%app.formats.valid%'
         $defaults: '%app.formats.defaults%'
         $executable: '%app.executable%'
+        $tempDirectory: '%app.tempDirectory%'
       tags: ['controller.service_arguments']
