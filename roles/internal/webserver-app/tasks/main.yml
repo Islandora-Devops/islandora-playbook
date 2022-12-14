@@ -1,5 +1,14 @@
 ---
 
+- name: Look for drush in expected path
+  ansible.builtin.stat:
+    path: "/usr/local/bin/drush"
+  register: drush_stat
+
+- name: Use found drush instead
+  set_fact: drush_path="/usr/local/bin/drush"
+  when: drush_path is not defined and drush_stat.stat.exists
+
 - include: apache.yml
   when: webserver_app_apache
   tags:

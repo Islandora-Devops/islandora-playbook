@@ -8,10 +8,16 @@
 
   roles:
     - name: geerlingguy.repo-remi
-      when: ansible_os_family == "RedHat"
-    - geerlingguy.apache
-    - geerlingguy.php-versions
-    - geerlingguy.php
-    - geerlingguy.git
-    - geerlingguy.composer
-    - Islandora-Devops.crayfish
+      when: "ansible_os_family == 'RedHat' and islandora_build_box|bool == True"
+    - name: geerlingguy.apache  # Include apache to get the handlers
+    - name: geerlingguy.php-versions
+      when: islandora_build_base_box|bool == True
+    - name: geerlingguy.php
+      when: islandora_build_base_box|bool == True
+    - name: geerlingguy.git
+      when: islandora_build_base_box|bool == True
+    - name: geerlingguy.composer
+      when: islandora_build_base_box|bool == True
+
+    - name: Islandora-Devops.crayfish
+      when: islandora_build_base_box|bool == False

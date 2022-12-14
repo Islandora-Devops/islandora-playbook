@@ -44,13 +44,14 @@
     pkg:
       - python3-psycopg2
       - python3-mysqldb
-      - mysql-client 
+      - mysql-client
     state: present
     update_cache: yes
     cache_valid_time: 3600
   when: ansible_os_family == "Debian"
+  become: true
 
-- name: Install python dependencies 
+- name: Install python dependencies
   yum:
     name:
       - python-psycopg2
@@ -58,3 +59,4 @@
       - mysql
     state: present
   when: ansible_os_family == "RedHat"
+  become: true

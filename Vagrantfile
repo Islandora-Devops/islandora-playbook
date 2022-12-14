@@ -17,18 +17,29 @@ $vagrantBox = ENV.fetch("ISLANDORA_DISTRO", "ubuntu/focal64")
 # See the "install profile" section of the README for the full gamut available.
 $drupalProfile = ENV.fetch("ISLANDORA_INSTALL_PROFILE", "starter")
 
+# Build the base box, defaults to install a machine with the existing one.
+$buildBaseBox=ENV.fetch("ISLANDORA_BUILD_BASE", "false").to_s.downcase == "true"
+
 # vagrant is the main user
 $vagrantUser = "vagrant"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.provider "virtualbox" do |v|
-    v.name = "Islandora 8 Ansible Sandbox"
+    if $buildBaseBox
+      v.name = "Islandora 8 Ansible Base Box"
+    else
+      v.name = "Islandora 8 Ansible Sandbox Instance"
+    end
   end
 
   config.vm.hostname = $hostname
 
   # Every Vagrant virtual environment requires a box to build off of.
-  config.vm.box = $vagrantBox
+  if $buildBaseBox
+    config.vm.box = $vagrantBox
+  else
+    config.vm.box = "islandora_base"
+  end
 
   # Configure home directory
   home_dir = "/home/" + $vagrantUser
@@ -65,7 +76,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         "all" => { "ansible_ssh_user" => $vagrantUser }
       }
       ansible.extra_vars = { "islandora_distro" => $vagrantBox,
-                             "islandora_profile" => $drupalProfile }
+                             "islandora_profile" => $drupalProfile,
+                             "islandora_build_base_box" => $buildBaseBox }
     end
   end
 

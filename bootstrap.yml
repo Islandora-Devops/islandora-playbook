@@ -14,7 +14,7 @@
       changed_when:
         - output.stdout != ""
         - output.stdout != "\r\n"
-      when: islandora_distro|default('') is match("ubuntu/")
+      when: "islandora_build_base_box|bool == True and islandora_distro|default('') is match('ubuntu/')"
 
     # Manually gather facts once python is installed
     - name: gather facts
@@ -31,7 +31,7 @@
         name: aptitude
         state: present
         update_cache: yes
-      when: ansible_os_family == "Debian"
+      when: "islandora_build_base_box|bool == True and ansible_os_family == 'Debian'"
 
     # install some packages we would like on every server
     - name: install extra packages ubuntu
@@ -39,7 +39,7 @@
         name: "{{ item }}"
         state: present
       with_items: "{{ islandora_extra_ubuntu_packages }}"
-      when: ansible_os_family == "Debian"
+      when: "islandora_build_base_box|bool == True and ansible_os_family == 'Debian'"
 
     # install some packages we would like on every server
     - name: install extra packages centos
@@ -47,40 +47,40 @@
         name: "{{ item }}"
         state: present
       with_items: "{{ islandora_extra_centos_packages }}"
-      when: ansible_os_family == "RedHat"
+      when: "islandora_build_base_box|bool == True and ansible_os_family == 'RedHat'"
 
     # Check Selinux
     - name: check selinux status
       raw: sestatus
       register: sestatus_out
-      when: ansible_os_family == "RedHat"
+      when: "islandora_build_base_box|bool == True and ansible_os_family == 'RedHat'"
 
     # Parse sestatus down to one of two options.
     - name: Set selinux permissive fact
       set_fact:
         selinux_permissive: "{{ sestatus_out.stdout|regex_search('Current mode.*(permissive|enforcing)')|regex_search('(permissive|enforcing)') }}"
-      when: ansible_os_family == "RedHat"
+      when: "islandora_build_base_box|bool == True and ansible_os_family == 'RedHat'"
 
     # Change Selinux to permissive
     - name: change selinux enforcement to permissive
       command: setenforce permissive
-      when: ansible_os_family == "RedHat" and disable_selinux and selinux_permissive == "enforcing"
+      when: "ansible_os_family == 'RedHat' and disable_selinux and selinux_permissive == 'enforcing' and islandora_build_base_box|bool == True"
 
     # Check if we may be re-running
     - name: Check for possible re-run
       stat:
         path: "{{ drupal_composer_install_dir }}/web/sites/default/"
       register: defaultdir_exists
-   
-    # if we are re-running, change the perms on the default dir so composer 
-    # doesn't error out.   
-    - name: Set writable perms on the default/ directory 
-      file: 
+
+    # if we are re-running, change the perms on the default dir so composer
+    # doesn't error out.
+    - name: Set writable perms on the default/ directory
+      file:
         path: "{{ drupal_composer_install_dir }}/web/sites/default/"
         mode: u+rw
         recurse: yes
         owner: "{{ ansible_user }}"
-      when:  defaultdir_exists.stat.exists == true
+      when: defaultdir_exists.stat.exists == true
       become: yes
 
     - name: populate /etc/environment
@@ -90,6 +90,7 @@
         regexp: "^{{ item.key }}="
         line: "{{ item.key }}={{ item.value}}"
       with_items: "{{ os_environment }}"
+      when: "islandora_build_base_box|bool == True"
 
     # Include install profile-specific variables
     - name: include Drupal install profile specific variables

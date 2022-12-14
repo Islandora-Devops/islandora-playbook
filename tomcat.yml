@@ -5,20 +5,25 @@
 
   roles:
     - role: geerlingguy.java
-      when: "ansible_os_family == 'Debian'"
+      when: "ansible_os_family == 'Debian' and islandora_build_base_box|bool == True"
       java_packages:
         - openjdk-11-jdk
     - role: geerlingguy.java
-      when: "ansible_os_family == 'RedHat'"
+      when: "ansible_os_family == 'RedHat' and islandora_build_base_box|bool == True"
       java_packages:
         - java-1.8.0-openjdk
-    - Islandora-Devops.tomcat8
-    - Islandora-Devops.fcrepo
-    - Islandora-Devops.fcrepo-syn
-    - Islandora-Devops.blazegraph
+    - role: Islandora-Devops.tomcat  # This role must run to define the tomcat9_home variable used in too many places.
+    - role: Islandora-Devops.fcrepo
+      when: islandora_build_base_box|bool == False
+    - role: Islandora-Devops.fcrepo-syn
+      when: islandora_build_base_box|bool == False
+    - role: Islandora-Devops.blazegraph
+      when: islandora_build_base_box|bool == True
     - name: geerlingguy.repo-epel
-      when: ansible_os_family == "RedHat"
-    - Islandora-Devops.cantaloupe
-    - Islandora-Devops.activemq
+      when: "ansible_os_family == 'RedHat' and islandora_build_base_box|bool == True"
+    - role: Islandora-Devops.cantaloupe
+      when: islandora_build_base_box|bool == True
+    - role: Islandora-Devops.activemq
+      when: islandora_build_base_box|bool == True
     - name: Islandora-Devops.fits
-      when: webserver_install_fits
+      when: "webserver_install_fits and islandora_build_base_box|bool == False"
