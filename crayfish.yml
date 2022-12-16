@@ -3,17 +3,16 @@
 - hosts: crayfish
   become: yes
 
-  vars:
-    php_version: "7.4"
-
   roles:
     - name: geerlingguy.repo-remi
       when: "ansible_os_family == 'RedHat' and islandora_build_box|bool == True"
     - name: geerlingguy.apache  # Include apache to get the handlers
     - name: geerlingguy.php-versions
-      when: islandora_build_base_box|bool == True
+      when: islandora_build_base_box|bool == False
     - name: geerlingguy.php
-      when: islandora_build_base_box|bool == True
+      when: islandora_build_base_box|bool == False
+    - name: geerlingguy.php-mysql
+      when: islandora_build_base_box|bool == False
     - name: geerlingguy.git
       when: islandora_build_base_box|bool == True
     - name: geerlingguy.composer

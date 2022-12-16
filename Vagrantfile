@@ -11,8 +11,8 @@ $memory = ENV.fetch("ISLANDORA_VAGRANT_MEMORY", "4096")
 $hostname = ENV.fetch("ISLANDORA_VAGRANT_HOSTNAME", "islandora8")
 $virtualBoxDescription = ENV.fetch("ISLANDORA_VAGRANT_VIRTUALBOXDESCRIPTION", "Islandora 8")
 
-# The Vagrant Base Box to use. Currently works with 'ubuntu/focal64'.
-$vagrantBox = ENV.fetch("ISLANDORA_DISTRO", "ubuntu/focal64")
+# The Vagrant Base Box to use. Currently works with 'ubuntu/jammy64'.
+$vagrantBox = ENV.fetch("ISLANDORA_DISTRO", "ubuntu/jammy64")
 
 # See the "install profile" section of the README for the full gamut available.
 $drupalProfile = ENV.fetch("ISLANDORA_INSTALL_PROFILE", "starter")

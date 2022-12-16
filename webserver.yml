@@ -3,9 +3,6 @@
 - hosts: webserver
   become: yes
 
-  vars:
-    php_version: "7.4"
-
   environment:
     COMPOSER_MEMORY_LIMIT: -1
 
@@ -15,15 +12,15 @@
     - name: geerlingguy.apache
       when: islandora_build_base_box|bool == True
     - name: geerlingguy.php-versions
-      when: islandora_build_base_box|bool == True
+      when: islandora_build_base_box|bool == False
     - name: geerlingguy.php
-      when: islandora_build_base_box|bool == True
+      when: islandora_build_base_box|bool == False
     - name: geerlingguy.php-mysql
-      when: islandora_build_base_box|bool == True
+      when: islandora_build_base_box|bool == False
     - name: geerlingguy.git
       when: islandora_build_base_box|bool == True
     - name: geerlingguy.composer
-      when: islandora_build_base_box|bool == True
+      when: islandora_build_base_box|bool == False
     - name: geerlingguy.drush  # Include drush as drupal-openseadragon needs it.
 
     - name: geerlingguy.drupal
