@@ -3,52 +3,49 @@
 
 ## Introduction
 
-This is an Ansible playbook for provisioning an instance of Islandora. This repository includes a Vagrantfile, so `vagrant up` will create a local virtual machine and run the playbook on it.
+This is an Ansible playbook for provisioning an instance of Islandora. This repository can be used with Vagrant, or for deploying to a remote server.
 
-This can also be used as an ansible playbook (playbook.yml) to provision a remote server. If doing so, be sure to change the passwords in `inventory/vagrant/group_vars/all/passwords.yml` (or override them with your own inventory), as well as ensure all ports except the Drupal port are behind a firewall.
+As of tag 2.0.0, deployment is done in two stages:
+* with `islandora_build_base_box=true` ('ISLANDORA_BUILD_BASE=true' in Vagrant), to install environment components that change infrequently, and
+* with `islandora_build_base_box=false` ('ISLANDORA_BUILD_BASE=false' [default] in Vagrant), to install and configure the Islandora software.
+
+The base box can be stored, to save time on subsequent builds (e.g. for creating dev or testing environments).
+
+For usage instructions, including Vagrant and remote server deployment, see [Islandora Playbook](https://islandora.github.io/documentation/installation/playbook) in the Islandora Documentation.
 
 For an alternative installation using Docker, please see [ISLE](https://islandora.github.io/documentation/installation/docker-introduction/).
 
-## Running Vagrant on Macs
 
-### No Virtualbox available for M1, M2 Macs
+## Use
 
-The new architecture of the Apple silicon chips (M1, M2) is incompatible with VirtualBox,
-so the newest Macs cannot be used with the Vagrant method. However, they can still deploy
-the playbook to remote VMs, or use Docker (ISLE).
+Detailed installation and usage instructions can be found on the [official installation documentation for Islandora](https://islandora.github.io/documentation/installation/playbook/).
 
-### macOS 12.0 Monterey VirtualBox Workaround
-
-VirtualBox has not been updated to work fully with macOS Monterey as of October, 2021.
-A workaround exists, which is to run VirtualBox in non-headless mode.
-
-In your Vagrantfile, add the line `v.gui = true` to the configuration section near the top:
-
-```
-Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-  config.vm.provider "virtualbox" do |v|
-    v.name = "Islandora 8 Ansible"
-    v.gui = true
-  end
-```
-
-Discussion of this issue can be found on [this issue](https://github.com/hashicorp/vagrant/issues/12557
-) in Vagrant's GitHub project.
 
 ## Variables
 
-### Base box
+These Vagrant variables (in all caps) are read from the environment, so if you set them as Unix shell variables they will override the defaults defined in the Vagrantfile.
 
-By default the Vagrantfile builds Islandora on a `ubuntu/focal64` (20.04 LTS) base box.
+### Build Base box
 
+If `ISLANDORA_BUILD_BASE` is `true`, then the playbook will download a standard Vagrant base box of the `ISLANDORA_DISTRO` and partly provision it, creating a virtual machine that can be saved as an islandora base box.
+
+If `ISLANDORA_BUILD_BASE` is `false` (default), then the playbook will use an existing islandora base box and provision the islandora software.
+
+This corresponds to the `islandora_build_base_box` Ansible variable.
+
+### Islandora Distro
+
+`ISLANDORA_DISTRO` defaults to `ubuntu/focal64` (20.04 LTS), which is currently the only working distribution. 
+
+This corresponds to the `islandora_distro` Ansible variable.
 
 ### Install Profile
 
-The Unix shell variable `ISLANDORA_INSTALL_PROFILE` can be one of:
+`ISLANDORA_INSTALL_PROFILE` can be one of:
 
-* `demo`: Installs the demo based on the [install profile](https://github.com/Islandora-Devops/islandora_install_profile_demo) developed by Born Digital. This has a custom theme and more out-of-the-box customizations.
 * `starter`: Installs using [the `islandora/islandora-starter-site` project](https://github.com/Islandora/islandora-starter-site/) as a template, intended for spinning up sites for general usage.
 * `starter_dev`: Similar to `starter`, installs based on [the `islandora/islandora-starter-site` project](https://github.com/Islandora/islandora-starter-site/); however, performs a clone of the repository with its history, intended specifically for development of the starter site.
+* `demo`: Installs the demo based on the [install profile](https://github.com/Islandora-Devops/islandora_install_profile_demo) developed by Born Digital. This has a custom theme and more out-of-the-box customizations.
 
 This corresponds to the `islandora_profile` Ansible variable.
 
@@ -61,11 +58,7 @@ export ISLANDORA_VAGRANT_CPUS=4
 export ISLANDORA_VAGRANT_MEMORY=5040
 ```
 
-## Use
-
-Detailed installation and usage instructions can be found on the [official installation documentation for Islandora](https://islandora.github.io/documentation/installation/playbook/).
-
-## Connect
+## Connect (Vagrant)
 
 You can connect to the machine via the browser at [http://localhost:8000](http://localhost:8000).
 
@@ -138,6 +131,34 @@ The Playbook installs an instance of the [Matomo](https://matomo.org/) web analy
 
   * username: admin
   * password: islandora
+
+
+## Running Vagrant on Macs
+
+### Virtualbox not available for M1, M2 Macs
+
+The new architecture of the Apple silicon chips (M1, M2) is incompatible with VirtualBox,
+so the newest Macs cannot be used with the Vagrant method. However, they can still deploy
+the playbook to remote VMs, or use Docker (ISLE).
+
+### macOS 12.0 Monterey VirtualBox Workaround
+
+VirtualBox has not been updated to work fully with macOS Monterey as of October, 2021.
+A workaround exists, which is to run VirtualBox in non-headless mode.
+
+In your Vagrantfile, add the line `v.gui = true` to the configuration section near the top:
+
+```
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+  config.vm.provider "virtualbox" do |v|
+    v.name = "Islandora 8 Ansible"
+    v.gui = true
+  end
+```
+
+Discussion of this issue can be found on [this issue](https://github.com/hashicorp/vagrant/issues/12557
+) in Vagrant's GitHub project.
+
 
 ## Roadmap
 
