@@ -7,7 +7,7 @@ tomcat9_users:
       - manager-gui
 
 # For Fedora 5
-# Use "file-simple", for test instance 
+# Use "file-simple", for test instance
 # For production use either "jdbc-mysql" or "jdbc-postgresql"
 #fcrepo_persistence: file-simple
 
@@ -59,7 +59,7 @@ fcrepo_syn_tokens:
       - fedoraAdmin
     token: "{{ islandora_syn_token }}"
 
-fcrepo_version: "6.0.0"
+fcrepo_version: "6.3.0"
 fcrepo_home_dir: "/opt/fcrepo"
 fcrepo_data_dir: "{{ fcrepo_home_dir }}/data"
 fcrepo_auth_header_name: "X-Islandora"
