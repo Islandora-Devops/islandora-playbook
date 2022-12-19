@@ -12,16 +12,17 @@
     - name: geerlingguy.apache
       when: islandora_build_base_box|bool == True
     - name: geerlingguy.php-versions
-      when: islandora_build_base_box|bool == False
+      when: islandora_build_base_box|bool == True
     - name: geerlingguy.php
-      when: islandora_build_base_box|bool == False
+      when: islandora_build_base_box|bool == True
     - name: geerlingguy.php-mysql
-      when: islandora_build_base_box|bool == False
+      when: islandora_build_base_box|bool == True
     - name: geerlingguy.git
       when: islandora_build_base_box|bool == True
     - name: geerlingguy.composer
-      when: islandora_build_base_box|bool == False
+      when: islandora_build_base_box|bool == True
     - name: geerlingguy.drush  # Include drush as drupal-openseadragon needs it.
+      when: islandora_build_base_box|bool == False
 
     - name: geerlingguy.drupal
       when: islandora_build_base_box|bool == False

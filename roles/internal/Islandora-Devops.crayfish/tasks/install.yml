@@ -1,10 +1,5 @@
 ---
 
-- name: Add ImageMagick repo (apt)
-  apt_repository:
-    repo: 'ppa:lyrasis/imagemagick-jp2'
-  when: ansible_os_family == "Debian"
-
 - name: Install epel repository
   yum:
     name: epel-release

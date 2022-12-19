@@ -8,11 +8,11 @@
       when: "ansible_os_family == 'RedHat' and islandora_build_box|bool == True"
     - name: geerlingguy.apache  # Include apache to get the handlers
     - name: geerlingguy.php-versions
-      when: islandora_build_base_box|bool == False
+      when: islandora_build_base_box|bool == True
     - name: geerlingguy.php
-      when: islandora_build_base_box|bool == False
+      when: islandora_build_base_box|bool == True
     - name: geerlingguy.php-mysql
-      when: islandora_build_base_box|bool == False
+      when: islandora_build_base_box|bool == True
     - name: geerlingguy.git
       when: islandora_build_base_box|bool == True
     - name: geerlingguy.composer
