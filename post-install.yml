@@ -46,10 +46,6 @@
     - name: Set JSONLD Config
       command: "{{ drush_path }} --root {{ drupal_core_path }} -y cset --input-format=yaml jsonld.settings remove_jsonld_format {{ drupal_jsonld_remove_format }}"
 
-    - name: Set pseudo field bundles
-      command: "{{ drush_path }} --root {{ drupal_core_path }} -y cset --input-format=yaml islandora.settings gemini_pseudo_bundles.{{ item.0 }} {{ item.1 }}"
-      with_indexed_items: "{{ drupal_gemini_pseudo_bundles }}"
-
     - name: Set media urls
       command: "{{ drush_path }} --root {{ drupal_core_path }} -y cset --input-format=yaml media.settings standalone_url true"
 
