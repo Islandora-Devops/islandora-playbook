@@ -35,7 +35,7 @@ alpaca_fcrepo_milliner_baseUrl: "{{ alpaca_milliner_base_url }}"
 alpaca_fcrepo_node: queue:islandora-indexing-fcrepo-content
 alpaca_fcrepo_node_delete: queue:islandora-indexing-fcrepo-delete
 alpaca_fcrepo_media: queue:islandora-indexing-fcrepo-media
-alpaca_fcrepo_external: queue:islandora-indexing-fcrepo-external
+alpaca_fcrepo_external: queue:islandora-indexing-fcrepo-file-external
 alpaca_fcrepo_concurrent_consumers: -1
 alpaca_fcrepo_max_consumers: -1
 

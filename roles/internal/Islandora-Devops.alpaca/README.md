@@ -115,7 +115,7 @@ alpaca_fcrepo_media: queue:islandora-indexing-fcrepo-media
 
 Indexing an external content resource:
 ```
-alpaca_fcrepo_external: queue:islandora-indexing-fcrepo-external
+alpaca_fcrepo_external: queue:islandora-indexing-fcrepo-file-external
 ```
 
 Configure default and maximum concurrent processes (-1 to leave as default):
