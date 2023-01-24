@@ -5,7 +5,7 @@ drupal_build_composer_project: false
 drupal_deploy: true
 drupal_build_composer: false
 drupal_deploy_repo: https://github.com/islandora-devops/islandora-sandbox
-drupal_deploy_version: install-profile
+drupal_deploy_version: main
 drupal_deploy_dir: "{{ drupal_composer_install_dir }}"
 drupal_deploy_update: yes
 drupal_deploy_composer_install: yes
