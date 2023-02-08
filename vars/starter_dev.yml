@@ -1,7 +1,7 @@
 ---
 drupal_build_composer_project: false
 drupal_deploy: true
-drupal_deploy_repo: https://github.com/Islandora/islandora-starter-site.git
+drupal_deploy_repo: https://github.com/Islandora-Devops/islandora-starter-site.git
 drupal_deploy_version: main
 drupal_deploy_dir: "{{ drupal_composer_install_dir }}"
 drupal_deploy_composer_install: true
