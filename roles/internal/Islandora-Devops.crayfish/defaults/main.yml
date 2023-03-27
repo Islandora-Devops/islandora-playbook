@@ -1,4 +1,4 @@
-crayfish_version_tag: 3.x
+crayfish_version_tag: upgrade-5.4-symfony
 
 crayfish_services:
   - Houdini

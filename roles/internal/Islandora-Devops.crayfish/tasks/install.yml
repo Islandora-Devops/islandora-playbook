@@ -66,11 +66,6 @@
   vars:
     ssl_key_public_output_path: "{{ crayfish_install_dir }}/public.key"
 
-- name: Install auth config
-  template:
-    src: "syn-settings.xml.jp2"
-    dest: "{{ crayfish_install_dir }}/syn-settings.xml"
-
 - name: Configure crayfish code (Symfony)
   include_tasks: "./tasks/symfony_config.yml"
   with_items: "{{ crayfish_services }}"

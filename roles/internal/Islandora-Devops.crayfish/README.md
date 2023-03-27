@@ -19,8 +19,6 @@ crayfish_services:
   - Homarus
   - Hypercube
   - Recast
-# Default crayfish static JWT token
-crayfish_syn_token: islandora
 # Webserver path to install to
 crayfish_install_dir: /var/www/html/Crayfish
 # Crayfish log directory
@@ -48,11 +46,6 @@ Some OS dependent variables are set in vars/* but can be overridden if desired:
 #   - poppler-utils
 ```
 =======
-`crayfish_db` can be set to: 
- - pgsql 
- - mysql
-
- Depending what database you would like to use. If not set it defaults to _mysql_
 
 There are lots more configuration settings in [defaults/main.yml](defaults/main.yml)
 
@@ -67,15 +60,6 @@ The module depends on the following. Links are provided to roles known to work w
 * [PHP](https://galaxy.ansible.com/geerlingguy/php/)
 * [Composer](https://galaxy.ansible.com/geerlingguy/composer/)
 * [git](https://galaxy.ansible.com/geerlingguy/git/)
-* database
-  - [pgsql](https://galaxy.ansible.com/geerlingguy/postgresql/)
-  - [mysql](https://galaxy.ansible.com/geerlingguy/mysql/)
-  
-## Example Playbook
-
-Examples from the role tests: 
-* [Postgresql](tests/pgsql.yml)
-* [Mysql](tests/mysql.yml)
 
 ## License
 
