@@ -52,4 +52,5 @@ webserver_install_matomo: true
 webserver_install_fits: true
 
 post_install_chown_defaults: true
+post_install_migrate_import_tagwise: false
 post_install_migrate_import_fits_tags: false
