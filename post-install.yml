@@ -55,12 +55,18 @@
     - name: Force Alpaca host setting to override install profile.
       command: "{{ drush_path }} --root {{ drupal_core_path }} -y -l localhost:{{ apache_listen_port }} cset islandora.settings broker_url tcp://{{ hostvars[groups['alpaca'][0]].ansible_host }}:61613"
 
+
+    - name: Run migrations, tag-wise
+      command: "{{ drush_path }} --root {{ drupal_core_path }} -y -l localhost:{{ apache_listen_port }} --userid=1 mim --tag=islandora"
+      when: post_install_migrate_import_tagwise
+
     - name: Run migrations
       command: "{{ drush_path }} --root {{ drupal_core_path }} -y -l localhost:{{ apache_listen_port }} --userid=1 mim islandora_tags,islandora_defaults_tags"
+      when: not post_install_migrate_import_tagwise
 
     - name: Run islandora_fits migration
       command: "{{ drush_path }} --root {{ drupal_core_path }} -y -l localhost:{{ apache_listen_port }} --userid=1 mim islandora_fits_tags"
-      when: post_install_migrate_import_fits_tags
+      when: not post_install_migrate_import_tagwise and post_install_migrate_import_fits_tags
 
     - name: Add vagrant user to webserver app user group
       ansible.builtin.user:
