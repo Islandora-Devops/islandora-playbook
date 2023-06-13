@@ -44,7 +44,7 @@ This corresponds to the `islandora_build_base_box` Ansible variable.
 
 ### Islandora Distro
 
-`ISLANDORA_DISTRO` defaults to `ubuntu/focal64` (20.04 LTS), which is currently the only working distribution. 
+`ISLANDORA_DISTRO` defaults to `ubuntu/jammy64` (22.04 LTS), which is currently the only working distribution. 
 
 This corresponds to the `islandora_distro` Ansible variable.
 
