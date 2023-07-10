@@ -5,7 +5,7 @@
 # Files in the packages/ subdirectory configure your dependencies.
 
 # Put parameters here that don't need to change on each machine where the app is deployed
-# https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
+# https://symfony.com/doc/5.4/best_practices/configuration.html#application-related-configuration
 parameters:
     app.fedora_base_url: {{ crayfish_milliner_fedora_base_url }}
     app.drupal_base_url: {{ crayfish_milliner_drupal_base_url }}
@@ -34,6 +34,7 @@ services:
         $modifiedDatePredicate: '%app.modified_date_predicate%'
         $stripFormatJsonld: '%app.strip_format_jsonld%'
         $isFedora6: '%app.isFedora6%'
+        $fedoraBaseUrl: '%app.fedora_base_url%'
 
     # controllers are imported separately to make sure services can be injected
     # as action arguments even if you don't extend any base controller class

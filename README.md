@@ -23,7 +23,7 @@ With Vagrant (each of these steps may take several minutes!):
 ```bash
 ISLANDORA_BUILD_BASE=true vagrant up         # Create the base box on a bare Ubuntu.
 vagrant package --output islandora_base      # Shut down the VM and save it as a file, islandora_base, which is created in this directory.
-vagrant destroy                              # You will be prompted to enter 'y' to destroy this VM
+ISLANDORA_BUILD_BASE=true vagrant destroy    # You will be prompted to enter 'y' to destroy the base box VM
 vagrant up                                   # It will show it is importing the islandora_base base box, then will provision Islandora.
 ```
 

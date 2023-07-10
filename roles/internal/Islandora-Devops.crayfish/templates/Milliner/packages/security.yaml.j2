@@ -1,12 +1,12 @@
-# This file managed by Ansible
-
-# To disable Syn checking, set syn_enabled=false in crayfish_commons.yaml and remove this configuration file.
+### This file managed by Ansible ###
+### To disable authentication, set crayfish_milliner_jwt_enabled to false.
 security:
-
-    # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
+    enable_authenticator_manager: true
+    # https://symfony.com/doc/5.4/security.html#where-do-users-come-from-user-providers
     providers:
-        jwt_user_provider:
-            id: Islandora\Crayfish\Commons\Syn\JwtUserProvider
+        users_in_memory: { memory: null }
+        jwt:
+            lexik_jwt: ~
 
     firewalls:
         dev:
@@ -16,25 +16,20 @@ security:
             # Need stateless or it reloads the User based on a token.
             stateless: true
 {%if crayfish_milliner_jwt_enabled == true %}
-            anonymous: false
-
-            provider: jwt_user_provider
-            guard:
-                authenticators:
-                    - Islandora\Crayfish\Commons\Syn\JwtAuthenticator
+            provider: jwt
+            jwt: ~
 
             # activate different ways to authenticate
-            # https://symfony.com/doc/current/security.html#firewalls-authentication
+            # https://symfony.com/doc/5.4/security.html#firewalls-authentication
 
-            # https://symfony.com/doc/current/security/impersonating_user.html
+            # https://symfony.com/doc/5.4/security/impersonating_user.html
             # switch_user: true
-
+{% else %}
+            anonymous: true
+{% endif %}
 
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        # - { path: ^/admin, roles: ROLE_ADMIN }
-        # - { path: ^/profile, roles: ROLE_USER }
-{% else %}
-          anonymous: true
-{% endif %}
+    # - { path: ^/admin, roles: ROLE_ADMIN }
+    # - { path: ^/profile, roles: ROLE_USER }
