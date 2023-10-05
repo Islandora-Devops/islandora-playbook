@@ -5,3 +5,5 @@ grok_version_tag: v2.3.0
 php_packages_extra:
   - php-mysql
   - php-pgsql
+
+selinux_permissive: ''
