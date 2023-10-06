@@ -112,4 +112,8 @@
       service:
         name: "solr"
         state: restarted
-        sleep: 5
+
+    - name: Sleep for 5 seconds after SOLR restarted.
+      wait_for:
+        timeout: 5
+      delegate_to: localhost
