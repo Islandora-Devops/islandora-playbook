@@ -5,7 +5,7 @@ drupal_build_composer_project: true
 #drupal_composer_dependencies: []
 
 # Presently pointing at the main branch.
-drupal_composer_project_package: 'islandora/islandora-starter-site:~0.7'
+drupal_composer_project_package: 'islandora/islandora-starter-site:^1.2'
 
 # XXX: Strictly, irrelevant due to using the `--existing-config` flag.
 drupal_install_profile: minimal
