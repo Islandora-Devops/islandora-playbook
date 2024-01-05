@@ -21,8 +21,6 @@
       when: islandora_build_base_box|bool == True
     - name: geerlingguy.composer
       when: islandora_build_base_box|bool == True
-    - name: geerlingguy.drush  # Include drush as drupal-openseadragon needs it.
-      when: islandora_build_base_box|bool == False
 
     - name: geerlingguy.drupal
       when: islandora_build_base_box|bool == False
