@@ -6,3 +6,5 @@ roles/external
 .project
 .github
 islandora_base
+!inventory/vagrant
+inventory/*
