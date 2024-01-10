@@ -11,7 +11,7 @@
   tasks:
 
     - name: Create a directory if it does not exist
-      ansible.builtin.file:
+      file:
         path: /etc/systemd/system/tomcat9.service.d
         state: directory
         mode: '0755'
@@ -22,6 +22,7 @@
         regexp: 'var/cache/cantaloupe/$'
         line: 'ReadWritePaths=/var/cache/cantaloupe/'
         insertafter: EOF
+      when: "ansible_os_family == 'Debian'"
 
     - name: Add Cantaloupe log to Tomcat writable paths
       lineinfile:
@@ -29,9 +30,10 @@
         regexp: 'var/log/cantaloupe/$'
         line: 'ReadWritePaths=/var/log/cantaloupe'
         insertafter: EOF
+      when: "ansible_os_family == 'Debian'"
 
     - name: restart daemon service
-      ansible.builtin.systemd:
+      systemd:
         daemon_reload: yes
 
     - name: start tomcat9
@@ -69,7 +71,7 @@
       when: not post_install_migrate_import_tagwise and post_install_migrate_import_fits_tags
 
     - name: Add vagrant user to webserver app user group
-      ansible.builtin.user:
+      user:
         name: "{{ vagrant_user }}"
         groups: "{{ webserver_app_user }}"
         append: yes

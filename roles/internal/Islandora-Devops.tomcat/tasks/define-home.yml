@@ -29,3 +29,8 @@
   when:
     - tomcat_target_dir is not defined
     - __tomcat_target_dir is defined
+
+- name: Define tomcat9_java_home
+  set_fact:
+    tomcat9_java_home: "{{ __tomcat9_java_home }}"
+  when: __tomcat_target_dir is defined

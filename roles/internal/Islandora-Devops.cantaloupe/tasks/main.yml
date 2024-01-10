@@ -1,6 +1,11 @@
 ---
+- include: os-vars.yml
+  tags:
+    - cantaloupe
+    - cantaloupe-config
+    - cantaloupe-install
 
-- include: install.yml
+- include: "install-{{ ansible_os_family }}.yml"
   tags:
     - cantaloupe
     - cantaloupe-install

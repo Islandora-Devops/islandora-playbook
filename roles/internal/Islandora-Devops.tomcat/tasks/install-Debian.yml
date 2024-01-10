@@ -15,8 +15,14 @@
   with_items: "{{ tomcat9_admin_packages }}"
   when: tomcat9_admin_install
 
+#- name: systemd
+#  template: 
+#    src: tomcat.service.j2 
+#    dest: /etc/systemd/system/tomcat9.service
+#    mode: '0644'
+
 - name: Create a directory if it does not exist
-  ansible.builtin.file:
+  file:
     path: /etc/systemd/system/tomcat9.service.d
     state: directory
     mode: '0755'
@@ -30,7 +36,7 @@
     mode: '0644'
 
 - name: restart daemon service
-  ansible.builtin.systemd:
+  systemd:
     daemon_reload: yes
 
 - name: start tomcat9

@@ -7,7 +7,7 @@ cantaloupe_install_root: /opt
 # Target of a symlink from the extracted cantaloupe archive
 cantaloupe_symlink: /opt/cantaloupe
 # Path to cantaloupe logs
-cantaloupe_log_path: /var/log/cantaloupe
+#cantaloupe_log_path: /var/log/cantaloupe
 # Cantaloupe user
 cantaloupe_user: cantaloupe
 # Cantaloupe group
@@ -753,7 +753,7 @@ cantaloupe_log_application_SyslogAppender_facility: LOCAL0
 
 # N.B.: Don't enable FileAppender and RollingFileAppender simultaneously!
 cantaloupe_log_error_FileAppender_enabled: "true"
-cantaloupe_log_error_FileAppender_pathname: /var/log/cantaloupe/error.log
+#cantaloupe_log_error_FileAppender_pathname: /var/log/cantaloupe/error.log
 
 cantaloupe_log_error_RollingFileAppender_enabled: "false"
 cantaloupe_log_error_RollingFileAppender_pathname: /path/to/logs/error.log
@@ -768,7 +768,7 @@ cantaloupe_log_error_RollingFileAppender_TimeBasedRollingPolicy_max_history: 30
 cantaloupe_log_access_ConsoleAppender_enabled: "false"
 
 cantaloupe_log_access_FileAppender_enabled: "true"
-cantaloupe_log_access_FileAppender_pathname: /var/log/cantaloupe/access.log
+#cantaloupe_log_access_FileAppender_pathname: /var/log/cantaloupe/access.log
 
 # RollingFileAppender is an alternative to using something like
 # FileAppender + logrotate.
