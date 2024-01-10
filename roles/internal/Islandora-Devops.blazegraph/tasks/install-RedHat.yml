@@ -1,0 +1,31 @@
+---
+
+- name: Create blazegraph home directory
+  file:
+    path: "{{ blazegraph_home_dir }}"
+    state: directory
+    owner: "{{ blazegraph_user }}"
+    group: "{{ blazegraph_user }}"
+
+- name: Create blazegraph conf directory
+  file:
+    path: "{{ blazegraph_home_dir }}/conf"
+    state: directory
+    owner: "{{ blazegraph_user }}"
+    group: "{{ blazegraph_user }}"
+
+- name: Create blazegraph data directory
+  file:
+    path: "{{ blazegraph_home_dir }}/data"
+    state: directory
+    owner: "{{ blazegraph_user }}"
+    group: "{{ blazegraph_user }}"
+
+- name: Create file with sandbox overrides
+  copy:
+    dest: "/etc/systemd/system/tomcat9.service.d/override.conf"
+    content: |
+      [Service]
+      ReadWritePaths={{ blazegraph_home_dir }}/data/
+    mode: '0644'
+

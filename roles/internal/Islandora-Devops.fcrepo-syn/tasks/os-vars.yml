@@ -1,0 +1,13 @@
+---
+
+# Include variables and define needed variables.
+- name: Include OS-specific variables.
+  include_vars: "{{ ansible_os_family }}.yml"
+
+- name: Define fcrepo_syn_tomcat_config_dir
+  set_fact:
+    fcrepo_syn_tomcat_config_dir: "{{ __fcrepo_syn_tomcat_config_dir }}"
+
+- name: Define fcrepo_syn_tomcat_home
+  set_fact:
+    fcrepo_syn_tomcat_home: "{{ __fcrepo_syn_tomcat_home }}"

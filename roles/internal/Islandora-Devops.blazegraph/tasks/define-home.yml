@@ -1,0 +1,11 @@
+---
+
+# Include variables and define needed variables.
+- name: Include OS-specific variables.
+  include_vars: "{{ ansible_os_family }}.yml"
+
+- name: Define blazegraph_log_dir
+  set_fact:
+    blazegraph_log_dir: "{{ __blazegraph_log_dir }}"
+  when: blazegraph_log_dir is not defined
+

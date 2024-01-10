@@ -1,0 +1,40 @@
+[Unit]
+Description=Apache Tomcat Web Application Container for Islandora
+After=syslog.target network.target
+
+[Service]
+
+# Lifecycle
+Type=forking
+User={{tomcat9_server_user}}
+Group={{tomcat9_server_group}}
+WorkingDirectory={{tomcat9_home}}
+ExecStart={{tomcat9_home}}/bin/catalina.sh start
+ExecStop={{tomcat9_home}}/bin/catalina.sh stop
+Restart=always
+RestatSec=10
+PrivateTmp=yes
+ProtectSystem=strict
+SuccessExitStatus=143
+NoNewPrivileges=true
+
+# Configuration
+{% if tomcat9_java_home is defined %}
+Environment="JAVA_HOME={{tomcat9_java_home}}"
+{% endif %}
+{% if tomcat9_java_opts is defined %}
+Environment="JAVA_OPTS={{tomcat9_java_opts|join(' ')}}"
+{% endif %}
+{% if tomcat8_java_home is defined %}
+Environment="JAVA_HOME={{tomcat9_java_home}}"
+{% endif %}
+Environment="CATALINA_PID=/var/run/catalina.pid"
+Environment="CATALINA_HOME={{tomcat9_home}}"
+
+ReadWritePaths="{{tomcat9_home}}"
+ReadWritePaths="{{tomcat9_home}}/webapps"
+ReadWritePaths="{{tomcat9_home}}/logs"
+
+[Install]
+WantedBy=multi-user.target
+

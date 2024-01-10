@@ -1,0 +1,5 @@
+#
+# Set variables for Debian
+#
+__fcrepo_syn_tomcat_config_dir: /etc/tomcat9
+__fcrepo_syn_tomcat_home: /usr/share/tomcat9
