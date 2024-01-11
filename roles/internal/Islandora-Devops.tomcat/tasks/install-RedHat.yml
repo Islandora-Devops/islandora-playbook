@@ -50,14 +50,6 @@
   notify: restart tomcat9
   become: yes
 
-#- name: Create file with sandbox overrides
-#  copy:
-#    dest: "/etc/systemd/system/tomcat9.service.d/override.conf"
-#    content: |
-#      [Service]
-#      ReadWritePaths={{ blazegraph_home_dir }}/data/
-#    mode: '0644'
-
 - name: restart systemd daemon service
   systemd:
     daemon_reload: yes
