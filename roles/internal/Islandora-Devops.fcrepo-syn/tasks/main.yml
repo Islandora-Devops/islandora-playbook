@@ -10,10 +10,6 @@
     - fcrepo-syn
     - fcrepo-syn-install
 
-- name: Show ansible_os_family
-  debug:
-    msg: "ansible_os_family: {{ ansible_os_family }}"
-
 - include: "config-{{ ansible_os_family }}.yml"
   tags:
     - fcrepo-syn
