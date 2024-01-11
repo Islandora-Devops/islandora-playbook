@@ -12,7 +12,6 @@
       when: "ansible_os_family == 'RedHat' and islandora_build_base_box|bool == True"
       java_packages:
         - java-11-openjdk
-      #  - java-1.8.0-openjdk
     - role: Islandora-Devops.tomcat  # This role must run to define the tomcat9_home variable used in too many places.
     - role: Islandora-Devops.fcrepo
       when: islandora_build_base_box|bool == False
