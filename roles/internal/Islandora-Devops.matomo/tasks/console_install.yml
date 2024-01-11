@@ -10,7 +10,6 @@
   register: motomo_sql_dump_create
 
 - name: update database sql file for RedHat
-  #shell: "sed -i 's/utf8mb4_0900_ai_ci/utf8mb4_unicode_ci/g' {{ webserver_document_root }}/matomo.sql"
   replace:
     path: "{{ webserver_document_root }}/matomo.sql"
     regexp: 'utf8mb4_0900_ai_ci'
@@ -35,3 +34,4 @@
     mode:  0664
     force: no
   register: motomo_config_create
+

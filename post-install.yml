@@ -11,7 +11,7 @@
   tasks:
 
     - name: Create a directory if it does not exist
-      file:
+      ansible.builtin.file:
         path: /etc/systemd/system/tomcat9.service.d
         state: directory
         mode: '0755'
@@ -33,7 +33,7 @@
       when: "ansible_os_family == 'Debian'"
 
     - name: restart daemon service
-      systemd:
+      ansible.builtin.systemd:
         daemon_reload: yes
 
     - name: start tomcat9
@@ -71,7 +71,7 @@
       when: not post_install_migrate_import_tagwise and post_install_migrate_import_fits_tags
 
     - name: Add vagrant user to webserver app user group
-      user:
+      ansible.builtin.user:
         name: "{{ vagrant_user }}"
         groups: "{{ webserver_app_user }}"
         append: yes

@@ -37,7 +37,7 @@
     recurse: yes
   become: yes
 
-- name: Create a directory if it does not exist
+- name: Create the directory if it does not exist
   file:
     path: /etc/systemd/system/tomcat9.service.d
     state: directory
@@ -58,7 +58,7 @@
 #      ReadWritePaths={{ blazegraph_home_dir }}/data/
 #    mode: '0644'
 
-- name: restart daemon service
+- name: restart systemd daemon service
   systemd:
     daemon_reload: yes
 

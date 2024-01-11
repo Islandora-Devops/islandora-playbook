@@ -22,7 +22,7 @@
 #    mode: '0644'
 
 - name: Create a directory if it does not exist
-  file:
+  ansible.builtin.file:
     path: /etc/systemd/system/tomcat9.service.d
     state: directory
     mode: '0755'
@@ -36,7 +36,7 @@
     mode: '0644'
 
 - name: restart daemon service
-  systemd:
+  ansible.builtin.systemd:
     daemon_reload: yes
 
 - name: start tomcat9

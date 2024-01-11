@@ -5,14 +5,12 @@
   version: 1.2.4
 
 - src: geerlingguy.repo-remi
-  #version: 1.2.0
   version: 2.0.1
 
 - src: geerlingguy.apache
   version: 3.3.0
 
 - src: geerlingguy.php-versions
-  #version: 5.0.0
   version: 5.0.1
 
 - src: geerlingguy.php
@@ -31,7 +29,6 @@
   version: 1.4.3
 
 - src: geerlingguy.solr
-  #version: 5.4.1
   version: 5.5.0
 
 - src: geerlingguy.java

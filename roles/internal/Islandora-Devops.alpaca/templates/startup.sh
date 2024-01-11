@@ -1,15 +1,5 @@
 #!/bin/bash
 
-#if [ -z "$JAVA_HOME" ]; then
-#  if [ -d "/usr/lib/jvm/java-11-openjdk-amd64" ]; then
-#    # Make a guess because this is only for Ubuntu
-#    export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
-#  else
-#    echo "Cannot locate JAVA, please define JAVA_HOME."
-#    exit 1
-#  fi
-#fi
-
 if [ "$(grep -Ei 'debian/buntu/mint' /etc/*release)" ]; then
 	if [ -d "/usr/lib/jvm/java-11-openjdk-amd64" ]; then
 	  # Make a guess for Debian based systems.

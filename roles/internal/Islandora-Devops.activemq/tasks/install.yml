@@ -15,6 +15,11 @@
     owner: "{{ activemq_user }}"
     group: "{{ activemq_user }}"
 
+- name: Cleanup ActiveMQ archive file
+  file:
+    path: "{{ activemq_install_root }}/apache-activemq-{{ activemq_version }}-bin.tar.gz"
+    state: absent
+
 - name: Make ActiveMQ symlink
   file:
     src: "{{ activemq_install_root }}/apache-activemq-{{ activemq_version }}"
@@ -22,12 +27,6 @@
     owner: "{{ activemq_user }}"
     group: "{{ activemq_user }}"
     state: link
-
-- name: Cleanup ActiveMQ archive file
-  file:
-    path: "{{ activemq_install_root }}/apache-activemq-{{ activemq_version }}-bin.tar.gz"
-    state: absent
-
 
 # Transitional removal of old-style init.d symlink
 # This task can be removed in the future.

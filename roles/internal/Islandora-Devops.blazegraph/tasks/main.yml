@@ -25,11 +25,6 @@
     - blazegraph
     - blazegraph-logging
 
-#- include: config.yml
-#  tags:
-#    - blazegraph
-#    - blazegraph-config
-
 - include: "config-{{ ansible_os_family }}.yml"
   tags:
     - blazegraph

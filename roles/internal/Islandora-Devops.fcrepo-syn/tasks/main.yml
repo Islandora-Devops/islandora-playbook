@@ -18,9 +18,3 @@
   tags:
     - fcrepo-syn
     - fcrepo-syn-config
-
-#- include: config.yml
-#  tags:
-#    - fcrepo-syn
-#    - fcrepo-syn-config
-

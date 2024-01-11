@@ -48,7 +48,7 @@
     group: "{{ fcrepo_user }}"
   notify: restart tomcat9
 
-- name: Add Fedora to tomcat ReadWritePaths
+- name: Add Fedora to tomcat override.conf
   lineinfile:
     path: "/etc/systemd/system/tomcat9.service.d/override.conf"
     regex: "^ReadWritePaths={{ fcrepo_home_dir }}/$"
