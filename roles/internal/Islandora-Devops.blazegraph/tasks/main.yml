@@ -5,11 +5,6 @@
     - blazegraph-config
     - blazegraph-install
 
-#- include: install.yml
-#  tags:
-#    - blazegraph
-#    - blazegraph-install
-
 - include: "install-{{ ansible_os_family }}.yml"
   tags:
     - blazegraph
