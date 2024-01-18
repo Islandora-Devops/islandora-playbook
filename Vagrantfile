@@ -75,7 +75,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       ansible.host_vars = {
         "all" => { "ansible_ssh_user" => $vagrantUser }
       }
-      ansible.extra_vars = { "islandora_distro" => $vagrantBox,
+      ansible.extra_vars = { "ansible_user" => $vagrantUser,
+                             "islandora_distro" => $vagrantBox,
                              "islandora_profile" => $drupalProfile,
                              "islandora_build_base_box" => $buildBaseBox }
     end
