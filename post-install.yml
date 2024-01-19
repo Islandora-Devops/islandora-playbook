@@ -22,6 +22,7 @@
         regexp: 'var/cache/cantaloupe/$'
         line: 'ReadWritePaths=/var/cache/cantaloupe/'
         insertafter: EOF
+      when: "ansible_os_family == 'Debian'"
 
     - name: Add Cantaloupe log to Tomcat writable paths
       lineinfile:
@@ -29,6 +30,7 @@
         regexp: 'var/log/cantaloupe/$'
         line: 'ReadWritePaths=/var/log/cantaloupe'
         insertafter: EOF
+      when: "ansible_os_family == 'Debian'"
 
     - name: restart daemon service
       ansible.builtin.systemd:

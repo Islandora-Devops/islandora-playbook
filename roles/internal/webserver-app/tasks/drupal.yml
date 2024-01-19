@@ -126,6 +126,6 @@
     path: ~/.bash_profile
     line: 'PATH="$PATH:{{ webserver_document_root }}/drupal/vendor/bin"'
     state: present
-  become: false
+  become: true 
   when: ansible_os_family == "RedHat"
 

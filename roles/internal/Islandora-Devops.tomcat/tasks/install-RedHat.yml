@@ -37,7 +37,25 @@
     recurse: yes
   become: yes
 
-- name: systemd
-  template: src=tomcat.service.j2 dest=/etc/systemd/system/tomcat9.service
+- name: Create the directory if it does not exist
+  file:
+    path: /etc/systemd/system/tomcat9.service.d
+    state: directory
+    mode: '0755'
+
+- name: Create tomcat9.service file.
+  template: 
+    src: tomcat.service.j2 
+    dest: /etc/systemd/system/tomcat9.service
   notify: restart tomcat9
   become: yes
+
+- name: restart systemd daemon service
+  systemd:
+    daemon_reload: yes
+
+- name: start tomcat9
+  service:
+    name: tomcat9
+    state: started
+

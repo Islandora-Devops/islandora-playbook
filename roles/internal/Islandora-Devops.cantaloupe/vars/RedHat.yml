@@ -1,0 +1,7 @@
+#
+# Set variables for RedHat
+#
+__cantaloupe_log_path: /opt/tomcat/logs/cantaloupe
+__cantaloupe_log_error_FileAppender_pathname: /opt/tomcat/logs/cantaloupe/error.log
+__cantaloupe_log_access_FileAppender_pathname: /opt/tomcat/logs/cantaloupe/access.log
+

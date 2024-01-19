@@ -1,0 +1,6 @@
+#
+# Set variables for RedHat
+#
+__fcrepo_syn_tomcat_config_dir: /opt/tomcat/conf
+__fcrepo_syn_tomcat_home: /opt/tomcat
+

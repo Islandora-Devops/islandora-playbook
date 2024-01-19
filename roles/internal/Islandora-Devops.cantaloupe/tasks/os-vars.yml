@@ -1,0 +1,22 @@
+---
+
+# Include variables and define needed variables.
+- name: Include OS-specific variables.
+  include_vars: "{{ ansible_os_family }}.yml"
+
+- name: Define cantaloupe_log_path
+  set_fact:
+    cantaloupe_log_path: "{{ __cantaloupe_log_path }}"
+  when: cantaloupe_log_path is not defined
+
+- name: Define cantaloupe_log_error_FileAppender_pathname
+  set_fact:
+    cantaloupe_log_error_FileAppender_pathname: "{{ __cantaloupe_log_error_FileAppender_pathname }}"
+  when: cantaloupe_log_error_FileAppender_pathname is not defined
+
+- name: Define cantaloupe_log_access_FileAppender_pathname
+  set_fact:
+    cantaloupe_log_access_FileAppender_pathname: "{{ __cantaloupe_log_access_FileAppender_pathname }}"
+  when: cantaloupe_log_access_FileAppender_pathname is not defined
+
+

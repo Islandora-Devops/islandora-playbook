@@ -4,19 +4,19 @@
   become: yes
 
   roles:
-    - name: geerlingguy.repo-remi
-      when: "ansible_os_family == 'RedHat' and islandora_build_box|bool == True"
-    - name: geerlingguy.apache  # Include apache to get the handlers
-    - name: geerlingguy.php-versions
+    - role: geerlingguy.repo-remi
+      when: "ansible_os_family == 'RedHat' and islandora_build_base_box|bool == True"
+    - role: geerlingguy.apache  # Include apache to get the handlers
+    - role: geerlingguy.php-versions
       when: islandora_build_base_box|bool == True
-    - name: geerlingguy.php
+    - role: geerlingguy.php
       when: islandora_build_base_box|bool == True
-    - name: geerlingguy.php-mysql
+    - role: geerlingguy.php-mysql
       when: islandora_build_base_box|bool == True
-    - name: geerlingguy.git
+    - role: geerlingguy.git
       when: islandora_build_base_box|bool == True
-    - name: geerlingguy.composer
+    - role: geerlingguy.composer
       when: islandora_build_base_box|bool == True
 
-    - name: Islandora-Devops.crayfish
+    - role: Islandora-Devops.crayfish
       when: islandora_build_base_box|bool == False

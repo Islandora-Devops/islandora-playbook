@@ -1,6 +1,11 @@
 ---
+- include: "define-home.yml"
+  tags:
+    - blazegraph
+    - blazegraph-config
+    - blazegraph-install
 
-- include: install.yml
+- include: "install-{{ ansible_os_family }}.yml"
   tags:
     - blazegraph
     - blazegraph-install
@@ -15,7 +20,7 @@
     - blazegraph
     - blazegraph-logging
 
-- include: config.yml
+- include: "config-{{ ansible_os_family }}.yml"
   tags:
     - blazegraph
     - blazegraph-config
