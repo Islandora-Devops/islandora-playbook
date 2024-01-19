@@ -2,7 +2,7 @@
 drupal_build_composer_project: true
 
 # None necessary, should all be described in the given project.
-#drupal_composer_dependencies: []
+drupal_composer_dependencies: []
 
 # Presently pointing at the main branch.
 drupal_composer_project_package: 'islandora/islandora-starter-site:^1.2'
