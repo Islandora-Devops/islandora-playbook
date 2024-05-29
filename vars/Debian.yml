@@ -9,3 +9,4 @@ php_packages_extra:
   - "php{{ php_version }}-gd"
   - "php{{ php_version }}-xml"
   - "php{{ php_version }}-curl"
+  - "php{{ php_version }}-intl"
