@@ -62,7 +62,7 @@
     state: directory
     owner: "{{ crayfish_user }}"
     group: "{{ crayfish_user }}"
-    mode: "urwx,gr,o-rwx"
+    mode: "u=rwx,g=r,o-rwx"
     recurse: yes
 
 - name: Install crayfish code
