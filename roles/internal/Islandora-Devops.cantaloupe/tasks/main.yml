@@ -1,28 +1,28 @@
 ---
 
-- include: os-vars.yml
+- import_tasks: os-vars.yml
   tags:
     - cantaloupe
     - cantaloupe-config
     - cantaloupe-install
 
-- include: "install-{{ ansible_os_family }}.yml"
+- include_tasks: "install-{{ ansible_os_family }}.yml"
   tags:
     - cantaloupe
     - cantaloupe-install
 
-- include: config.yml
+- import_tasks: config.yml
   tags:
     - cantaloupe
     - cantaloupe-config
 
-- include: web.yml
+- import_tasks: web.yml
   tags:
     - cantaloupe
     - cantaloupe-web
   when: cantaloupe_deploy_war
 
-- include: cache.yml
+- import_tasks: cache.yml
   tags:
     - cantaloupe
     - cantaloupe-cache

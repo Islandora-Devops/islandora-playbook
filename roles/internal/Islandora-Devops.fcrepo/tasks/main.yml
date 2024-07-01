@@ -1,16 +1,16 @@
-- include: install.yml
+- import_tasks: install.yml
   tags:
     - fcrepo
     - fcrepo-install
 
-- include: db-mysql.yml
+- import_tasks: db-mysql.yml
   when: fcrepo_db_type == 'mysql' or fcrepo_persistence == 'jdbc-mysql'
   tags:
     - fedora
     - fedora-install
     - fedora-db
 
-- include: db-pgsql.yml
+- import_tasks: db-pgsql.yml
   when: fcrepo_db_type == 'postgresql' or fcrepo_persistence == 'jdbc-postgresql'
   become: yes
   tags:
@@ -18,7 +18,7 @@
     - fedora-install
     - fedora-db
 
-- include: config.yml
+- import_tasks: config.yml
   tags:
     - fcrepo
     - fcrepo-config
