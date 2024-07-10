@@ -1,18 +1,18 @@
 ---
 
-- include: compile.yml
+- import_tasks: compile.yml
   tags:
     - alpaca
     - alpaca-compile
   when: alpaca_from_source
 
-- include: download.yml
+- import_tasks: download.yml
   tags:
     - alpaca
     - alpaca-download
   when: not alpaca_from_source
 
-- include: config.yml
+- import_tasks: config.yml
   tags:
     - alpaca
     - alpaca-config

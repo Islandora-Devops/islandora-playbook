@@ -1,31 +1,31 @@
 ---
-- include: "define-home.yml"
+- import_tasks: "define-home.yml"
   tags:
     - blazegraph
     - blazegraph-config
     - blazegraph-install
 
-- include: "install-{{ ansible_os_family }}.yml"
+- include_tasks: "install-{{ ansible_os_family }}.yml"
   tags:
     - blazegraph
     - blazegraph-install
 
-- include: download.yml
+- import_tasks: download.yml
   tags:
     - blazegraph
     - blazegraph-download
 
-- include: logging.yml
+- import_tasks: logging.yml
   tags:
     - blazegraph
     - blazegraph-logging
 
-- include: "config-{{ ansible_os_family }}.yml"
+- include_tasks: "config-{{ ansible_os_family }}.yml"
   tags:
     - blazegraph
     - blazegraph-config
 
-- include: namespace.yml
+- import_tasks: namespace.yml
   tags:
     - blazegraph
     - blazegraph-namespace

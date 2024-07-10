@@ -34,12 +34,12 @@
     - crayfish-install
     - crayfish-houdini
 
-- include: install.yml
+- import_tasks: install.yml
   tags:
     - crayfish
     - crayfish-install
 
-- include: houdini.yml
+- import_tasks: houdini.yml
   tags:
     - crayfish
     - crayfish-houdini

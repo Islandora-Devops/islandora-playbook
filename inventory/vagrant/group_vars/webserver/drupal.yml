@@ -26,3 +26,5 @@ drupal_external_libraries_directory: "{{ drupal_core_path }}/libraries"
 fedora_base_url: "http://{{ hostvars[groups['tomcat'][0]].ansible_host }}:8080/fcrepo/rest/"
 drupal_jsonld_remove_format: true
 openseadragon_composer_item: "islandora/openseadragon:^2"
+
+drush_path: "{{ drupal_deploy_dir }}/vendor/bin/drush"
