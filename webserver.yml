@@ -21,7 +21,6 @@
       when: islandora_build_base_box|bool == True
     - name: geerlingguy.composer
       when: islandora_build_base_box|bool == True
-
     - name: geerlingguy.drupal
       when: islandora_build_base_box|bool == False
     - name: perms-fix

@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+cd "$repo_root"
+
+box_name="${VAGRANT_BASE_BOX:-islandora_base}"
+box_file="$repo_root/$box_name"
+
+if vagrant box list | awk '{print $1}' | grep -Fxq "$box_name"; then
+  echo "Vagrant box '$box_name' already installed"
+  exit 0
+fi
+
+if [[ -f "$box_file" ]]; then
+  echo "Importing local Vagrant box '$box_name'"
+  vagrant box add --force --name "$box_name" "$box_file"
+  exit 0
+fi
+
+echo "Building Vagrant box '$box_name'"
+ISLANDORA_BUILD_BASE=true vagrant up
+vagrant package --output "$box_name"
+ISLANDORA_BUILD_BASE=true vagrant destroy -f
+vagrant box add --force --name "$box_name" "$box_file"

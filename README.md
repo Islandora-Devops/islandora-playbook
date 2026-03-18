@@ -18,14 +18,32 @@ For an alternative installation using Docker, please see [ISLE](https://islandor
 
 ## Use
 
-With Vagrant (each of these steps may take several minutes!):
+With Vagrant (each of these steps will take several minutes!):
 
 ```bash
-ISLANDORA_BUILD_BASE=true vagrant up         # Create the base box on a bare Ubuntu.
-vagrant package --output islandora_base      # Shut down the VM and save it as a file, islandora_base, which is created in this directory.
-ISLANDORA_BUILD_BASE=true vagrant destroy    # You will be prompted to enter 'y' to destroy the base box VM
-vagrant up                                   # It will show it is importing the islandora_base base box, then will provision Islandora.
+# Build and import the Vagrant base box (stage 1)
+make build
+# Start and provision Islandora with ISLANDORA_BUILD_BASE=false (stage 2)
+make up
 ```
+
+If either command fails with `Timed out while waiting for the machine to boot`:
+
+```text
+Timed out while waiting for the machine to boot.
+...
+make: *** [vagrant-base] Error 1
+```
+
+use the VirtualBox GUI window to inspect the guest console output, then retry provisioning after the VM is reachable:
+
+```bash
+make provision
+```
+
+### macOS vagrant setting
+
+On macOS hosts using VirtualBox, this repository enables `v.gui = true` automatically so the VM console is visible during boot. The VirtualBox preview window shows guest console output; the VirtualBox `Logs` tab does not show the guest OS logs.
 
 Detailed installation and usage instructions can be found on the [official installation documentation for Islandora](https://islandora.github.io/documentation/installation/playbook/).
 
@@ -36,11 +54,12 @@ GitHub Actions in this repository run:
 * `./scripts/run-lint --all-files` so local and CI linting use the same entrypoint.
 * `molecule test` for a lightweight smoke test that syntax-checks the main playbook with a local inventory.
 
-This CI path is intended for GitHub-hosted runners, where Vagrant-based VM testing is not practical.
+This repository also ships Git hooks in `.githooks/`. With `core.hooksPath` set to `.githooks`:
 
-This repository also ships Git hooks in `.githooks/`. Once `core.hooksPath` is set to `.githooks`, `git commit` runs the staged-file lint path and `git push` runs the full-repository lint path automatically.
+* `git commit` does nothing extra
+* `git push` runs `./scripts/run-lint --all-files`
 
-For local linting, use the same repo entrypoint as CI:
+Common local commands:
 
 ### macOS
 
@@ -52,7 +71,14 @@ which ansible || brew install ansible
 ansible-galaxy collection install -r requirements-ci.yml -p collections --force
 ansible-galaxy role install -r requirements.yml -p roles/external
 git config core.hooksPath .githooks
-./scripts/run-lint --all-files
+make lint
+make build
+make up
+make rebuild
+make refresh-base
+make ping REMOTE_HOST=1.2.3.4 REMOTE_USER=ubuntu REMOTE_KEY=~/.ssh/id_ed25519
+make remote-base REMOTE_HOST=1.2.3.4 REMOTE_USER=ubuntu REMOTE_KEY=~/.ssh/id_ed25519
+make deploy REMOTE_HOST=1.2.3.4 REMOTE_USER=ubuntu REMOTE_KEY=~/.ssh/id_ed25519
 ```
 
 

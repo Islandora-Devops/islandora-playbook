@@ -24,6 +24,10 @@ $buildBaseBox=ENV.fetch("ISLANDORA_BUILD_BASE", "false").to_s.downcase == "true"
 $vagrantUser = "vagrant"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+  if $buildBaseBox
+    config.vm.boot_timeout = 900
+  end
+
   config.vm.provider "virtualbox" do |v|
     if $buildBaseBox
       v.name = "Islandora 8 Ansible Base Box"

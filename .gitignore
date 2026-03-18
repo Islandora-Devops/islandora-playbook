@@ -9,3 +9,6 @@ inventory/*
 !inventory/vagrant
 .ansible
 collections/
+.inventory/
+islandora_workbench
+islandora_demo_objects
