@@ -1,4 +1,4 @@
-
+---
 - name: Set template files (Fedora 5)
   set_fact:
     template_files:

@@ -48,7 +48,7 @@ fits_ws: yes
 ## Dependencies
 
 * Tomcat
-  
+
 ## Example Playbook
 
     - hosts: webservers

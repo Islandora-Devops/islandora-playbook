@@ -1,6 +1,6 @@
 ---
 - hosts: all
-  become: yes
+  become: true
 
   pre_tasks:
     - name: https://github.com/geerlingguy/ansible-role-java/issues/64#issuecomment-393299088
@@ -9,7 +9,7 @@
         state: directory
     - name: Update apt cache
       apt:
-        update_cache: yes
+        update_cache: true
       when: ansible_os_family == "Debian"
 
   roles:

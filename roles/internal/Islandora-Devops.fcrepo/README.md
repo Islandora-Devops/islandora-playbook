@@ -99,7 +99,7 @@ fcrepo_allowed_external_content:
 ## Dependencies
 
 * islandora.tomcat8
- 
+
 ## Example Playbook
 
     - hosts: webservers

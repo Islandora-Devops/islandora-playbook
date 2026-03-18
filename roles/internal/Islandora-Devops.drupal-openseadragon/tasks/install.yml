@@ -1,11 +1,11 @@
 ---
 
 - name: Install Openseadragon with composer
-  composer:
+  community.general.composer:
     command: require
     arguments: "{{ openseadragon_composer_item }}"
     working_dir: "{{ openseadragon_composer_root }}"
-  become: no
+  become: false
   when: openseadragon_composer_require
 
 - name: Check if Seadragon Library Exists
@@ -21,11 +21,14 @@
 
 - name: Unarchive seadragon library
   unarchive:
-    remote_src: yes
-    src: https://github.com/openseadragon/openseadragon/releases/download/v{{ openseadragon_version }}/openseadragon-bin-{{ openseadragon_version }}.tar.gz
+    remote_src: true
+    src: >-
+      https://github.com/openseadragon/openseadragon/releases/download/v{{ openseadragon_version }}/openseadragon-bin-{{ openseadragon_version }}.tar.gz
     dest: "{{ openseadragon_temp_folder }}"
   when: not openseadragon_library_dir.stat.exists
 
 - name: Move library into place
-  command: mv {{ openseadragon_temp_folder }}/openseadragon-bin-{{ openseadragon_version }} {{ openseadragon_composer_root }}/web/sites/all/assets/vendor/openseadragon
+  command: >-
+    mv {{ openseadragon_temp_folder }}/openseadragon-bin-{{ openseadragon_version }}
+    {{ openseadragon_composer_root }}/web/sites/all/assets/vendor/openseadragon
   when: not openseadragon_library_dir.stat.exists

@@ -2,7 +2,7 @@
 
 - name: restart daemon service
   systemd:
-    daemon_reload: yes
+    daemon_reload: true
 
 - name: tomcat9 restart tomcat9
   service:

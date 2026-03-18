@@ -10,7 +10,7 @@ parameters:
     app.drupal_base_url: {{ crayfish_recast_drupal_base_url }}
     app.fedora_base_url: {{ crayfish_recast_fedora_base_url }}
     app.namespaces:
-{% for key, value in crayfish_recast_prefixes.items() %}    
+{% for key, value in crayfish_recast_prefixes.items() %}
         {{ key }}: {{ value }}
 {% endfor %}
 

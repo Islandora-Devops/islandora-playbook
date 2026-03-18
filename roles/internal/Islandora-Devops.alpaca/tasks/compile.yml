@@ -3,7 +3,7 @@
 - name: "Get git config global safe directories dir"
   shell: "git config --global --get-all safe.directory || echo ''"
   register: "__git_config_global_safe_dir_alpaca"
-    
+
 - name: "Set Fixity source directory as git safe dir"
   command: "git config --global --add safe.directory {{ alpaca_clone_directory }}"
   when:
@@ -22,10 +22,10 @@
     state: directory
     owner: "{{ alpaca_user }}"
     group: "{{ alpaca_group }}"
-    recurse: yes
+    recurse: true
 
 - name: Install Alpaca via Gradle
-  become: yes
+  become: true
   become_user: "{{ alpaca_user }}"
   command: ./gradlew build shadowJar
   args:
@@ -36,7 +36,7 @@
   find:
     paths: "{{ alpaca_clone_directory }}"
     patterns: 'islandora-alpaca-app-*-all.jar'
-    recurse: yes
+    recurse: true
     file_type: file
   register: alpaca_files
 
@@ -44,4 +44,3 @@
   set_fact:
     alpaca_jar_path: "{{ alpaca_files.files[0].path }}"
   when: alpaca_files.files|length > 0
-

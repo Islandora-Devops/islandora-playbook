@@ -1,7 +1,7 @@
 ---
 
 - hosts: webserver
-  become: yes
+  become: true
 
   # add some vars here so we can run with --start-at-task if desired
   vars:
@@ -34,7 +34,7 @@
 
     - name: restart daemon service
       ansible.builtin.systemd:
-        daemon_reload: yes
+        daemon_reload: true
 
     - name: start tomcat9
       service:
@@ -46,7 +46,10 @@
 
     # Set jsonld module to strip ?_format=jsonld
     - name: Set JSONLD Config
-      command: "{{ drush_path }} --root {{ drupal_core_path }} -y cset --input-format=yaml jsonld.settings remove_jsonld_format {{ drupal_jsonld_remove_format }}"
+      command: >-
+        {{ drush_path }} --root {{ drupal_core_path }} -y cset
+        --input-format=yaml jsonld.settings remove_jsonld_format
+        {{ drupal_jsonld_remove_format }}
 
     - name: Set iiif url
       command: "{{ drush_path }} --root {{ drupal_core_path }} -y cset --input-format=yaml islandora_iiif.settings iiif_server {{ openseadragon_iiiv_server }}"
@@ -55,8 +58,10 @@
       command: "{{ drush_path }} --root {{ drupal_core_path }} -y cset --input-format=yaml openseadragon.settings manifest_view iiif_manifest"
 
     - name: Force Alpaca host setting to override install profile.
-      command: "{{ drush_path }} --root {{ drupal_core_path }} -y -l localhost:{{ apache_listen_port }} cset islandora.settings broker_url tcp://{{ hostvars[groups['alpaca'][0]].ansible_host }}:61613"
-
+      command: >-
+        {{ drush_path }} --root {{ drupal_core_path }} -y
+        -l localhost:{{ apache_listen_port }} cset islandora.settings
+        broker_url tcp://{{ hostvars[groups['alpaca'][0]].ansible_host }}:61613
 
     - name: Run migrations, tag-wise
       command: "{{ drush_path }} --root {{ drupal_core_path }} -y -l localhost:{{ apache_listen_port }} --userid=1 mim --tag=islandora"
@@ -74,7 +79,7 @@
       ansible.builtin.user:
         name: "{{ vagrant_user }}"
         groups: "{{ webserver_app_user }}"
-        append: yes
+        append: true
 
     - name: Chown islandora core feature
       file:
@@ -82,8 +87,8 @@
         state: directory
         owner: "{{ webserver_app_user }}"
         group: "{{ webserver_app_user }}"
-        mode: 0775
-        recurse: yes
+        mode: "0775"
+        recurse: true
 
     - name: Chown islandora_defaults feature
       file:
@@ -91,8 +96,8 @@
         state: directory
         owner: "{{ webserver_app_user }}"
         group: "{{ webserver_app_user }}"
-        mode: 0775
-        recurse: yes
+        mode: "0775"
+        recurse: true
       when: post_install_chown_defaults
 
     - name: Chown controlled access terms default configuration
@@ -101,9 +106,8 @@
         state: directory
         owner: "{{ webserver_app_user }}"
         group: "{{ webserver_app_user }}"
-        mode: 0775
-        recurse: yes
+        mode: "0775"
+        recurse: true
 
     - name: Clear cache
       command: "{{ drush_path }} --root {{ drupal_core_path }} -y cr"
-

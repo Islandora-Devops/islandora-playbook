@@ -1,3 +1,4 @@
+---
 # TODO: find a better way here, this is ugly and will bite us
 - name: Set fits.home in catalina.properties
   lineinfile:

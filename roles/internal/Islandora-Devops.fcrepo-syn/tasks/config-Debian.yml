@@ -1,7 +1,7 @@
 ---
 
 - name: Get SSL keys
-  include_role: 
+  include_role:
     name: Islandora-Devops.keymaster
   vars:
     ssl_key_public_output_path: "{{ fcrepo_syn_default_public_key_path }}"

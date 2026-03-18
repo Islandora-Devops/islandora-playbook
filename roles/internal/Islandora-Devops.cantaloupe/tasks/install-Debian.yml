@@ -2,7 +2,7 @@
 
 - name: Install Cantaloupe
   unarchive:
-    remote_src: yes
+    remote_src: true
     src: https://github.com/medusa-project/cantaloupe/releases/download/v{{ cantaloupe_version }}/cantaloupe-{{ cantaloupe_version }}.zip
     dest: "{{ cantaloupe_install_root }}"
     owner: "{{ cantaloupe_user }}"

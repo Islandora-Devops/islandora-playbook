@@ -3,30 +3,29 @@
 - name: group add
   group:
     name: "{{ tomcat9_server_group }}"
-  become: yes
-
+  become: true
 
 - name: user add
   user:
     name: "{{ tomcat9_server_user }}"
     group: "{{ tomcat9_server_group }}"
     home: "{{ tomcat9_user_home }}"
-    createhome: no
-  become: yes
+    createhome: false
+  become: true
 
 - name: download and extract
   unarchive:
     src: "{{ tomcat_binary_url }}"
     dest: "/opt/"
-    remote_src: yes
-  become: yes
+    remote_src: true
+  become: true
 
 - name: symlink install directory
   file:
     src: "{{ tomcat_target_dir }}"
     path: "{{ tomcat9_home }}"
     state: link
-  become: yes
+  become: true
 
 - name: change ownership of target installation
   file:
@@ -34,8 +33,8 @@
     owner: "{{ tomcat9_server_user }}"
     group: "{{ tomcat9_server_group }}"
     state: directory
-    recurse: yes
-  become: yes
+    recurse: true
+  become: true
 
 - name: Create the directory if it does not exist
   file:
@@ -44,18 +43,17 @@
     mode: '0755'
 
 - name: Create tomcat9.service file.
-  template: 
-    src: tomcat.service.j2 
+  template:
+    src: tomcat.service.j2
     dest: /etc/systemd/system/tomcat9.service
   notify: restart tomcat9
-  become: yes
+  become: true
 
 - name: restart systemd daemon service
   systemd:
-    daemon_reload: yes
+    daemon_reload: true
 
 - name: start tomcat9
   service:
     name: tomcat9
     state: started
-

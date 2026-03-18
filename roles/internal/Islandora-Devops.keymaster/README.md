@@ -30,7 +30,7 @@ This role is to allow you to copy the same set of public or private keys to mult
 ie.
 ```
 - name: Get SSL keys
-  include_role: 
+  include_role:
     name: keymaster
   vars:
     ssl_key_public_output_path: "{{ my_public_key_path }}"
@@ -41,7 +41,7 @@ This causes the public key that keymaster is watching to be copied to the path "
 You can also copy the private key by providing the variable `ssl_key_private_output_path` like here:
 ```
 - name: Get SSL keys
-  include_role: 
+  include_role:
     name: keymaster
   vars:
     ssl_key_private_output_path: "{{ webserver_app_jwt_key_path }}/private.key"
@@ -50,7 +50,7 @@ You can also copy the private key by providing the variable `ssl_key_private_out
 ## Dependencies
 
 none
-  
+
 ## Example Playbook
 
     - hosts: webservers

@@ -1,8 +1,8 @@
 # Islandora 8/Fedora namespaces
 #
 # This file contains ALL the prefix mappings, if a URI
-# does not appear in this file it will be displayed as 
-# the full URI in Fedora. 
+# does not appear in this file it will be displayed as
+# the full URI in Fedora.
 acl: http://www.w3.org/ns/auth/acl#
 bf: http://id.loc.gov/ontologies/bibframe/
 cc: http://creativecommons.org/ns#

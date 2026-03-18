@@ -1,8 +1,8 @@
 ---
 
 - hosts: alpaca
-  become: yes
+  become: true
 
   roles:
-#    - Islandora-Devops.apix
+    # - Islandora-Devops.apix
     - Islandora-Devops.alpaca

@@ -1,0 +1,26 @@
+---
+extends: default
+
+ignore: |
+  .ansible/
+  roles/external/
+  roles/**/templates/
+
+rules:
+  braces:
+    max-spaces-inside: 1
+  document-start:
+    present: true
+  comments:
+    min-spaces-from-content: 1
+  comments-indentation: false
+  line-length:
+    max: 160
+    level: warning
+  octal-values:
+    forbid-implicit-octal: true
+    forbid-explicit-octal: true
+  truthy:
+    allowed-values:
+      - "true"
+      - "false"

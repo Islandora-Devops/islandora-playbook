@@ -18,6 +18,6 @@
   copy:
     src: "{{ fcrepo_syn_folder }}/islandora-syn-{{ fcrepo_syn_version }}-all.jar"
     dest: "{{ fcrepo_syn_tomcat_home }}/lib/"
-    remote_src: yes
+    remote_src: true
     owner: "{{ fcrepo_syn_user }}"
     group: "{{ fcrepo_syn_user }}"

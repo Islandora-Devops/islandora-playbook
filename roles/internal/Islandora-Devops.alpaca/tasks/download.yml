@@ -11,7 +11,7 @@
   ansible.builtin.stat:
     path: "{{ alpaca_jar_path }}"
   register: alpaca_jar_stat
-    
+
 - name: Download from Maven
   ansible.builtin.get_url:
     url: "https://repo1.maven.org/maven2/ca/islandora/alpaca/islandora-alpaca-app/{{ alpaca_version }}/islandora-alpaca-app-{{ alpaca_version }}-all.jar"

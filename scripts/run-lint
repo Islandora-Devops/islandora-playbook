@@ -1,0 +1,59 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+cd "$repo_root"
+
+export PATH="$HOME/.local/bin:/opt/homebrew/bin:/usr/local/bin:$PATH"
+
+usage() {
+  cat <<'EOF'
+Usage:
+  scripts/run-lint --staged
+  scripts/run-lint --all-files
+EOF
+}
+
+if [[ $# -ne 1 ]]; then
+  usage
+  exit 2
+fi
+
+mode="$1"
+
+pre_commit_cmd=()
+
+if command -v pre-commit >/dev/null 2>&1; then
+  pre_commit_cmd=(pre-commit)
+elif command -v uv >/dev/null 2>&1; then
+  pre_commit_cmd=(uv tool run pre-commit)
+fi
+
+if [[ ${#pre_commit_cmd[@]} -eq 0 ]]; then
+  cat <<'EOF' >&2
+pre-commit is required but is not installed.
+
+Install it with one of:
+  uv tool install pre-commit
+  python3 -m pip install --user pre-commit
+EOF
+  exit 1
+fi
+
+case "$mode" in
+  --all-files)
+    exec "${pre_commit_cmd[@]}" run --all-files
+    ;;
+  --staged)
+    mapfile -d '' files < <(git diff --cached --name-only --diff-filter=ACMR -z)
+    if [[ ${#files[@]} -eq 0 ]]; then
+      exit 0
+    fi
+    exec "${pre_commit_cmd[@]}" run --files "${files[@]}"
+    ;;
+  *)
+    usage
+    exit 2
+    ;;
+esac

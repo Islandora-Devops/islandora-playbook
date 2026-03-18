@@ -1,3 +1,4 @@
+---
 # Install location
 
 matomo_version: "4.10.1"
@@ -37,4 +38,3 @@ matomo_site_timezone: "America/Toronto"
 
 # Other
 apache_restart_state: restarted
-

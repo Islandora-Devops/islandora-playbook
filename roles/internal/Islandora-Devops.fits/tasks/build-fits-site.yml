@@ -1,7 +1,8 @@
+---
 - name: Build site for FITS microservice
   blockinfile:
     path: "{{ httpd_conf_directory }}/conf-available/CrayFits.conf"
-    create: yes
+    create: true
     block: |
       Alias "/crayfits" "{{ crayfits_home }}/CrayFits/public"
       <Directory "{{ crayfits_home }}/CrayFits/public">
@@ -26,7 +27,7 @@
 - name: "Get git config global safe directories dir"
   shell: "git config --global --get-all safe.directory || echo ''"
   register: "__git_config_global_safe_dir"
-    
+
 - name: "Set Fixity source directory as git safe dir"
   command: "git config --global --add safe.directory {{ crayfits_home }}/CrayFits"
   when:
@@ -36,7 +37,7 @@
   git:
     repo: https://github.com/roblib/CrayFits.git
     dest: "{{ crayfits_home }}/CrayFits"
-    force: yes
+    force: true
 
 - name: Clean Directory (Failure okay)
   file:
@@ -44,7 +45,7 @@
   with_items:
     - absent
     - directory
-  ignore_errors: yes
+  ignore_errors: true
 
 - name: Change CrayFits directory ownership, group and permissions
   file:
@@ -52,7 +53,7 @@
     owner: "{{ webserver_app_user }}"
     group: "{{ webserver_app_user }}"
     mode: '0755'
-    recurse: True
+    recurse: true
 
 - name: Open file for logging
   file:
@@ -60,7 +61,7 @@
     owner: "{{ webserver_app_user }}"
     group: "{{ webserver_app_user }}"
     mode: '0777'
-    recurse: True
+    recurse: true
 
 - name: restart apache
   service:
@@ -76,7 +77,7 @@
   composer:
     command: update
     working_dir: "{{ crayfits_home }}/CrayFits"
-  ignore_errors: yes
+  ignore_errors: true
   when: crayfits.stat.exists == False
   become: true
   become_user: "{{ webserver_app_user }}"

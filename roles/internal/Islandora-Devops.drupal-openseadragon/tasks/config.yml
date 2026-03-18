@@ -3,8 +3,8 @@
 - name: Check if modules are enabled
   shell: "{{ openseadragon_drush_path }} --root {{ openseadragon_composer_root }}/web pm-list --format=json"
   register: openseadragon_enable_module_status
-  changed_when: False
-  check_mode: no
+  changed_when: false
+  check_mode: false
 
 - name: Enable modules
   shell: "{{ openseadragon_drush_path }} --root {{ openseadragon_composer_root }}/web -y en openseadragon"
@@ -12,7 +12,7 @@
 
 - name: Copy openseadragon library definition to correct location.
   copy:
-    remote_src: yes
+    remote_src: true
     src: "{{ openseadragon_composer_root }}/web/modules/contrib/openseadragon/openseadragon.json"
     dest: "{{ openseadragon_composer_root }}/web/sites/{{ item }}/files/library-definitions"
   with_items: "{{ openseadragon_sites }}"

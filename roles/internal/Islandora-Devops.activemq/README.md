@@ -32,7 +32,7 @@ activemq_create_user: yes
 ## Dependencies
 
 * None
-  
+
 ## Example Playbook
 
     - hosts: webservers

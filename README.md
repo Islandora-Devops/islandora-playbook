@@ -33,10 +33,27 @@ Detailed installation and usage instructions can be found on the [official insta
 
 GitHub Actions in this repository run:
 
-* `ansible-lint` for a repository-wide static check.
+* `./scripts/run-lint --all-files` so local and CI linting use the same entrypoint.
 * `molecule test` for a lightweight smoke test that syntax-checks the main playbook with a local inventory.
 
 This CI path is intended for GitHub-hosted runners, where Vagrant-based VM testing is not practical.
+
+This repository also ships Git hooks in `.githooks/`. Once `core.hooksPath` is set to `.githooks`, `git commit` runs the staged-file lint path and `git push` runs the full-repository lint path automatically.
+
+For local linting, use the same repo entrypoint as CI:
+
+### macOS
+
+```bash
+which uv || brew install uv
+uv tool install pre-commit
+which ansible-lint || brew install ansible-lint
+which ansible || brew install ansible
+ansible-galaxy collection install -r requirements-ci.yml -p collections --force
+ansible-galaxy role install -r requirements.yml -p roles/external
+git config core.hooksPath .githooks
+./scripts/run-lint --all-files
+```
 
 
 ## Variables
@@ -53,7 +70,7 @@ This corresponds to the `islandora_build_base_box` Ansible variable.
 
 ### Islandora Distro
 
-`ISLANDORA_DISTRO` defaults to `ubuntu/jammy64` (22.04 LTS), which is currently the only working distribution. 
+`ISLANDORA_DISTRO` defaults to `ubuntu/jammy64` (22.04 LTS), which is currently the only working distribution.
 
 This corresponds to the `islandora_distro` Ansible variable.
 

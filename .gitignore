@@ -4,7 +4,8 @@
 roles/external
 .DS_Store
 .project
-.github
 islandora_base
 inventory/*
 !inventory/vagrant
+.ansible
+collections/

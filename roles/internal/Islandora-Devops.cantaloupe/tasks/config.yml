@@ -3,6 +3,6 @@
 - name: Template Cantaloupe Properties
   template:
     src: cantaloupe.properties.j2
-    dest:  "{{ cantaloupe_symlink }}/cantaloupe.properties"
+    dest: "{{ cantaloupe_symlink }}/cantaloupe.properties"
     owner: "{{ cantaloupe_user }}"
     group: "{{ cantaloupe_group }}"

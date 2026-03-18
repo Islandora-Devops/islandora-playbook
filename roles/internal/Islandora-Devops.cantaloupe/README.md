@@ -14,7 +14,7 @@ Available variables are listed below, along with default values:
 cantaloupe_version: 4.1.11
 # Where to extract the cantaloupe archive
 cantaloupe_install_root: /opt
-# Target of a symlink from the extracted cantaloupe archive 
+# Target of a symlink from the extracted cantaloupe archive
 cantaloupe_symlink: /opt/cantaloupe
 # Path to cantaloupe logs
 cantaloupe_log_path: /var/log/cantaloupe
@@ -38,7 +38,7 @@ There are many more options available and documented in the [defaults/main.yml](
 ## Dependencies
 
 * A tomcat 8 container like [islandora.tomcat8](https://github.com/Islandora-DevOps/ansible-role-tomcat8)
-  
+
 ## Example Playbook
 
     - hosts: webservers

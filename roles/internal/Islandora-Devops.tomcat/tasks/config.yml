@@ -26,7 +26,7 @@
     src: server.xml.j2
     dest: "{{ tomcat9_config_dir }}/server.xml"
   notify: restart tomcat9
-  become: yes
+  become: true
 
 - name: template tomcat-users.xml
   template:
@@ -41,5 +41,5 @@
   service:
     name: "{{tomcat_service_name}}"
     state: started
-    enabled: yes
-  become: yes
+    enabled: true
+  become: true

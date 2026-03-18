@@ -1,0 +1,24 @@
+---
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+
+  - repo: https://github.com/adrienverge/yamllint.git
+    rev: v1.37.1
+    hooks:
+      - id: yamllint
+        args:
+          - -c
+          - .yamllint
+
+  - repo: local
+    hooks:
+      - id: ansible-lint
+        name: ansible-lint
+        entry: bash -c 'ANSIBLE_CONFIG=ansible.cfg ANSIBLE_ROLES_PATH=roles/external:roles/internal ANSIBLE_COLLECTIONS_PATH=collections ansible-lint'
+        language: system
+        pass_filenames: false
+        files: \.(ya?ml)$

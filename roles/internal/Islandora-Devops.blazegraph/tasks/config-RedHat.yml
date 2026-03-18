@@ -32,7 +32,7 @@
 
 - name: Reload systemd daemon
   systemd:
-    daemon-reload: yes  
+    daemon-reload: true
 
 - name: Stop tomcat9 service
   service:
@@ -43,4 +43,3 @@
   service:
     name: tomcat9
     state: started
-

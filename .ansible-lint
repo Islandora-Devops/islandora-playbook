@@ -1,6 +1,11 @@
 ---
 profile: min
-offline: true
 exclude_paths:
+  - .ansible/
   - .github/
+  - roles/external/
+  - roles/**/molecule/
+  - roles/**/tests/
   - roles/**/templates/
+warn_list:
+  - outdated-tag

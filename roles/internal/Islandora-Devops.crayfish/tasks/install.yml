@@ -10,14 +10,14 @@
   yum:
     name: http://li.nux.ro/download/nux/dextop/el7/x86_64/nux-dextop-release-0-5.el7.nux.noarch.rpm
     state: present
-  when: 
+  when:
     - ansible_os_family == "RedHat"
     - ansible_distribution_major_version == "7"
 
 - name: Add nux desktop repository signing key - RHEL7
   rpm_key:
     key: /etc/pki/rpm-gpg/RPM-GPG-KEY-nux.ro
-  when: 
+  when:
     - ansible_os_family == "RedHat"
     - ansible_distribution_major_version == "7"
 
@@ -35,7 +35,7 @@
     name: https://download1.rpmfusion.org/free/el/rpmfusion-free-release-8.noarch.rpm
     state: present
   become: true
-  when: 
+  when:
     - ansible_os_family == "RedHat"
     - ansible_distribution_major_version == "8"
 
@@ -52,8 +52,8 @@
     owner: "{{ crayfish_user }}"
     group: "{{ crayfish_user }}"
     mode: "g+rw"
-    recurse: yes
-    force: yes
+    recurse: true
+    force: true
   become: true
 
 - name: Create Islandora log dir
@@ -63,19 +63,19 @@
     owner: "{{ crayfish_user }}"
     group: "{{ crayfish_user }}"
     mode: "u=rwx,g=r,o-rwx"
-    recurse: yes
+    recurse: true
 
 - name: Install crayfish code
   git:
     repo: https://github.com/Islandora/Crayfish.git
     dest: "{{ crayfish_install_dir }}"
     version: "{{ crayfish_version_tag }}"
-    force: yes
+    force: true
   become_user: "{{ crayfish_user }}"
   become: true
 
 - name: Build crayfish code including dependencies
-  composer:
+  community.general.composer:
     command: install
     working_dir: "{{ crayfish_install_dir }}/{{ item }}"
   with_items: "{{ crayfish_services }}"
@@ -111,7 +111,7 @@
     owner: "{{ crayfish_user }}"
     group: "{{ crayfish_user }}"
   with_items: "{{ crayfish_services }}"
-  become: yes
+  become: true
 
 - name: Symlink crayfish httpd config file into action
   file:
@@ -122,4 +122,4 @@
     state: link
   with_items: "{{ crayfish_services }}"
   notify: restart apache
-  become: yes
+  become: true

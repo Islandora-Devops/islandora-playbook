@@ -6,13 +6,13 @@
     state: directory
     owner: tomcat
     group: tomcat
-    mode: 0700
+    mode: "0700"
 
 - name: Downloading FITS executables
   get_url:
     url: "{{ fits_src_url }}"
     dest: "{{ fits_install_root }}/fits-{{ fits_version }}"
-    mode: 0755
+    mode: "0755"
     checksum: "{{ fits_zip_md5sum }}"
   retries: 5
   register: result
@@ -22,7 +22,7 @@
   unarchive:
     src: "{{ fits_install_root }}/fits-{{ fits_version }}/fits-{{ fits_version }}.zip"
     dest: "{{ fits_install_root }}/fits-{{ fits_version }}"
-    remote_src: True
+    remote_src: true
 
 - name: Move FITS into place
   file:

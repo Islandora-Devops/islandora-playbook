@@ -6,7 +6,7 @@ fits_install_root: /opt
 fits_install_symlink: /opt/fits
 fits_user: tomcat
 fits_group: tomcat
-fits_ws: yes
+fits_ws: true
 crayfits_home: /var/www/html
 fits_src_url: "https://github.com/harvard-lts/fits/releases/download/{{ fits_version }}/fits-{{ fits_version }}.zip"
 fits_zip_md5sum: "md5: fbdf4ebdfd78263109c9a2a49f9e8cde"

@@ -14,14 +14,14 @@ cantaloupe_user: cantaloupe
 cantaloupe_group: cantaloupe
 
 # Whether to automatically deploy the war file
-cantaloupe_deploy_war: no
+cantaloupe_deploy_war: false
 # Where to deploy the war to
 cantaloupe_deploy_war_path: /path/to/tomcat/webapps
 # Name for the deployed war (minus .war), this is the context path
 cantaloupe_deploy_war_filename: cantaloupe
 
 # Create the filesystem cache directory automatically
-cantaloupe_create_FilesystemCache_dir: no
+cantaloupe_create_FilesystemCache_dir: false
 
 ###########################################################################
 # Cantaloupe.properties config

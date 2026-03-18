@@ -8,4 +8,3 @@
   set_fact:
     blazegraph_log_dir: "{{ __blazegraph_log_dir }}"
   when: blazegraph_log_dir is not defined
-

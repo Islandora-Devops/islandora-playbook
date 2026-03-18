@@ -28,4 +28,3 @@
       [Service]
       ReadWritePaths={{ blazegraph_home_dir }}/data/
     mode: '0644'
-

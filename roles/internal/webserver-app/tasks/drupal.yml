@@ -71,7 +71,7 @@
 
 - name: Set permissions on the public files directory
   file:
-    recurse: yes
+    recurse: true
     state: directory
     path: "{{ drupal_public_filesystem }}"
     owner: "{{ webserver_app_user }}"
@@ -126,6 +126,5 @@
     path: ~/.bash_profile
     line: 'PATH="$PATH:{{ webserver_document_root }}/drupal/vendor/bin"'
     state: present
-  become: true 
+  become: true
   when: ansible_os_family == "RedHat"
-

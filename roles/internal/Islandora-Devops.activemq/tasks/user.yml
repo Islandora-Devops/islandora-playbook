@@ -3,6 +3,6 @@
 - name: Create ActiveMQ system user
   user:
     name: "{{ activemq_user }}"
-    system: yes
+    system: true
     state: present
   when: activemq_create_user

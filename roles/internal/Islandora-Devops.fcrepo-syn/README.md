@@ -54,7 +54,7 @@ fcrepo_syn_tokens: []
 * Islandora-Devops.tomcat9
      * [Github](https://github.com/Islandora-Devops/ansible-role-tomcat9)
      * [Galaxy](https://galaxy.ansible.com/Islandora-Devops/tomcat9/)
-  
+
 ## Example Playbook
 
     - hosts: webservers

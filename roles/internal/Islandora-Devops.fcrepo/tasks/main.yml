@@ -1,3 +1,4 @@
+---
 - import_tasks: install.yml
   tags:
     - fcrepo
@@ -12,7 +13,7 @@
 
 - import_tasks: db-pgsql.yml
   when: fcrepo_db_type == 'postgresql' or fcrepo_persistence == 'jdbc-postgresql'
-  become: yes
+  become: true
   tags:
     - fedora
     - fedora-install

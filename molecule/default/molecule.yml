@@ -1,22 +1,12 @@
 ---
-dependency:
-  name: galaxy
-  options:
-    role-file: ../../requirements.yml
-    roles-path: ../../roles/external
-
 driver:
   name: default
 
-lint: {}
-
-platforms: []
+platforms:
+  - name: localhost
 
 provisioner:
   name: ansible
-  config_options:
-    defaults:
-      roles_path: ../../roles/external:../../roles/internal
   inventory:
     links:
       hosts: inventory/hosts.yml
@@ -28,5 +18,4 @@ provisioner:
 scenario:
   name: default
   test_sequence:
-    - dependency
     - syntax

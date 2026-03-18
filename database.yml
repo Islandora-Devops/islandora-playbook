@@ -1,7 +1,7 @@
 ---
 
 - hosts: database
-  become: yes
+  become: true
 
   pre_tasks:
     - name: Just set the database type to mysql

@@ -18,5 +18,3 @@
   set_fact:
     cantaloupe_log_access_FileAppender_pathname: "{{ __cantaloupe_log_access_FileAppender_pathname }}"
   when: cantaloupe_log_access_FileAppender_pathname is not defined
-
-

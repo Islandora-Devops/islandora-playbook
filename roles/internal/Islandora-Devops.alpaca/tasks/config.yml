@@ -44,7 +44,7 @@
 
 - name: Reload systemd and start Alpaca
   systemd:
-    daemon-reload: yes
-    enabled: yes
+    daemon-reload: true
+    enabled: true
     state: restarted
     name: alpaca

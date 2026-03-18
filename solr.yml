@@ -1,7 +1,7 @@
 ---
 
 - hosts: solr
-  become: yes
+  become: true
   any_errors_fatal: true
 
   roles:
@@ -13,7 +13,7 @@
       when: "ansible_os_family == 'RedHat' and islandora_build_base_box|bool == True"
       java_packages:
         - java-11-openjdk
-        #- java-1.8.0-openjdk
+        # - java-1.8.0-openjdk
     - role: geerlingguy.solr
       when: islandora_build_base_box|bool == True
 
@@ -29,7 +29,7 @@
       unarchive:
         src: http://{{ hostvars[groups['webserver'][0]].ansible_host }}:{{ apache_listen_port }}/solr_config.zip
         dest: /tmp/solr_config
-        remote_src: yes
+        remote_src: true
       tags: solr
       when: islandora_build_base_box|bool == False
 
@@ -48,7 +48,7 @@
         dest: "{{ solr_instance_conf_path }}"
         owner: "{{ solr_user }}"
         group: "{{ solr_user }}"
-        remote_src: True
+        remote_src: true
       with_items:
         - "{{ files_to_copy.stdout_lines }}"
       tags: solr
@@ -69,8 +69,8 @@
       uri:
         url: http://{{ hostvars[groups['solr'][0]].ansible_host  }}:8983/solr/{{ solr_cores[0] }}/select?q=warm
         method: GET
-        return_content: yes
-        status_code: [200,412]
+        return_content: true
+        status_code: [200, 412]
       register: solr_webpage
       until: solr_webpage.status == 200
       retries: 20
@@ -97,7 +97,7 @@
       changed_when: false
       until: files_to_copy is not failed
       retries: 5
-      ignore_errors: yes
+      ignore_errors: true
       tags: solr
       when: islandora_build_base_box|bool == True
 
@@ -105,7 +105,7 @@
       command: "zip -q -d {{ item }} org/apache/logging/log4j/core/lookup/JndiLookup.class"
       with_items:
         - "{{ log4j_jars.stdout_lines }}"
-      ignore_errors: yes
+      ignore_errors: true
       tags: solr
       when: islandora_build_base_box|bool == True
 

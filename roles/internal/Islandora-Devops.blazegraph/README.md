@@ -32,23 +32,23 @@ There are additional configuration options available and documented in [defaults
 
 ## Dependencies
 
-This expects an Apache Tomcat container to install into. 
+This expects an Apache Tomcat container to install into.
 
-This role should also handle a notification "restart tomcat9". 
+This role should also handle a notification "restart tomcat9".
 
 We recommend the following:
 * Islandora-Devops.tomcat9
      * [Github](https://github.com/Islandora-Devops/ansible-role-tomcat9)
      * [Galaxy](https://galaxy.ansible.com/Islandora-Devops/tomcat9/)
-  
-In order for blazegraph to find its configuration files you have two options: 
+
+In order for blazegraph to find its configuration files you have two options:
 * Specify it in the blazegraph web.xml file:
   * This can be done automatically the role be specifying `blazegraph_webxml_template: yes` (default)
 * Set the blazegraph options in your `JAVA_OPTS` environment variable. How to do this depends on the role. An example using Islandora-Devops.tomcat9 can be found [here](tests/java_opts.yml).
 
 ## Example Playbook
 
-There are two examples depending how the configuration infomration is passed to blazegraph: 
+There are two examples depending how the configuration infomration is passed to blazegraph:
 * [Using JAVA_OPTS](tests/java_opts.yml)
 * [Using web.xml](tests/web_xml.yml)
 

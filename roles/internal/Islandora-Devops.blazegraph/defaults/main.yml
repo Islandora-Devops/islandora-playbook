@@ -1,3 +1,4 @@
+---
 blazegraph_version: 2.1.4
 blazegraph_user: tomcat
 blazegraph_home_dir: /opt/blazegraph
@@ -6,7 +7,7 @@ blazegraph_log4j_template: log4j.properties
 #blazegraph_log_dir: /var/log/tomcat9/blazegraph -- Moved to vars to allow OS differences.
 blazegraph_log4j_path: "{{ tomcat9_home }}/webapps/bigdata/WEB-INF/classes/log4j.properties"
 blazegraph_webxml_path: "{{ tomcat9_home }}/webapps/bigdata/WEB-INF/web.xml"
-blazegraph_webxml_template: yes
+blazegraph_webxml_template: true
 
 # -- All of these are properties that go into RWStore.properties
 ##

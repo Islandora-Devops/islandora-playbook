@@ -30,7 +30,7 @@
     - jwt.config.yml
     - key.key.islandora_rsa_key.yml
   register: drupal_jwt_config
-  
+
 - name: Import JWT Config Into Drupal
   command: "{{ drush_path }} --root={{ drupal_core_path }} config-import -y --partial --source={{ webserver_app_jwt_config_path }}"
   when: drupal_jwt_config.changed is defined and drupal_jwt_config.changed

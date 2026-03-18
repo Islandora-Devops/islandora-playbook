@@ -1,10 +1,12 @@
+---
 - name: Parse Fcrepo version to pure semantic
   set_fact:
     fcrepo_parsed_version: "{{ fcrepo_version | regex_replace('^([0-9]+)\\.([0-9]+)\\.([0-9]+)', '\\1.\\2.\\3') }}"
 
 - name: Download fcrepo war (pre 5.0.0)
   get_url:
-    url: https://github.com/fcrepo4-exts/fcrepo-webapp-plus/releases/download/fcrepo-webapp-plus-{{ fcrepo_version }}/fcrepo-webapp-plus-{{ fcrepo_version }}.war
+    url: >-
+      https://github.com/fcrepo4-exts/fcrepo-webapp-plus/releases/download/fcrepo-webapp-plus-{{ fcrepo_version }}/fcrepo-webapp-plus-{{ fcrepo_version }}.war
     dest: "{{ fcrepo_war_path }}"
     owner: "{{ fcrepo_user }}"
     group: "{{ fcrepo_user }}"
@@ -46,7 +48,7 @@
       - python3-mysqldb
       - mysql-client
     state: present
-    update_cache: yes
+    update_cache: true
     cache_valid_time: 3600
   when: ansible_os_family == "Debian"
   become: true
@@ -62,7 +64,7 @@
 
 - name: Install python dependencies MySQL/MariaDB
   yum:
-    name: 
+    name:
       - python3-mysqlclient
       - mariadb
     state: present

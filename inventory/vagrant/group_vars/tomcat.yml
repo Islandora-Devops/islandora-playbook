@@ -9,7 +9,7 @@ tomcat9_users:
 # For Fedora 5
 # Use "file-simple", for test instance
 # For production use either "jdbc-mysql" or "jdbc-postgresql"
-#fcrepo_persistence: file-simple
+# fcrepo_persistence: file-simple
 
 # For Fedora 6, use either "mysql" or "postgresql"
 fcrepo_db_type: mysql
@@ -65,7 +65,7 @@ fcrepo_data_dir: "{{ fcrepo_home_dir }}/data"
 fcrepo_auth_header_name: "X-Islandora"
 fcrepo_syn_auth_header: "X-Islandora"
 
-cantaloupe_deploy_war: yes
+cantaloupe_deploy_war: true
 cantaloupe_deploy_war_path: "{{ tomcat9_home }}/webapps"
 cantaloupe_user: tomcat
 cantaloupe_group: tomcat
@@ -80,7 +80,7 @@ cantaloupe_FilesystemResolver_BasicLookupStrategy_path_prefix: /var/www/html/dru
 cantaloupe_processor_jp2: OpenJpegProcessor
 cantaloupe_cache_source: FilesystemCache
 cantaloupe_cache_derivative: FilesystemCache
-cantaloupe_create_FilesystemCache_dir: yes
+cantaloupe_create_FilesystemCache_dir: true
 cantaloupe_resolver_static: HttpSource
 cantaloupe_HttpResolver_BasicLookupStrategy_url_prefix: ""
 cantaloupe_processor_selection_strategy: ManualSelectionStrategy

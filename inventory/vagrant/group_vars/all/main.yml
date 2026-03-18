@@ -1,7 +1,7 @@
 ---
 
 # Change selinux status to permissive
-disable_selinux: yes
+disable_selinux: true
 
 islandora_extra_ubuntu_packages:
   - wget
@@ -43,9 +43,9 @@ php_packages_state: "latest"
 # Changing this requires you to build a new base box.
 php_version: "8.1"
 
-# Log4j 
+# Log4j
 os_environment:
-  - key: LOG4J_FORMAT_MSG_NO_LOOKUPS 
+  - key: LOG4J_FORMAT_MSG_NO_LOOKUPS
     value: true
 
 webserver_install_matomo: true

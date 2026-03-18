@@ -5,10 +5,10 @@ This document will explain, in the simplest step-by-step possible, how to take a
 ## Terminology:
 Some terminology you may need to understand to follow this step-by-step document:
 
-Sandbox (n.) -- a copy of a software environment that you can "play in"; usually means a version that can be easily created, 
+Sandbox (n.) -- a copy of a software environment that you can "play in"; usually means a version that can be easily created,
 messed up, and wiped clean again
 
-Terminal (n.) -- a command-line interface for your computer. This is the fancy/scary looking interface that sometimes has 
+Terminal (n.) -- a command-line interface for your computer. This is the fancy/scary looking interface that sometimes has
 colorful text on a black background. Terminals provide more control than a GUI when making the kinds of advanced changes to
 a computer system that are required for software like the pre-requisite requirements for Islandora.
 
@@ -26,15 +26,15 @@ Hard drive (n.) -- longer-term memory where computers store saved files and soft
 #### Step one: Gather your equipment
 
 Find the computer you want to use for your Islandora sandbox. It does not have to have an operating system (like Windows),
-but if it does, that's not a problem. It should be a machine that has been totally wiped or only has files that can be deleted. If you have any files on it that you would like to save, you should back them up elsewhere. 
+but if it does, that's not a problem. It should be a machine that has been totally wiped or only has files that can be deleted. If you have any files on it that you would like to save, you should back them up elsewhere.
 
   Other requirements this computer will (ideally) meet:
   1. 3GB of RAM (2GB of RAM required for Ubuntu desktop)
   2. 4GB of hard drive memory free (25 GB required for Ubuntu desktop)
   3. Internet connection
-  
+
 You will also need an empty USB drive with at least 2 GB of space and a computer with an existing OS and internet connection for step two.
-  
+
   * If you're not sure how much RAM and free memory on your hard drive is on the computer and you have a Windows computer, you can follow this [tutorial](https://www.computerhope.com/issues/ch000149.htm) to check that it meets the requirements.
 
   * If you don't have an operating system on the machine you want to use for your sandbox, you can try to install the Ubuntu operating system as described in step 2 and 3, then follow the instructions in this [tutorial](https://howtoubuntu.org/how-to-find-out-how-much-ram-is-installed-in-ubuntu) to make sure you have more than 3 GB of RAM (called Memory in the tutorial) and 4GB of hard drive memory (called Disk in the tutorial) required to run the default version of Islandora.
@@ -97,4 +97,3 @@ Open the terminal of your new Ubuntu computer to download the remaining requirem
 3. To run the scripts, type:
 
 >$ vagrant up
-

@@ -31,9 +31,10 @@
 
 - name: restart daemon service
   ansible.builtin.systemd:
-    daemon_reload: yes
+    daemon_reload: true
 
 - name: start tomcat9
   service:
     name: tomcat9
     state: started
+    enabled: true

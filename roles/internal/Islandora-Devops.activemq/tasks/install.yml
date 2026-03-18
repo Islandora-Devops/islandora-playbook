@@ -42,7 +42,7 @@
 
 - name: Reload systemd
   systemd:
-    daemon-reload: yes
-    enabled: yes
+    daemon-reload: true
+    enabled: true
     state: started
     name: activemq

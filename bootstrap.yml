@@ -2,7 +2,7 @@
 
 - name: bootstrap
   hosts: all
-  become: yes
+  become: true
   gather_facts: false
 
   tasks:
@@ -30,7 +30,7 @@
       apt:
         name: aptitude
         state: present
-        update_cache: yes
+        update_cache: true
       when: "islandora_build_base_box|bool == True and ansible_os_family == 'Debian'"
 
     # install some packages we would like on every server
@@ -63,7 +63,7 @@
 
     # Change Selinux to permissive
     - name: change selinux enforcement to permissive
-      selinux:
+      ansible.posix.selinux:
         policy: targeted
         state: permissive
       when: "ansible_os_family == 'RedHat' and disable_selinux and selinux_permissive == 'enforcing' and islandora_build_base_box|bool == True"
@@ -80,10 +80,10 @@
       file:
         path: "{{ drupal_composer_install_dir }}/web/sites/default/"
         mode: u+rw
-        recurse: yes
+        recurse: true
         owner: "{{ ansible_user }}"
       when: defaultdir_exists.stat.exists == true
-      become: yes
+      become: true
 
     - name: populate /etc/environment
       lineinfile:
