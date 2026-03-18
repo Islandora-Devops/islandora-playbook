@@ -2,37 +2,37 @@
   version: 2.1.0
 
 - src: geerlingguy.repo-epel
-  version: 1.2.4
+  version: 3.1.1
 
 - src: geerlingguy.repo-remi
-  version: 2.0.1
+  version: 2.1.0
 
 - src: geerlingguy.apache
-  version: 3.3.0
+  version: 4.2.0
 
 - src: geerlingguy.php-versions
-  version: 5.0.1
+  version: 7.0.1
 
 - src: geerlingguy.php
-  version: 4.8.0
+  version: 6.0.0
 
 - src: geerlingguy.composer
   version: 1.9.2
 
 - src: geerlingguy.git
-  version: 2.0.2
+  version: 3.0.1
 
 - src: geerlingguy.mysql
-  version: 4.3.4
+  version: 6.3.1
 
 - src: geerlingguy.postgresql
-  version: 1.4.3
+  version: 4.0.3
 
 - src: geerlingguy.solr
-  version: 5.5.0
+  version: 6.0.0
 
 - src: geerlingguy.java
-  version: 2.2.0
+  version: 2.6.0
 
 - src: geerlingguy.drupal
   version: 4.3.0
