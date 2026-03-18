@@ -29,6 +29,15 @@ vagrant up                                   # It will show it is importing the 
 
 Detailed installation and usage instructions can be found on the [official installation documentation for Islandora](https://islandora.github.io/documentation/installation/playbook/).
 
+## CI
+
+GitHub Actions in this repository run:
+
+* `ansible-lint` for a repository-wide static check.
+* `molecule test` for a lightweight smoke test that syntax-checks the main playbook with a local inventory.
+
+This CI path is intended for GitHub-hosted runners, where Vagrant-based VM testing is not practical.
+
 
 ## Variables
 

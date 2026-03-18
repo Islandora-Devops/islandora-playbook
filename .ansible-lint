@@ -1,0 +1,6 @@
+---
+profile: min
+offline: true
+exclude_paths:
+  - .github/
+  - roles/**/templates/
