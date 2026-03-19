@@ -63,6 +63,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.vm.provider "virtualbox" do |vb|
     if RbConfig::CONFIG["host_os"] =~ /darwin/i
+      # see https://github.com/hashicorp/vagrant/issues/12557
       vb.gui = true
     end
     vb.customize ["modifyvm", :id, "--memory", $memory]
