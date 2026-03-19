@@ -8,3 +8,7 @@ solr_install_path: /opt/solr
 
 solr_user: solr
 solr_instance_conf_path: "/var/solr/data/{{ solr_cores[0] }}/conf"
+solr_ocrhighlight_version: "0.9.5"
+solr_ocrhighlight_file: "solr-ocrhighlighting-{{ solr_ocrhighlight_version }}.jar"
+solr_ocrhighlight_url: "https://github.com/dbmdz/solr-ocrhighlighting/releases/download/{{ solr_ocrhighlight_version }}/{{ solr_ocrhighlight_file }}"
+solr_ocrhighlight_checksum: "sha256:0fb598699ed17e9e70cbd2923ee1907595b85068402a39fdd64e06e8b23bd419"

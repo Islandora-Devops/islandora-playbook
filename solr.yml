@@ -4,6 +4,12 @@
   become: true
   any_errors_fatal: true
 
+  handlers:
+    - name: restart solr
+      service:
+        name: "solr"
+        state: restarted
+
   roles:
     - role: geerlingguy.java
       when: "ansible_os_family == 'Debian' and islandora_build_base_box|bool == True"
@@ -18,6 +24,25 @@
       when: islandora_build_base_box|bool == True
 
   tasks:
+    - name: Ensure Solr OCR highlighting contrib directory exists
+      file:
+        path: "{{ solr_install_path }}/server/solr/contrib/ocrhighlighting/lib"
+        state: directory
+        owner: "{{ solr_user }}"
+        group: "{{ solr_user }}"
+        mode: "0755"
+      when: islandora_build_base_box|bool == True
+
+    - name: Install Solr OCR highlighting JAR
+      get_url:
+        url: "{{ solr_ocrhighlight_url }}"
+        dest: "{{ solr_install_path }}/server/solr/contrib/ocrhighlighting/lib/{{ solr_ocrhighlight_file }}"
+        checksum: "{{ solr_ocrhighlight_checksum }}"
+        owner: "{{ solr_user }}"
+        group: "{{ solr_user }}"
+        mode: "0644"
+      when: islandora_build_base_box|bool == True
+      notify: restart solr
 
     - name: Make tmp dir for solr config
       file:
@@ -109,10 +134,8 @@
       tags: solr
       when: islandora_build_base_box|bool == True
 
-    - name: Restart SOLR to make config take effect.
-      service:
-        name: "solr"
-        state: restarted
+    - name: Apply any pending Solr restarts
+      meta: flush_handlers
 
     - name: Sleep for 5 seconds after SOLR restarted.
       wait_for:
