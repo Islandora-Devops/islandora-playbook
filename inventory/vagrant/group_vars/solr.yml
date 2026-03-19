@@ -9,6 +9,9 @@ solr_install_path: /opt/solr
 
 solr_user: solr
 solr_instance_conf_path: "/var/solr/data/{{ solr_cores[0] }}/conf"
+solr_opts: "$SOLR_OPTS -Dlog4j2.formatMsgNoLookups=true -Dsolr.modules=analysis-extras -Dsolr.config.lib.enabled=true"
+solr_modules: "analysis-extras"
+solr_jetty_opts: "$SOLR_JETTY_OPTS -Dsolr.config.lib.enabled=true"
 # renovate: datasource=github-releases depName=solr-ocrhighlighting packageName=dbmdz/solr-ocrhighlighting
 solr_ocrhighlight_version: "0.9.5"
 solr_ocrhighlight_file: "solr-ocrhighlighting-{{ solr_ocrhighlight_version }}.jar"

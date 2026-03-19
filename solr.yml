@@ -22,6 +22,7 @@
         # - java-1.8.0-openjdk
     - role: geerlingguy.solr
       when: islandora_build_base_box|bool == True
+      solr_service_manage: false
 
   tasks:
     - name: Ensure Solr OCR highlighting contrib directory exists
@@ -40,6 +41,26 @@
         checksum: "{{ solr_ocrhighlight_checksum }}"
         owner: "{{ solr_user }}"
         group: "{{ solr_user }}"
+        mode: "0644"
+      when: islandora_build_base_box|bool == True
+      notify: restart solr
+
+    - name: Enable Solr analysis extras module
+      lineinfile:
+        dest: "{{ solr_config_file }}"
+        regexp: "^.?SOLR_MODULES="
+        line: 'SOLR_MODULES="{{ solr_modules }}"'
+        state: present
+        mode: "0644"
+      when: islandora_build_base_box|bool == True
+      notify: restart solr
+
+    - name: Enable Solr config lib loading
+      lineinfile:
+        dest: "{{ solr_config_file }}"
+        regexp: "^.?SOLR_JETTY_OPTS="
+        line: 'SOLR_JETTY_OPTS="{{ solr_jetty_opts }}"'
+        state: present
         mode: "0644"
       when: islandora_build_base_box|bool == True
       notify: restart solr
@@ -136,6 +157,12 @@
 
     - name: Apply any pending Solr restarts
       meta: flush_handlers
+
+    - name: Ensure SOLR is started after configuration changes
+      service:
+        name: "solr"
+        state: started
+        enabled: true
 
     - name: Sleep for 5 seconds after SOLR restarted.
       wait_for:
