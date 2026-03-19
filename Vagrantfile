@@ -1,6 +1,8 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
+require "rbconfig"
+
 # Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
 VAGRANTFILE_API_VERSION = "2"
 
@@ -60,6 +62,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.network :forwarded_port, guest: 8081, host: 8081 # API-X
 
   config.vm.provider "virtualbox" do |vb|
+    if RbConfig::CONFIG["host_os"] =~ /darwin/i
+      vb.gui = true
+    end
     vb.customize ["modifyvm", :id, "--memory", $memory]
     vb.customize ["modifyvm", :id, "--cpus", $cpus]
     vb.customize ["modifyvm", :id, "--description", $virtualBoxDescription]

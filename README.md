@@ -202,25 +202,6 @@ The new architecture of the Apple silicon chips (M1, M2) is incompatible with Vi
 so the newest Macs cannot be used with the Vagrant method. However, they can still deploy
 the playbook to remote VMs, or use Docker (ISLE).
 
-### macOS 12.0 Monterey VirtualBox Workaround
-
-VirtualBox has not been updated to work fully with macOS Monterey as of October, 2021.
-A workaround exists, which is to run VirtualBox in non-headless mode.
-
-In your Vagrantfile, add the line `v.gui = true` to the configuration section near the top:
-
-```
-Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-  config.vm.provider "virtualbox" do |v|
-    v.name = "Islandora 8 Ansible"
-    v.gui = true
-  end
-```
-
-Discussion of this issue can be found on [this issue](https://github.com/hashicorp/vagrant/issues/12557
-) in Vagrant's GitHub project.
-
-
 ## Roadmap
 
 The playbook is in maintenance mode as new development is focused on [ISLE](https://islandora.github.io/documentation/installation/docker-compose/) for development and production.
