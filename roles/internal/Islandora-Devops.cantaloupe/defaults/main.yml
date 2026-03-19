@@ -1,7 +1,6 @@
 ---
-
-# Cantaloupe version
-cantaloupe_version: 4.1.11
+# renovate: datasource=github-releases depName=cantaloupe packageName=cantaloupe-project/cantaloupe
+cantaloupe_version: 5.0.7
 # Where to extract the cantaloupe archive
 cantaloupe_install_root: /opt
 # Target of a symlink from the extracted cantaloupe archive

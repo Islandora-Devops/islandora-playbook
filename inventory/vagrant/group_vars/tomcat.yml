@@ -1,15 +1,9 @@
 ---
-
 tomcat9_users:
   - username: islandora
     password: "{{ islandora_tomcat_password }}"
     roles:
       - manager-gui
-
-# For Fedora 5
-# Use "file-simple", for test instance
-# For production use either "jdbc-mysql" or "jdbc-postgresql"
-# fcrepo_persistence: file-simple
 
 # For Fedora 6, use either "mysql" or "postgresql"
 fcrepo_db_type: mysql
@@ -35,11 +29,6 @@ tomcat9_java_opts:
   - -Dcantaloupe.config={{ cantaloupe_symlink }}/cantaloupe.properties
   - -Dorg.apache.tomcat.util.buf.UDecoder.ALLOW_ENCODED_SLASH=true
   - -Dfcrepo.config.file={{ fcrepo_config_file }}
-# Fedora 5 options
-#  - -Dfcrepo.modeshape.configuration=file://{{ fcrepo_home_dir }}/configs/repository.json
-#  - -Dfcrepo.activemq.configuration=file://{{ fcrepo_config_dir }}/activemq.xml
-#  - -Dfcrepo.spring.configuration=file://{{ fcrepo_home_dir }}/configs/fcrepo-config.xml
-#  - -Dfcrepo.external.content.allowed={{ fcrepo_allowed_external_content_file }}
 
 tomcat9_config_dir: "/etc/tomcat9"
 
@@ -59,7 +48,8 @@ fcrepo_syn_tokens:
       - fedoraAdmin
     token: "{{ islandora_syn_token }}"
 
-fcrepo_version: "6.3.0"
+# renovate: datasource=github-releases depName=fcrepo packageName=fcrepo/fcrepo
+fcrepo_version: "6.5.1"
 fcrepo_home_dir: "/opt/fcrepo"
 fcrepo_data_dir: "{{ fcrepo_home_dir }}/data"
 fcrepo_auth_header_name: "X-Islandora"

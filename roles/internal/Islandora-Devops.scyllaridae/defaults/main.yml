@@ -1,5 +1,6 @@
 ---
-scyllaridae_version: "5.1.0"
+# renovate: datasource=github-releases depName=scyllaridae packageName=islandora/scyllaridae
+scyllaridae_version: "5.2.1"
 
 scyllaridae_services:
   - Crayfits

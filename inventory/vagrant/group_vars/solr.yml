@@ -1,5 +1,6 @@
 ---
-solr_version: "8.11.2"
+# renovate: datasource=custom.apache-downloads depName=apache-solr packageName=solr/solr
+solr_version: "9.10.1"
 
 solr_cores:
   - ISLANDORA
@@ -8,6 +9,7 @@ solr_install_path: /opt/solr
 
 solr_user: solr
 solr_instance_conf_path: "/var/solr/data/{{ solr_cores[0] }}/conf"
+# renovate: datasource=github-releases depName=solr-ocrhighlighting packageName=dbmdz/solr-ocrhighlighting
 solr_ocrhighlight_version: "0.9.5"
 solr_ocrhighlight_file: "solr-ocrhighlighting-{{ solr_ocrhighlight_version }}.jar"
 solr_ocrhighlight_url: "https://github.com/dbmdz/solr-ocrhighlighting/releases/download/{{ solr_ocrhighlight_version }}/{{ solr_ocrhighlight_file }}"

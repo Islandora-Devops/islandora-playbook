@@ -1,6 +1,8 @@
 ---
 fits_download_dir: /usr/local/src
+# renovate: datasource=github-releases depName=fits packageName=harvard-lts/fits
 fits_version: 1.6.0
+# renovate: datasource=github-releases depName=fits-servlet packageName=harvard-lts/FITSservlet
 fits_ws_version: 2.1.0
 fits_install_root: /opt
 fits_install_symlink: /opt/fits

@@ -1,5 +1,6 @@
 ---
-fcrepo_version: 6.0.0
+# renovate: datasource=github-releases depName=fcrepo packageName=fcrepo/fcrepo
+fcrepo_version: "6.5.1"
 fcrepo_user: "{{ tomcat9_server_user }}"
 fcrepo_war_path: "{{ tomcat9_home }}/webapps/fcrepo.war"
 fcrepo_home_dir: /opt/fcrepo

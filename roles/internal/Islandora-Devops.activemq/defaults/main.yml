@@ -1,6 +1,6 @@
 ---
-
-activemq_version: 5.14.5
+# renovate: datasource=custom.apache-downloads depName=apache-activemq packageName=activemq
+activemq_version: 5.19.1
 activemq_install_root: /opt
 activemq_user: activemq
 activemq_create_user: true

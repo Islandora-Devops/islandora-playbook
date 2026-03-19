@@ -2,7 +2,29 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
     "config:recommended",
-      "group:all"
-    ],
-    "separateMajorMinor": false,
+    "group:all"
+  ],
+  "separateMajorMinor": false,
+  "customManagers": [
+    {
+      "customType": "regex",
+      "description": "Update _version variables in main.yml files",
+      "managerFilePatterns": [
+        "/(^|/).+\\.ya?ml$/"
+      ],
+      "matchStrings": [
+        "(?:^|\\n)\\s*# renovate: datasource=(?<datasource>[a-z.-]+) depName=(?<depName>\\S+)(?: packageName=(?<packageName>\\S+))?(?: versioning=(?<versioning>[a-z-]+))?\\s*\\n\\s*\\w+_version:\\s*[\"']?(?<currentValue>[^\"'\\s]+)[\"']?"
+      ],
+      "versioningTemplate": "{{#if versioning}}{{{versioning}}}{{else}}loose{{/if}}"
+    }
+  ],
+  "customDatasources": {
+    "apache-downloads": {
+      "defaultRegistryUrlTemplate": "https://downloads.apache.org/{{ packageName }}/",
+      "format": "html",
+      "transformTemplates": [
+        "{ \"releases\":[ $map($filter(releases.version,function($v,$i,$a){ $match($v, /^(v)?\\d+\\.\\d+\\.\\d+(\\/)?$/) }),function($v,$i,$a){ { \"version\": $match($v, /\\d+\\.\\d+\\.\\d+/).match } })] }"
+      ]
+    }
+  }
 }
