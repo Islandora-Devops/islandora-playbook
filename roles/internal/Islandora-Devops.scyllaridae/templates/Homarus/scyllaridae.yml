@@ -1,0 +1,13 @@
+mimeTypeFromDestination: true
+allowedMimeTypes:
+  - "audio/*"
+  - "video/*"
+  - "image/jpeg"
+  - "image/png"
+cmdByMimeType:
+  default:
+    cmd: {{ scyllaridae_install_dir }}/Homarus/cmd.sh
+    args:
+      - "%source-mime-ext"
+      - "%destination-mime-ext"
+      - "%args"

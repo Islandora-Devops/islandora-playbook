@@ -5,7 +5,6 @@
   tags:
     - crayfish
     - crayfish-install
-    - crayfish-houdini
 
 - name: Define crayfish_user
   set_fact:
@@ -14,7 +13,6 @@
   tags:
     - crayfish
     - crayfish-install
-    - crayfish-houdini
 
 - name: Define httpd_conf_directory
   set_fact:
@@ -23,23 +21,8 @@
   tags:
     - crayfish
     - crayfish-install
-    - crayfish-houdini
-
-- name: Define OS-specific crayfish_packages to install
-  set_fact:
-    crayfish_packages: "{{ __crayfish_packages }}"
-  when: crayfish_packages is not defined
-  tags:
-    - crayfish
-    - crayfish-install
-    - crayfish-houdini
 
 - import_tasks: install.yml
   tags:
     - crayfish
     - crayfish-install
-
-- import_tasks: houdini.yml
-  tags:
-    - crayfish
-    - crayfish-houdini

@@ -1,0 +1,113 @@
+---
+- name: Install requisite packages
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items: "{{ scyllaridae_packages }}"
+  become: true
+
+- name: Create scyllaridae user
+  user:
+    name: "{{ scyllaridae_user }}"
+    home: "/home/{{ scyllaridae_user }}"
+    shell: /bin/bash
+    system: true
+  become: true
+
+- name: Ensure scyllaridae directory exists
+  file:
+    path: "{{ scyllaridae_install_dir }}"
+    state: directory
+    owner: "{{ scyllaridae_user }}"
+    group: "{{ scyllaridae_user }}"
+    mode: "0755"
+  become: true
+
+- name: Download scyllaridae tar
+  get_url:
+    url: "https://github.com/Islandora/scyllaridae/releases/download/{{ scyllaridae_version }}/scyllaridae_Linux_x86_64.tar.gz"
+    dest: "/tmp/scyllaridae-{{ scyllaridae_version }}.tar.gz"
+    mode: "0644"
+  become: true
+
+- name: Extract scyllaridae binary
+  unarchive:
+    src: "/tmp/scyllaridae-{{ scyllaridae_version }}.tar.gz"
+    dest: "{{ scyllaridae_install_dir }}"
+    remote_src: true
+    owner: "{{ scyllaridae_user }}"
+    group: "{{ scyllaridae_user }}"
+    mode: "0755"
+  become: true
+
+- name: Clean up downloaded tar
+  file:
+    path: "/tmp/scyllaridae-{{ scyllaridae_version }}.tar.gz"
+    state: absent
+  become: true
+
+- name: Create configuration directories for services
+  file:
+    path: "{{ scyllaridae_install_dir }}/{{ item }}"
+    state: directory
+    owner: "{{ scyllaridae_user }}"
+    group: "{{ scyllaridae_user }}"
+    mode: "0755"
+  with_items: "{{ scyllaridae_services }}"
+  become: true
+
+- name: Install service configuration files
+  template:
+    src: "{{ item }}/scyllaridae.yml"
+    dest: "{{ scyllaridae_install_dir }}/{{ item }}/scyllaridae.yml"
+    owner: "{{ scyllaridae_user }}"
+    group: "{{ scyllaridae_user }}"
+    mode: "0644"
+  with_items: "{{ scyllaridae_services }}"
+  become: true
+
+- name: Check if cmd.sh exists for services
+  stat:
+    path: "{{ role_path }}/templates/{{ item }}/cmd.sh"
+  register: scyllaridae_cmd_script_check
+  with_items: "{{ scyllaridae_services }}"
+  delegate_to: localhost
+  become: false
+
+- name: Install service command scripts
+  template:
+    src: "{{ item.item }}/cmd.sh"
+    dest: "{{ scyllaridae_install_dir }}/{{ item.item }}/cmd.sh"
+    owner: "{{ scyllaridae_user }}"
+    group: "{{ scyllaridae_user }}"
+    mode: "0755"
+  with_items: "{{ scyllaridae_cmd_script_check.results }}"
+  when: item.stat.exists
+  become: true
+
+- name: Create systemd service files
+  template:
+    src: "systemd/scyllaridae.service.j2"
+    dest: "/etc/systemd/system/scyllaridae-{{ item }}.service"
+    mode: "0644"
+  with_items: "{{ scyllaridae_services }}"
+  become: true
+  notify: restart scyllaridae services
+
+- name: Create Islandora log dir
+  file:
+    path: "{{ scyllaridae_log_directory }}"
+    state: directory
+    owner: "{{ scyllaridae_user }}"
+    group: "{{ scyllaridae_user }}"
+    mode: "0775"
+  become: true
+
+- name: Enable and start scyllaridae services
+  systemd:
+    name: "scyllaridae-{{ item }}"
+    enabled: true
+    state: started
+    daemon_reload: true
+  with_items: "{{ scyllaridae_services }}"
+  become: true

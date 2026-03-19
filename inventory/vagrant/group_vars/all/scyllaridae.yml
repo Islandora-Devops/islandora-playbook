@@ -1,0 +1,15 @@
+---
+# Shared scyllaridae endpoint configuration for derivative services.
+scyllaridae_services_config:
+  Hypercube:
+    port: 8888
+    url: "http://127.0.0.1:8888"
+  Homarus:
+    port: 8889
+    url: "http://127.0.0.1:8889"
+  Houdini:
+    port: 8890
+    url: "http://127.0.0.1:8890"
+  Crayfits:
+    port: 8891
+    url: "http://127.0.0.1:8891"

@@ -13,10 +13,6 @@ alpaca_log_level: INFO
 triplestore_namespace: islandora
 alpaca_triplestore_base_url: http://localhost:8080/bigdata
 alpaca_milliner_base_url: http://localhost:8000/milliner
-alpaca_houdini_base_url: http://localhost:8000/houdini
-alpaca_homarus_base_url: http://localhost:8000/homarus
-alpaca_fits_base_url: http://localhost:8000/crayfits
-alpaca_hypercube_base_url: http://localhost:8000/hypercube
 
 alpaca_error_maxRedeliveries: 5
 
@@ -50,24 +46,24 @@ alpaca_derivative_connectors:
   - name: ocr
     enabled: true
     in_stream: queue:islandora-connector-ocr
-    service_url: "{{ alpaca_hypercube_base_url }}"
+    service_url: "{{ scyllaridae_services_config.Hypercube.url }}"
     concurrent-consumers: -1
     max-consumers: -1
   - name: houdini
     enabled: true
     in_stream: queue:islandora-connector-houdini
-    service_url: "{{ alpaca_houdini_base_url }}/convert"
+    service_url: "{{ scyllaridae_services_config.Houdini.url }}"
     concurrent-consumers: -1
     max-consumers: -1
   - name: homarus
     enabled: true
     in_stream: queue:islandora-connector-homarus
-    service_url: "{{ alpaca_homarus_base_url }}/convert"
+    service_url: "{{ scyllaridae_services_config.Homarus.url }}"
     concurrent-consumers: -1
     max-consumers: -1
   - name: fits
     enabled: true
     in_stream: queue:islandora-connector-fits
-    service_url: "{{ alpaca_fits_base_url }}"
+    service_url: "{{ scyllaridae_services_config.Crayfits.url }}"
     concurrent-consumers: -1
     max-consumers: -1

@@ -1,0 +1,15 @@
+allowedMimeTypes:
+  - "application/pdf"
+  - "image/*"
+cmdByMimeType:
+  "application/pdf":
+    cmd: pdftotext
+    args:
+      - "%args"
+      - "-"
+      - "-"
+  default:
+    cmd: {{ scyllaridae_install_dir }}/Hypercube/cmd.sh
+    args:
+      - "%source-mime-ext"
+      - "%args"

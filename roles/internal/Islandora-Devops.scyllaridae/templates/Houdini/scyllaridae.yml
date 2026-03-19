@@ -1,0 +1,10 @@
+allowedMimeTypes:
+  - "application/pdf"
+  - "image/*"
+cmdByMimeType:
+  default:
+    cmd: {{ scyllaridae_install_dir }}/Houdini/cmd.sh
+    args:
+      - "%source-mime-ext"
+      - "%destination-mime-ext"
+      - "%args"

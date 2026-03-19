@@ -22,8 +22,3 @@
     - fits-ws
     - fits-ws-config
   when: fits_ws
-
-- import_tasks: build-fits-site.yml
-  tags:
-    - fits
-    - fits-install

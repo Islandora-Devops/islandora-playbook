@@ -1,0 +1,27 @@
+---
+- name: Include OS-specific variables
+  include_vars: "{{ ansible_os_family }}.yml"
+  tags:
+    - scyllaridae
+    - scyllaridae-install
+
+- name: Define scyllaridae_user
+  set_fact:
+    scyllaridae_user: "{{ __scyllaridae_user }}"
+  when: scyllaridae_user is not defined
+  tags:
+    - scyllaridae
+    - scyllaridae-install
+
+- name: Define OS-specific scyllaridae_packages to install
+  set_fact:
+    scyllaridae_packages: "{{ __scyllaridae_packages }}"
+  when: scyllaridae_packages is not defined
+  tags:
+    - scyllaridae
+    - scyllaridae-install
+
+- import_tasks: install.yml
+  tags:
+    - scyllaridae
+    - scyllaridae-install

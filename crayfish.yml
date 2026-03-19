@@ -20,3 +20,5 @@
 
     - role: Islandora-Devops.crayfish
       when: islandora_build_base_box|bool == False
+    - role: Islandora-Devops.scyllaridae
+      when: islandora_build_base_box|bool == False

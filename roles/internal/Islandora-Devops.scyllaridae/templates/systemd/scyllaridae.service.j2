@@ -1,0 +1,23 @@
+[Unit]
+Description=Scyllaridae {{ item }} Service
+After=network.target
+
+[Service]
+Type=simple
+User={{ scyllaridae_user }}
+Group={{ scyllaridae_user }}
+WorkingDirectory={{ scyllaridae_install_dir }}
+ExecStart={{ scyllaridae_install_dir }}/scyllaridae
+Environment=SCYLLARIDAE_PORT={{ scyllaridae_services_config[item].port }}
+Environment=SCYLLARIDAE_YML_PATH={{ scyllaridae_install_dir }}/{{ item }}/scyllaridae.yml
+Environment=SCYLLARIDAE_LOG_LEVEL={{ scyllaridae_log_level | default('info') }}
+{% if item == 'Crayfits' %}
+Environment=CRAYFITS_WEBSERVICE_URI=http://127.0.0.1:8080/fits/
+{% endif %}
+StandardOutput=append:{{ scyllaridae_log_directory }}/scyllaridae-{{ item }}.log
+StandardError=append:{{ scyllaridae_log_directory }}/scyllaridae-{{ item }}.log
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target

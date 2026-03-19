@@ -1,0 +1,8 @@
+---
+- name: restart scyllaridae services
+  systemd:
+    name: "scyllaridae-{{ item }}"
+    state: restarted
+    daemon_reload: true
+  with_items: "{{ scyllaridae_services }}"
+  become: true

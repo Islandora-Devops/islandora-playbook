@@ -1,0 +1,12 @@
+---
+__scyllaridae_user: scyllaridae
+__scyllaridae_packages:
+  - imagemagick
+  - tesseract-ocr
+  - tesseract-ocr-fra
+  - tesseract-ocr-deu
+  - tesseract-ocr-ita
+  - tesseract-ocr-spa
+  - tesseract-ocr-srp
+  - ffmpeg
+  - poppler-utils

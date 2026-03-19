@@ -9,7 +9,29 @@ alpaca_log_level: DEBUG
 triplestore_namespace: islandora
 alpaca_triplestore_base_url: "http://{{ hostvars[groups['tomcat'][0]].ansible_host  }}:8080/bigdata"
 alpaca_milliner_base_url: "http://{{ hostvars[groups['webserver'][0]].ansible_host  }}:{{ apache_listen_port }}/milliner/"
-alpaca_houdini_base_url: "http://{{ hostvars[groups['webserver'][0]].ansible_host  }}:{{ apache_listen_port }}/houdini"
-alpaca_homarus_base_url: "http://{{ hostvars[groups['webserver'][0]].ansible_host  }}:{{ apache_listen_port }}/homarus"
-alpaca_hypercube_base_url: "http://{{ hostvars[groups['webserver'][0]].ansible_host  }}:{{ apache_listen_port }}/hypercube"
-alpaca_fits_base_url: "http://{{ hostvars[groups['webserver'][0]].ansible_host  }}:{{ apache_listen_port }}/crayfits"
+
+alpaca_derivative_connectors:
+  - name: ocr
+    enabled: true
+    in_stream: queue:islandora-connector-ocr
+    service_url: "{{ scyllaridae_services_config.Hypercube.url }}"
+    concurrent-consumers: -1
+    max-consumers: -1
+  - name: houdini
+    enabled: true
+    in_stream: queue:islandora-connector-houdini
+    service_url: "{{ scyllaridae_services_config.Houdini.url }}"
+    concurrent-consumers: -1
+    max-consumers: -1
+  - name: homarus
+    enabled: true
+    in_stream: queue:islandora-connector-homarus
+    service_url: "{{ scyllaridae_services_config.Homarus.url }}"
+    concurrent-consumers: -1
+    max-consumers: -1
+  - name: fits
+    enabled: true
+    in_stream: queue:islandora-connector-fits
+    service_url: "{{ scyllaridae_services_config.Crayfits.url }}"
+    concurrent-consumers: -1
+    max-consumers: -1

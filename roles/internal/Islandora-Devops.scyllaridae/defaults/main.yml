@@ -1,0 +1,12 @@
+---
+scyllaridae_version: "5.1.0"
+
+scyllaridae_services:
+  - Crayfits
+  - Hypercube
+  - Homarus
+  - Houdini
+
+scyllaridae_install_dir: /opt/scyllaridae
+scyllaridae_log_directory: /var/log/islandora
+scyllaridae_log_level: info
