@@ -1,8 +1,7 @@
 ---
-
 # Uncomment below 2 lines to build Alpaca from source.
-# alpaca_from_source: true
-# alpaca_version: 2.x
+alpaca_from_source: true
+alpaca_version: 2.x
 alpaca_clone_directory: /opt/alpaca
 alpaca_log_level: DEBUG
 
