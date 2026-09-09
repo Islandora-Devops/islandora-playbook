@@ -175,7 +175,3 @@ Discussion of this issue can be found on [this issue](https://github.com/hashico
 ## Roadmap
 
 The playbook is in maintenance mode as new development is focused on [ISLE](https://islandora.github.io/documentation/installation/docker-compose/) for development and production.
-
-## Maintainers
-
-* [Alexander O'Neill](https://github.com/alxp)
