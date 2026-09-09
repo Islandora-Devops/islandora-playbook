@@ -1,3 +1,6 @@
+> [!WARNING]
+> This repository is deprecated in favor of [isle-site-template](https://github.com/islandora-devops/isle-site-template).
+
 # Islandora Playbook
 [![LICENSE](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](./LICENSE)
 
@@ -172,7 +175,3 @@ Discussion of this issue can be found on [this issue](https://github.com/hashico
 ## Roadmap
 
 The playbook is in maintenance mode as new development is focused on [ISLE](https://islandora.github.io/documentation/installation/docker-compose/) for development and production.
-
-## Maintainers
-
-* [Alexander O'Neill](https://github.com/alxp)
