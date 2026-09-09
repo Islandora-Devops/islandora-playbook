@@ -1,3 +1,6 @@
+> [!WARNING]
+> This repository is deprecated in favor of [isle-site-template](https://github.com/islandora-devops/isle-site-template).
+
 # Islandora Playbook
 [![LICENSE](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](./LICENSE)
 
